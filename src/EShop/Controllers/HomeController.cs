@@ -27,7 +27,27 @@ namespace EShop.Controllers
             return View();
         }
 
-        public IActionResult Error()
+		public IActionResult Detail() {
+
+			return View();
+		}
+
+		public IActionResult Profile() {
+
+			return View();
+		}
+
+		public IActionResult Order() {
+
+			return View();
+		}
+
+		public IActionResult Product() {
+
+			return View();
+		}
+
+		public IActionResult Error()
         {
             return View();
         }
