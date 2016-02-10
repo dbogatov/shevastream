@@ -45,10 +45,10 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav nav-left">
-						<li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
-						<li><a asp-controller="Home" asp-action="About">About</a></li>
+						<li class="active"><a asp-controller="Home" asp-action="Index">Головна</a></li>
+						<li><a asp-controller="Home" asp-action="About">Про нас</a></li>
 						<li><a asp-controller="Home" asp-action="Profile">Profile</a></li>
-						<li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+						<li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
 					</ul>
 					<a href="#" class="logo visible-lg visible-md"><img src="/images/logo.jpg" alt="dodolan manuk responsive catalog themes"></a>
 					<div id="brand" class="visible-lg visible-md">&nbsp;</div>
@@ -88,23 +88,19 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<h3>dodolan manuk</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus,<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						<h3>SHEVA STREAM</h3>
 
 						<ul class="list-unstyled social-icon">
 							<li><a href="https://www.facebook.com/shevastream" rel="tooltip" title="Facebook" class="icon-facebook"><span><i class="fa fa-facebook-square"></i></span></a></li>
-							<li><a href="#" rel="tooltip" title="Twitter" class="icon-twitter"><span><i class="fa fa-twitter"></i></span></a></li>
-							<li><a href="#" rel="tooltip" title="Linkedin" class="icon-linkedin"><span><i class="fa fa-linkedin"></i></span></a></li>
-							<li><a href="#" rel="tooltip" title="Instagram" class="icon-gplus"><span><i class="fa fa-google-plus"></i></span></a></li>
+							<li><a href="https://vk.com/shevastream" rel="tooltip" title="VK" class="icon-vk"><span><i class="fa fa-vk"></i></span></a></li>
 							<li><a href="https://www.instagram.com/shevastream/" rel="tooltip" title="Instagram" class="icon-instagram"><span><i class="fa fa-instagram"></i></span></a></li>
 						</ul>
 
 						<div class="sitemap">
 							<ul>
-								<li><a asp-controller="Home" asp-action="Index">HOME</a></li>
+								<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
 								<li><a asp-controller="Home" asp-action="About">ABOUT</a></li>
-								<li><a asp-controller="Home" asp-action="Profile">PROFILE</a></li>
-								<li><a asp-controller="Home" asp-action="Contact">CONTACT</a></li>
+								<li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
 							</ul>
 						</div>
 					</div>
@@ -117,7 +113,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<small>Copyright &copy; 2013 Dodolan Manuk All Right Reserved. Made With <i class="fa fa-heart-o"></i> by Afriq</small>
+						<small>&copy; @Html.DisplayTextFor(model => DateTime.Now.Year) - Polly Team</small>
 					</div>
 				</div>
 			</div>
