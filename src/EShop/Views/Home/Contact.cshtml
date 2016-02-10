@@ -35,18 +35,28 @@
 			</div>
 		</div>
 		<div class="row padd20-top-btm">
-			<form method="post" action="contact.html">
+			<form method="post" id="feedback">
 				<div class="col-md-5 col-sm-5">
 					<h3>send message</h3>
 					<input type="text" name="name" class="form-control" placeholder="Enter your name" required>
-					<input type="email" name="email" class="form-control" placeholder="Enter your mail" required>
+					<input type="email" name="email" class="form-control" placeholder="Enter your email" required>
 					<input type="text" name="subject" class="form-control" placeholder="Enter your subject" required>
 				</div>
 				<div class="col-md-7 col-sm-7">
 					<textarea name="message" class="form-control" rows="7" placeholder="Type your message" required></textarea>
-					<input type="button" name="submit" value="Send Message" class="btn btn-purple btn-block btn-lg">
+					<input type="submit" name="submit" id="submitFeedbackBtn" value="Send Message" class="btn btn-purple btn-block btn-lg">
 				</div>
 			</form>
+		</div>
+		<div class="alert alert-danger" role="alert" id="feadbackValidationAlert" hidden>
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			<span class="sr-only">Error:</span>
+			All fields are required
+		</div>
+		<div class="alert alert-success" role="alert" id="feadbackValidationSuccess" hidden>
+			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			<span class="sr-only">Success:</span>
+			You message has been received. Thank you!
 		</div>
 	</div>
 </div>
