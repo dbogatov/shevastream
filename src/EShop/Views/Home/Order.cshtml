@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Order";
+    ViewData["Title"] = "Замовлення";
 }
 
 @section heading {
@@ -8,7 +8,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h2><span>//</span> Order</h2>
+					<h2><span>//</span> ЗАМОВЛЕННЯ</h2>
 				</div>
 			</div>
 		</div>
@@ -22,8 +22,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ol class="breadcrumb">
-					<li><a href="#">Home</a></li>
-					<li class="active">Order</li>
+					<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
+					<li class="active">Замовлення</li>
 				</ol>
 			</div>
 		</div>
@@ -31,73 +31,106 @@
 		<div class="row confirm">
 			<div class="col-md-12">
 				<form class="form-horizontal" role="form">
-					<h3 class="text-center">Order</h3>
+					<h3 class="text-center">Замовлення</h3>
 					<hr>
 					<div class="form-group">
-						<label class="col-sm-3 control-label">Item Code</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control" placeholder="Code : " required>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Quantity</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control" placeholder="Quantity : " required>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Name</label>
+						<label class="col-sm-3 control-label" for="item" >Назва продукту *</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" placeholder="Name : " required>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Email address</label>
-						<div class="col-sm-6">
-							<input type="email" class="form-control" placeholder="Email address : " required>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Phone number</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" placeholder="Phone number : " required>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Shipping Address</label>
-						<div class="col-sm-6">
-							<textarea class="form-control" rows="8" placeholder="Shipping Address : " required></textarea>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Payment Method</label>
-						<div class="col-sm-6">
-							<select class="form-control" required>
-								<option value="Paypall">Paypall</option>
-								<option value="Bank Transfer">Bank Transfer</option>
-								<option value="Bitcoins">Bitcoin</option>
+							<select class="form-control" id="item" required>
+								<option value="blocknot">Блокнот</option>
 							</select>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-3 control-label">Notes</label>
+						<label class="col-sm-3 control-label" for="quantity">Кількість *</label>
 						<div class="col-sm-6">
-							<textarea class="form-control" rows="8" placeholder="Notes : "></textarea>
+							<select class="form-control" id="quantity" required>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">ПІБ *</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" placeholder="Прізвище, ім’я, по батькові" required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Email *</label>
+						<div class="col-sm-6">
+							<input type="email" class="form-control" placeholder="Email" required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="phone">Номер телефону *</label>
+						<div class="col-sm-6">
+							<div class="input-group">
+								<span class="input-group-addon" id="phoneNumAddon">+38</span>
+								<input type="tel" class="form-control" id="phone" aria-describedby="phoneNumAddon" placeholder="050 866 22 22" required>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="shipmentMethod">Спосіб доставки *</label>
+						<div class="col-sm-6">
+							<select class="form-control" id="shipmentMethod" required>
+								<option value="univer">Корпус КНУ ім. Т. Шевченко - безкоштовно</option>
+								<option value="kiev">По Києву - 30 грн</option>
+								<option value="ukraine">По Україні - Новою поштою</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Адреса доставки *</label>
+						<div class="col-sm-6">
+							<textarea class="form-control" rows="3" placeholder="Адреса доставки" required></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="paymentMethod">Спосіб оплати *</label>
+						<div class="col-sm-6">
+							<select class="form-control" id="paymentMethod" required>
+								<option value="cash">Готівкою при отриманні товару</option>
+								<option value="privat">Безготівковий розрахунок (на карту Приват банка)</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Коментар</label>
+						<div class="col-sm-6">
+							<textarea class="form-control" rows="8" placeholder="Neobov'yazkove povidomlennya'"></textarea>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-10">
-							<button type="submit" class="btn btn-purple">Order Now</button>
+							<button type="submit" class="btn btn-purple">Замовити</button>
 						</div>
 					</div>
+					
+					<div class="alert alert-danger" role="alert" id="orderValidationAlert" hidden>
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span>
+						All fields marked with * are required
+					</div>
+					
 				</form>
 			</div>
 		</div>
@@ -110,5 +143,14 @@
 	<script>
 		var globalActive = "Order";
 	</script>
+	<script src="/lib/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
 	
+	<script>
+		$("#phone").mask(
+			"(999) 999-9999",
+			{
+				//placeholder : "(___) ___-____"
+			}
+		);
+	</script>
 }
