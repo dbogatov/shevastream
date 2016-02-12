@@ -13,11 +13,9 @@ namespace EShop.Controllers.API {
 	[Route("api/Feedback")]
 	public class FeedbackController : Controller {
 		private readonly ITelegramSender _telegram;
-		private readonly IEmailSender _emailSender;
 
-		public FeedbackController(ITelegramSender telegram, IEmailSender emailSender) {
+		public FeedbackController(ITelegramSender telegram) {
 			_telegram = telegram;
-			_emailSender = emailSender;
 		}
 
 		// POST api/feedback
