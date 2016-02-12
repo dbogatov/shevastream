@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "Контакти";
 }
 
 @section heading {
@@ -8,7 +8,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h2><span>//</span> contact us</h2>
+					<h2><span>//</span> КОНТАКТИ</h2>
 				</div>
 			</div>
 		</div>
@@ -22,29 +22,45 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ol class="breadcrumb">
-					<li><a href="#">Home</a></li>
-					<li class="active">Contact Us</li>
+					<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
+					<li class="active">Контакти</li>
 				</ol>
 			</div>
 		</div>
 
 		<div class="row">
+			<div class="col-md-7">
+				<img src="/images/businesscard.jpg" alt="Business Card" class="img-thumbnail">
+			</div>
+			<div class="col-md-5">
+				<h4>Телефони:</h4>
+				<ul style="list-style-type:none">
+					<li>+38 (095) 883 42 73</li>
+					<li>+38 (093) 691 82 59</li>	
+				</ul>
+				<h4>Пошта:</h4>
+				<ul style="list-style-type:none">
+					<li><a href="mailto:someone@example.com" target="_top">someone@example.com</a></li>	
+				</ul>
+			</div>
+		</div>
+
+		<div class="row">
 			<div class="col-md-12 text-center">
-				<h3>Lorem ipsum dolor sit amet</h3>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at posuere leo convallis. Sed blandit augue vitae augue scelerisque bibendum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at posuere leo convallis. Sed blandit augue vitae augue scelerisque bibendum.</p>
+				<h3>Зворотній зв`язок:</h3>
 			</div>
 		</div>
 		<div class="row padd20-top-btm">
 			<form method="post" id="feedback">
 				<div class="col-md-5 col-sm-5">
-					<h3>send message</h3>
-					<input type="text" name="name" class="form-control" placeholder="Enter your name" required>
-					<input type="email" name="email" class="form-control" placeholder="Enter your email" required>
-					<input type="text" name="subject" class="form-control" placeholder="Enter your subject" required>
+					<h3>Надіслати повідомлення</h3>
+					<input type="text" name="name" class="form-control" placeholder="Ім`я" required>
+					<input type="email" name="email" class="form-control" placeholder="Ваша пошта" required>
+					<input type="text" name="subject" class="form-control" placeholder="Тема повідомлення" required>
 				</div>
 				<div class="col-md-7 col-sm-7">
-					<textarea name="message" class="form-control" rows="7" placeholder="Type your message" required></textarea>
-					<input type="submit" name="submit" id="submitFeedbackBtn" value="Send Message" class="btn btn-purple btn-block btn-lg">
+					<textarea name="message" class="form-control" rows="7" placeholder="Напишіть ваше повідомлення" required></textarea>
+					<input type="submit" name="submit" id="submitFeedbackBtn" value="Надіслати повідомлення" class="btn btn-purple btn-block btn-lg">
 				</div>
 			</form>
 		</div>
@@ -63,3 +79,11 @@
 
 <div id="maps"></div>
 <!-- end:contact -->
+
+@section scripts {
+	
+	<script>
+		var globalActive = "Contact";
+	</script>
+	
+}

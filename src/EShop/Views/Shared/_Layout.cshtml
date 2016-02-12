@@ -9,7 +9,7 @@
 		<meta name="author" content="afriq yasin ramadhan">
 		<link rel="shortcut icon" href="/images/favicon.png">
 
-		<title>@ViewData["Title"] - EShop</title>
+		<title>@ViewData["Title"] - Sheva Stream</title>
 
 		<!-- Bootstrap core CSS -->
 		<link href="/css/bootstrap.css" rel="stylesheet">
@@ -39,38 +39,26 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand visible-xs" href="#">Dodolan Manuk</a>
+					<a class="navbar-brand visible-xs" asp-controller="Home" asp-action="Index">Sheva Stream</a>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav nav-left">
-						<li class="active"><a asp-controller="Home" asp-action="Index">Головна</a></li>
-						<li><a asp-controller="Home" asp-action="About">Про нас</a></li>
-						<li><a asp-controller="Home" asp-action="Profile">Profile</a></li>
-						<li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
+						<li id="Index"><a asp-controller="Home" asp-action="Index">Головна</a></li>
+						<li id="Profile"><a asp-controller="Home" asp-action="Profile">Про нас</a></li>
+						<li id="Detail"><a asp-controller="Home" asp-action="Detail">Блокнот</a></li>
 					</ul>
 					<a href="#" class="logo visible-lg visible-md"><img src="/images/logo.jpg" alt="dodolan manuk responsive catalog themes"></a>
 					<div id="brand" class="visible-lg visible-md">&nbsp;</div>
 					<ul class="nav navbar-nav nav-right">
-						<li><a asp-controller="Home" asp-action="Order">Order</a></li>
+						<li id="FAQ"><a asp-controller="Home" asp-action="FAQ">Оплата і доставка</a></li>
+						<li id="Contact"><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Мова <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a asp-controller="Home" asp-action="Product">Canary</a></li>
-								<li><a asp-controller="Home" asp-action="Product">Emprit</a></li>
-								<li>
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Doro <i class="fa fa-caret-down icon-dropdown"></i></a>
-									<ul class="dropdown-menu sub-menu">
-										<li><a asp-controller="Home" asp-action="Product">Doro Pos</a></li>
-										<li><a asp-controller="Home" asp-action="Product">Doro Kucir</a></li>
-										<li><a asp-controller="Home" asp-action="Product">Doro Belehan</a></li>
-										<li><a asp-controller="Home" asp-action="Product">Doro Sungut</a></li>
-									</ul>
-								</li>
-								<li class="divider"></li>
-								<li><a asp-controller="Home" asp-action="Product">Pitik</a></li>
-								<li><a asp-controller="Home" asp-action="Product">Cucak Rowo</a></li>
+								<li><a href="#">Укр</a></li>
+								<li><a href="#">Рус</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -87,7 +75,14 @@
 		<div id="footer">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
+					
+					<div class="col-md-3">
+						<a asp-controller="Home" asp-action="FAQ" class="btn btn-success btn-block">Оплата та доставка</a>
+						<br>
+						<span><i class="fa fa-clock-o"></i> 8:00 – 20:00</span>
+					</div>
+					
+					<div class="col-md-6">
 						<h3>SHEVA STREAM</h3>
 
 						<ul class="list-unstyled social-icon">
@@ -99,11 +94,14 @@
 						<div class="sitemap">
 							<ul>
 								<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
-								<li><a asp-controller="Home" asp-action="About">ABOUT</a></li>
+								<li><a asp-controller="Home" asp-action="Detail">Блокнот</a></li>
 								<li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
 							</ul>
 						</div>
 					</div>
+					<div class="col-md-3">
+						<a id="callMeBackBtn" class="btn btn-warning btn-block">Передзвоніть нам</a>
+					</div class="col-md-3">
 				</div>
 			</div>
 		</div>
@@ -128,6 +126,7 @@
 		<script src="/js/gmap3.js"></script>
 		<script src="/js/bootstrap.js"></script>
 		<script src="/js/script.js"></script>
+		<script src="/js/site.js"></script>
 
         @RenderSection("scripts", required: false)
     </body>
