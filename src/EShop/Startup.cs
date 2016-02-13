@@ -83,6 +83,11 @@ namespace EShop
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+				routes.MapRoute(
+					"OnlyAction",
+					"{action}",
+					new { controller = "Home", action = "Index" } 
+				);
             });
         }
 

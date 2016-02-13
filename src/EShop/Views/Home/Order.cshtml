@@ -30,7 +30,7 @@
 
 		<div class="row confirm">
 			<div class="col-md-12">
-				<form class="form-horizontal" role="form">
+				<form class="form-horizontal" role="form" id="oderForm">
 					<h3 class="text-center">Замовлення</h3>
 					<hr>
 					<div class="form-group">
@@ -139,7 +139,7 @@
 <!-- end:content -->
 
 <!-- modal -->
-<div class="modal fade" tabindex="-1" role="dialog">
+<div class="modal fade" tabindex="-1" role="dialog" id="orderModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -149,7 +149,7 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-4">
-						<img src="/images/team/Dmytro.png"/>
+						<img class="img-thumbnail" src="/images/team/Dmytro.png"/>
 					</div>
 					<div class="col-md-8">
 						<div class="row">
@@ -176,14 +176,8 @@
 	<script>
 		var globalActive = "Order";
 	</script>
+	
 	<script src="/lib/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
 	
-	<script>
-		$("#phone").mask(
-			"(999) 999-9999",
-			{
-				//placeholder : "(___) ___-____"
-			}
-		);
-	</script>
+	<script src="/js/order.js"></script>
 }
