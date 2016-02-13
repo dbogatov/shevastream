@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Thank you";
+}
+
+@section heading {
+	<!-- begin:heading -->
+	<div class="heads" style="background: url(/images/img02.jpg) center center;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2><span>//</span> Thank you</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end:heading -->
+}
+
+<!-- begin:content -->
+<div class="page-content">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
+					<li class="active">Thank you</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3">
+				<i class="fa fa-check-square-o fa-5x" style="font-size: 150pt; color: lightgreen;" ></i>
+			</div>
+			<div class="col-md-9">
+				<div class="heading-title">
+					<h1 style="text-align: center; font-size: 30pt;">Thank you!</h1>
+					<h2>We have received your order and will get in touch shortly!</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end:content -->
+
+@section scripts {
+	
+	<script>
+		var globalActive = "FAQ";
+	</script>
+	
+}

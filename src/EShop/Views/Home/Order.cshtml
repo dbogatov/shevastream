@@ -37,7 +37,7 @@
 						<label class="col-sm-3 control-label" for="item" >Назва продукту *</label>
 						<div class="col-sm-6">
 							<select class="form-control" id="item" required>
-								<option value="blocknot">Блокнот</option>
+								<option value="1">Блокнот</option>
 							</select>
 						</div>
 					</div>
@@ -61,16 +61,16 @@
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-3 control-label">ПІБ *</label>
+						<label class="col-sm-3 control-label" for="name">ПІБ *</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" placeholder="Прізвище, ім’я, по батькові" required>
+							<input type="text" class="form-control" id="name" placeholder="Прізвище, ім’я, по батькові" required>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-3 control-label">Email *</label>
+						<label class="col-sm-3 control-label" for="email">Email *</label>
 						<div class="col-sm-6">
-							<input type="email" class="form-control" placeholder="Email" required>
+							<input type="email" class="form-control" placeholder="Email" id="email" required>
 						</div>
 					</div>
 
@@ -88,17 +88,17 @@
 						<label class="col-sm-3 control-label" for="shipmentMethod">Спосіб доставки *</label>
 						<div class="col-sm-6">
 							<select class="form-control" id="shipmentMethod" required>
-								<option value="univer">Корпус КНУ ім. Т. Шевченко - безкоштовно</option>
-								<option value="kiev">По Києву - 30 грн</option>
-								<option value="ukraine">По Україні - Новою поштою</option>
+								<option value="1">Корпус КНУ ім. Т. Шевченко - безкоштовно</option>
+								<option value="2">По Києву - 30 грн</option>
+								<option value="3">По Україні - Новою поштою</option>
 							</select>
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label class="col-sm-3 control-label">Адреса доставки *</label>
+						<label class="col-sm-3 control-label" for="address">Адреса доставки *</label>
 						<div class="col-sm-6">
-							<textarea class="form-control" rows="3" placeholder="Адреса доставки" required></textarea>
+							<textarea class="form-control" id="address" rows="3" placeholder="Адреса доставки" required></textarea>
 						</div>
 					</div>
 
@@ -106,16 +106,16 @@
 						<label class="col-sm-3 control-label" for="paymentMethod">Спосіб оплати *</label>
 						<div class="col-sm-6">
 							<select class="form-control" id="paymentMethod" required>
-								<option value="cash">Готівкою при отриманні товару</option>
-								<option value="privat">Безготівковий розрахунок (на карту Приват банка)</option>
+								<option value="0">Готівкою при отриманні товару</option>
+								<option value="1">Безготівковий розрахунок (на карту Приват банка)</option>
 							</select>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-3 control-label">Коментар</label>
+						<label class="col-sm-3 control-label" for="comment">Коментар</label>
 						<div class="col-sm-6">
-							<textarea class="form-control" rows="8" placeholder="Neobov'yazkove povidomlennya'"></textarea>
+							<textarea class="form-control" id="comment" rows="8" placeholder="Neobov'yazkove povidomlennya'"></textarea>
 						</div>
 					</div>
 
@@ -147,16 +147,41 @@
 				<h4 class="modal-title">Ваше замовлення</h4>
 			</div>
 			<div class="modal-body">
-				<div class="row">
+				<div class="row itemPreview">
 					<div class="col-md-4">
 						<img class="img-thumbnail" src="/images/team/Dmytro.png"/>
 					</div>
 					<div class="col-md-8">
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-6">
 								<label>Найменування</label>
 								<br>
-								<p>Blocknot</p>
+								<p id="prevItem"></p>
+							</div>
+							<div class="col-md-6">
+								<label>Кількість</label>
+								<br>
+								<p id="prevQuantity"></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Ціна за одиницю</label>
+								<br>
+								<p id="prevPrice"></p>
+							</div>
+							<div class="col-md-6">
+								<label>Спосіб доставки</label>
+								<br>
+								<p id="prevShippmentMethod"></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<h4>Всього</h4>
+								<p>
+									<strong id="prevTotal" style="font-size: 18pt;"></strong>
+								</p>
 							</div>
 						</div>
 					</div>
@@ -164,7 +189,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Скасувати</button>
-				<button type="button" class="btn btn-primary">Замовити</button>
+				<button type="button" class="btn btn-primary" id="confirmOrderBtn">Замовити</button>
 			</div>
 		</div>
 	</div>

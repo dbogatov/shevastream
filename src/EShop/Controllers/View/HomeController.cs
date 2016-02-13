@@ -47,6 +47,12 @@ namespace EShop.Controllers
 
 			return View();
 		}
+		
+		public IActionResult ThankYou()
+		{
+
+			return View();
+		}
 
 		public IActionResult Error()
 		{
