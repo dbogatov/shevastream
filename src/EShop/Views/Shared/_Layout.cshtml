@@ -102,7 +102,7 @@
 						</div>
 					</div>
 					<div class="col-md-3">
-						<a id="callMeBackBtn" class="btn btn-warning btn-block">Передзвоніть нам</a>
+						<a id="callMeBackBtn" data-toggle="modal" data-target="#callMeBackModal" class="btn btn-warning btn-block">Передзвоніть нам</a>
 					</div class="col-md-3">
 				</div>
 			</div>
@@ -119,6 +119,57 @@
 			</div>
 		</div>
 		<!-- end:copyright -->
+		
+		<!-- modal -->
+		<div class="modal fade" tabindex="-1" role="dialog" id="callMeBackModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form class="form-horizontal" role="form" id="callBackForm">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">Замовити дзiнок</h4>
+						</div>
+						<div class="modal-body">
+							
+							<div id="requestCallBackBody">
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="callBackPhone">Номер телефону *</label>
+									<div class="col-sm-6">
+										<div class="input-group">
+											<span class="input-group-addon" id="callBackPhoneNumAddon">+38</span>
+											<input type="tel" class="form-control" id="callBackPhone" aria-describedby="callBackPhoneNumAddon" placeholder="050 866 22 22" autofocus required>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div id="responseCallBackBody" hidden>
+								
+								<div class="row">
+									<div class="col-md-3" style="text-align: center;">
+										<i class="fa fa-check-square-o fa-5x" style="font-size: 50pt; color: lightgreen;" ></i>
+									</div>
+									<div class="col-md-9">
+										<div class="heading-title">
+											<h3 style="text-align: center; font-size: 30pt;">Thank you!</h1>
+											<h4>We have received your request and will get in touch shortly!</h2>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Скасувати</button>
+							<button type="button" class="btn btn-primary" id="confirmCallBackBtn">Замовити</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		
 		<!-- Bootstrap core JavaScript
 	================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
@@ -127,6 +178,7 @@
 		<script src="/lib/jquery/dist/jquery.js"></script>
 		<script src="/lib/gmap3/dist/gmap3.js"></script>
 		<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="/lib/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
 		
 		<script src="/js/script.js"></script>
 		<script src="/js/site.js"></script>

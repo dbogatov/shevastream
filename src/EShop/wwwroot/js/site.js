@@ -3,9 +3,7 @@
 $(document).ready(function() {
 	$("#" + globalActive).addClass("active");
 	
-	$("#callMeBackBtn").click(function() {
-		alert("Poka eshche ne sdelal");
-	});
+	registerCallMeBack();
 });
 
 $(document).ready(fixFooter);
@@ -15,4 +13,37 @@ function fixFooter() {
 	if ($("body").height() < $(window.top).height()) {
 		$("#footerFix").height($(window.top).height() - $("body").height());
 	}	
+}
+
+function registerCallMeBack() {
+	
+	$("#callMeBackModal").on("shown.bs.modal", function () {
+		$("#callBackPhone").focus();
+	});
+	
+	$("#callMeBackModal").on("hidden.bs.modal", function () {
+		$("#callBackPhone").val("");
+		$("#requestCallBackBody").show();
+		$("#confirmCallBackBtn").show();
+		$("#responseCallBackBody").hide();
+	})
+	
+	$("#callBackPhone").mask("(999) 999-9999");
+	
+	$("#confirmCallBackBtn").click(function () {
+		
+		if ($("#callBackPhone").val().length === 0) {
+			return;
+		}
+		
+		var data = {
+				Phone: $("#callBackPhone").val()
+			};
+
+			$.post("/api/Feedback/CallMeBack", data, function () {
+				$("#confirmCallBackBtn").hide();
+				$("#requestCallBackBody").hide();
+				$("#responseCallBackBody").show();
+			});
+	});
 }
