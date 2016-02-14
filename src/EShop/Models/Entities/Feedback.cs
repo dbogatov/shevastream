@@ -18,6 +18,9 @@ namespace EShop.Models.Enitites
         public string Body { get; set; }
         public string Name { get; set; }
 
+		[Timestamp]
+        public byte[] Timestamp { get; set; }
+
         public override string ToString()
         {
             return $@"

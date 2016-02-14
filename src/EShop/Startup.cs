@@ -44,11 +44,16 @@ namespace EShop
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-			
+
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<DataContext>();
+
             services.AddMvc();
 
             // Add application services.
 			services.AddTransient<ITelegramSender, TelegramSender>();
+            services.AddTransient<DataContext, DataContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +69,7 @@ namespace EShop
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+				
             }
             else
             {
@@ -89,6 +95,12 @@ namespace EShop
 					new { controller = "Home", action = "Index" } 
 				);
             });
+			
+			using(var context = new DataContext())
+			{
+				context.Database.EnsureCreated();
+				context.EnsureSeedData();
+			}
         }
 
         // Entry point for the application.

@@ -14,15 +14,42 @@ namespace EShop.Controllers.API {
 	[Route("api/Order")]
 	public class OrderController : Controller {
 		private readonly ITelegramSender _telegram;
+		private readonly DataContext _context;
 
-		public OrderController(ITelegramSender telegram) {
+		public OrderController(ITelegramSender telegram, DataContext context) {
 			_telegram = telegram;
+			_context = context;
 		}
 
 		// POST api/order
 		[HttpPost]
 		public bool Post(OrderViewModel order) {
 
+			
+            var customer = new Customer
+            {
+				Name = order.CustomerName,
+				Phone = order.CustomerPhone,
+				Email = order.CustomerEmail
+            };
+
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+
+            _context.Orders.Add(new Order
+            {
+                ProductId = order.ProductId,
+				Quantity = order.Quantity,
+				CutomerId = customer.Id,
+				ShipmentMethodId = order.ShipmentMethodId,
+				Address = order.Address,
+				PaymentMethodId = order.PaymentMethodId,
+				Comment = order.Comment
+        	});
+
+            _context.SaveChanges();
+			
+			
             _telegram.SendMessageAsync(order.ToString());
 
             return true;

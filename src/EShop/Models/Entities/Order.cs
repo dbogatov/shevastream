@@ -23,9 +23,16 @@ namespace EShop.Models.Enitites
 		public long DateTicks { get; set; }
 
 		// navigation properties
+		[ForeignKey("ProductId")]
 		public Product Product { get; set; }
+		
+		[ForeignKey("CutomerId")]
 		public Customer Customer { get; set; }
+		
+		[ForeignKey("ShipmentMethodId")]
 		public ShipmentMethod ShipmentMethod { get; set; }
+		
+		[ForeignKey("PaymentMethodId")]
 		public PaymentMethod PaymentMethod { get; set; }
 		
 
