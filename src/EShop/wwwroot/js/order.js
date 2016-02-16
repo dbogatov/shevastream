@@ -29,7 +29,8 @@ $(document).ready(function () {
 			
 			switch ($("#shipmentMethod").val()) {
 				case "2":
-					priceText = (total + 30) + " UAH";
+					total += 30;
+					priceText = total + " UAH";
 					break;
 				case "3":
 					priceText = total + " UAH + Shipment cost (determined individually)";

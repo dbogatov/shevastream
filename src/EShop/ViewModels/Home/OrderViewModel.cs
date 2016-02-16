@@ -26,35 +26,7 @@ namespace EShop.ViewModels.Home
 
 
 		public override string ToString()
-		{
-			/*
-			return $@"
-				OrderViewModel:
-				
-					" + string.Join("\n", this
-				.GetType()
-				.GetProperties()
-				.Select(prop => $"{prop.Name}: {prop.GetValue(this, null)}"));
-			*/
-
-			/*
-			return $@"
-				OrderViewModel:
-				
-					ProductId: {ProductId}
-					Quantity: {Quantity}
-					CustomerName: {CustomerName}
-					CustomerEmail: {CustomerEmail}
-					CustomerPhone: {CustomerPhone}
-					PaymentMethodId: {PaymentMethodId}
-					ShipmentMethodId: {ShipmentMethodId}
-					Address:
-						{Address}
-					Comment:
-						{(string.IsNullOrWhiteSpace(Comment) ? "no comment" : Comment)}
-				";
-			*/
-			
+		{	
 			return $@"
 				Order Summary:
 				
