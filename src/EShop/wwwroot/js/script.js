@@ -4,13 +4,13 @@ $(document).ready(function () {
 	$("#maps").gmap3({
 		map: {
 			options: {
-				center: [50.470909, 30.508872],
+				center: [50.441892, 30.511544],
 				zoom: 15,
 				scrollwheel: false
 			}
 		},
 		marker: {
-			latLng: [50.470909, 30.508872],
+			latLng: [50.441892, 30.511544],
 			options: {
 				icon: new google.maps.MarkerImage(
 					"https://dl.dropboxusercontent.com/u/29545616/Preview/location.png",
