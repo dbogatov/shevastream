@@ -2388,6 +2388,10 @@ blockquote {
 	background: #4099FF;
 }
 
+#footer .social-icon > li > .icon-vk:hover{
+	background: #45688E;
+}
+
 #footer .social-icon > li > .icon-youtube:hover,
 #footer .social-icon > li > .icon-gplus:hover {
 	background: #FF4B4B;
