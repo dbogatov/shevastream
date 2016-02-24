@@ -3,6 +3,14 @@ var total = 0;
 $(document).ready(function () {
 	$("#phone").mask("(999) 999-9999");
 
+	$("#shipmentMethod").change(function() {
+		if ($(this).val() !== "1") {
+			$("#addressGroup").show();
+		} else {
+			$("#addressGroup").hide();	
+		}
+	});
+
 	$("#oderForm").on("submit", function (e) {
         e.preventDefault();
 
@@ -23,6 +31,7 @@ $(document).ready(function () {
 			$("#prevQuantity").text($("#quantity option:selected").text());			
 			$("#prevPrice").text(price + " UAH");
 			$("#prevShippmentMethod").text($("#shipmentMethod option:selected" ).text());
+			$("#prevPhone").text("+38 " + $("#phone").val());
 			
 			total = price * parseInt($("#quantity").val(), 10);
 			var priceText = "";

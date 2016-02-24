@@ -33,13 +33,13 @@ namespace EShop.ViewModels.Home
 					ProductName:{ProductName}
 					Quantity: {Quantity}
 					CustomerName: {CustomerName}
-					CustomerEmail: {CustomerEmail}
+					CustomerEmail: {(string.IsNullOrWhiteSpace(CustomerEmail) ? "no email" : CustomerEmail.Trim())}
 					CustomerPhone: {CustomerPhone}
 					PaymentMethodName:
 						{PaymentMethodName}
 					ShipmentMethodName: {ShipmentMethodName}
 					Address:
-						{Address}
+						{(string.IsNullOrWhiteSpace(Address) ? "no address" : Address.Trim())}
 					Comment:
 						{(string.IsNullOrWhiteSpace(Comment) ? "no comment" : Comment.Trim())}
 						

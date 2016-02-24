@@ -36,7 +36,7 @@
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="item" >Назва продукту *</label>
 						<div class="col-sm-6">
-							<select class="form-control" id="item" required>
+							<select class="form-control" id="item" required disabled>
 								<option value="1">Блокнот</option>
 							</select>
 						</div>
@@ -61,16 +61,16 @@
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-3 control-label" for="name">ПІБ *</label>
+						<label class="col-sm-3 control-label" for="name">Ім'я *</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" id="name" placeholder="Прізвище, ім’я, по батькові" required>
+							<input type="text" class="form-control" id="name" placeholder="Ім'я" required>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-3 control-label" for="email">Email *</label>
+						<label class="col-sm-3 control-label" for="email">Email</label>
 						<div class="col-sm-6">
-							<input type="email" class="form-control" placeholder="Email" id="email" required>
+							<input type="email" class="form-control" placeholder="Email" id="email">
 						</div>
 					</div>
 
@@ -95,7 +95,7 @@
 						</div>
 					</div>
 					
-					<div class="form-group">
+					<div class="form-group" id="addressGroup" hidden>
 						<label class="col-sm-3 control-label" for="address">Адреса доставки *</label>
 						<div class="col-sm-6">
 							<textarea class="form-control" id="address" rows="3" placeholder="Адреса доставки" required></textarea>
@@ -190,6 +190,7 @@
 				</div>	
 			</div>
 			<div class="modal-footer">
+				<p>Ми зв'яжемося з Вами за вказаним телефоном: <span id="prevPhone"></span></p>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Скасувати</button>
 				<button type="button" class="btn btn-primary" id="confirmOrderBtn">Замовити</button>
 			</div>
