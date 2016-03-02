@@ -77,7 +77,7 @@ $(document).ready(function () {
 				TotalAmountDue: total
 			};
 
-			$.post("/api/Order", data, function () {
+			$.post("/api/Order", data).always(function () { 
 				location.href = "/ThankYou";
 			});
 	});

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using EShop.Models;
 using EShop.Services;
+using Microsoft.AspNet.Http;
 
 namespace EShop
 {
@@ -84,6 +85,17 @@ namespace EShop
 
 			// To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 
+			app.UseCookieAuthentication(options =>
+			{
+				options.AuthenticationScheme = "MyCookieMiddlewareInstance";
+				options.LoginPath = new PathString("/Account/Unauthorized/");
+				options.AccessDeniedPath = new PathString("/Account/Forbidden/");
+				options.AutomaticAuthenticate = true;
+				options.AutomaticChallenge = true;
+                options.CookieName = "AUTHCOOKIE";
+                options.ExpireTimeSpan = new TimeSpan(1, 0, 0);
+            });
+
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
@@ -95,6 +107,7 @@ namespace EShop
 					new { controller = "Home", action = "Index" } 
 				);
 			});
+			
 			
 			using(var context = new DataContext())
 			{
