@@ -70,7 +70,6 @@ namespace EShop
 				app.UseBrowserLink();
 				app.UseDeveloperExceptionPage();
 				app.UseDatabaseErrorPage();
-				
 			}
 			else
 			{
@@ -88,8 +87,8 @@ namespace EShop
 			app.UseCookieAuthentication(options =>
 			{
 				options.AuthenticationScheme = "MyCookieMiddlewareInstance";
-				options.LoginPath = new PathString("/Account/Unauthorized/");
-				options.AccessDeniedPath = new PathString("/Account/Forbidden/");
+                options.LoginPath = PathString.Empty; //new PathString("/Account/Unauthorized/");
+                options.AccessDeniedPath = new PathString("/Account/Forbidden/");
 				options.AutomaticAuthenticate = true;
 				options.AutomaticChallenge = true;
                 options.CookieName = "AUTHCOOKIE";

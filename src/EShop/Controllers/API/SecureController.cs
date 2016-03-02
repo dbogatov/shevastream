@@ -14,7 +14,6 @@ namespace EShop.Controllers.API {
 
 	[Produces("application/json")]
 	[Route("api/Secure")]
-	[Authorize]
 	public class SecureController : Controller {
 		private readonly ITelegramSender _telegram;
 		private readonly DataContext _context;
@@ -24,9 +23,17 @@ namespace EShop.Controllers.API {
 			_context = context;
 		}
 
+		// GET: api/Secure/Auth
+		[Route("Auth/{code}")]
+		[HttpGet]
+		public IActionResult Authorize(string code) {
+            return new ObjectResult( code == "pass");
+        }
+
 		// GET: api/Secure/Orders
 		[HttpGet]
 		[Route("Orders")]
+		[Authorize]
 		public IEnumerable<Order> GetOrders() {
             return _context.Orders
 				.Include(o => o.Customer)
@@ -35,5 +42,6 @@ namespace EShop.Controllers.API {
 				.Include(o => o.ShipmentMethod)
 				.AsEnumerable();
         }
+		
 	}
 }
