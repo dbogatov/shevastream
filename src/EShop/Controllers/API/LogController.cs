@@ -10,25 +10,27 @@ using EShop.ViewModels.Home;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Authorization;
 
-namespace EShop.Controllers.API {
+namespace EShop.Controllers.API
+{
 
 	[Produces("application/json")]
-	[Route("api/Secure")]
-	public class SecureController : Controller {
-		private readonly ITelegramSender _telegram;
+	[Route("api/Log")]
+	public class LogController : Controller
+	{
 		private readonly DataContext _context;
 
-		public SecureController(ITelegramSender telegram, DataContext context) {
-			_telegram = telegram;
+		public LogController(DataContext context)
+		{
 			_context = context;
 		}
 
-		// GET: api/Secure/Auth
-		[Route("Auth/{code}")]
+		// GET: api/Log
 		[HttpGet]
-		public IActionResult Authorize(string code) {
-            return new ObjectResult( code == "pass");
-        }
-		
+		//[Authorize]
+		public IEnumerable<LogEntry> GetLogs()
+		{
+			return _context.LogEntries.AsEnumerable();
+		}
+
 	}
 }

@@ -8,60 +8,109 @@ using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json;
 using EShop.ViewModels.Home;
 using Microsoft.Data.Entity;
+using Microsoft.AspNet.Authorization;
 
 namespace EShop.Controllers.API
 {
 
-    [Produces("application/json")]
-    [Route("api/Order")]
-    public class OrderController : Controller
-    {
-        private readonly ITelegramSender _telegram;
-        private readonly DataContext _context;
+	[Produces("application/json")]
+	[Route("api/Order")]
+	public class OrderController : Controller
+	{
+		private readonly ITelegramSender _telegram;
+		private readonly DataContext _context;
+		private readonly IDBLogService _log;
 
-        public OrderController(ITelegramSender telegram, DataContext context)
-        {
-            _telegram = telegram;
-            _context = context;
-        }
+		public OrderController(
+			ITelegramSender telegram,
+			DataContext context,
+			IDBLogService log
+			)
+		{
+			_telegram = telegram;
+			_context = context;
+			_log = log;
+		}
 
-        // POST api/order
-        [HttpPost]
-        public bool Post(OrderViewModel order)
-        {
-            try
-            {
-                var customer = new Customer
-                {
-                    Name = order.CustomerName,
-                    Phone = order.CustomerPhone,
-                    Email = order.CustomerEmail
-                };
+		// PUT api/order
+		[HttpPut]
+		public bool Put(OrderViewModel order)
+		{
+			try
+			{
+				var customer = new Customer
+				{
+					Name = order.CustomerName,
+					Phone = order.CustomerPhone,
+					Email = order.CustomerEmail
+				};
 
-                _context.Customers.Add(customer);
-                _context.SaveChanges();
+				_context.Customers.Add(customer);
+				_context.SaveChanges();
 
-                _context.Orders.Add(new Order
-                {
-                    ProductId = order.ProductId,
-                    Quantity = order.Quantity,
-                    CutomerId = customer.Id,
-                    ShipmentMethodId = order.ShipmentMethodId,
-                    Address = order.Address,
-                    PaymentMethodId = order.PaymentMethodId,
-                    Comment = order.Comment
-                });
+				var dbOrder = new Order
+				{
+					ProductId = order.ProductId,
+					OrderStatusId = 1,
+					Quantity = order.Quantity,
+					CutomerId = customer.Id,
+					ShipmentMethodId = order.ShipmentMethodId,
+					Address = order.Address,
+					PaymentMethodId = order.PaymentMethodId,
+					Comment = order.Comment,
+					DateCreated = DateTime.Now.Ticks,
+					DateLastModified = DateTime.Now.Ticks
+				};
 
-                _context.SaveChanges();
-            }
-            catch (System.Exception)
-            {
-                _telegram.SendMessageAsync($"WARNING: the order form {order.CustomerName} ({order.CustomerEmail}) has NOT been added to the database!");
-            }
+				_context.Orders.Add(dbOrder);
+				_context.SaveChanges();
+				
+				_log.LogActionAsync(DBLogEntryType.OrderReceived, dbOrder.Id);
+			}
+			catch (System.Exception)
+			{
+				_telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} ({order.CustomerEmail}) has NOT been added to the database!");
+			}
 
-            _telegram.SendMessageAsync(order.ToString());
+			//_telegram.SendMessageAsync(order.ToString());
 
-            return true;
-        }
-    }
+			return true;
+		}
+
+		// GET: api/order
+		[HttpGet]
+		//[Authorize]
+		public IEnumerable<Order> GetOrders()
+		{
+			return _context.Orders
+				.Include(o => o.Customer)
+				.Include(o => o.PaymentMethod)
+				.Include(o => o.ShipmentMethod)
+				.Include(o => o.ShipmentMethod)
+				.Include(o => o.Assignee)
+				.Include(o => o.OrderStatus)
+				.AsEnumerable();
+		}
+
+		// POST api/order
+		[HttpPost]
+		public bool Post(OrderViewModel order)
+		{
+			var dbOrder = _context.Orders.FirstOrDefault(o => o.Id == order.Id);
+
+			if (dbOrder == null)
+			{
+				return false;
+			}
+
+			dbOrder.AssigneeId = order.AssigneeId;
+			dbOrder.OrderStatusId = order.OrderStatusId;
+			dbOrder.DateLastModified = DateTime.Now.Ticks;
+
+			_context.SaveChanges();
+
+			return true;
+		}
+
+	}
 }
