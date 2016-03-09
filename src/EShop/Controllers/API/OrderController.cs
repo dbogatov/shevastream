@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using EShop.ViewModels.Home;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Authorization;
+using System.Threading;
+using System.Security.Claims;
 
 namespace EShop.Controllers.API
 {
@@ -79,10 +81,14 @@ namespace EShop.Controllers.API
 
 		// GET: api/order
 		[HttpGet]
-		//[Authorize]
+		[Authorize]
 		public IEnumerable<Order> GetOrders()
 		{
-			return _context.Orders
+			Console.WriteLine($"UserID: {User.Claims.FirstOrDefault(c => c.Type == "UserId").Value}");
+
+            _log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
+
+            return _context.Orders
 				.Include(o => o.Customer)
 				.Include(o => o.PaymentMethod)
 				.Include(o => o.ShipmentMethod)

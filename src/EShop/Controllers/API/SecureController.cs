@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 using EShop.ViewModels.Home;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Identity;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace EShop.Controllers.API {
 
@@ -17,18 +20,51 @@ namespace EShop.Controllers.API {
 	public class SecureController : Controller {
 		private readonly ITelegramSender _telegram;
 		private readonly DataContext _context;
+        private readonly ICryptoService _crypto;
 
-		public SecureController(ITelegramSender telegram, DataContext context) {
+        public SecureController(
+			ITelegramSender telegram, 
+			DataContext context,
+			ICryptoService crypto
+		) {
 			_telegram = telegram;
 			_context = context;
-		}
+            _crypto = crypto;
+        }
 
 		// GET: api/Secure/Auth
 		[Route("Auth/{code}")]
 		[HttpGet]
 		public IActionResult Authorize(string code) {
-            return new ObjectResult( code == "pass");
+
+            string hash = _crypto.CalculateHash(code);
+            var user = _context.Users.FirstOrDefault(u => u.PassHash == hash);
+
+            if (user != null)
+			{
+                var principal = new ClaimsPrincipal(
+					new ClaimsIdentity(
+						new List<Claim> {
+							new Claim("UserId", user.Id.ToString()),
+						}, "API User"
+					)
+				);
+                HttpContext.Authentication.SignInAsync("MyCookieMiddlewareInstance", principal);
+				return new ObjectResult(true);
+			}
+			
+            return new ObjectResult(false);
         }
-		
-	}
+
+        // GET: api/Secure/Logout
+        [Route("Logout")]
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Authentication.SignOutAsync("MyCookieMiddlewareInstance");
+
+            return new ObjectResult(true);
+        }
+
+    }
 }

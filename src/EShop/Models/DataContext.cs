@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EShop.Models.Enitites;
+using EShop.Services;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +24,11 @@ public class DataContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<OrderStatus> OrderStatuses { get; set; }
 
+	private readonly ICryptoService _crypto;
 
+	public DataContext(ICryptoService crypto) {
+        _crypto = crypto;
+    }
 
     // This method connects the context with the database
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -68,9 +73,9 @@ public class DataContext : DbContext
         if (!this.Users.Any())
         {
             this.AddRange(
-                new User { FullName = "Dmytro Bogatov", NickName = "@dmytro", PassHash = "todo" },
-                new User { FullName = "Polina Guley", NickName = "@polly", PassHash = "todo" },
-                new User { FullName = "Anton Melnikov", NickName = "@melnikov", PassHash = "todo" }
+                new User { FullName = "Dmytro Bogatov", NickName = "@dmytro", PassHash = _crypto.CalculateHash("Doomsday") },
+                new User { FullName = "Polina Guley", NickName = "@polly", PassHash = _crypto.CalculateHash("cacadoo13") },
+                new User { FullName = "Anton Melnikov", NickName = "@melnikov", PassHash = _crypto.CalculateHash("simplestPossiblePassword123") }
             );
         }
 
