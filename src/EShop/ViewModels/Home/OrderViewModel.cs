@@ -18,6 +18,11 @@ namespace EShop.ViewModels.Home
 		public string Address { get; set; }
 		public string Comment { get; set; }
 
+		// api properties
+		public int Id { get; set; }
+		public int AssigneeId { get; set; }
+		public int OrderStatusId { get; set; }
+
 		// display properties
 		public string ProductName { get; set; }
 		public string PaymentMethodName { get; set; }
@@ -26,7 +31,7 @@ namespace EShop.ViewModels.Home
 
 
 		public override string ToString()
-		{	
+		{
 			return $@"
 				Order Summary:
 				
