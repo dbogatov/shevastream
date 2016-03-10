@@ -110,7 +110,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
 	func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
 		let object = self.fetchedResultsController.objectAtIndexPath(indexPath)
-		cell.textLabel!.text = object.valueForKey("timeStamp")!.description
+		cell.textLabel!.text = object.valueForKey("customer")!.description
 	}
 
 	// MARK: - Fetched results controller
@@ -122,20 +122,20 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 	    
 	    let fetchRequest = NSFetchRequest()
 	    // Edit the entity name as appropriate.
-	    let entity = NSEntityDescription.entityForName("Event", inManagedObjectContext: NetworkManager.sharedInstance.managedObjectContext!)
+	    let entity = NSEntityDescription.entityForName("Order", inManagedObjectContext: NetworkManager.sharedInstance.managedObjectContext!)
 	    fetchRequest.entity = entity
 	    
 	    // Set the batch size to a suitable number.
 	    fetchRequest.fetchBatchSize = 20
 	    
 	    // Edit the sort key as appropriate.
-	    let sortDescriptor = NSSortDescriptor(key: "timeStamp", ascending: false)
+	    let sortDescriptor = NSSortDescriptor(key: "datelastmodified", ascending: false)
 	    
 	    fetchRequest.sortDescriptors = [sortDescriptor]
 	    
 	    // Edit the section name key path and cache name if appropriate.
 	    // nil for section name key path means "no sections".
-	    let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: NetworkManager.sharedInstance.managedObjectContext!, sectionNameKeyPath: nil, cacheName: "Master")
+	    let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: NetworkManager.sharedInstance.managedObjectContext!, sectionNameKeyPath: nil, cacheName: "Orders")
 	    aFetchedResultsController.delegate = self
 	    _fetchedResultsController = aFetchedResultsController
 	    

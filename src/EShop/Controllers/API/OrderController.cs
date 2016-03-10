@@ -95,6 +95,7 @@ namespace EShop.Controllers.API
 				.Include(o => o.ShipmentMethod)
 				.Include(o => o.Assignee)
 				.Include(o => o.OrderStatus)
+				.Include(o => o.Product)
 				.AsEnumerable();
 		}
 

@@ -9,20 +9,21 @@
 import Foundation
 import Gloss
 
-public struct Order {
+public struct OrderModel {
 	
-	public let Id: Int
-	public let AssigneeId: Int?
-	public let OrderStatusId: Int
-	public let ProductId: Int
-	public let Quantity: Int
-	public let CutomerId: Int
-	public let ShipmentMethodId: Int
+	public let Id: NSNumber
+	public let Assignee: String?
+	public let OrderStatus: String
+	public let Product: String
+	public let Quantity: NSNumber
+	public let Cutomer: String
+	public let ShipmentMethod: String
 	public let Address: String?
-	public let PaymentMethodId: Int
+	public let PaymentMethod: String
+	public let Phone: String
 	public let Comment: String?
-	public let DateCreated: Int64
-	public let DateLastModified: Int64
+	public let DateCreated: NSNumber
+	public let DateLastModified: NSNumber
 	
 	/*
 	public init?(json: JSON) {

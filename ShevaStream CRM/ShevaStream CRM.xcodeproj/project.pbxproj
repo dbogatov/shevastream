@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1568C56C1C911D25004513B6 /* JSONDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568C56B1C911D25004513B6 /* JSONDataModel.swift */; };
+		1568C57C1C913732004513B6 /* Order+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568C57A1C913732004513B6 /* Order+CoreDataProperties.swift */; };
+		1568C57D1C913732004513B6 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568C57B1C913732004513B6 /* Order.swift */; };
 		15BD239D1C90FBB2002A9FA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD239C1C90FBB2002A9FA4 /* AppDelegate.swift */; };
 		15BD23A01C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15BD239E1C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodeld */; };
 		15BD23A71C90FBB2002A9FA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15BD23A51C90FBB2002A9FA4 /* Main.storyboard */; };
@@ -54,6 +56,8 @@
 /* Begin PBXFileReference section */
 		0A962C88F8261576CAA9FDE6 /* Pods_ShevaStream_CRM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShevaStream_CRM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1568C56B1C911D25004513B6 /* JSONDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONDataModel.swift; path = Model/JSONDataModel.swift; sourceTree = "<group>"; };
+		1568C57A1C913732004513B6 /* Order+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Order+CoreDataProperties.swift"; path = "Entities/Order+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1568C57B1C913732004513B6 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Order.swift; path = Entities/Order.swift; sourceTree = "<group>"; };
 		15BD23991C90FBB2002A9FA4 /* ShevaStream CRM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShevaStream CRM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		15BD239C1C90FBB2002A9FA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15BD239F1C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShevaStream_CRM.xcdatamodel; sourceTree = "<group>"; };
@@ -100,6 +104,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1568C5791C91326C004513B6 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				1568C57A1C913732004513B6 /* Order+CoreDataProperties.swift */,
+				1568C57B1C913732004513B6 /* Order.swift */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
 		15BD23901C90FBB2002A9FA4 = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +170,7 @@
 		15BD23CF1C9106A4002A9FA4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1568C5791C91326C004513B6 /* Entities */,
 				15BD23D01C9106E0002A9FA4 /* NetworkManager.swift */,
 				1568C56B1C911D25004513B6 /* JSONDataModel.swift */,
 			);
@@ -384,6 +398,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1568C57C1C913732004513B6 /* Order+CoreDataProperties.swift in Sources */,
+				1568C57D1C913732004513B6 /* Order.swift in Sources */,
 				15BD23D71C9107A3002A9FA4 /* MasterViewController.swift in Sources */,
 				1568C56C1C911D25004513B6 /* JSONDataModel.swift in Sources */,
 				15BD23A01C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodeld in Sources */,

@@ -40,32 +40,83 @@ class NetworkManager : NSObject {
 		print("Written");
 	}
 	
-	private func update() {
-		var orders = [Order]();
+	func update() {
+		print("About to write");
+		
+		var orders = [OrderModel]();
 		
 		Alamofire.request(.GET, "http://localhost:5000/api/order")
 			.responseJSON { response in
 				switch response.result {
 				case .Success(let data):
+					
+					let fetchRequest = NSFetchRequest()
+					// Edit the entity name as appropriate.
+					let entity = NSEntityDescription.entityForName("Order", inManagedObjectContext: self.managedObjectContext!)
+					fetchRequest.entity = entity
+					
+					// Set the batch size to a suitable number.
+					fetchRequest.fetchBatchSize = 20
+					
+					// Edit the sort key as appropriate.
+					let sortDescriptor = NSSortDescriptor(key: "datelastmodified", ascending: false)
+					
+					fetchRequest.sortDescriptors = [sortDescriptor]
+					
 					let json = JSON(data)
-					for order in json.arrayValue {
-						orders.append(
-							Order(
-								Id: order["Id"].intValue,
-								AssigneeId: order["AssigneeId"].intValue,
-								OrderStatusId: order["OrderStatusId"].intValue,
-								ProductId: order["ProductId"].intValue,
-								Quantity: order["Quantity"].intValue,
-								CutomerId: order["CutomerId"].intValue,
-								ShipmentMethodId: order["ShipmentMethodId"].intValue,
-								Address: order["Address"].stringValue,
-								PaymentMethodId: order["PaymentMethodId"].intValue,
-								Comment: order["Comment"].stringValue,
-								DateCreated: order["DateCreated"].int64Value,
-								DateLastModified: order["DateLastModified"].int64Value
-							)
+					for jsonOrder in json.arrayValue {
+						let order = OrderModel(
+							Id: jsonOrder["Id"].intValue,
+							Assignee: jsonOrder["Assignee"].dictionary?["Name"]!.stringValue,
+							OrderStatus: jsonOrder["OrderStatus"].dictionaryValue["Description"]!.stringValue,
+							Product: jsonOrder["Product"].dictionaryValue["Name"]!.stringValue,
+							Quantity: jsonOrder["Quantity"].intValue,
+							Cutomer: jsonOrder["Customer"].dictionaryValue["Name"]!.stringValue,
+							ShipmentMethod: jsonOrder["ShipmentMethod"].dictionaryValue["Name"]!.stringValue,
+							Address: jsonOrder["Address"].stringValue,
+							PaymentMethod: jsonOrder["PaymentMethod"].dictionaryValue["Name"]!.stringValue,
+							Phone: jsonOrder["Phone"].stringValue,
+							Comment: jsonOrder["Comment"].string,
+							DateCreated: jsonOrder["DateCreated"].intValue,
+							DateLastModified: jsonOrder["DateLastModified"].intValue
 						)
+						
+						orders.append(order)
+						
+						fetchRequest.predicate = NSPredicate(format: "id == %@", order.Id);
+						
+						do {
+							let fetchedEntities = try self.managedObjectContext!.executeFetchRequest(fetchRequest) as? [Order]
+							if fetchedEntities?.count > 0 {
+							
+								let singleResult = fetchedEntities![0];
+								// compare
+								
+								singleResult.updateObject(order);
+							} else {
+								
+								let entity = NSEntityDescription.entityForName("Order", inManagedObjectContext: self.managedObjectContext!)
+								let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity!.name!, inManagedObjectContext: self.managedObjectContext!) as? Order
+								
+								newManagedObject?.updateObject(order)
+							}
+							
+							// Save the context.
+							do {
+								try self.managedObjectContext!.save()
+							} catch {
+								// Replace this implementation with code to handle the error appropriately.
+								// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+								//print("Unresolved error \(error), \(error.userInfo)")
+								abort()
+							}
+							
+							
+						} catch {
+							print(error)
+						}
 					}
+					
 				case .Failure(let error):
 					print("Request failed with error: \(error)")
 				}
@@ -77,12 +128,12 @@ class NetworkManager : NSObject {
 		
 		super.init()
 		
-		update();
+		//update();
 		
 		
 		//timerAction();
 		
-		//NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "timerAction", userInfo: nil, repeats: true)
+		NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "update", userInfo: nil, repeats: true)
 	
 	} //This prevents others from using the default '()' initializer for this class.
 }
