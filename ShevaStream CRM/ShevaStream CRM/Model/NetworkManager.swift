@@ -8,6 +8,8 @@
 
 import Foundation
 import CoreData
+import Alamofire
+import SwiftyJSON
 
 class NetworkManager : NSObject {
 	static let sharedInstance = NetworkManager()
@@ -18,7 +20,7 @@ class NetworkManager : NSObject {
 
 		print("About to write");
 		
-		let entity = NSEntityDescription.entityForName("Event", inManagedObjectContext: self.managedObjectContext!)
+		let entity = NSEntityDescription.entityForName("Order", inManagedObjectContext: self.managedObjectContext!)
 		let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity!.name!, inManagedObjectContext: self.managedObjectContext!)
 		
 		// If appropriate, configure the new managed object.
@@ -38,12 +40,49 @@ class NetworkManager : NSObject {
 		print("Written");
 	}
 	
+	private func update() {
+		var orders = [Order]();
+		
+		Alamofire.request(.GET, "http://localhost:5000/api/order")
+			.responseJSON { response in
+				switch response.result {
+				case .Success(let data):
+					let json = JSON(data)
+					for order in json.arrayValue {
+						orders.append(
+							Order(
+								Id: order["Id"].intValue,
+								AssigneeId: order["AssigneeId"].intValue,
+								OrderStatusId: order["OrderStatusId"].intValue,
+								ProductId: order["ProductId"].intValue,
+								Quantity: order["Quantity"].intValue,
+								CutomerId: order["CutomerId"].intValue,
+								ShipmentMethodId: order["ShipmentMethodId"].intValue,
+								Address: order["Address"].stringValue,
+								PaymentMethodId: order["PaymentMethodId"].intValue,
+								Comment: order["Comment"].stringValue,
+								DateCreated: order["DateCreated"].int64Value,
+								DateLastModified: order["DateLastModified"].int64Value
+							)
+						)
+					}
+				case .Failure(let error):
+					print("Request failed with error: \(error)")
+				}
+		}
+	}
+	
 	
 	private override init() {
 		
 		super.init()
 		
-		NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "timerAction", userInfo: nil, repeats: true)
+		update();
+		
+		
+		//timerAction();
+		
+		//NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "timerAction", userInfo: nil, repeats: true)
 	
 	} //This prevents others from using the default '()' initializer for this class.
 }

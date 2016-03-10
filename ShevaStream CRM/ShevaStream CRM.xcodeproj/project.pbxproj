@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1568C56C1C911D25004513B6 /* JSONDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568C56B1C911D25004513B6 /* JSONDataModel.swift */; };
 		15BD239D1C90FBB2002A9FA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD239C1C90FBB2002A9FA4 /* AppDelegate.swift */; };
 		15BD23A01C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15BD239E1C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodeld */; };
 		15BD23A71C90FBB2002A9FA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15BD23A51C90FBB2002A9FA4 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 		15BD23D11C9106E0002A9FA4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD23D01C9106E0002A9FA4 /* NetworkManager.swift */; };
 		15BD23D61C9107A3002A9FA4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD23D41C9107A3002A9FA4 /* DetailViewController.swift */; };
 		15BD23D71C9107A3002A9FA4 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD23D51C9107A3002A9FA4 /* MasterViewController.swift */; };
+		2EDAFB5972CEC28FDA865DC3 /* Pods_ShevaStream_CRM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A962C88F8261576CAA9FDE6 /* Pods_ShevaStream_CRM.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +38,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		15BD23F61C91130A002A9FA4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0A962C88F8261576CAA9FDE6 /* Pods_ShevaStream_CRM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShevaStream_CRM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1568C56B1C911D25004513B6 /* JSONDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONDataModel.swift; path = Model/JSONDataModel.swift; sourceTree = "<group>"; };
 		15BD23991C90FBB2002A9FA4 /* ShevaStream CRM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShevaStream CRM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		15BD239C1C90FBB2002A9FA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15BD239F1C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShevaStream_CRM.xcdatamodel; sourceTree = "<group>"; };
@@ -53,6 +70,8 @@
 		15BD23D01C9106E0002A9FA4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = Model/NetworkManager.swift; sourceTree = "<group>"; };
 		15BD23D41C9107A3002A9FA4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = Controller/DetailViewController.swift; sourceTree = "<group>"; };
 		15BD23D51C9107A3002A9FA4 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MasterViewController.swift; path = Controller/MasterViewController.swift; sourceTree = "<group>"; };
+		A4CD679766CCB3AB85604A2B /* Pods-ShevaStream CRM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShevaStream CRM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShevaStream CRM/Pods-ShevaStream CRM.debug.xcconfig"; sourceTree = "<group>"; };
+		B64C1A4FF189B2309941FB00 /* Pods-ShevaStream CRM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShevaStream CRM.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShevaStream CRM/Pods-ShevaStream CRM.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EDAFB5972CEC28FDA865DC3 /* Pods_ShevaStream_CRM.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +107,8 @@
 				15BD23B51C90FBB2002A9FA4 /* ShevaStream CRMTests */,
 				15BD23C01C90FBB2002A9FA4 /* ShevaStream CRMUITests */,
 				15BD239A1C90FBB2002A9FA4 /* Products */,
+				68E855FFBADA55408E0C2BCD /* Pods */,
+				30A4BB79FF40839DE7AFE28A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				15BD23D01C9106E0002A9FA4 /* NetworkManager.swift */,
+				1568C56B1C911D25004513B6 /* JSONDataModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -158,6 +181,23 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		30A4BB79FF40839DE7AFE28A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0A962C88F8261576CAA9FDE6 /* Pods_ShevaStream_CRM.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		68E855FFBADA55408E0C2BCD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A4CD679766CCB3AB85604A2B /* Pods-ShevaStream CRM.debug.xcconfig */,
+				B64C1A4FF189B2309941FB00 /* Pods-ShevaStream CRM.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -165,9 +205,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 15BD23C61C90FBB2002A9FA4 /* Build configuration list for PBXNativeTarget "ShevaStream CRM" */;
 			buildPhases = (
+				8D78BDF03AA432A712BB8737 /* Check Pods Manifest.lock */,
 				15BD23951C90FBB2002A9FA4 /* Sources */,
 				15BD23961C90FBB2002A9FA4 /* Frameworks */,
 				15BD23971C90FBB2002A9FA4 /* Resources */,
+				15BD23F61C91130A002A9FA4 /* Embed Frameworks */,
+				A2D243D770287E9627136F62 /* Embed Pods Frameworks */,
+				3570793A0227C9B008F69F1F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -287,12 +331,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3570793A0227C9B008F69F1F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShevaStream CRM/Pods-ShevaStream CRM-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D78BDF03AA432A712BB8737 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A2D243D770287E9627136F62 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShevaStream CRM/Pods-ShevaStream CRM-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		15BD23951C90FBB2002A9FA4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				15BD23D71C9107A3002A9FA4 /* MasterViewController.swift in Sources */,
+				1568C56C1C911D25004513B6 /* JSONDataModel.swift in Sources */,
 				15BD23A01C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodeld in Sources */,
 				15BD239D1C90FBB2002A9FA4 /* AppDelegate.swift in Sources */,
 				15BD23D11C9106E0002A9FA4 /* NetworkManager.swift in Sources */,
@@ -434,8 +527,10 @@
 		};
 		15BD23C71C90FBB2002A9FA4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4CD679766CCB3AB85604A2B /* Pods-ShevaStream CRM.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				INFOPLIST_FILE = "ShevaStream CRM/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "PollyTeam.ShevaStream-CRM";
@@ -446,8 +541,10 @@
 		};
 		15BD23C81C90FBB2002A9FA4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B64C1A4FF189B2309941FB00 /* Pods-ShevaStream CRM.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				INFOPLIST_FILE = "ShevaStream CRM/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "PollyTeam.ShevaStream-CRM";
@@ -523,6 +620,7 @@
 				15BD23C81C90FBB2002A9FA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		15BD23C91C90FBB2002A9FA4 /* Build configuration list for PBXNativeTarget "ShevaStream CRMTests" */ = {
 			isa = XCConfigurationList;
@@ -531,6 +629,7 @@
 				15BD23CB1C90FBB2002A9FA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		15BD23CC1C90FBB2002A9FA4 /* Build configuration list for PBXNativeTarget "ShevaStream CRMUITests" */ = {
 			isa = XCConfigurationList;
@@ -539,6 +638,7 @@
 				15BD23CE1C90FBB2002A9FA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

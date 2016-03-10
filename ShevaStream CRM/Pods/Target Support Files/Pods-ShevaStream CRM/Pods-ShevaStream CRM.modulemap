@@ -1,0 +1,6 @@
+framework module Pods_ShevaStream_CRM {
+  umbrella header "Pods-ShevaStream CRM-umbrella.h"
+
+  export *
+  module * { export * }
+}

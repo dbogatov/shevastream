@@ -81,12 +81,12 @@ namespace EShop.Controllers.API
 
 		// GET: api/order
 		[HttpGet]
-		[Authorize]
+		//[Authorize]
 		public IEnumerable<Order> GetOrders()
 		{
-			Console.WriteLine($"UserID: {User.Claims.FirstOrDefault(c => c.Type == "UserId").Value}");
+			//Console.WriteLine($"UserID: {User.Claims.FirstOrDefault(c => c.Type == "UserId").Value}");
 
-            _log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
+            //_log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
 
             return _context.Orders
 				.Include(o => o.Customer)
