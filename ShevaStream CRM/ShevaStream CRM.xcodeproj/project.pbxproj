@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		15BD239D1C90FBB2002A9FA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD239C1C90FBB2002A9FA4 /* AppDelegate.swift */; };
 		15BD23A01C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15BD239E1C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodeld */; };
-		15BD23A21C90FBB2002A9FA4 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD23A11C90FBB2002A9FA4 /* MasterViewController.swift */; };
-		15BD23A41C90FBB2002A9FA4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD23A31C90FBB2002A9FA4 /* DetailViewController.swift */; };
 		15BD23A71C90FBB2002A9FA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15BD23A51C90FBB2002A9FA4 /* Main.storyboard */; };
 		15BD23A91C90FBB2002A9FA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15BD23A81C90FBB2002A9FA4 /* Assets.xcassets */; };
 		15BD23AC1C90FBB2002A9FA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15BD23AA1C90FBB2002A9FA4 /* LaunchScreen.storyboard */; };
 		15BD23B71C90FBB2002A9FA4 /* ShevaStream_CRMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD23B61C90FBB2002A9FA4 /* ShevaStream_CRMTests.swift */; };
 		15BD23C21C90FBB2002A9FA4 /* ShevaStream_CRMUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD23C11C90FBB2002A9FA4 /* ShevaStream_CRMUITests.swift */; };
+		15BD23D11C9106E0002A9FA4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD23D01C9106E0002A9FA4 /* NetworkManager.swift */; };
+		15BD23D61C9107A3002A9FA4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD23D41C9107A3002A9FA4 /* DetailViewController.swift */; };
+		15BD23D71C9107A3002A9FA4 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD23D51C9107A3002A9FA4 /* MasterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +40,6 @@
 		15BD23991C90FBB2002A9FA4 /* ShevaStream CRM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShevaStream CRM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		15BD239C1C90FBB2002A9FA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15BD239F1C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShevaStream_CRM.xcdatamodel; sourceTree = "<group>"; };
-		15BD23A11C90FBB2002A9FA4 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		15BD23A31C90FBB2002A9FA4 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		15BD23A61C90FBB2002A9FA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		15BD23A81C90FBB2002A9FA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		15BD23AB1C90FBB2002A9FA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +50,9 @@
 		15BD23BD1C90FBB2002A9FA4 /* ShevaStream CRMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ShevaStream CRMUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		15BD23C11C90FBB2002A9FA4 /* ShevaStream_CRMUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShevaStream_CRMUITests.swift; sourceTree = "<group>"; };
 		15BD23C31C90FBB2002A9FA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15BD23D01C9106E0002A9FA4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = Model/NetworkManager.swift; sourceTree = "<group>"; };
+		15BD23D41C9107A3002A9FA4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = Controller/DetailViewController.swift; sourceTree = "<group>"; };
+		15BD23D51C9107A3002A9FA4 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MasterViewController.swift; path = Controller/MasterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,12 +103,11 @@
 		15BD239B1C90FBB2002A9FA4 /* ShevaStream CRM */ = {
 			isa = PBXGroup;
 			children = (
+				15BD23CF1C9106A4002A9FA4 /* Model */,
 				15BD239C1C90FBB2002A9FA4 /* AppDelegate.swift */,
-				15BD23A11C90FBB2002A9FA4 /* MasterViewController.swift */,
-				15BD23A31C90FBB2002A9FA4 /* DetailViewController.swift */,
-				15BD23A51C90FBB2002A9FA4 /* Main.storyboard */,
+				15BD23D21C910725002A9FA4 /* Controller */,
+				15BD23D31C910731002A9FA4 /* View */,
 				15BD23A81C90FBB2002A9FA4 /* Assets.xcassets */,
-				15BD23AA1C90FBB2002A9FA4 /* LaunchScreen.storyboard */,
 				15BD23AD1C90FBB2002A9FA4 /* Info.plist */,
 				15BD239E1C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodeld */,
 			);
@@ -129,6 +130,32 @@
 				15BD23C31C90FBB2002A9FA4 /* Info.plist */,
 			);
 			path = "ShevaStream CRMUITests";
+			sourceTree = "<group>";
+		};
+		15BD23CF1C9106A4002A9FA4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				15BD23D01C9106E0002A9FA4 /* NetworkManager.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		15BD23D21C910725002A9FA4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				15BD23D41C9107A3002A9FA4 /* DetailViewController.swift */,
+				15BD23D51C9107A3002A9FA4 /* MasterViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		15BD23D31C910731002A9FA4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				15BD23A51C90FBB2002A9FA4 /* Main.storyboard */,
+				15BD23AA1C90FBB2002A9FA4 /* LaunchScreen.storyboard */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,10 +292,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15BD23D71C9107A3002A9FA4 /* MasterViewController.swift in Sources */,
 				15BD23A01C90FBB2002A9FA4 /* ShevaStream_CRM.xcdatamodeld in Sources */,
 				15BD239D1C90FBB2002A9FA4 /* AppDelegate.swift in Sources */,
-				15BD23A21C90FBB2002A9FA4 /* MasterViewController.swift in Sources */,
-				15BD23A41C90FBB2002A9FA4 /* DetailViewController.swift in Sources */,
+				15BD23D11C9106E0002A9FA4 /* NetworkManager.swift in Sources */,
+				15BD23D61C9107A3002A9FA4 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +440,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "PollyTeam.ShevaStream-CRM";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -423,6 +452,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "PollyTeam.ShevaStream-CRM";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
