@@ -53,7 +53,7 @@ namespace EShop.Controllers.API
                 var dbOrder = new Order
                 {
                     ProductId = order.ProductId,
-                    OrderStatusId = 4, // received
+                    OrderStatusId = 1, // received
                     Quantity = order.Quantity,
                     CutomerId = customer.Id,
                     ShipmentMethodId = order.ShipmentMethodId,
