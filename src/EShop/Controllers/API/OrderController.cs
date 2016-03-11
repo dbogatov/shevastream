@@ -75,7 +75,7 @@ namespace EShop.Controllers.API
 				_telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} ({order.CustomerEmail}) has NOT been added to the database!");
 			}
 
-			//_telegram.SendMessageAsync(order.ToString());
+			_telegram.SendMessageAsync(order.ToString());
 
 			return true;
 		}
