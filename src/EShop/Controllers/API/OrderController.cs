@@ -50,19 +50,20 @@ namespace EShop.Controllers.API
 				_context.Customers.Add(customer);
 				_context.SaveChanges();
 
-				var dbOrder = new Order
-				{
-					ProductId = order.ProductId,
-					OrderStatusId = 1,
-					Quantity = order.Quantity,
-					CutomerId = customer.Id,
-					ShipmentMethodId = order.ShipmentMethodId,
-					Address = order.Address,
-					PaymentMethodId = order.PaymentMethodId,
-					Comment = order.Comment,
-					DateCreated = DateTime.Now.Ticks,
-					DateLastModified = DateTime.Now.Ticks
-				};
+                var dbOrder = new Order
+                {
+                    ProductId = order.ProductId,
+                    OrderStatusId = 4, // received
+                    Quantity = order.Quantity,
+                    CutomerId = customer.Id,
+                    ShipmentMethodId = order.ShipmentMethodId,
+                    Address = order.Address,
+                    PaymentMethodId = order.PaymentMethodId,
+                    Comment = order.Comment,
+                    DateCreated = DateTime.Now.Ticks,
+                    DateLastModified = DateTime.Now.Ticks,
+                    AssigneeComment = ""
+	            };
 
 				_context.Orders.Add(dbOrder);
 				_context.SaveChanges();
@@ -74,19 +75,19 @@ namespace EShop.Controllers.API
 				_telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} ({order.CustomerEmail}) has NOT been added to the database!");
 			}
 
-			//_telegram.SendMessageAsync(order.ToString());
+			_telegram.SendMessageAsync(order.ToString());
 
 			return true;
 		}
 
 		// GET: api/order
 		[HttpGet]
-		//[Authorize]
+		[Authorize]
 		public IEnumerable<Order> GetOrders()
 		{
 			//Console.WriteLine($"UserID: {User.Claims.FirstOrDefault(c => c.Type == "UserId").Value}");
 
-            //_log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
+            _log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
 
             return _context.Orders
 				.Include(o => o.Customer)
@@ -101,6 +102,7 @@ namespace EShop.Controllers.API
 
 		// POST api/order
 		[HttpPost]
+		[Authorize]
 		public bool Post(OrderViewModel order)
 		{
 			var dbOrder = _context.Orders.FirstOrDefault(o => o.Id == order.Id);

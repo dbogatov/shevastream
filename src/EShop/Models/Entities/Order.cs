@@ -22,6 +22,7 @@ namespace EShop.Models.Enitites
         public string Address { get; set; }
         public int PaymentMethodId { get; set; }
         public string Comment { get; set; }
+		public string AssigneeComment { get; set; }
         public long DateCreated { get; set; }
 		public long DateLastModified { get; set; }
 
