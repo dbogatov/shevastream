@@ -1,6 +1,6 @@
 var total = 0;
 
-$(document).ready(function () {
+$(document).ready(function() {
 	$("#phone").mask("(999) 999-9999");
 
 	$("#shipmentMethod").change(function() {
@@ -77,7 +77,7 @@ $(document).ready(function () {
 				TotalAmountDue: total
 			};
 
-			$.post("/api/Order", data).always(function () { 
+			$.put("/api/Order", data).always(function () { 
 				location.href = "/ThankYou";
 			});
 	});

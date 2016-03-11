@@ -53,12 +53,16 @@ namespace EShop
 			services.AddMvc();
 
 			// Add application services.
-			services.AddTransient<ITelegramSender, TelegramSender>();
+			services.AddTransient<ICryptoService, CryptoService>();
+			
 			services.AddTransient<DataContext, DataContext>();
-		}
+			
+			services.AddTransient<ITelegramSender, TelegramSender>();
+            services.AddTransient<IDBLogService, DBLogService>();
+        }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
 		{
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
@@ -70,7 +74,6 @@ namespace EShop
 				app.UseBrowserLink();
 				app.UseDeveloperExceptionPage();
 				app.UseDatabaseErrorPage();
-				
 			}
 			else
 			{
@@ -88,12 +91,13 @@ namespace EShop
 			app.UseCookieAuthentication(options =>
 			{
 				options.AuthenticationScheme = "MyCookieMiddlewareInstance";
-				options.LoginPath = new PathString("/Account/Unauthorized/");
-				options.AccessDeniedPath = new PathString("/Account/Forbidden/");
+                options.LoginPath = PathString.Empty; //new PathString("/Account/Unauthorized/");
+                options.AccessDeniedPath = new PathString("/Account/Forbidden/");
 				options.AutomaticAuthenticate = true;
 				options.AutomaticChallenge = true;
                 options.CookieName = "AUTHCOOKIE";
                 options.ExpireTimeSpan = new TimeSpan(1, 0, 0);
+                options.CookieHttpOnly = false;
             });
 
 			app.UseMvc(routes =>
@@ -108,8 +112,7 @@ namespace EShop
 				);
 			});
 			
-			
-			using(var context = new DataContext())
+			using(var context = serviceProvider.GetService<DataContext>())
 			{
 				context.Database.EnsureCreated();
 				context.EnsureSeedData();
