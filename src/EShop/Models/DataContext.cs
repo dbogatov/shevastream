@@ -33,7 +33,7 @@ public class DataContext : DbContext
     // This method connects the context with the database
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = "test.db" };
+        var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = "database_v1.db" };
         var connectionString = connectionStringBuilder.ToString();
         var connection = new SqliteConnection(connectionString);
 
