@@ -75,7 +75,7 @@ namespace EShop.Controllers.API
 				_telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} ({order.CustomerEmail}) has NOT been added to the database!");
 			}
 
-			_telegram.SendMessageAsync(order.ToString());
+			//_telegram.SendMessageAsync(order.ToString());
 
 			return true;
 		}
@@ -100,8 +100,25 @@ namespace EShop.Controllers.API
 				.AsEnumerable();
 		}
 
-		// POST api/order
-		[HttpPost]
+        // POST api/order
+        [HttpPost]
+        [Authorize]
+        [Route("AssignToSelf")]
+        public bool AssignToSelf(OrderIdViewModel order)
+        {
+            Console.WriteLine("Taken");
+
+            var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+
+            _context.Orders.FirstOrDefault(o => o.Id == order.Id).AssigneeId = userId;
+			
+			_context.SaveChanges();
+
+			return true;
+        }
+
+        // POST api/order
+        [HttpPost]
 		[Authorize]
 		public bool Post(OrderViewModel order)
 		{

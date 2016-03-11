@@ -53,4 +53,9 @@ namespace EShop.ViewModels.Home
 				";
 		}
 	}
+
+    public class OrderIdViewModel
+    {
+        public int Id { get; set; }
+    }
 }
