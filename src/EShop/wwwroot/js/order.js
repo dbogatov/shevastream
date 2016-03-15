@@ -11,6 +11,8 @@ $(document).ready(function() {
 		}
 	});
 
+	
+
 	$("#oderForm").on("submit", function (e) {
         e.preventDefault();
 
@@ -59,7 +61,11 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#confirmOrderBtn").click(function() {
+	$("#confirmOrderBtn").click(function(e) {
+		e.preventDefault();
+		$(this).attr("disabled", "disabled");
+		$(this).html("Завантаження...");
+		
 		var data = {
 				ProductId: parseInt($("#item").val(), 10),
 				Quantity: parseInt($("#quantity").val(), 10),

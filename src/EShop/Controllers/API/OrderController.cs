@@ -85,7 +85,7 @@ namespace EShop.Controllers.API
 		[Authorize]
 		public IEnumerable<Order> GetOrders()
 		{
-			//Console.WriteLine($"UserID: {User.Claims.FirstOrDefault(c => c.Type == "UserId").Value}");
+            //Console.WriteLine($"UserID: {User.Claims.FirstOrDefault(c => c.Type == "UserId").Value}");
 
             _log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
 
