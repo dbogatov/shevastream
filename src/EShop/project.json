@@ -7,9 +7,8 @@
 	"dependencies": {
 		"EntityFramework.Commands": "7.0.0-rc1-final",
 		"EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
-	"EntityFramework.Sqlite": "7.0.0-rc1-final",
-	"EntityFramework.Sqlite.Design": "7.0.0-rc1-final",
-	
+		"EntityFramework.Sqlite": "7.0.0-rc1-final",
+		"EntityFramework.Sqlite.Design": "7.0.0-rc1-final",
 		"Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
 		"Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
 		"Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
@@ -31,7 +30,7 @@
 		"NetTelegramBotApi": "3.7.50926"
 	},
 	"commands": {
-		"web": "Microsoft.AspNet.Server.Kestrel",
+		"web": "Microsoft.AspNet.Server.Kestrel --server.urls=http://*:8080/",
 		"ef": "EntityFramework.Commands"
 	},
 	"frameworks": {
