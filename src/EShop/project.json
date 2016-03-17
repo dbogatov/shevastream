@@ -30,7 +30,7 @@
 		"NetTelegramBotApi": "3.7.50926"
 	},
 	"commands": {
-		"web": "Microsoft.AspNet.Server.Kestrel --server.urls=http://*:8080/",
+		"web": "Microsoft.AspNet.Server.Kestrel",
 		"ef": "EntityFramework.Commands"
 	},
 	"frameworks": {
