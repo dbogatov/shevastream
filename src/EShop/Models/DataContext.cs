@@ -38,9 +38,9 @@ public class DataContext : DbContext
         //var connection = new SqliteConnection(connectionString);
 
         //optionsBuilder.UseSqlite(connection);
-		
-		//optionsBuilder.UseSqlServer("Data Source=SQL5007.Smarterasp.net;Initial Catalog=DB_99F084_dima;User Id=DB_99F084_dima_admin;Password=Otlichno!;");
-		optionsBuilder.UseInMemoryDatabase(true);
+
+        //optionsBuilder.UseSqlServer("Data Source=SQL5007.Smarterasp.net;Initial Catalog=DB_99F084_dima;User Id=DB_99F084_dima_admin;Password=Otlichno!;");
+        optionsBuilder.UseInMemoryDatabase();
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
