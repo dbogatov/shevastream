@@ -33,11 +33,13 @@ public class DataContext : DbContext
     // This method connects the context with the database
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = "database_v1.db" };
-        var connectionString = connectionStringBuilder.ToString();
-        var connection = new SqliteConnection(connectionString);
+        //var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = "database_v1.db" };
+        //var connectionString = connectionStringBuilder.ToString();
+        //var connection = new SqliteConnection(connectionString);
 
-        optionsBuilder.UseSqlite(connection);
+        //optionsBuilder.UseSqlite(connection);
+		
+		optionsBuilder.UseSqlServer("Data Source=SQL5007.Smarterasp.net;Initial Catalog=DB_99F084_dima;User Id=DB_99F084_dima_admin;Password=Otlichno!;");
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
