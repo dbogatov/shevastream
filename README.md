@@ -32,6 +32,9 @@ curl localhost
 
 General commands
 ```
+supervisorctl reread
+supervisorctl update
+
 supervisorctl stop shevastream
 supervisorctl start shevastream
 supervisorctl 
