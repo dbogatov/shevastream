@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EShop.Models.Enitites
 {
 
-    [Table("Feedback")]
+    [Table("SSFeedback")]
     public class Feedback
     {
         [Key]

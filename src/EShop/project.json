@@ -9,6 +9,8 @@
 		"EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
 		"EntityFramework.Sqlite": "7.0.0-rc1-final",
 		"EntityFramework.Sqlite.Design": "7.0.0-rc1-final",
+		"EntityFramework.MicrosoftSqlServer.Design": "7.0.0-rc1-final",
+		"EntityFramework.InMemory": "7.0.0-rc1-final",
 		"Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
 		"Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
 		"Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
@@ -49,7 +51,7 @@
 	"scripts": {
 		"prepublish": [
 			"npm install",
-			"bower install",
+			"bower install  --allow-root",
 			"gulp clean",
 			"gulp min"
 		]

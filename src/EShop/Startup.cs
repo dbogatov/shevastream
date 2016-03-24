@@ -50,6 +50,10 @@ namespace EShop
 				.AddSqlServer()
 				.AddDbContext<DataContext>();
 
+			//services.AddEntityFramework()
+			//	.AddSqlServer()
+			//	.AddDbContext<DataContext>();
+
 			services.AddMvc();
 
 			// Add application services.
