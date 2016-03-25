@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace EShop.ViewModels.Home
 {
 	public class OrderViewModel
@@ -54,8 +48,8 @@ namespace EShop.ViewModels.Home
 		}
 	}
 
-    public class OrderIdViewModel
-    {
-        public int Id { get; set; }
-    }
+	public class OrderIdViewModel
+	{
+		public int Id { get; set; }
+	}
 }

@@ -1,16 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using EShop.Models.Enitites;
 using EShop.Services;
 using Microsoft.AspNet.Mvc;
-using Newtonsoft.Json;
 using EShop.ViewModels.Home;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Authorization;
-using System.Threading;
-using System.Security.Claims;
 
 namespace EShop.Controllers.API
 {
@@ -50,20 +46,20 @@ namespace EShop.Controllers.API
 				_context.Customers.Add(customer);
 				_context.SaveChanges();
 
-                var dbOrder = new Order
-                {
-                    ProductId = order.ProductId,
-                    OrderStatusId = 1, // received
-                    Quantity = order.Quantity,
-                    CustomerId = customer.Id,
-                    ShipmentMethodId = order.ShipmentMethodId,
-                    Address = order.Address,
-                    PaymentMethodId = order.PaymentMethodId,
-                    Comment = order.Comment,
-                    DateCreated = DateTime.Now.Ticks,
-                    DateLastModified = DateTime.Now.Ticks,
-                    AssigneeComment = "Got it."
-	            };
+				var dbOrder = new Order
+				{
+					ProductId = order.ProductId,
+					OrderStatusId = 1, // received
+					Quantity = order.Quantity,
+					CustomerId = customer.Id,
+					ShipmentMethodId = order.ShipmentMethodId,
+					Address = order.Address,
+					PaymentMethodId = order.PaymentMethodId,
+					Comment = order.Comment,
+					DateCreated = DateTime.Now.Ticks,
+					DateLastModified = DateTime.Now.Ticks,
+					AssigneeComment = "Got it."
+				};
 
 				_context.Orders.Add(dbOrder);
 				_context.SaveChanges();
@@ -85,17 +81,17 @@ namespace EShop.Controllers.API
 		[Authorize]
 		public IEnumerable<object> GetOrders()
 		{
-            _log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
+			_log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
 
-            return _context.Orders
-                .Include(o => o.Customer)
-                .Include(o => o.PaymentMethod)
-                .Include(o => o.ShipmentMethod)
-                .Include(o => o.ShipmentMethod)
-                .Include(o => o.Assignee)
-                .Include(o => o.OrderStatus)
-                .Include(o => o.Product)
-                .Select(o => new {
+			return _context.Orders
+				.Include(o => o.Customer)
+				.Include(o => o.PaymentMethod)
+				.Include(o => o.ShipmentMethod)
+				.Include(o => o.ShipmentMethod)
+				.Include(o => o.Assignee)
+				.Include(o => o.OrderStatus)
+				.Include(o => o.Product)
+				.Select(o => new {
 					Id = o.Id,
 					Assignee = o.Assignee.NickName,
 					OrderStatus = o.OrderStatus.Description,
@@ -114,25 +110,25 @@ namespace EShop.Controllers.API
 				.AsEnumerable();
 		}
 
-        // POST api/order
-        [HttpPost]
-        [Authorize]
-        [Route("AssignToSelf")]
-        public bool AssignToSelf(OrderIdViewModel order)
-        {
-            Console.WriteLine("Taken");
+		// POST api/order
+		[HttpPost]
+		[Authorize]
+		[Route("AssignToSelf")]
+		public bool AssignToSelf(OrderIdViewModel order)
+		{
+			Console.WriteLine("Taken");
 
-            var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+			var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
 
-            _context.Orders.FirstOrDefault(o => o.Id == order.Id).AssigneeId = userId;
+			_context.Orders.FirstOrDefault(o => o.Id == order.Id).AssigneeId = userId;
 			
 			_context.SaveChanges();
 
 			return true;
-        }
+		}
 
-        // POST api/order
-        [HttpPost]
+		// POST api/order
+		[HttpPost]
 		[Authorize]
 		public bool Post(OrderViewModel order)
 		{

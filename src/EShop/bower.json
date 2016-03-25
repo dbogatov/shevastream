@@ -1,16 +1,16 @@
 {
-  "name": "ASP.NET",
-  "private": true,
-  "dependencies": {
-    "bootstrap": "3.3.5",
-    "jquery": "2.1.4",
-    "jquery-validation": "1.14.0",
-    "jquery-validation-unobtrusive": "3.2.4",
-    "jquery-mask-plugin": "^1.13.4",
-    "respond": "^1.4.2",
-    "gmap3": "^6.1.0",
-    "html5shiv": "^3.7.3",
-    "components-font-awesome": "^4.5.0",
-    "animate.css": "^3.5.1"
-  }
+	"name": "ASP.NET",
+	"private": true,
+	"dependencies": {
+		"bootstrap": "3.3.5",
+		"jquery": "2.1.4",
+		"jquery-validation": "1.14.0",
+		"jquery-validation-unobtrusive": "3.2.4",
+		"jquery-mask-plugin": "^1.13.4",
+		"respond": "^1.4.2",
+		"gmap3": "^6.1.0",
+		"html5shiv": "^3.7.3",
+		"components-font-awesome": "^4.5.0",
+		"animate.css": "^3.5.1"
+	}
 }

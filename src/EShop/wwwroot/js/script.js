@@ -1,5 +1,5 @@
-$(document).ready(function () {
-	
+$(document).ready(function() {
+
 	// Contact Maps
 	$("#maps").gmap3({
 		map: {
@@ -15,11 +15,11 @@ $(document).ready(function () {
 				icon: new google.maps.MarkerImage(
 					"https://dl.dropboxusercontent.com/u/29545616/Preview/location.png",
 					new google.maps.Size(48, 48, "px", "px")
-					)
+				)
 			}
 		}
 	});
-	
+
 	//Slider
 	$("#slider").carousel({
 		interval: 5000

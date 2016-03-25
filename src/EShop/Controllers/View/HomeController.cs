@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNet.Mvc;
 
 namespace EShop.Controllers
 {
@@ -47,7 +43,7 @@ namespace EShop.Controllers
 
 			return View();
 		}
-		
+
 		public IActionResult ThankYou()
 		{
 

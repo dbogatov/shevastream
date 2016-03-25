@@ -1,70 +1,65 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using EShop.Models.Enitites;
 using EShop.Services;
 using Microsoft.AspNet.Mvc;
-using Newtonsoft.Json;
-using EShop.ViewModels.Home;
-using Microsoft.Data.Entity;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Identity;
 using System.Security.Claims;
-using System.Security.Principal;
 
-namespace EShop.Controllers.API {
+namespace EShop.Controllers.API
+{
 
 	[Produces("application/json")]
 	[Route("api/Secure")]
-	public class SecureController : Controller {
+	public class SecureController : Controller
+	{
 		private readonly ITelegramSender _telegram;
 		private readonly DataContext _context;
-        private readonly ICryptoService _crypto;
+		private readonly ICryptoService _crypto;
 
-        public SecureController(
-			ITelegramSender telegram, 
+		public SecureController(
+			ITelegramSender telegram,
 			DataContext context,
 			ICryptoService crypto
-		) {
+		)
+		{
 			_telegram = telegram;
 			_context = context;
-            _crypto = crypto;
-        }
+			_crypto = crypto;
+		}
 
 		// GET: api/Secure/Auth
 		[Route("Auth/{code}")]
 		[HttpGet]
-		public IActionResult Authorize(string code) {
+		public IActionResult Authorize(string code)
+		{
 
-            string hash = _crypto.CalculateHash(code);
-            var user = _context.Users.FirstOrDefault(u => u.PassHash == hash);
+			string hash = _crypto.CalculateHash(code);
+			var user = _context.Users.FirstOrDefault(u => u.PassHash == hash);
 
-            if (user != null)
+			if (user != null)
 			{
-                var principal = new ClaimsPrincipal(
+				var principal = new ClaimsPrincipal(
 					new ClaimsIdentity(
 						new List<Claim> {
 							new Claim("UserId", user.Id.ToString()),
 						}, "API User"
 					)
 				);
-                HttpContext.Authentication.SignInAsync("MyCookieMiddlewareInstance", principal);
+				HttpContext.Authentication.SignInAsync("MyCookieMiddlewareInstance", principal);
 				return new ObjectResult(true);
 			}
-			
-            return new ObjectResult(false);
-        }
 
-        // GET: api/Secure/Logout
-        [Route("Logout")]
-        [HttpGet]
-        public IActionResult Logout()
-        {
-            HttpContext.Authentication.SignOutAsync("MyCookieMiddlewareInstance");
+			return new ObjectResult(false);
+		}
 
-            return new ObjectResult(true);
-        }
+		// GET: api/Secure/Logout
+		[Route("Logout")]
+		[HttpGet]
+		public IActionResult Logout()
+		{
+			HttpContext.Authentication.SignOutAsync("MyCookieMiddlewareInstance");
 
-    }
+			return new ObjectResult(true);
+		}
+
+	}
 }
