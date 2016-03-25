@@ -857,8 +857,10 @@ blockquote {
     margin-right: 0;
 }
 
+/*
 #home-slider .carousel:hover .carousel-control.left,
 #home-slider .carousel:hover .carousel-control.right {}
+*/
 
 #home-slider .carousel-control.left {
     border-top-right-radius: 5px;
