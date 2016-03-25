@@ -17,7 +17,7 @@ namespace EShop.Models.Enitites
 		public int OrderStatusId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
-        public int CutomerId { get; set; }
+        public int CustomerId { get; set; }
         public int ShipmentMethodId { get; set; }
         public string Address { get; set; }
         public int PaymentMethodId { get; set; }
@@ -36,7 +36,7 @@ namespace EShop.Models.Enitites
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
 
-        [ForeignKey("CutomerId")]
+        [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
 
         [ForeignKey("ShipmentMethodId")]

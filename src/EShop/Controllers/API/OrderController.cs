@@ -55,14 +55,14 @@ namespace EShop.Controllers.API
                     ProductId = order.ProductId,
                     OrderStatusId = 1, // received
                     Quantity = order.Quantity,
-                    CutomerId = customer.Id,
+                    CustomerId = customer.Id,
                     ShipmentMethodId = order.ShipmentMethodId,
                     Address = order.Address,
                     PaymentMethodId = order.PaymentMethodId,
                     Comment = order.Comment,
                     DateCreated = DateTime.Now.Ticks,
                     DateLastModified = DateTime.Now.Ticks,
-                    AssigneeComment = ""
+                    AssigneeComment = "Got it."
 	            };
 
 				_context.Orders.Add(dbOrder);
@@ -83,20 +83,34 @@ namespace EShop.Controllers.API
 		// GET: api/order
 		[HttpGet]
 		[Authorize]
-		public IEnumerable<Order> GetOrders()
+		public IEnumerable<object> GetOrders()
 		{
-            //Console.WriteLine($"UserID: {User.Claims.FirstOrDefault(c => c.Type == "UserId").Value}");
-
             _log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
 
             return _context.Orders
-				.Include(o => o.Customer)
-				.Include(o => o.PaymentMethod)
-				.Include(o => o.ShipmentMethod)
-				.Include(o => o.ShipmentMethod)
-				.Include(o => o.Assignee)
-				.Include(o => o.OrderStatus)
-				.Include(o => o.Product)
+                .Include(o => o.Customer)
+                .Include(o => o.PaymentMethod)
+                .Include(o => o.ShipmentMethod)
+                .Include(o => o.ShipmentMethod)
+                .Include(o => o.Assignee)
+                .Include(o => o.OrderStatus)
+                .Include(o => o.Product)
+                .Select(o => new {
+					Id = o.Id,
+					Assignee = o.Assignee.NickName,
+					OrderStatus = o.OrderStatus.Description,
+					Product = o.Product.Name,
+					Quantity = o.Quantity,
+					Customer = o.Customer.Name,
+					ShipmentMethod = o.ShipmentMethod.Name,
+					Address = o.Address,
+					PaymentMethod = o.PaymentMethod.Name,
+					Phone = o.Customer.Phone,
+					Comment = o.Comment,
+					AssigneeComment = o.AssigneeComment,
+					DateCreated = new DateTime(o.DateCreated),
+					DateLastModified = new DateTime(o.DateLastModified)
+				})
 				.AsEnumerable();
 		}
 
