@@ -13,7 +13,7 @@ $(document).ready(function() {
 			latLng: [50.441892, 30.511544],
 			options: {
 				icon: new google.maps.MarkerImage(
-					"https://dl.dropboxusercontent.com/u/29545616/Preview/location.png",
+					"/images/location.png",
 					new google.maps.Size(48, 48, "px", "px")
 				)
 			}
