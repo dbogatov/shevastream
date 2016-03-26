@@ -2,6 +2,10 @@
     ViewData["Title"] = "Блокнот";
 }
 
+@section styles {
+	<link href="/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">	
+}
+
 @section heading {
 	<!-- begin:heading -->
 	<div class="heads" style="background: url(/images/bg.jpg) center center;">
@@ -16,7 +20,7 @@
 	<!-- end:heading -->
 }
 
-	<!-- begin:content -->
+<!-- begin:content -->
 <div class="page-content">
 	<div class="container">
 		<div class="row">
@@ -33,9 +37,14 @@
 			<div class="col-md-9 col-sm-9 single-item">
 				<div class="row">
 					<div class="col-md-5 col-sm-5">
+						<div class="row" style="text-align: right;">
+							<div class="col-md-12 col-sm-12">
+								<span style="color: #777">Натисніть на зображення для збільшення</span>
+							</div>
+						</div>
 						<div id="itemsingle" class="carousel slide clearfix">
-
-							<div class="carousel-inner">
+							
+							<div class="carousel-inner gallery">
 								<div class="item active">
 									<img src="/images/products/notepad/item01.jpg" alt="slider detail dodolan manuk" class="img-rounded">
 								</div>
@@ -131,6 +140,9 @@
 <!-- end:content -->
 
 @section scripts {
+	
+	<script src="/lib/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+	<script src="/js/detail.js"></script>
 	
 	<script>
 		var globalActive = "Detail";
