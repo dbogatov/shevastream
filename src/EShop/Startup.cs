@@ -41,8 +41,10 @@ namespace EShop
 			services.AddApplicationInsightsTelemetry(Configuration);
 
 			services.AddEntityFramework()
-				.AddSqlServer()
+				.AddNpgsql()
 				.AddDbContext<DataContext>();
+
+			DataContext.connectionString = Configuration["Data:PGSQLConnection:ConnectionString"]; 
 
 			services.AddMvc();
 

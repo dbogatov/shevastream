@@ -7,7 +7,9 @@ using Newtonsoft.Json;
 
 public class DataContext : DbContext
 {
-	public DbSet<Feedback> Feedbacks { get; set; }
+    public static string connectionString;
+
+    public DbSet<Feedback> Feedbacks { get; set; }
 
 	public DbSet<LogEntry> LogEntries { get; set; }
 
@@ -29,12 +31,14 @@ public class DataContext : DbContext
 	// This method connects the context with the database
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-		optionsBuilder.UseInMemoryDatabase();
+		//optionsBuilder.UseInMemoryDatabase();
+		optionsBuilder.UseNpgsql(DataContext.connectionString);
 	}
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
-		base.OnModelCreating(builder);
+        builder.HasDefaultSchema("shevastream");
+        base.OnModelCreating(builder);
 	}
 
 	public void EnsureSeedData()
@@ -81,27 +85,33 @@ public class DataContext : DbContext
 			);
 		}
 
+		if (!this.Customers.Any())
+		{
+            this.AddRange(
+                new Customer
+                {
+                    Name = "Dmytro",
+                    Phone = "(050) 866-22-22",
+                    Email = "dbogatov@wpi.edu"
+                }
+            );
+        }
+
+		this.SaveChanges();
+
 		if (!this.Orders.Any())
 		{
-
-
 			this.AddRange(
-				new Customer
-				{
-					Name = "Dmytro",
-					Phone = "(050) 866-22-22",
-					Email = "dbogatov@wpi.edu"
-				},
 				new Order
 				{
 					Quantity = 2,
 					Address = "100 Institute Road",
-					AssigneeId = 1,
-					OrderStatusId = 1,
-					ProductId = 1,
-					CustomerId = 1,
-					ShipmentMethodId = 1,
-					PaymentMethodId = 1,
+					AssigneeId = this.Users.FirstOrDefault().Id,
+					OrderStatusId = this.OrderStatuses.FirstOrDefault().Id,
+					ProductId = this.Products.FirstOrDefault().Id,
+					CustomerId = this.Customers.FirstOrDefault().Id,
+					ShipmentMethodId = this.ShipmentMethods.FirstOrDefault().Id,
+					PaymentMethodId = this.PaymentMethods.FirstOrDefault().Id,
 					Comment = "Wanted to try blue one",
 					AssigneeComment = "Got it",
 					DateCreated = DateTime.Now.Ticks,
