@@ -27,7 +27,7 @@ $(document).ready(function() {
 		} else {
 			$("#orderValidationAlert").hide();
 
-			var price = 170;
+			var price = 185;
 
 			$("#prevItem").text($("#item option:selected").text());
 			$("#prevQuantity").text($("#quantity option:selected").text());

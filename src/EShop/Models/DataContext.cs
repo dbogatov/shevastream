@@ -63,7 +63,7 @@ public class DataContext : DbContext
 
 		if (!this.Products.Any())
 		{
-			this.Add(new Product { Name = "Блокнот", Cost = 170, ImageUrls = JsonConvert.SerializeObject(new string[] { "#" }), Description = "Desc", Characteristics = "Char" });
+			this.Add(new Product { Name = "Блокнот", Cost = 185, ImageUrls = JsonConvert.SerializeObject(new string[] { "#" }), Description = "Desc", Characteristics = "Char" });
 		}
 
 		if (!this.Users.Any())
