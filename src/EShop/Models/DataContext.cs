@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using EShop.Models.Enitites;
 using EShop.Services;
@@ -7,9 +8,9 @@ using Newtonsoft.Json;
 
 public class DataContext : DbContext
 {
-    public static string connectionString;
+	public static string connectionString;
 
-    public DbSet<Feedback> Feedbacks { get; set; }
+	public DbSet<Feedback> Feedbacks { get; set; }
 
 	public DbSet<LogEntry> LogEntries { get; set; }
 
@@ -37,65 +38,83 @@ public class DataContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
-        builder.HasDefaultSchema("shevastream");
-        base.OnModelCreating(builder);
+		builder.HasDefaultSchema("shevastream");
+		base.OnModelCreating(builder);
 	}
 
 	public void EnsureSeedData()
 	{
 
-		if (!this.ShipmentMethods.Any())
+		var shipmentMethods = new List<ShipmentMethod> {
+			new ShipmentMethod { Id = 1, Name = "К корпусу Шевченка", Cost = 0, CostTBD = false },
+			new ShipmentMethod { Id = 2, Name = "По Киеву", Cost = 30, CostTBD = false },
+			new ShipmentMethod { Id = 3, Name = "Новой Почтой", Cost = 0, CostTBD = true }
+		};
+
+		var paymentMethods = new List<PaymentMethod> {
+			new PaymentMethod { Id = 1, Name = "Наличными" },
+			new PaymentMethod { Id = 2, Name = "Через систему \"Приват 24\"" }
+		};
+
+		var products = new List<Product> {
+			new Product { Id = 1, Name = "Блокнот", Cost = 185, ImageUrls = JsonConvert.SerializeObject(new string[] { "#" }), Description = "Desc", Characteristics = "Char" }
+		};
+
+		var users = new List<User> {
+			new User { Id = 1, FullName = "Dmytro Bogatov", NickName = "@dmytro", PassHash = _crypto.CalculateHash("Doomsday") },
+			new User { Id = 2, FullName = "Polina Guley", NickName = "@polly", PassHash = _crypto.CalculateHash("cacadoo13") },
+			new User { Id = 3, FullName = "Anton Melnikov", NickName = "@melnikov", PassHash = _crypto.CalculateHash("simplestPossiblePassword123") },
+			new User { Id = 4, FullName = "Taras Shevchenko", NickName = "@none", PassHash = _crypto.CalculateHash("cabooom45") }
+		};
+
+		var orderStatuses = new List<OrderStatus> {
+			new OrderStatus { Id = 1, Description = "Received" },
+			new OrderStatus { Id = 2, Description = "In progress" },
+			new OrderStatus { Id = 3, Description = "Waiting for shipment" },
+			new OrderStatus { Id = 4, Description = "Done" }
+		};
+
+		if (this.ShipmentMethods.Count() != shipmentMethods.Count())
 		{
-			this.AddRange(
-				new ShipmentMethod { Name = "К корпусу Шевченка", Cost = 0, CostTBD = false },
-				new ShipmentMethod { Name = "По Киеву", Cost = 30, CostTBD = false },
-				new ShipmentMethod { Name = "Новой Почтой", Cost = 0, CostTBD = true }
-			);
+			this.ShipmentMethods.Clear();
+			this.ShipmentMethods.AddRange(shipmentMethods);
 		}
 
-		if (!this.PaymentMethods.Any())
+		if (this.PaymentMethods.Count() != paymentMethods.Count())
 		{
-			this.AddRange(
-				new PaymentMethod { Name = "Наличными" },
-				new PaymentMethod { Name = "Через систему \"Приват 24\"" }
-			);
+			this.PaymentMethods.Clear();
+			this.PaymentMethods.AddRange(paymentMethods);
 		}
 
-		if (!this.Products.Any())
+		if (this.Products.Count() != products.Count())
 		{
-			this.Add(new Product { Name = "Блокнот", Cost = 185, ImageUrls = JsonConvert.SerializeObject(new string[] { "#" }), Description = "Desc", Characteristics = "Char" });
+			this.Products.Clear();
+			this.Products.AddRange(products);
 		}
 
-		if (!this.Users.Any())
+		if (this.Users.Count() != users.Count())
 		{
-			this.AddRange(
-				new User { FullName = "Dmytro Bogatov", NickName = "@dmytro", PassHash = _crypto.CalculateHash("Doomsday") },
-				new User { FullName = "Polina Guley", NickName = "@polly", PassHash = _crypto.CalculateHash("cacadoo13") },
-				new User { FullName = "Anton Melnikov", NickName = "@melnikov", PassHash = _crypto.CalculateHash("simplestPossiblePassword123") }
-			);
+			this.Users.Clear();
+			this.Users.AddRange(users);
 		}
 
-		if (!this.OrderStatuses.Any())
+		if (this.OrderStatuses.Count() != orderStatuses.Count())
 		{
-			this.AddRange(
-				new OrderStatus { Description = "Received" },
-				new OrderStatus { Description = "In progress" },
-				new OrderStatus { Description = "Waiting for shipment" },
-				new OrderStatus { Description = "Done" }
-			);
+			this.OrderStatuses.Clear();
+			this.OrderStatuses.AddRange(orderStatuses);
 		}
 
 		if (!this.Customers.Any())
 		{
-            this.AddRange(
-                new Customer
-                {
-                    Name = "Dmytro",
-                    Phone = "(050) 866-22-22",
-                    Email = "dbogatov@wpi.edu"
-                }
-            );
-        }
+			this.AddRange(
+				new Customer
+				{
+					Name = "Dmytro",
+					Phone = "(050) 866-22-22",
+					Email = "dbogatov@wpi.edu"
+				}
+			);
+		}
 
 		this.SaveChanges();
 
