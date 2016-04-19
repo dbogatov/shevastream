@@ -63,7 +63,7 @@ namespace EShop
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
 
-			app.UseApplicationInsightsRequestTelemetry();
+			//app.UseApplicationInsightsRequestTelemetry();
 
 			if (env.IsDevelopment())
 			{
@@ -78,7 +78,7 @@ namespace EShop
 
 			app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
-			app.UseApplicationInsightsExceptionTelemetry();
+			//app.UseApplicationInsightsExceptionTelemetry();
 
 			app.UseStaticFiles();
 

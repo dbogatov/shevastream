@@ -45,7 +45,13 @@ namespace EShop.Controllers.API
 					)
 				);
 				HttpContext.Authentication.SignInAsync("MyCookieMiddlewareInstance", principal);
-				return new ObjectResult(true);
+				
+				return new ObjectResult(new {
+					Name = user.NickName,
+					Password = code,
+					Id = user.Id,
+					ImageUrl = user.ImageUrl
+				});
 			}
 
 			return new ObjectResult(false);

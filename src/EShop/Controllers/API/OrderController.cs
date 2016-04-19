@@ -89,9 +89,7 @@ namespace EShop.Controllers.API
 		[Authorize]
 		public IEnumerable<object> GetOrders()
 		{
-			_log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
-
-			Console.WriteLine($"Orders: {_context.Orders.Include(o => o.Customer).Include(o => o.PaymentMethod).Include(o => o.ShipmentMethod).Include(o => o.ShipmentMethod).Include(o => o.Assignee).Include(o => o.OrderStatus).Include(o => o.Product).Select(o => new {Id = o.Id,Assignee = o.Assignee.NickName,OrderStatus = o.OrderStatus.Description,Product = o.Product.Name,Quantity = o.Quantity,Customer = o.Customer.Name,ShipmentMethod = o.ShipmentMethod.Name,Address = o.Address,PaymentMethod = o.PaymentMethod.Name,Phone = o.Customer.Phone,Comment = o.Comment,AssigneeComment = o.AssigneeComment,DateCreated = new DateTime(o.DateCreated),DateLastModified = new DateTime(o.DateLastModified)}).Count()}");
+			//_log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
 
 			return _context.Orders
 				.Include(o => o.Customer)
@@ -120,7 +118,7 @@ namespace EShop.Controllers.API
 				.AsEnumerable();
 		}
 
-		// POST api/order
+		// POST api/AssignToSelf
 		[HttpPost]
 		[Authorize]
 		[Route("AssignToSelf")]
@@ -134,6 +132,30 @@ namespace EShop.Controllers.API
 			
 			_context.SaveChanges();
 
+			return true;
+		}
+		
+		// POST api/ChangeStatus
+		[HttpPost]
+		[Authorize]
+		[Route("ChangeStatus")]
+		public bool ChangeStatus(OrderStatusViewModel order)
+		{
+			Console.WriteLine($"New status {order.Status}");
+
+			var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+
+			_context.Orders.FirstOrDefault(o => o.Id == order.Id).OrderStatusId = order.Status;
+			
+			try
+			{
+				_context.SaveChanges();
+			}
+			catch (System.Exception)
+			{
+                return false;
+            }
+			
 			return true;
 		}
 

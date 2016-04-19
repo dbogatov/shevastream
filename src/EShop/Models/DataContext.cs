@@ -61,10 +61,10 @@ public class DataContext : DbContext
 		};
 
 		var users = new List<User> {
-			new User { Id = 1, FullName = "Dmytro Bogatov", NickName = "@dmytro", PassHash = _crypto.CalculateHash("Doomsday") },
-			new User { Id = 2, FullName = "Polina Guley", NickName = "@polly", PassHash = _crypto.CalculateHash("cacadoo13") },
-			new User { Id = 3, FullName = "Anton Melnikov", NickName = "@melnikov", PassHash = _crypto.CalculateHash("simplestPossiblePassword123") },
-			new User { Id = 4, FullName = "Taras Shevchenko", NickName = "@none", PassHash = _crypto.CalculateHash("cabooom45") }
+			new User { Id = 1, FullName = "Dmytro Bogatov", NickName = "@dmytro", PassHash = _crypto.CalculateHash("Doomsday"), ImageUrl = "https://shevastream.com/images/team/Dmytro.png" },
+			new User { Id = 2, FullName = "Polina Guley", NickName = "@polly", PassHash = _crypto.CalculateHash("cacadoo13"), ImageUrl = "https://shevastream.com/images/team/Polina.png" },
+			new User { Id = 3, FullName = "Anton Melnikov", NickName = "@melnikov", PassHash = _crypto.CalculateHash("simplestPossiblePassword123"), ImageUrl = "https://shevastream.com/images/team/Anton.jpg" },
+			new User { Id = 4, FullName = "Taras Shevchenko", NickName = "@none", PassHash = _crypto.CalculateHash("cabooom45"), ImageUrl = "#" }
 		};
 
 		var orderStatuses = new List<OrderStatus> {
