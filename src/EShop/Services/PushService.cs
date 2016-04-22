@@ -43,8 +43,11 @@ namespace EShop.Services
 					{ "production", "false" }
 				};
 
+                
                 var content = new FormUrlEncodedContent(values);
                 
+				//Console.WriteLine($"{message} : {String.Join(",", tokens)}");
+				
                 var response = client.PostAsync(_url, content);
             }
 			

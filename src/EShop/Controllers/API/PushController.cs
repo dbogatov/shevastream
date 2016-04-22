@@ -29,7 +29,7 @@ namespace EShop.Controllers.API
 			{
 				var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
 
-                Console.WriteLine($"id: {userId}");
+                //Console.WriteLine($"id: {userId}");
 
                 _context.PushPairs.Add(new PushPair
 				{
