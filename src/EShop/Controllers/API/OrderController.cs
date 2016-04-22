@@ -20,18 +20,21 @@ namespace EShop.Controllers.API
 		private readonly DataContext _context;
 		private readonly IDBLogService _log;
 		private readonly IHostingEnvironment _env;
+		private readonly IPushService _push;
 
 		public OrderController(
 			ITelegramSender telegram,
 			DataContext context,
 			IDBLogService log,
-			IHostingEnvironment env
+			IHostingEnvironment env,
+			IPushService push
 			)
 		{
 			_telegram = telegram;
 			_context = context;
 			_log = log;
 			_env = env;
+			_push = push;
 		}
 
 		// PUT api/order
@@ -80,6 +83,8 @@ namespace EShop.Controllers.API
 			{
 				_telegram.SendMessageAsync(order.ToString());	
 			}
+			
+			_push.SendAll("Got it!");
 
 			return true;
 		}

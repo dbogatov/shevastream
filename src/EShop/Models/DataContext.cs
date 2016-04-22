@@ -22,6 +22,8 @@ public class DataContext : DbContext
 	public DbSet<User> Users { get; set; }
 	public DbSet<OrderStatus> OrderStatuses { get; set; }
 
+	public DbSet<PushPair> PushPairs { get; set; }
+
 	private readonly ICryptoService _crypto;
 
 	public DataContext(ICryptoService crypto)

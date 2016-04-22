@@ -55,6 +55,7 @@ namespace EShop
 
 			services.AddTransient<ITelegramSender, TelegramSender>();
 			services.AddTransient<IDBLogService, DBLogService>();
+			services.AddTransient<IPushService, PushService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
