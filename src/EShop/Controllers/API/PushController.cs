@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using EShop.Models.Enitites;
 using EShop.ViewModels;
@@ -26,11 +27,13 @@ namespace EShop.Controllers.API
 		{
 			try
 			{
+				var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+				
 				if (!_context.PushPairs.Any(pp => pp.DeviceToken == model.DeviceToken)) 
 				{
 					_context.PushPairs.Add(new PushPair {
 						DeviceToken = model.DeviceToken,
-						UserId = model.UserId
+						UserId = userId
 					});
 				}
 				

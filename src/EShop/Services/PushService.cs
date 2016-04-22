@@ -45,8 +45,6 @@ namespace EShop.Services
 
                 var content = new FormUrlEncodedContent(values);
                 
-                Console.WriteLine($"Content: {values["tokens"]}");
-
                 var response = client.PostAsync(_url, content);
             }
 			

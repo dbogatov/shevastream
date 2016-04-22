@@ -84,7 +84,7 @@ namespace EShop.Controllers.API
 				_telegram.SendMessageAsync(order.ToString());	
 			}
 			
-			_push.SendAll("Got it!");
+			_push.SendAll($"New order from {order.CustomerName}");
 
 			return true;
 		}
