@@ -28,25 +28,26 @@ namespace EShop.Controllers.API
 			try
 			{
 				var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
-				
-				if (!_context.PushPairs.Any(pp => pp.DeviceToken == model.DeviceToken)) 
+
+                Console.WriteLine($"id: {userId}");
+
+                _context.PushPairs.Add(new PushPair
 				{
-					_context.PushPairs.Add(new PushPair {
-						DeviceToken = model.DeviceToken,
-						UserId = userId
-					});
-				}
-				
+					DeviceToken = model.DeviceToken,
+					UserId = userId
+				});
+
 				_context.SaveChanges();
 			}
-			catch (System.Exception)
+			catch (System.Exception e)
 			{
-				return false;
+                Console.WriteLine($"Exc: {e.Message}");
+                return false;
 			}
-			
+
 			return true;
 		}
-		
+
 		// POST: api/UnregisterDevice
 		[HttpPost]
 		[Route("UnregisterDevice")]
@@ -55,21 +56,21 @@ namespace EShop.Controllers.API
 		{
 			try
 			{
-				var pair = _context.PushPairs.FirstOrDefault(pp => pp.DeviceToken == model.DeviceToken); 
-				if (pair != null) 
+				var pair = _context.PushPairs.FirstOrDefault(pp => pp.DeviceToken == model.DeviceToken);
+				if (pair != null)
 				{
 					_context.PushPairs.Remove(pair);
 				}
-				
+
 				_context.SaveChanges();
 			}
 			catch (System.Exception)
 			{
 				return false;
 			}
-			
+
 			return true;
 		}
-		
+
 	}
 }
