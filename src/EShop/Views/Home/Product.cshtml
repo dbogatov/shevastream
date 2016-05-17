@@ -1,5 +1,5 @@
 ﻿@{
-	ViewData["Title"] = "Product";
+	ViewData["Title"] = "Продукція";
 }
 
 @section heading {
@@ -8,7 +8,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h2><span>//</span> Category</h2>
+					<h2><span>//</span> продукція</h2>
 				</div>
 			</div>
 		</div>
@@ -22,8 +22,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ol class="breadcrumb">
-					<li><a href="#">Home</a></li>
-					<li class="active">Category</li>
+					<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
+					<li class="active">Продукція</li>
 				</ol>
 			</div>
 		</div>
@@ -33,7 +33,7 @@
 				<h2>Border Canary</h2>
 				<p>Display all item with category Border Canary</p>
 				<ul class="thumbnails">
-					<li class="col-md-3 col-sm-3">
+					<li class="col-md-6 col-sm-6">
 						<div class="thumbnail">
 							<a href="detail.html"><img src="/images/manuk.jpg" class="img-responsive" alt="product dodolan manuk" /></a>
 							<div class="caption-details">
@@ -42,61 +42,7 @@
 							</div>
 						</div>
 					</li>
-					<li class="col-md-3 col-sm-3">
-						<div class="thumbnail">
-							<a href="detail.html"><img src="/images/manuk.jpg" class="img-responsive" alt="product dodolan manuk" /></a>
-							<div class="caption-details">
-								<h3>Border Canary</h3>
-								<span class="price">$200</span>
-							</div>
-						</div>
-					</li>
-					<li class="col-md-3 col-sm-3">
-						<div class="thumbnail">
-							<a href="detail.html"><img src="/images/manuk.jpg" class="img-responsive" alt="product dodolan manuk" /></a>
-							<div class="caption-details">
-								<h3>Border Canary</h3>
-								<span class="price">$200</span>
-							</div>
-						</div>
-					</li>
-					<li class="col-md-3 col-sm-3">
-						<div class="thumbnail">
-							<a href="detail.html"><img src="/images/manuk.jpg" class="img-responsive" alt="product dodolan manuk" /></a>
-							<div class="caption-details">
-								<h3>Border Canary</h3>
-								<span class="price">$200</span>
-							</div>
-						</div>
-					</li>
-					<li class="col-md-3 col-sm-3">
-						<div class="thumbnail">
-							<a href="detail.html"><img src="/images/manuk.jpg" class="img-responsive" alt="product dodolan manuk" /></a>
-							<div class="caption-details">
-								<h3>Border Canary</h3>
-								<span class="price">$200</span>
-							</div>
-						</div>
-					</li>
-					<li class="col-md-3 col-sm-3">
-						<div class="thumbnail">
-							<a href="detail.html"><img src="/images/manuk.jpg" class="img-responsive" alt="product dodolan manuk" /></a>
-							<div class="caption-details">
-								<h3>Border Canary</h3>
-								<span class="price">$200</span>
-							</div>
-						</div>
-					</li>
-					<li class="col-md-3 col-sm-3">
-						<div class="thumbnail">
-							<a href="detail.html"><img src="/images/manuk.jpg" class="img-responsive" alt="product dodolan manuk" /></a>
-							<div class="caption-details">
-								<h3>Border Canary</h3>
-								<span class="price">$200</span>
-							</div>
-						</div>
-					</li>
-					<li class="col-md-3 col-sm-3">
+					<li class="col-md-6 col-sm-6">
 						<div class="thumbnail">
 							<a href="detail.html"><img src="/images/manuk.jpg" class="img-responsive" alt="product dodolan manuk" /></a>
 							<div class="caption-details">
@@ -107,7 +53,7 @@
 					</li>
 				</ul>
 
-				<ul class="pagination">
+				<ul class="pagination" style="visibility: hidden;">
 					<li class="disabled"><a href="#">Page 1 of 2</a></li>
 					<li class="disabled"><a href="#">&laquo;</a></li>
 					<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
@@ -127,7 +73,7 @@
 @section scripts {
 	
 	<script>
-		var globalActive = "Product";
+		var globalActive = "Detail";
 	</script>
 	
 }
