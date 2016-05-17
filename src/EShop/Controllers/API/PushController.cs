@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using EShop.Models.Enitites;
 using EShop.ViewModels;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EShop.Controllers.API
 {

@@ -1,8 +1,8 @@
 using EShop.Models.Enitites;
 using EShop.Services;
 using EShop.ViewModels.Home;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EShop.Controllers.API
 {

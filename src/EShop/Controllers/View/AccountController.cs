@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace EShop.Controllers
 {
 	public class AccountController : Controller
 	{
-		public IActionResult Unauthorized()
+		public IActionResult Denied()
 		{
 			return View();
 		}

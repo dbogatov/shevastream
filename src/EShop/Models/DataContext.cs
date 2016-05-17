@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EShop.Models.Enitites;
 using EShop.Services;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 public class DataContext : DbContext
@@ -34,8 +34,8 @@ public class DataContext : DbContext
 	// This method connects the context with the database
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-		//optionsBuilder.UseInMemoryDatabase();
-		optionsBuilder.UseNpgsql(DataContext.connectionString);
+		optionsBuilder.UseInMemoryDatabase();
+		//optionsBuilder.UseNpgsql(DataContext.connectionString);
 	}
 
 	protected override void OnModelCreating(ModelBuilder builder)

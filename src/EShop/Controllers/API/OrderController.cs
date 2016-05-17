@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using EShop.Models.Enitites;
 using EShop.Services;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using EShop.ViewModels.Home;
-using Microsoft.Data.Entity;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 
 namespace EShop.Controllers.API
 {
