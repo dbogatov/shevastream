@@ -57,5 +57,5 @@ namespace EShop.ViewModels.Home
 	{
 		public int Id { get; set; }
 		public int Status {get; set; }
-    }
+	}
 }

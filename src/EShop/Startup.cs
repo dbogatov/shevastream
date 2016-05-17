@@ -10,127 +10,117 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EShop
 {
-    public class Startup
-    {
-        public Startup(IHostingEnvironment env)
-        {
-            // Set up configuration sources.
+	public class Startup
+	{
+		public Startup(IHostingEnvironment env)
+		{
+			// Set up configuration sources.
 
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+			var builder = new ConfigurationBuilder()
+				.SetBasePath(Directory.GetCurrentDirectory())
+				.AddJsonFile("appsettings.json")
+				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            if (env.IsDevelopment())
-            {
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
+			if (env.IsDevelopment())
+			{
+				// For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+				builder.AddUserSecrets();
 
-                // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                //builder.AddApplicationInsightsSettings(developerMode: true);
-            }
+				// This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
+				//builder.AddApplicationInsightsSettings(developerMode: true);
+			}
 
-            //builder.AddEnvironmentVariables();
-            Configuration = builder.Build();
-        }
+			//builder.AddEnvironmentVariables();
+			Configuration = builder.Build();
+		}
 
-        public IConfigurationRoot Configuration { get; set; }
+		public IConfigurationRoot Configuration { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            // Add framework services.
-            //services.AddApplicationInsightsTelemetry(Configuration);
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services)
+		{
 
-            services.AddEntityFrameworkInMemoryDatabase().AddDbContext<DataContext>();
+			services
+				.AddEntityFrameworkNpgsql()
+				.AddDbContext<DataContext>();
 
-            /*
-                        AddEntityFrameworkCore()
-                           .AddNpgsql()
-                           .AddDbContext<DataContext>();
-            */
-
-            DataContext.connectionString = Configuration["Data:PGSQLConnection:ConnectionString"];
+			DataContext.connectionString = Configuration["Data:PGSQLConnection:ConnectionString"];
 
 			services.AddMvc();
 
-            // Add application services.
-            services.AddTransient<ICryptoService, CryptoService>();
+			// Add application services.
+			services.AddTransient<ICryptoService, CryptoService>();
 
-            services.AddTransient<DataContext, DataContext>();
+			services.AddTransient<DataContext, DataContext>();
 
-            services.AddTransient<ITelegramSender, TelegramSender>();
-            services.AddTransient<IDBLogService, DBLogService>();
-            services.AddTransient<IPushService, PushService>();
-        }
+			services.AddTransient<ITelegramSender, TelegramSender>();
+			services.AddTransient<IDBLogService, DBLogService>();
+			services.AddTransient<IPushService, PushService>();
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
-        {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
+		{
+			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+			loggerFactory.AddDebug();
 
-            //app.UseApplicationInsightsRequestTelemetry();
+			if (env.IsDevelopment())
+			{
+				//app.UseBrowserLink();
+				//app.UseDeveloperExceptionPage();
+				app.UseDatabaseErrorPage();
+			}
+			else
+			{
+				//app.UseExceptionHandler("/Home/Error");
+			}
 
-            if (env.IsDevelopment())
-            {
-                //app.UseBrowserLink();
-                //app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                //app.UseExceptionHandler("/Home/Error");
-            }
+			app.UseStaticFiles();
 
-            //app.UseApplicationInsightsExceptionTelemetry();
+			// To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 
-            app.UseStaticFiles();
+			var options = new CookieAuthenticationOptions();
+			options.AuthenticationScheme = "MyCookieMiddlewareInstance";
+			options.LoginPath = PathString.Empty; //new PathString("/Account/Denied/");
+			options.AccessDeniedPath = new PathString("/Account/Forbidden/");
+			options.AutomaticAuthenticate = true;
+			options.AutomaticChallenge = true;
+			options.CookieName = "AUTHCOOKIE";
+			options.ExpireTimeSpan = new TimeSpan(1, 0, 0);
+			options.CookieHttpOnly = false;
 
-            // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
+			app.UseCookieAuthentication(options);
 
-            var options = new CookieAuthenticationOptions();
-            options.AuthenticationScheme = "MyCookieMiddlewareInstance";
-            options.LoginPath = PathString.Empty; //new PathString("/Account/Denied/");
-            options.AccessDeniedPath = new PathString("/Account/Forbidden/");
-            options.AutomaticAuthenticate = true;
-            options.AutomaticChallenge = true;
-            options.CookieName = "AUTHCOOKIE";
-            options.ExpireTimeSpan = new TimeSpan(1, 0, 0);
-            options.CookieHttpOnly = false;
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Home}/{action=Index}/{id?}");
+				routes.MapRoute(
+					"OnlyAction",
+					"{action}",
+					new { controller = "Home", action = "Index" }
+				);
+			});
 
-            app.UseCookieAuthentication(options);
+			using(var context = serviceProvider.GetService<DataContext>())
+			{
+				context.Database.EnsureCreated();
+				context.EnsureSeedData();
+			}
+		}
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute(
-                    "OnlyAction",
-                    "{action}",
-                    new { controller = "Home", action = "Index" }
-                );
-            });
+		// Entry point for the application.
+		public static void Main(string[] args)
+		{
+			var host = new WebHostBuilder()
+				.UseKestrel()
+				.UseContentRoot(Directory.GetCurrentDirectory())
+				.UseIISIntegration()
+				.UseStartup<Startup>()
+				.Build();
 
-            using (var context = serviceProvider.GetService<DataContext>())
-            {
-                context.Database.EnsureCreated();
-                context.EnsureSeedData();
-            }
-        }
-
-        // Entry point for the application.
-        public static void Main(string[] args)
-        {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
-
-            host.Run();
-        }
-    }
+			host.Run();
+		}
+	}
 }

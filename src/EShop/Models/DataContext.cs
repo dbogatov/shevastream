@@ -34,8 +34,8 @@ public class DataContext : DbContext
 	// This method connects the context with the database
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-		optionsBuilder.UseInMemoryDatabase();
-		//optionsBuilder.UseNpgsql(DataContext.connectionString);
+		//optionsBuilder.UseInMemoryDatabase();
+		optionsBuilder.UseNpgsql(DataContext.connectionString);
 	}
 
 	protected override void OnModelCreating(ModelBuilder builder)

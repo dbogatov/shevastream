@@ -158,8 +158,8 @@ namespace EShop.Controllers.API
 			}
 			catch (System.Exception)
 			{
-                return false;
-            }
+				return false;
+			}
 			
 			return true;
 		}

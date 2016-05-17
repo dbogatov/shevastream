@@ -152,7 +152,7 @@ namespace EShop.Models.Enitites
 		public string NickName { get; set; }
 		public string PassHash { get; set; }
 		public string ImageUrl { get; set; }
-    }
+	}
 
 	[Table("OrderStatus")]
 	public class OrderStatus
