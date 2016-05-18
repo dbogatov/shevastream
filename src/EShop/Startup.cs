@@ -118,6 +118,7 @@ namespace EShop
 				.UseContentRoot(Directory.GetCurrentDirectory())
 				.UseIISIntegration()
 				.UseStartup<Startup>()
+				.UseUrls("http://192.168.0.108:5000")
 				.Build();
 
 			host.Run();
