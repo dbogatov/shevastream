@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
 	$(".gallery img").each(function() {
 		$(this).attr("data-mfp-src", $(this).attr("src"));
