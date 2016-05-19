@@ -86,6 +86,7 @@
 	},
 	"publishOptions": {
 		"include": [
+		        "appsettings.json",
 			"wwwroot",
 			"Views"
 		],

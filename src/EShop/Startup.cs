@@ -17,7 +17,7 @@ namespace EShop
 			// Set up configuration sources.
 
 			var builder = new ConfigurationBuilder()
-				.SetBasePath(Directory.GetCurrentDirectory())
+			  .SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json")
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
@@ -118,7 +118,7 @@ namespace EShop
 				.UseContentRoot(Directory.GetCurrentDirectory())
 				.UseIISIntegration()
 				.UseStartup<Startup>()
-				.UseUrls("http://192.168.0.108:5000")
+				.UseUrls("http://localhost:5000")
 				.Build();
 
 			host.Run();
