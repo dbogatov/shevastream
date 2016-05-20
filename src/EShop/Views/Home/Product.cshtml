@@ -1,4 +1,8 @@
-﻿@{
+﻿@using Newtonsoft.Json;
+
+@* Model is a IEnumerable<Entity.Product> object *@
+
+@{
 	ViewData["Title"] = "Продукція";
 }
 
@@ -33,24 +37,22 @@
 				<h2>Наша продукція</h2>
 				<p>Lorem ipsum</p>
 				<ul class="thumbnails">
-					<li class="col-md-6 col-sm-6">
-						<div class="thumbnail">
-							<a asp-controller="Home" asp-action="Detail"><img src="/images/products/notepad/popular.jpg" class="img-responsive" alt="product dodolan manuk" /></a>
-							<div class="caption-details">
-								<h3>Блокнот</h3>
-								<span class="price">185 UAH</span>
+					
+					@foreach (var product in Model)
+					{
+						<li class="col-md-6 col-sm-6">
+							<div class="thumbnail">
+								<a asp-controller="Home" asp-action="Product" asp-route-id="@product.Id">
+									<img src="@JsonConvert.DeserializeObject(product.ImageUrls)[0]" class="img-responsive" alt="product dodolan manuk" />
+								</a>	
+								<div class="caption-details">
+									<h3>@product.Name</h3>
+									<span class="price">@product.Cost UAH</span>
+								</div>
 							</div>
-						</div>
-					</li>
-					<li class="col-md-6 col-sm-6">
-						<div class="thumbnail">
-							<a asp-controller="Home" asp-action="Detail"><img src="/images/team/Polina.png" class="img-responsive" alt="product dodolan manuk" /></a>
-							<div class="caption-details">
-								<h3>Chehol</h3>
-								<span class="price">150 UAH</span>
-							</div>
-						</div>
-					</li>
+						</li>	
+					}
+					
 				</ul>
 
 				<ul class="pagination" style="visibility: hidden;">

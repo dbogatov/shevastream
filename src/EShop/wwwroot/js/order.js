@@ -1,9 +1,22 @@
 var total = 0;
 
-$(document).ready(function() {
+var products = [];
+
+$(document).ready(function () {
+
+	$.get("/api/Product", {}, function (data) {
+		products = data;
+
+		$("#item").html(
+			products.map(function (product) {
+				return "<option value='" + product.Id + "'>" + product.Name + "</option>"
+			})
+		);
+	});
+
 	$("#phone").mask("(999) 999-9999");
 
-	$("#shipmentMethod").change(function() {
+	$("#shipmentMethod").change(function () {
 		if ($(this).val() !== "1") {
 			$("#addressGroup").show();
 		} else {
@@ -13,12 +26,12 @@ $(document).ready(function() {
 
 
 
-	$("#oderForm").on("submit", function(e) {
+	$("#oderForm").on("submit", function (e) {
         e.preventDefault();
 
 		var valid = true;
 
-		$('input,textarea,select').filter('[required]:visible').each(function() {
+		$('input,textarea,select').filter('[required]:visible').each(function () {
 			valid = valid && $(this).val().length > 0;
 		});
 
@@ -27,7 +40,7 @@ $(document).ready(function() {
 		} else {
 			$("#orderValidationAlert").hide();
 
-			var price = 185;
+			var price = products.filter(function (product) { return product.Id ==  parseInt($("#item").val(), 10)})[0].Cost;
 
 			$("#prevItem").text($("#item option:selected").text());
 			$("#prevQuantity").text($("#quantity option:selected").text());
@@ -61,7 +74,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#confirmOrderBtn").click(function(e) {
+	$("#confirmOrderBtn").click(function (e) {
 		e.preventDefault();
 		$(this).attr("disabled", "disabled");
 		$(this).html("Завантаження...");
@@ -83,7 +96,7 @@ $(document).ready(function() {
 			TotalAmountDue: total
 		};
 
-		$.put("/api/Order", data).always(function() {
+		$.put("/api/Order", data).always(function () {
 			location.href = "/ThankYou";
 		});
 	});
