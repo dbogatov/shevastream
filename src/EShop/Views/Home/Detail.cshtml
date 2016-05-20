@@ -97,7 +97,7 @@
 						<h3>@Model.Name</h3>
 						<p>@Model.Description</p>
 						<h4>@Model.Cost UAH</h4>
-						<p><a asp-controller="Home" asp-action="Order" class="btn btn-purple btn-large"><i class="icon-shopping-cart"></i> Замовити</a></p>
+						<p><a asp-controller="Home" asp-action="Order" asp-route-id="@Model.Id" class="btn btn-purple btn-large"><i class="icon-shopping-cart"></i> Замовити</a></p>
 					</div>
 				</div>
 

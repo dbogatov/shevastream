@@ -12,6 +12,11 @@ $(document).ready(function () {
 				return "<option value='" + product.Id + "'>" + product.Name + "</option>"
 			})
 		);
+
+		var productId = $('[data-product]').data("product");
+		if (productId > -1) {
+			$("#item").val("" + productId);
+		}	
 	});
 
 	$("#phone").mask("(999) 999-9999");

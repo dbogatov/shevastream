@@ -34,10 +34,11 @@ namespace EShop.Controllers
 			return View();
 		}
 
-		public IActionResult Order()
+		public IActionResult Order(int? id)
 		{
-
-			return View();
+            return View(
+                _context.Products.FirstOrDefault(p => p.Id == id)
+			);
 		}
 
 		public IActionResult Product(int? id)

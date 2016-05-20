@@ -37,7 +37,7 @@
 						<label class="col-sm-3 control-label" for="item" >Назва продукту *</label>
 						<div class="col-sm-6">
 							<select class="form-control" id="item" required>
-								<option value="1">Блокнот</option>
+								<option value="0">Завантаження...</option>
 							</select>
 						</div>
 					</div>
@@ -198,6 +198,8 @@
 	</div>
 </div>
 
+@{ var productId = Model == null ? -1 : Model.Id; }
+<div data-product="@productId"></div>
 
 @section scripts {
 	
