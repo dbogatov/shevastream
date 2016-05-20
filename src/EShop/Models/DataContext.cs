@@ -4,6 +4,7 @@ using System.Linq;
 using EShop.Models.Enitites;
 using EShop.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Newtonsoft.Json;
 
 public class DataContext : DbContext
@@ -40,7 +41,22 @@ public class DataContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
-		builder.HasDefaultSchema("shevastream");
+        builder.HasDefaultSchema("shevastream");
+		
+		/* Not working
+        builder
+			.Entity<Order>()
+			.HasOne(o => o.Product)
+			.WithMany(p => p.Orders)
+			.OnDelete(DeleteBehavior.SetNull);
+		
+		builder
+			.Entity<Product>()
+			.HasMany(p => p.Orders)
+			.WithOne(o => o.Product)
+			.OnDelete(DeleteBehavior.SetNull);
+		*/
+		
 		base.OnModelCreating(builder);
 	}
 
@@ -58,8 +74,88 @@ public class DataContext : DbContext
 			new PaymentMethod { Id = 2, Name = "Через систему \"Приват 24\"" }
 		};
 
-		var products = new List<Product> {
-			new Product { Id = 1, Name = "Блокнот", Cost = 185, ImageUrls = JsonConvert.SerializeObject(new string[] { "#" }), Description = "Desc", Characteristics = "Char" }
+        var products = new List<Product> {
+            new Product {
+                Id = 1,
+                Name = "Блокнот",
+                Cost = 185,
+                ImageUrls = JsonConvert.SerializeObject(new string[] {
+                    "/images/products/notepad/item01.jpg",
+					"/images/products/notepad/item02.jpg",
+					"/images/products/notepad/item03.jpg",
+					"/images/products/notepad/item04.jpg",
+					"/images/products/notepad/item05.jpg",
+                }),
+                Description = "Незважаючи на те, що сучасний світ оповитий електронними девайсами з безліччю корисних функцій, ми все одно не припиняємо користуватися блокнотами. Сьогодні блокнот – це не тільки «паперовий друг», котрий завжди під рукою і допоможе навести вам порядок в «інформаційній каші», а й невід’ємний атрибут іміджу кожного з нас.",
+                Characteristics = JsonConvert.SerializeObject(new string[] {
+					"Обкладинка зроблена з італійської екошкіри",
+					"Довжина 210 мм, ширина 145 мм",
+					"Стильний паттерн",
+					"Міцна кишеня для важливих дрібниць",
+					"Закладка-ляссе та зручна гумка",
+					"Просторі, чисті, якісні сторінки",
+					"Папір Munken Pure, 176 сторінок, 90 г/м<sup>2</sup>"
+                }),
+                Information = "Збережіть своє натхнення і мрії разом з нашими блокнотами \"ShevaStream\". Мовчазні, практичні, просторі та оригінальні. Посприяють вашій організованості і гарному настрою. Що ще, як не чисті аркуші паперу, потрібно для того, щоб почати діяти - писати історію з нової сторінки. Може на цей раз ви почнете будувати свої глобальні плани та завдання з чимось незвичайним?",
+                VideoData = JsonConvert.SerializeObject(new {
+					HasVideo = true, 
+					Url = "https://www.youtube-nocookie.com/embed/jWfdgm3g2GE?rel=0&amp;controls=0&amp;showinfo=0"
+				})
+    		},
+			new Product {
+                Id = 2,
+                Name = "Case",
+                Cost = 150,
+                ImageUrls = JsonConvert.SerializeObject(new string[] {
+                    "/images/products/notepad/item01.jpg",
+					"/images/products/notepad/item02.jpg",
+					"/images/products/notepad/item03.jpg",
+					"/images/products/notepad/item04.jpg",
+					"/images/products/notepad/item05.jpg",
+                }),
+                Description = "Незважаючи на те, що сучасний світ оповитий електронними девайсами з безліччю корисних функцій, ми все одно не припиняємо користуватися блокнотами. Сьогодні блокнот – це не тільки «паперовий друг», котрий завжди під рукою і допоможе навести вам порядок в «інформаційній каші», а й невід’ємний атрибут іміджу кожного з нас.",
+                Characteristics = JsonConvert.SerializeObject(new string[] {
+					"Обкладинка зроблена з італійської екошкіри",
+					"Довжина 210 мм, ширина 145 мм",
+					"Стильний паттерн",
+					"Міцна кишеня для важливих дрібниць",
+					"Закладка-ляссе та зручна гумка",
+					"Просторі, чисті, якісні сторінки",
+					"Папір Munken Pure, 176 сторінок, 90 г/м<sup>2</sup>"
+                }),
+                Information = "Збережіть своє натхнення і мрії разом з нашими блокнотами \"ShevaStream\". Мовчазні, практичні, просторі та оригінальні. Посприяють вашій організованості і гарному настрою. Що ще, як не чисті аркуші паперу, потрібно для того, щоб почати діяти - писати історію з нової сторінки. Може на цей раз ви почнете будувати свої глобальні плани та завдання з чимось незвичайним?",
+                VideoData = JsonConvert.SerializeObject(new {
+					HasVideo = false,
+					Url = "https://www.youtube-nocookie.com/embed/jWfdgm3g2GE?rel=0&amp;controls=0&amp;showinfo=0"
+				})
+    		},
+			new Product {
+                Id = 3,
+                Name = "Special Case",
+                Cost = 175,
+                ImageUrls = JsonConvert.SerializeObject(new string[] {
+                    "/images/products/notepad/item01.jpg",
+					"/images/products/notepad/item02.jpg",
+					"/images/products/notepad/item03.jpg",
+					"/images/products/notepad/item04.jpg",
+					"/images/products/notepad/item05.jpg",
+                }),
+                Description = "Незважаючи на те, що сучасний світ оповитий електронними девайсами з безліччю корисних функцій, ми все одно не припиняємо користуватися блокнотами. Сьогодні блокнот – це не тільки «паперовий друг», котрий завжди під рукою і допоможе навести вам порядок в «інформаційній каші», а й невід’ємний атрибут іміджу кожного з нас.",
+                Characteristics = JsonConvert.SerializeObject(new string[] {
+					"Обкладинка зроблена з італійської екошкіри",
+					"Довжина 210 мм, ширина 145 мм",
+					"Стильний паттерн",
+					"Міцна кишеня для важливих дрібниць",
+					"Закладка-ляссе та зручна гумка",
+					"Просторі, чисті, якісні сторінки",
+					"Папір Munken Pure, 176 сторінок, 90 г/м<sup>2</sup>"
+                }),
+                Information = "Збережіть своє натхнення і мрії разом з нашими блокнотами \"ShevaStream\". Мовчазні, практичні, просторі та оригінальні. Посприяють вашій організованості і гарному настрою. Що ще, як не чисті аркуші паперу, потрібно для того, щоб почати діяти - писати історію з нової сторінки. Може на цей раз ви почнете будувати свої глобальні плани та завдання з чимось незвичайним?",
+                VideoData = JsonConvert.SerializeObject(new {
+					HasVideo = false,
+					Url = "https://www.youtube-nocookie.com/embed/jWfdgm3g2GE?rel=0&amp;controls=0&amp;showinfo=0"
+				})
+    		}
 		};
 
 		var users = new List<User> {
@@ -91,7 +187,8 @@ public class DataContext : DbContext
 		if (this.Products.Count() != products.Count())
 		{
 			this.Products.Clear();
-			this.Products.AddRange(products);
+            this.SaveChanges();
+            this.Products.AddRange(products);
 		}
 
 		if (this.Users.Count() != users.Count())

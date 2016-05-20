@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -112,10 +113,15 @@ namespace EShop.Models.Enitites
 		public string Name { get; set; }
 		public int Cost { get; set; }
 		public string ImageUrls { get; set; }           // JSON list of URLs
-		public string Description { get; set; }
+		public string Information { get; set; }
+        public string Description { get; set; }
 		public string Characteristics { get; set; }
+		public string VideoData { get; set; }
 
-		public override string ToString()
+		[NotMapped]
+		public List<Order> Orders { get; set; }
+
+        public override string ToString()
 		{
 			return $@"
 				Product:

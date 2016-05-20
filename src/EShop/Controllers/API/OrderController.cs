@@ -74,9 +74,8 @@ namespace EShop.Controllers.API
 				
 				//_log.LogActionAsync(DBLogEntryType.OrderReceived, dbOrder.Id);
 			}
-			catch (System.Exception e)
+			catch (System.Exception)
 			{
-                throw e;
                 //Console.WriteLine(e.StackTrace);
                 _telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} ({order.CustomerEmail}) has NOT been added to the database!");
 			}

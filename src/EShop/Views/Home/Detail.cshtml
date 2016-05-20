@@ -1,5 +1,9 @@
-﻿@{
-	ViewData["Title"] = "Блокнот";
+﻿@using Newtonsoft.Json;
+
+@* Model is a Entity.Product object *@
+
+@{
+	ViewData["Title"] = Model.Name;
 }
 
 @section styles {
@@ -22,7 +26,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h2><span>//</span> БЛОКНОТ</h2>
+					<h2><span>//</span> @Model.Name</h2>
 				</div>
 			</div>
 		</div>
@@ -37,7 +41,7 @@
 			<div class="col-md-12">
 				<ol class="breadcrumb">
 					<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
-					<li class="active">БЛОКНОТ</li>
+					<li class="active">@Model.Name</li>
 				</ol>
 			</div>
 		</div>
@@ -55,38 +59,44 @@
 						<div id="itemsingle" class="carousel slide clearfix">
 							
 							<div class="carousel-inner gallery">
-								<div class="item active">
-									<img src="/images/products/notepad/item01.jpg" alt="slider detail dodolan manuk" class="img-rounded">
-								</div>
-								<div class="item">
-									<img src="/images/products/notepad/item02.jpg" alt="slider detail dodolan manuk" class="img-rounded">
-								</div>
-								<div class="item">
-									<img src="/images/products/notepad/item03.jpg" alt="slider detail dodolan manuk" class="img-rounded">
-								</div>
-								<div class="item">
-									<img src="/images/products/notepad/item04.jpg" alt="slider detail dodolan manuk" class="img-rounded">
-								</div>
-								<div class="item">
-									<img src="/images/products/notepad/item05.jpg" alt="slider detail dodolan manuk" class="img-rounded">
-								</div>
+								@{ var active = "active"; }
+								@foreach (var url in JsonConvert.DeserializeObject(Model.ImageUrls))
+								{
+									<div class="item @active">
+										<img src="@url" alt="slider detail dodolan manuk" class="img-rounded">
+									</div>
+									active = "";
+								}
 							</div>
-
-							<ol class="carousel-indicators">
-								<li data-target="#itemsingle" data-slide-to="0" class="active"><img src="/images/products/notepad/item01.jpg" class="img-responsive img-rounded" alt="slider detail dodolan manuk"></li>
-								<li data-target="#itemsingle" data-slide-to="1" class=""><img src="/images/products/notepad/item02.jpg" class="img-responsive img-rounded" alt="slider detail dodolan manuk"></li>
-								<li data-target="#itemsingle" data-slide-to="2" class=""><img src="/images/products/notepad/item03.jpg" class="img-responsive img-rounded" alt="slider detail dodolan manuk"></li>
-							</ol>
-							<ol class="carousel-indicators">
-								<li data-target="#itemsingle" data-slide-to="3" class=""><img src="/images/products/notepad/item04.jpg" class="img-responsive img-rounded" alt="slider detail dodolan manuk"></li>
-								<li data-target="#itemsingle" data-slide-to="4" class=""><img src="/images/products/notepad/item05.jpg" class="img-responsive img-rounded" alt="slider detail dodolan manuk"></li>
-							</ol>
+							
+							@{ 
+								active = "active";
+								var index = 0; 
+							}
+							@foreach (var url in JsonConvert.DeserializeObject(Model.ImageUrls))
+							{
+								@if (index % 3 == 0)
+								{
+									@:<ol class="carousel-indicators">
+								}
+								<li data-target="#itemsingle" data-slide-to="@index" class="@active"><img src="@url" class="img-responsive img-rounded" alt="slider detail dodolan manuk"></li>
+								@if ((index + 1) % 3 == 0)
+								{
+									@:</ol>
+								}
+								active = "";
+								index++;
+							}
+							@if (index % 3 == 0)
+							{
+								@:</ol>
+							}
 						</div>
 					</div>
 					<div class="col-md-7 col-sm-7">
-						<h3>БЛОКНОТ</h3>
-						<p>Незважаючи на те, що сучасний світ оповитий електронними девайсами з безліччю корисних функцій, ми все одно не припиняємо користуватися блокнотами. Сьогодні блокнот – це не тільки «паперовий друг», котрий завжди під рукою і допоможе навести вам порядок в «інформаційній каші», а й невід’ємний атрибут іміджу кожного з нас.</p>
-						<h4>185 UAH</h4>
+						<h3>@Model.Name</h3>
+						<p>@Model.Description</p>
+						<h4>@Model.Cost UAH</h4>
 						<p><a asp-controller="Home" asp-action="Order" class="btn btn-purple btn-large"><i class="icon-shopping-cart"></i> Замовити</a></p>
 					</div>
 				</div>
@@ -101,20 +111,16 @@
 						</ul>
 						<div id="myTabContent" class="tab-content">
 							<div class="tab-pane fade active in" id="info">
+								
 								<ul>
-									<li>Обкладинка зроблена з італійської екошкіри</li>
-									<li>Довжина 210 мм, ширина 145 мм</li>
-									<li>Стильний паттерн</li>
-									<li>Міцна кишеня для важливих дрібниць</li>
-									<li>Закладка-ляссе та зручна гумка</li>
-									<li>Просторі, чисті, якісні сторінки</li>
-									<li>Папір Munken Pure, 176 сторінок, 90 г/м<sup>2</sup></li>	
+									@foreach (var characteristic in JsonConvert.DeserializeObject(Model.Characteristics))
+									{
+										<li>@Html.Raw(characteristic)</li>
+									}	
 								</ul>
 							</div>
 							<div class="tab-pane fade" id="moreinfo">
-								<p>
-									Збережіть своє натхнення і мрії разом з нашими блокнотами "ShevaStream". Мовчазні, практичні, просторі та оригінальні. Посприяють вашій організованості і гарному настрою. Що ще, як не чисті аркуші паперу, потрібно для того, щоб почати діяти - писати історію з нової сторінки. Може на цей раз ви почнете будувати свої глобальні плани та завдання з чимось незвичайним?
-								</p>
+								<p>@Model.Information</p>
 							</div>
 							<div class="tab-pane fade" id="review">
 								<div class="fb-comments" data-href="http://195.64.149.87/Home/Detail" data-width="700" data-numposts="5"></div>
@@ -146,23 +152,25 @@
 
 		</div>
 		
-		<div style="height: 30px;"></div>
-				
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">Промо-відео</h3>
-							</div>
-							<div class="panel-body" style="padding: 0px;">
-								<div class="embed-responsive embed-responsive-16by9">
-									<iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube-nocookie.com/embed/jWfdgm3g2GE?rel=0&amp;controls=0&amp;showinfo=0" allowfullscreen></iframe>
-								</div>
+		@if ((bool)JsonConvert.DeserializeObject(Model.VideoData).HasVideo)
+		{
+			<div style="height: 30px;"></div>
+					
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Промо-відео</h3>
+						</div>
+						<div class="panel-body" style="padding: 0px;">
+							<div class="embed-responsive embed-responsive-16by9">
+								<iframe class="embed-responsive-item" width="560" height="315" src="@JsonConvert.DeserializeObject(Model.VideoData).Url" allowfullscreen></iframe>
 							</div>
 						</div>
 					</div>
 				</div>
-		
+			</div>
+		}
 	</div>
 </div>
 <!-- end:content -->

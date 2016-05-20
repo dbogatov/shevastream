@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EShop.Controllers
 {
 	public class HomeController : Controller
 	{
+		private readonly DataContext _context;
+		
+		public HomeController(DataContext context) {
+            _context = context;
+        }
+		
 		public IActionResult Index()
 		{
 			return View();
@@ -38,8 +45,18 @@ namespace EShop.Controllers
 			return View();
 		}
 
-		public IActionResult Product()
+		public IActionResult Product(int? id)
 		{
+			if (id.HasValue)
+			{
+				if (_context.Products.Any(p => p.Id == id))
+				{
+                    var product = _context.Products.First(p => p.Id == id);
+                    return View("Detail", product);	
+				}
+
+                return NotFound();
+            }
 
 			return View();
 		}
