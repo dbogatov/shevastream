@@ -1,6 +1,52 @@
 ﻿@{
-	ViewData["Title"] = "Error";
+	ViewData["Title"] = $"Error {Model.Code}";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+@section heading {
+	<!-- begin:heading -->
+	<div class="heads" style="background: url(/images/bg.jpg) center center;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2><span>//</span> Error @Model.Code</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end:heading -->
+}
+
+<!-- begin:content -->
+<div class="page-content">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li><a asp-controller="Store" asp-action="Index">Головна</a></li>
+					<li class="active">Error @Model.Code</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3" style="text-align: center;">
+				<i class="fa fa-exclamation-circle fa-5x" style="font-size: 150pt; color: maroon;" ></i>
+			</div>
+			<div class="col-md-9">
+				<div class="heading-title">
+					<h1 style="text-align: center; font-size: 30pt;">Sorry...</h1>
+					<h2>@Model.Message</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end:content -->
+
+@section scripts {
+	
+	<script>
+		var globalActive = "";
+	</script>
+	
+}

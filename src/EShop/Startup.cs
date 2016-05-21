@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EShop
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IHostingEnvironment env)
 		{
@@ -25,9 +25,6 @@ namespace EShop
 			{
 				// For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
 				builder.AddUserSecrets();
-
-				// This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-				//builder.AddApplicationInsightsSettings(developerMode: true);
 			}
 
 			//builder.AddEnvironmentVariables();
@@ -66,14 +63,17 @@ namespace EShop
 
 			if (env.IsDevelopment())
 			{
-				//app.UseBrowserLink();
-				//app.UseDeveloperExceptionPage();
-				app.UseDatabaseErrorPage();
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+				app.UseRuntimeInfoPage();
 			}
 			else
 			{
-				//app.UseExceptionHandler("/Home/Error");
+				app.UseExceptionHandler("/Error");
 			}
+			
+			app.UseStatusCodePagesWithReExecute("/Error/{0}");
+			//app.UseStatusCodePages();
 
 			app.UseStaticFiles();
 
@@ -101,7 +101,12 @@ namespace EShop
 					"{action}",
 					new { controller = "Store", action = "Index" }
 				);
-			});
+                routes.MapRoute(
+					"Error",
+					"Error/{code}",
+					new { controller = "Error", action = "Error" }
+				);
+            });
 
 			using(var context = serviceProvider.GetService<DataContext>())
 			{

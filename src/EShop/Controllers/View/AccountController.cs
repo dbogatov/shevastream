@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Controllers
+namespace EShop.Controllers.View
 {
 	public class AccountController : Controller
 	{
