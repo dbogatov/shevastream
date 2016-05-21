@@ -95,11 +95,11 @@ namespace EShop
 			{
 				routes.MapRoute(
 					name: "default",
-					template: "{controller=Home}/{action=Index}/{id?}");
+					template: "{controller=Store}/{action=Index}/{id?}");
 				routes.MapRoute(
 					"OnlyAction",
 					"{action}",
-					new { controller = "Home", action = "Index" }
+					new { controller = "Store", action = "Index" }
 				);
 			});
 

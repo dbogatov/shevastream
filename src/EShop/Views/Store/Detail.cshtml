@@ -40,7 +40,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ol class="breadcrumb">
-					<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
+					<li><a asp-controller="Store" asp-action="Index">Головна</a></li>
 					<li class="active">@Model.Name</li>
 				</ol>
 			</div>
@@ -97,7 +97,7 @@
 						<h3>@Model.Name</h3>
 						<p>@Model.Description</p>
 						<h4>@Model.Cost UAH</h4>
-						<p><a asp-controller="Home" asp-action="Order" asp-route-id="@Model.Id" class="btn btn-purple btn-large"><i class="icon-shopping-cart"></i> Замовити</a></p>
+						<p><a asp-controller="Store" asp-action="Order" asp-route-id="@Model.Id" class="btn btn-purple btn-large"><i class="icon-shopping-cart"></i> Замовити</a></p>
 					</div>
 				</div>
 
@@ -142,8 +142,8 @@
 					<div class="col-md-12">
 						<h3>Інформація</h3>
 						<ul class="nav nav-pills nav-stacked">
-							<li><a asp-controller="Home" asp-action="FAQ">Оплата</a></li>
-							<li><a asp-controller="Home" asp-action="FAQ">Доставка</a></li>
+							<li><a asp-controller="Store" asp-action="FAQ">Оплата</a></li>
+							<li><a asp-controller="Store" asp-action="FAQ">Доставка</a></li>
 						</ul>
 					</div>
 				</div>

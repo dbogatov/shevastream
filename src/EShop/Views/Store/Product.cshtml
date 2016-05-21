@@ -26,7 +26,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ol class="breadcrumb">
-					<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
+					<li><a asp-controller="Store" asp-action="Index">Головна</a></li>
 					<li class="active">Продукція</li>
 				</ol>
 			</div>
@@ -42,7 +42,7 @@
 					{
 						<li class="col-md-6 col-sm-6">
 							<div class="thumbnail">
-								<a asp-controller="Home" asp-action="Product" asp-route-id="@product.Id">
+								<a asp-controller="Store" asp-action="Product" asp-route-id="@product.Id">
 									<img src="@JsonConvert.DeserializeObject(product.ImageUrls)[0]" class="img-responsive" alt="product dodolan manuk" />
 								</a>	
 								<div class="caption-details">

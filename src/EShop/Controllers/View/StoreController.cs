@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Controllers
+namespace EShop.Controllers.View
 {
-	public class HomeController : Controller
+	public class StoreController : Controller
 	{
 		private readonly DataContext _context;
 
-		public HomeController(DataContext context)
+		public StoreController(DataContext context)
 		{
 			_context = context;
 		}
