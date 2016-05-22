@@ -1,4 +1,5 @@
 ﻿@using Newtonsoft.Json;
+@using Microsoft.AspNetCore.Http;
 
 @* Model is a Entity.Product object *@
 
@@ -123,7 +124,7 @@
 								<p>@Model.Information</p>
 							</div>
 							<div class="tab-pane fade" id="review">
-								<div class="fb-comments" data-href="http://195.64.149.87/Home/Detail" data-width="700" data-numposts="5"></div>
+								<div class="fb-comments" id="fbcomment" data-width="700" data-numposts="5"></div>
 							</div>
 						</div>
 

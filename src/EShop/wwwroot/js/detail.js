@@ -11,4 +11,6 @@ $(document).ready(function () {
 		type: "image"
 	});
 
+	//$("#fbcomment").data("href", window.location.href);
+	//var p = $("#fbcomment").data("href");
 });
