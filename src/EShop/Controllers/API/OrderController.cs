@@ -4,7 +4,7 @@ using System.Linq;
 using EShop.Models.Enitites;
 using EShop.Services;
 using Microsoft.AspNetCore.Mvc;
-using EShop.ViewModels.Home;
+using EShop.ViewModels.Store;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;

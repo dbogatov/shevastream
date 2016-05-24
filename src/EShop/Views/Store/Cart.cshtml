@@ -1,0 +1,133 @@
+﻿@using Newtonsoft.Json;
+
+@{
+	ViewData["Title"] = "Cart";
+}
+
+@section heading {
+	<!-- begin:heading -->
+	<div class="heads" style="background: url(/images/bg.jpg) center center;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2><span>//</span> Your cart</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end:heading -->
+}
+
+<!-- begin:content -->
+<div class="page-content">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li><a asp-controller="Store" asp-action="Index">Головна</a></li>
+					<li class="active">Your Cart</li>
+				</ol>
+			</div>
+		</div>
+		
+		@if (Model.Products.Count > 0)
+		{
+			@foreach (var item in Model.Products)
+			{
+				<div class="row">
+					<div class="col-md-12">
+
+						<div class="panel panel-success">
+							
+							<div class="panel-heading">
+								<h3 class="panel-title">@item.Product.Name</h3>
+							</div>
+							
+							<div class="panel-body">
+								<div class="row" style="padding: 20px;">
+									<div class="col-md-3">
+										<img width="100%" class="mg-responsive img-rounded" src="@JsonConvert.DeserializeObject(item.Product.ImageUrls)[0]" />
+									</div>
+									<div class="col-md-6">
+										<h2>@item.Product.Name</h2>
+										<p>@item.Product.Description</p>
+									</div>
+									<div class="col-md-3">
+										<select data-product="@item.Product.Id" class="form-control quantityPicker">
+											@for(var i = 1; i <= 10; i++)
+											{
+												@if (i == @item.Quantity) 
+												{ 
+													<option selected>@i</option>
+												} else
+												{
+													<option>@i</option>	
+												}
+											}
+										</select>
+										<a class="btn btn-danger btn-block removeFromCartBtn" data-product="@item.Product.Id">Remove</a>
+									</div>
+								</div>
+							</div>
+							
+							<div class="panel-footer" style="text-align: right;">
+								<b>Cost: @(item.Product.Cost * item.Quantity) UAH</b>
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+			}
+			
+			<hr>
+			
+			<div class="row">
+				<div class="col-md-12">
+					@{
+						var cost = 0;
+						foreach(var item in Model.Products)
+						{
+							cost += item.Product.Cost * item.Quantity;
+						}
+					}
+					<h2 style="text-align: right;">Total cost: @cost UAH</h2>
+					
+				</div>
+				<div class="col-md-4 col-md-offset-8">
+					<a class="btn btn-success btn-block">Order</a>
+				</div>
+			</div>
+		} else
+		{
+			<h1>Your cart is empty</h1> 
+		}
+		
+		
+	</div>
+</div>
+<!-- end:content -->
+
+@section scripts {
+	
+	<script>
+		var globalActive = "";
+	</script>
+	
+	<script>
+		
+		$(".removeFromCartBtn").click(function() {
+			Cart.setCallback(function() {
+				location.reload();
+			}).removeItem( $(this).data("product") );
+		});
+		
+		$(".quantityPicker").change(function() {
+			Cart.setCallback(function() {
+				location.reload();
+			}).changeItem( $(this).data("product"), $(this).val() );
+		});
+		
+	</script>
+	
+}

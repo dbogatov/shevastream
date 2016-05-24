@@ -1,15 +1,24 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using EShop.Controllers.API;
+using EShop.ViewModels.Store;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace EShop.Controllers.View
 {
 	public class StoreController : Controller
 	{
-		private readonly DataContext _context;
+		private readonly string CART_COOKIE_NAME = "Cart";
 
-		public StoreController(DataContext context)
+		private readonly DataContext _context;
+		private readonly HttpContext _http;
+
+		public StoreController(DataContext context, IHttpContextAccessor http)
 		{
 			_context = context;
+			_http = http.HttpContext;
 		}
 
 		public IActionResult Index()
@@ -36,8 +45,8 @@ namespace EShop.Controllers.View
 
 		public IActionResult Order(int? id)
 		{
-            return View(
-                _context.Products.FirstOrDefault(p => p.Id == id)
+			return View(
+				_context.Products.FirstOrDefault(p => p.Id == id)
 			);
 		}
 
@@ -56,6 +65,36 @@ namespace EShop.Controllers.View
 
 			var products = _context.Products.AsEnumerable();
 			return View(products);
+		}
+
+		public IActionResult Cart()
+		{
+			FullCartViewModel model = new FullCartViewModel();
+
+            if (_http.Request.Cookies[CART_COOKIE_NAME] == null)
+			{
+                model.Products = new List<FullCartElementViewModel>();
+            }
+			else
+			{
+				var elements = JsonConvert.
+					DeserializeObject<CartViewModel>(
+						_http.Request.Cookies[CART_COOKIE_NAME]
+					).Elements;
+
+                var products = _context.Products.AsEnumerable();
+
+                model.Products = ( 
+					from element in elements
+    				join prod in products on element.ProductId equals prod.Id
+    				select new FullCartElementViewModel
+					{ 
+						Product = prod,
+						Quantity = element.Quantity
+					}).ToList();
+			}
+			
+			return View(model);
 		}
 
 		public IActionResult ThankYou()

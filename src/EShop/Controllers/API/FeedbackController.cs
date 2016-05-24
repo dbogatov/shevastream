@@ -1,6 +1,6 @@
 using EShop.Models.Enitites;
 using EShop.Services;
-using EShop.ViewModels.Home;
+using EShop.ViewModels.Store;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,7 +33,7 @@ namespace EShop.Controllers.API
 			return true;
 		}
 
-		// POST api/feedback/callMeBAck
+		// POST api/feedback/callMeBack
 		[Route("CallMeBack")]
 		[HttpPost]
 		public bool CallMeBack(CallMeBackViewModel request)

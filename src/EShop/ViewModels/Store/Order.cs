@@ -1,4 +1,4 @@
-namespace EShop.ViewModels.Home
+namespace EShop.ViewModels.Store
 {
 	public class OrderViewModel
 	{

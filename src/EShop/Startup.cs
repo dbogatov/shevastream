@@ -46,6 +46,8 @@ namespace EShop
 			services.AddMvc();
 
 			// Add application services.
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			
 			services.AddTransient<ICryptoService, CryptoService>();
 
 			services.AddTransient<DataContext, DataContext>();
