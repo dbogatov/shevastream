@@ -98,7 +98,10 @@
 						<h3>@Model.Name</h3>
 						<p>@Model.Description</p>
 						<h4>@Model.Cost UAH</h4>
-						<p><a asp-controller="Store" asp-action="Order" asp-route-id="@Model.Id" class="btn btn-purple btn-large"><i class="icon-shopping-cart"></i> Замовити</a></p>
+						<p>
+							<a href="#" data-product="@Model.Id" class="btn btn-primary btn-large addToCartBtn"><i class="icon-shopping-cart"></i> Add to Cart</a>
+							<a href="#" data-product="@Model.Id" class="btn btn-purple btn-large addToCartAndCheckoutBtn"><i class="icon-shopping-cart"></i> Add to Cart & Checkout</a>
+						</p>
 					</div>
 				</div>
 

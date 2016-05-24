@@ -1,4 +1,5 @@
 ﻿@using Newtonsoft.Json;
+@using EShop.ViewModels.Store;
 
 @{
 	ViewData["Title"] = "Cart";
@@ -32,7 +33,7 @@
 		
 		@if (Model.Products.Count > 0)
 		{
-			@foreach (var item in Model.Products)
+			@foreach (var item in ((FullCartViewModel)Model).Products.OrderByDescending(prod => prod.Product.Id))
 			{
 				<div class="row">
 					<div class="col-md-12">
@@ -46,7 +47,7 @@
 							<div class="panel-body">
 								<div class="row" style="padding: 20px;">
 									<div class="col-md-3">
-										<img width="100%" class="mg-responsive img-rounded" src="@JsonConvert.DeserializeObject(item.Product.ImageUrls)[0]" />
+										<img width="100%" class="mg-responsive img-rounded" src="@( ((Newtonsoft.Json.Linq.JArray)JsonConvert.DeserializeObject(item.Product.ImageUrls)).ToObject<string[]>()[0] )" />
 									</div>
 									<div class="col-md-6">
 										<h2>@item.Product.Name</h2>

@@ -92,8 +92,11 @@ namespace EShop.Controllers.API
 		[HttpPut]
 		public void Put(CartElementViewModel element)
 		{
-			Cart.Elements.Add(element);
-            SaveChanges();
+            if (!Cart.Elements.Any(el => el.ProductId == element.ProductId))
+            {
+                Cart.Elements.Add(element);
+				SaveChanges();
+            }
         }
 		
 		// DELETE api/Cart
