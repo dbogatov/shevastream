@@ -58,3 +58,11 @@ var Cart = function () {
 		},
 	};
 } ();
+
+$(document).ready(function () {
+	var count = $.cookie("Cart") == null ? 0 : JSON.parse($.cookie("Cart")).Elements.length;
+
+	if (count > 0) {
+		$("#cartItemsNumber").text("(" + count + ")");
+	}	
+});

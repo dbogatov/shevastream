@@ -12,6 +12,7 @@
     "html5shiv": "^3.7.3",
     "components-font-awesome": "^4.5.0",
     "animate.css": "^3.5.1",
-    "magnific-popup": "^1.1.0"
+    "magnific-popup": "^1.1.0",
+    "jquery.cookie": "^1.4.1"
   }
 }
