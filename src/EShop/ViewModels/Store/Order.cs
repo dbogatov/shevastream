@@ -48,6 +48,11 @@ namespace EShop.ViewModels.Store
 		}
 	}
 
+	public class OrderTotalCostViewModel
+	{
+		public int TotalCost { get; set; }
+    }
+
 	public class OrderIdViewModel
 	{
 		public int Id { get; set; }

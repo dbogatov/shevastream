@@ -4,21 +4,6 @@ var products = [];
 
 $(document).ready(function () {
 
-	$.get("/api/Product", {}, function (data) {
-		products = data;
-
-		$("#item").html(
-			products.map(function (product) {
-				return "<option value='" + product.Id + "'>" + product.Name + "</option>"
-			})
-		);
-
-		var productId = $('[data-product]').data("product");
-		if (productId > -1) {
-			$("#item").val("" + productId);
-		}	
-	});
-
 	$("#phone").mask("(999) 999-9999");
 
 	$("#shipmentMethod").change(function () {
@@ -45,37 +30,7 @@ $(document).ready(function () {
 		} else {
 			$("#orderValidationAlert").hide();
 
-			var price = products.filter(function (product) { return product.Id ==  parseInt($("#item").val(), 10)})[0].Cost;
-
-			$("#prevItem").text($("#item option:selected").text());
-			$("#prevQuantity").text($("#quantity option:selected").text());
-			$("#prevPrice").text(price + " UAH");
-			$("#prevShippmentMethod").text($("#shipmentMethod option:selected").text());
-			$("#prevPhone").text("+38 " + $("#phone").val());
-
-			total = price * parseInt($("#quantity").val(), 10);
-			var priceText = "";
-
-			switch ($("#shipmentMethod").val()) {
-				case "2":
-					total += 30;
-					priceText = total + " UAH";
-					break;
-				case "3":
-					priceText = total + " UAH + Shipment cost (determined individually)";
-					break;
-				default:
-					priceText = total + " UAH";
-					break;
-			}
-
-			$("#prevTotal").text(priceText);
-
-			$('#orderModal').modal({
-				keyboard: false
-			});
-
-			$("#orderModal").show();
+			alert("Not implemented yet");			
 		}
 	});
 

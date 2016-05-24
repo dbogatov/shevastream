@@ -42,11 +42,30 @@ namespace EShop.Controllers.View
 			return View();
 		}
 
-		public IActionResult Order(int? id)
+		public IActionResult Order()
 		{
-			return View(
-				_context.Products.FirstOrDefault(p => p.Id == id)
-			);
+            OrderTotalCostViewModel model = new OrderTotalCostViewModel();
+
+            if (_http.Request.Cookies[CART_COOKIE_NAME] == null)
+			{
+                model.TotalCost = 0;
+            }
+			else
+			{
+				var elements = JsonConvert.
+					DeserializeObject<CartViewModel>(
+						_http.Request.Cookies[CART_COOKIE_NAME]
+					).Elements;
+
+                var products = _context.Products.AsEnumerable();
+
+                model.TotalCost = (
+                    from element in elements
+                    join prod in products on element.ProductId equals prod.Id
+                    select prod.Cost * element.Quantity).Sum();
+			}
+			
+			return View(model);
 		}
 
 		public IActionResult Product(int? id)

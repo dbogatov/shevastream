@@ -50,11 +50,11 @@
 										<img width="100%" class="mg-responsive img-rounded" src="@( ((Newtonsoft.Json.Linq.JArray)JsonConvert.DeserializeObject(item.Product.ImageUrls)).ToObject<string[]>()[0] )" />
 									</div>
 									<div class="col-md-6">
-										<h2>@item.Product.Name</h2>
+										<h2><a asp-controller="Store" asp-action="Product" asp-route-id="@(item.Product.Id)">@item.Product.Name</a></h2>
 										<p>@item.Product.Description</p>
 									</div>
 									<div class="col-md-3">
-										<select data-product="@item.Product.Id" class="form-control quantityPicker">
+										<select data-product="@(item.Product.Id)" class="form-control quantityPicker">
 											@for(var i = 1; i <= 10; i++)
 											{
 												@if (i == @item.Quantity) 
@@ -66,7 +66,7 @@
 												}
 											}
 										</select>
-										<a class="btn btn-danger btn-block removeFromCartBtn" data-product="@item.Product.Id">Remove</a>
+										<a class="btn btn-danger btn-block removeFromCartBtn" data-product="@(item.Product.Id)">Remove</a>
 										<h4 style="text-align: right;">Item cost: @item.Product.Cost</h4>
 									</div>
 								</div>
@@ -97,7 +97,7 @@
 					
 				</div>
 				<div class="col-md-4 col-md-offset-8">
-					<a class="btn btn-success btn-block">Order</a>
+					<a asp-controller="Store" asp-action="Order" class="btn btn-success btn-block">Order</a>
 				</div>
 			</div>
 		} else

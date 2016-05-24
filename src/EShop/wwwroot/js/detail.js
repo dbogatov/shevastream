@@ -40,10 +40,12 @@ function updateCartButtons() {
 	if (isAdded) {
 		$(".addToCartBtn").text("Already in the cart");
 		$(".addToCartBtn").addClass("disabled");
-		$(".addToCartBtn").off( "click", "**" );
+		$(".addToCartBtn").off("click", "**");
 
-		$(".addToCartAndCheckoutBtn").text("Already in the cart");
-		$(".addToCartAndCheckoutBtn").addClass("disabled");
-		$(".addToCartAndCheckoutBtn").off( "click", "**" );
+		$(".addToCartAndCheckoutBtn").text("Checkout");
+		$(".addToCartAndCheckoutBtn").off("click", "**");
+		$(".addToCartAndCheckoutBtn").click(function () {
+			location.href = "/Store/Cart";
+		});
 	}
 }
