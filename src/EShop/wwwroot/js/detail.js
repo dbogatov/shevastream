@@ -12,9 +12,7 @@ $(document).ready(function () {
 	});
 
 	$(".addToCartBtn").click(function () {
-		Cart.setCallback(function () {
-			alert("Added");
-		}).addItem($(this).data("product"), 1);
+		Cart.addItem($(this).data("product"), 1);
 	});
 
 	$(".addToCartAndCheckoutBtn").click(function () {
@@ -23,3 +21,29 @@ $(document).ready(function () {
 		}).addItem($(this).data("product"), 1);
 	});
 });
+
+$(document).ready(function () {
+	updateCartButtons();
+});
+
+$(document).on("eshop.cartupdated", function () {
+	updateCartButtons();
+});
+
+function updateCartButtons() {
+	var thisId = parseInt($(".addToCartBtn").data("product"));
+
+	var isAdded = $.cookie("Cart") == null ? false : (JSON.parse($.cookie("Cart")).Elements.filter(function (element) {
+		return element.ProductId == thisId;
+	}).length > 0);
+
+	if (isAdded) {
+		$(".addToCartBtn").text("Already in the cart");
+		$(".addToCartBtn").addClass("disabled");
+		$(".addToCartBtn").off( "click", "**" );
+
+		$(".addToCartAndCheckoutBtn").text("Already in the cart");
+		$(".addToCartAndCheckoutBtn").addClass("disabled");
+		$(".addToCartAndCheckoutBtn").off( "click", "**" );
+	}
+}

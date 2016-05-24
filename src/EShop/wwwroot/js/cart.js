@@ -1,9 +1,17 @@
 var Cart = function () {
 	var currentCallback = null;
-	
+
+	var executeCallback = function () {
+		$(document).trigger("eshop.cartupdated");
+		if (currentCallback != null) {
+			currentCallback();
+			currentCallback = null;
+		}
+	};
+
 	return {
 		setCallback: function (callback) {
-			currentCallback = callback; 
+			currentCallback = callback;
 			return this;
 		},
 
@@ -14,19 +22,13 @@ var Cart = function () {
 			};
 
 			$.put("/api/Cart", data).always(function () {
-				if (currentCallback != null) {
-					currentCallback();
-					currentCallback = null;
-				}
+				executeCallback();
 			});
 		},
 
 		getItems: function () {
 			$.get("/api/Cart", {}, function (response) {
-				if (currentCallback != null) {
-					currentCallback();
-					currentCallback = null;
-				}
+				executeCallback();
 			});
 		},
 
@@ -37,10 +39,7 @@ var Cart = function () {
 			};
 
 			$.post("/api/Cart", data, function (response) {
-				if (currentCallback != null) {
-					currentCallback();
-					currentCallback = null;
-				}
+				executeCallback();
 			});
 		},
 
@@ -50,19 +49,24 @@ var Cart = function () {
 			};
 
 			$.delete("/api/Cart", data, function (response) {
-				if (currentCallback != null) {
-					currentCallback();
-					currentCallback = null;
-				}
+				executeCallback();
 			});
 		},
 	};
 } ();
 
 $(document).ready(function () {
+	updateCartNumber();
+});
+
+$(document).on("eshop.cartupdated", function () {
+	updateCartNumber();
+});
+
+function updateCartNumber() {
 	var count = $.cookie("Cart") == null ? 0 : JSON.parse($.cookie("Cart")).Elements.length;
 
 	if (count > 0) {
 		$("#cartItemsNumber").text("(" + count + ")");
-	}	
-});
+	}
+}
