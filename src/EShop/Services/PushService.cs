@@ -54,6 +54,4 @@ namespace EShop.Services
 			return true;
 		}
 	}
-
-
 }
