@@ -43,20 +43,6 @@ public class DataContext : DbContext
 	{
         builder.HasDefaultSchema("shevastream");
 		
-		/* Not working
-        builder
-			.Entity<Order>()
-			.HasOne(o => o.Product)
-			.WithMany(p => p.Orders)
-			.OnDelete(DeleteBehavior.SetNull);
-		
-		builder
-			.Entity<Product>()
-			.HasMany(p => p.Orders)
-			.WithOne(o => o.Product)
-			.OnDelete(DeleteBehavior.SetNull);
-		*/
-		
 		base.OnModelCreating(builder);
 	}
 
@@ -104,7 +90,7 @@ public class DataContext : DbContext
     		},
 			new Product {
                 Id = 2,
-                Name = "Case",
+                Name = "Чохол для телефону",
                 Cost = 150,
                 ImageUrls = JsonConvert.SerializeObject(new string[] {
                     "/images/products/notepad/item01.jpg",
@@ -113,26 +99,27 @@ public class DataContext : DbContext
 					"/images/products/notepad/item04.jpg",
 					"/images/products/notepad/item05.jpg",
                 }),
-                Description = "Незважаючи на те, що сучасний світ оповитий електронними девайсами з безліччю корисних функцій, ми все одно не припиняємо користуватися блокнотами. Сьогодні блокнот – це не тільки «паперовий друг», котрий завжди під рукою і допоможе навести вам порядок в «інформаційній каші», а й невід’ємний атрибут іміджу кожного з нас.",
+                Description = "Давно мріяли про оригінальний чохол для свого девайсу? Пластмасовий чохол для телефону від  Sheva Stream не тільки підкреслить Вашу оригінальність, а й Ваш статус студента найкращого ВНЗ України!",
                 Characteristics = JsonConvert.SerializeObject(new string[] {
-					"Обкладинка зроблена з італійської екошкіри",
-					"Довжина 210 мм, ширина 145 мм",
-					"Стильний паттерн",
-					"Міцна кишеня для важливих дрібниць",
-					"Закладка-ляссе та зручна гумка",
-					"Просторі, чисті, якісні сторінки",
-					"Папір Munken Pure, 176 сторінок, 90 г/м<sup>2</sup>"
+					"Модель телефону: iPhone 4/4S, 5/5S/SE, 6/6S",
+					"Матеріал : високоякісний пластик",
+					"Глянцеве або матове покриття",
+					"Модний університетський дизайн"
                 }),
-                Information = "Збережіть своє натхнення і мрії разом з нашими блокнотами \"ShevaStream\". Мовчазні, практичні, просторі та оригінальні. Посприяють вашій організованості і гарному настрою. Що ще, як не чисті аркуші паперу, потрібно для того, щоб почати діяти - писати історію з нової сторінки. Може на цей раз ви почнете будувати свої глобальні плани та завдання з чимось незвичайним?",
+                Information = @"Для замовлення чохлу необхідно зазначити в коментарях до замовлення:
+					<ul>
+						<li>Модель Вашого телефону</li>
+						<li>Тип покриття чохлу ( глянець/мат )</li>
+					</ul>",
                 VideoData = JsonConvert.SerializeObject(new {
 					HasVideo = false,
-					Url = "https://www.youtube-nocookie.com/embed/jWfdgm3g2GE?rel=0&amp;controls=0&amp;showinfo=0"
+					Url = ""
 				})
     		},
 			new Product {
                 Id = 3,
-                Name = "Special Case",
-                Cost = 175,
+                Name = "Чохол для телефону VIP",
+                Cost = 180,
                 ImageUrls = JsonConvert.SerializeObject(new string[] {
                     "/images/products/notepad/item01.jpg",
 					"/images/products/notepad/item02.jpg",
@@ -140,20 +127,21 @@ public class DataContext : DbContext
 					"/images/products/notepad/item04.jpg",
 					"/images/products/notepad/item05.jpg",
                 }),
-                Description = "Незважаючи на те, що сучасний світ оповитий електронними девайсами з безліччю корисних функцій, ми все одно не припиняємо користуватися блокнотами. Сьогодні блокнот – це не тільки «паперовий друг», котрий завжди під рукою і допоможе навести вам порядок в «інформаційній каші», а й невід’ємний атрибут іміджу кожного з нас.",
+                Description = "Мрієте про унікальний чохол для свого девайсу? У Вас є можливість замовити стильний cover для Вашого телефону з індивідуальним дизайном.",
                 Characteristics = JsonConvert.SerializeObject(new string[] {
-					"Обкладинка зроблена з італійської екошкіри",
-					"Довжина 210 мм, ширина 145 мм",
-					"Стильний паттерн",
-					"Міцна кишеня для важливих дрібниць",
-					"Закладка-ляссе та зручна гумка",
-					"Просторі, чисті, якісні сторінки",
-					"Папір Munken Pure, 176 сторінок, 90 г/м<sup>2</sup>"
+					"Модель телефону: iPhone 4/4S, 5/5S/SE, 6/6S",
+					"Матеріал : високоякісний пластик / силікон",
+					"Глянцеве або матове покриття (для пластику)",
+					"Дизайн на Ваш смак <i>(оригінальні написи Вашої фамілії, імені, унікальні картинки, розроблені нашим дизайнером по Вашим побажанням)</i>"
                 }),
-                Information = "Збережіть своє натхнення і мрії разом з нашими блокнотами \"ShevaStream\". Мовчазні, практичні, просторі та оригінальні. Посприяють вашій організованості і гарному настрою. Що ще, як не чисті аркуші паперу, потрібно для того, щоб почати діяти - писати історію з нової сторінки. Може на цей раз ви почнете будувати свої глобальні плани та завдання з чимось незвичайним?",
+                Information = @"Для замовлення чохлу необхідно зазначити в коментарях до замовлення:
+					<ul>
+						<li>Модель Вашого телефону</li>
+						<li>Тип покриття чохлу ( глянець/мат )</li>
+					</ul>",
                 VideoData = JsonConvert.SerializeObject(new {
 					HasVideo = false,
-					Url = "https://www.youtube-nocookie.com/embed/jWfdgm3g2GE?rel=0&amp;controls=0&amp;showinfo=0"
+					Url = ""
 				})
     		}
 		};
