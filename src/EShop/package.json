@@ -1,5 +1,10 @@
 {
 	"name": "ASP.NET",
+	"description": "ShevStream Internet Shop",
+	"repository": {
+		"type": "git",
+		"url": "https://bitbucket.org/Dima4ka/shevastreameshop"
+	},
 	"version": "0.0.0",
 	"devDependencies": {
 		"eslint-config-google": "^0.4.0",
