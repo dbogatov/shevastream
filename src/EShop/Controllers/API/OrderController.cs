@@ -61,7 +61,8 @@ namespace EShop.Controllers.API
 				Cookies.
 				Append(
 					USER_COOKIE_NAME,
-					JsonConvert.SerializeObject(new OrderUserData {
+					JsonConvert.SerializeObject(new OrderUserData
+					{
 						Name = order.CustomerName,
 						Email = order.CustomerEmail,
 						Address = order.Address,
@@ -95,11 +96,11 @@ namespace EShop.Controllers.API
 
 			order.TotalAmountDue = order.Cart.GetTotalCost();
 
-            // empty cart
-            _http.Response.Cookies.Delete(CART_COOKIE_NAME);
+			// empty cart
+			_http.Response.Cookies.Delete(CART_COOKIE_NAME);
 
-            // add to database
-            try
+			// add to database
+			try
 			{
 				var customer = new Customer
 				{
@@ -146,7 +147,7 @@ namespace EShop.Controllers.API
 				Console.WriteLine(e.StackTrace);
 				_telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} - {order.CustomerPhone} has NOT been added to the database!");
 			}
-			
+
 			// notify us
 			_telegram.SendMessageAsync(order.ToString());
 
@@ -158,6 +159,9 @@ namespace EShop.Controllers.API
 		[Authorize]
 		public IEnumerable<object> GetOrders()
 		{
+			var orderProducts = _context.OrderProducts.ToList();
+			var products = _context.Products.ToList();
+
 			return _context.Orders
 				.Include(o => o.Customer)
 				.Include(o => o.PaymentMethod)
@@ -166,13 +170,22 @@ namespace EShop.Controllers.API
 				.Include(o => o.Assignee)
 				.Include(o => o.OrderStatus)
 				.Include(o => o.Product)
+				.ToList()
 				.Select(o => new
 				{
 					Id = o.Id,
 					Assignee = o.Assignee == null ? "none" : o.Assignee.NickName,
 					OrderStatus = o.OrderStatus.Description,
-					Product = o.Product.Name,
-					Quantity = o.Quantity,
+					Products = (
+						from orderProduct in orderProducts.Where(op => op.OrderId == o.Id)
+						join product in products on orderProduct.ProductId equals product.Id
+						select new
+						{
+							ProductName = product.Name,
+							Cost = product.Cost,
+							Quantity = orderProduct.Quantity
+						}
+					),
 					Customer = o.Customer.Name,
 					ShipmentMethod = o.ShipmentMethod.Name,
 					Address = o.Address ?? "",
