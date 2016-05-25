@@ -75,7 +75,8 @@ namespace EShop.Controllers.View
 				if (_context.Products.Any(p => p.Id == id))
 				{
 					var product = _context.Products.First(p => p.Id == id);
-					return View("Detail", product);
+                    RouteData.Values["id"] = null;
+                    return View("Detail", product);
 				}
 
 				return NotFound();
