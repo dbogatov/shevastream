@@ -1,9 +1,14 @@
 ﻿// Write your Javascript code.
 
-$(document).ready(function() {
+$(document).ready(function () {
 	$("#" + globalActive).addClass("active");
 
 	registerCallMeBack();
+
+	$("[href='#']").click(function (e) {
+		// Cancel the jump
+		e.preventDefault();
+	});
 });
 
 $(document).ready(fixFooter);
@@ -17,11 +22,11 @@ function fixFooter() {
 
 function registerCallMeBack() {
 
-	$("#callMeBackModal").on("shown.bs.modal", function() {
+	$("#callMeBackModal").on("shown.bs.modal", function () {
 		$("#callBackPhone").focus();
 	});
 
-	$("#callMeBackModal").on("hidden.bs.modal", function() {
+	$("#callMeBackModal").on("hidden.bs.modal", function () {
 		$("#callBackPhone").val("");
 		$("#requestCallBackBody").show();
 		$("#confirmCallBackBtn").show();
@@ -30,7 +35,7 @@ function registerCallMeBack() {
 
 	$("#callBackPhone").mask("(999) 999-9999");
 
-	$("#confirmCallBackBtn").click(function() {
+	$("#confirmCallBackBtn").click(function () {
 
 		if ($("#callBackPhone").val().length === 0) {
 			return;
@@ -40,7 +45,7 @@ function registerCallMeBack() {
 			Phone: $("#callBackPhone").val()
 		};
 
-		$.post("/api/Feedback/CallMeBack", data, function() {
+		$.post("/api/Feedback/CallMeBack", data, function () {
 			$("#confirmCallBackBtn").hide();
 			$("#requestCallBackBody").hide();
 			$("#responseCallBackBody").show();
@@ -48,8 +53,8 @@ function registerCallMeBack() {
 	});
 }
 
-jQuery.each(["put", "delete"], function(i, method) {
-	jQuery[method] = function(url, data, callback, type) {
+jQuery.each(["put", "delete"], function (i, method) {
+	jQuery[method] = function (url, data, callback, type) {
 		if (jQuery.isFunction(data)) {
 			type = type || callback;
 			callback = data;
