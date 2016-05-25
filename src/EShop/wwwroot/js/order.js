@@ -30,34 +30,25 @@ $(document).ready(function () {
 		} else {
 			$("#orderValidationAlert").hide();
 
-			alert("Not implemented yet");			
+			$("#putOrderBtn").attr("disabled", "disabled");
+			$("#putOrderBtn").text("Завантаження...");
+
+			var data = {
+				CustomerName: $("#name").val(),
+				CustomerEmail: $("#email").val(),
+				CustomerPhone: $("#phone").val(),
+				PaymentMethodId: parseInt($("#paymentMethod").val(), 10),
+				ShipmentMethodId: parseInt($("#shipmentMethod").val(), 10),
+				Address: $("#address").val(),
+				Comment: $("#comment").val(),
+
+				PaymentMethodName: $("#paymentMethod option:selected").text(),
+				ShipmentMethodName: $("#shipmentMethod option:selected").text(),
+			};
+
+			$.put("/api/Order", data).always(function () {
+				location.href = "/ThankYou";
+			});
 		}
-	});
-
-	$("#confirmOrderBtn").click(function (e) {
-		e.preventDefault();
-		$(this).attr("disabled", "disabled");
-		$(this).html("Завантаження...");
-
-		var data = {
-			ProductId: parseInt($("#item").val(), 10),
-			Quantity: parseInt($("#quantity").val(), 10),
-			CustomerName: $("#name").val(),
-			CustomerEmail: $("#email").val(),
-			CustomerPhone: $("#phone").val(),
-			PaymentMethodId: parseInt($("#paymentMethod").val(), 10),
-			ShipmentMethodId: parseInt($("#shipmentMethod").val(), 10),
-			Address: $("#address").val(),
-			Comment: $("#comment").val(),
-
-			ProductName: $("#item option:selected").text(),
-			PaymentMethodName: $("#paymentMethod option:selected").text(),
-			ShipmentMethodName: $("#shipmentMethod option:selected").text(),
-			TotalAmountDue: total
-		};
-
-		$.put("/api/Order", data).always(function () {
-			location.href = "/ThankYou";
-		});
 	});
 });

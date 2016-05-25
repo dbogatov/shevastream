@@ -8,6 +8,8 @@ using EShop.ViewModels.Store;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace EShop.Controllers.API
 {
@@ -16,18 +18,22 @@ namespace EShop.Controllers.API
 	[Route("api/Order")]
 	public class OrderController : Controller
 	{
+		private readonly string CART_COOKIE_NAME = "Cart";
+
 		private readonly ITelegramSender _telegram;
 		private readonly DataContext _context;
 		private readonly IDBLogService _log;
 		private readonly IHostingEnvironment _env;
 		private readonly IPushService _push;
+		private readonly HttpContext _http;
 
 		public OrderController(
 			ITelegramSender telegram,
 			DataContext context,
 			IDBLogService log,
 			IHostingEnvironment env,
-			IPushService push
+			IPushService push,
+			IHttpContextAccessor http
 			)
 		{
 			_telegram = telegram;
@@ -35,12 +41,44 @@ namespace EShop.Controllers.API
 			_log = log;
 			_env = env;
 			_push = push;
+			_http = http.HttpContext;
 		}
 
 		// PUT api/order
 		[HttpPut]
-		public bool Put(OrderViewModel order)
+		public void Put(OrderViewModel order)
 		{
+			// if cookie is not set than return immediately
+			if (_http.Request.Cookies[CART_COOKIE_NAME] == null)
+			{
+				return;
+			}
+
+			order.Cart = new FullCartViewModel();
+
+			var elements = JsonConvert.
+				DeserializeObject<CartViewModel>(
+					_http.Request.Cookies[CART_COOKIE_NAME]
+				).Elements;
+
+			if (elements.Count == 0)
+			{
+				return;
+			}
+
+			var products = _context.Products.AsEnumerable();
+
+			order.Cart.Products = (
+				from element in elements
+				join prod in products on element.ProductId equals prod.Id
+				select new FullCartElementViewModel
+				{
+					Product = prod,
+					Quantity = element.Quantity
+				}).ToList();
+
+			order.TotalAmountDue = order.Cart.GetTotalCost();
+
 			try
 			{
 				var customer = new Customer
@@ -55,9 +93,9 @@ namespace EShop.Controllers.API
 
 				var dbOrder = new Order
 				{
-					ProductId = order.ProductId,
+					ProductId = 1, // TODO remove
 					OrderStatusId = 1, // Received
-					Quantity = order.Quantity,
+					Quantity = 1, // TODO remove
 					CustomerId = customer.Id,
 					ShipmentMethodId = order.ShipmentMethodId,
 					Address = order.Address,
@@ -71,23 +109,29 @@ namespace EShop.Controllers.API
 
 				_context.Orders.Add(dbOrder);
 				_context.SaveChanges();
-				
-				//_log.LogActionAsync(DBLogEntryType.OrderReceived, dbOrder.Id);
+
+				foreach (var item in order.Cart.Products)
+				{
+					_context.OrderProducts.Add(new OrderProduct
+					{
+						OrderId = dbOrder.Id,
+						ProductId = item.Product.Id,
+						Quantity = item.Quantity
+					});
+				}
+				_context.SaveChanges();
 			}
-			catch (System.Exception)
+			catch (System.Exception e)
 			{
-                //Console.WriteLine(e.StackTrace);
-                _telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} ({order.CustomerEmail}) has NOT been added to the database!");
+				Console.WriteLine(e.StackTrace);
+				_telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} - {order.CustomerPhone} has NOT been added to the database!");
 			}
 
-			if (_env.IsProduction())
-			{
-				_telegram.SendMessageAsync(order.ToString());	
-			}
-			
+			_telegram.SendMessageAsync(order.ToString());
+
 			_push.SendAll($"New order from {order.CustomerName}");
 
-			return true;
+
 		}
 
 		// GET: api/order
@@ -95,8 +139,6 @@ namespace EShop.Controllers.API
 		[Authorize]
 		public IEnumerable<object> GetOrders()
 		{
-			//_log.LogActionAsync(DBLogEntryType.UserPulledOrders, Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value));
-
 			return _context.Orders
 				.Include(o => o.Customer)
 				.Include(o => o.PaymentMethod)
@@ -105,7 +147,8 @@ namespace EShop.Controllers.API
 				.Include(o => o.Assignee)
 				.Include(o => o.OrderStatus)
 				.Include(o => o.Product)
-				.Select(o => new {
+				.Select(o => new
+				{
 					Id = o.Id,
 					Assignee = o.Assignee == null ? "none" : o.Assignee.NickName,
 					OrderStatus = o.OrderStatus.Description,
@@ -135,12 +178,12 @@ namespace EShop.Controllers.API
 			var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
 
 			_context.Orders.FirstOrDefault(o => o.Id == order.Id).AssigneeId = userId;
-			
+
 			_context.SaveChanges();
 
 			return true;
 		}
-		
+
 		// POST api/ChangeStatus
 		[HttpPost]
 		[Authorize]
@@ -152,7 +195,7 @@ namespace EShop.Controllers.API
 			var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
 
 			_context.Orders.FirstOrDefault(o => o.Id == order.Id).OrderStatusId = order.Status;
-			
+
 			try
 			{
 				_context.SaveChanges();
@@ -161,7 +204,7 @@ namespace EShop.Controllers.API
 			{
 				return false;
 			}
-			
+
 			return true;
 		}
 

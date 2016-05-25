@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using NetTelegramBotApi;
 using NetTelegramBotApi.Requests;
 
@@ -13,10 +14,24 @@ namespace EShop.Services
 
 	public class TelegramSender : ITelegramSender
 	{
+        private readonly IHostingEnvironment _env;
+
+        public TelegramSender(IHostingEnvironment env)
+		{
+            _env = env;
+        }
+		
 		public Task SendMessageAsync(string message)
 		{
-			return Task.Run(() => RunBot(message));
-		}
+			if (_env.IsProduction())
+			{
+				return Task.Run(() => RunBot(message));	
+			} else
+			{
+                Console.WriteLine($"TELEGRAM: {message}");
+                return Task.FromResult(0);	
+			}
+        }
 
 		public Task GetChatIdAsync()
 		{

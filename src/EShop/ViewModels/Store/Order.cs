@@ -2,8 +2,7 @@ namespace EShop.ViewModels.Store
 {
 	public class OrderViewModel
 	{
-		public int ProductId { get; set; }
-		public int Quantity { get; set; }
+		public FullCartViewModel Cart { get; set; }
 		public string CustomerName { get; set; }
 		public string CustomerEmail { get; set; }
 		public string CustomerPhone { get; set; }
@@ -18,7 +17,6 @@ namespace EShop.ViewModels.Store
 		public int OrderStatusId { get; set; }
 
 		// display properties
-		public string ProductName { get; set; }
 		public string PaymentMethodName { get; set; }
 		public string ShipmentMethodName { get; set; }
 		public int TotalAmountDue { get; set; }
@@ -29,14 +27,14 @@ namespace EShop.ViewModels.Store
 			return $@"
 				Order Summary:
 				
-					ProductName:{ProductName}
-					Quantity: {Quantity}
+					Cart: {(Cart == null ? "cart not set" : Cart.ToString())}
 					CustomerName: {CustomerName}
 					CustomerEmail: {(string.IsNullOrWhiteSpace(CustomerEmail) ? "no email" : CustomerEmail.Trim())}
 					CustomerPhone: {CustomerPhone}
 					PaymentMethodName:
 						{PaymentMethodName}
-					ShipmentMethodName: {ShipmentMethodName}
+					ShipmentMethodName: 
+						{ShipmentMethodName}
 					Address:
 						{(string.IsNullOrWhiteSpace(Address) ? "no address" : Address.Trim())}
 					Comment:
@@ -51,16 +49,16 @@ namespace EShop.ViewModels.Store
 	public class OrderTotalCostViewModel
 	{
 		public int TotalCost { get; set; }
-    }
+	}
 
 	public class OrderIdViewModel
 	{
 		public int Id { get; set; }
 	}
-	
+
 	public class OrderStatusViewModel
 	{
 		public int Id { get; set; }
-		public int Status {get; set; }
+		public int Status { get; set; }
 	}
 }
