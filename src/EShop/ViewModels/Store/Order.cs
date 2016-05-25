@@ -61,4 +61,12 @@ namespace EShop.ViewModels.Store
 		public int Id { get; set; }
 		public int Status { get; set; }
 	}
+	
+	public class OrderUserData
+	{
+		public string Name { get; set; }
+		public string Email { get; set; }
+		public string Address { get; set; }
+		public string Phone { get; set; }
+    }
 }

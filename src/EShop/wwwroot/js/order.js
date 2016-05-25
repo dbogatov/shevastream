@@ -4,6 +4,16 @@ var products = [];
 
 $(document).ready(function () {
 
+	var userData = $.cookie("UserOrderData");
+	
+	if (userData != null) {
+		var data = JSON.parse(userData);
+		$("#name").val(data.Name);
+		$("#email").val(data.Email);
+		$("#phone").val(data.Phone);
+		$("#address").val(data.Address);
+	} 
+
 	$("#phone").mask("(999) 999-9999");
 
 	$("#shipmentMethod").change(function () {

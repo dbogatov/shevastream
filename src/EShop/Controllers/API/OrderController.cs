@@ -19,6 +19,7 @@ namespace EShop.Controllers.API
 	public class OrderController : Controller
 	{
 		private readonly string CART_COOKIE_NAME = "Cart";
+		private readonly string USER_COOKIE_NAME = "UserOrderData";
 
 		private readonly ITelegramSender _telegram;
 		private readonly DataContext _context;
@@ -54,6 +55,21 @@ namespace EShop.Controllers.API
 				return;
 			}
 
+			// save user data in cookie
+			_http.
+				Response.
+				Cookies.
+				Append(
+					USER_COOKIE_NAME,
+					JsonConvert.SerializeObject(new OrderUserData {
+						Name = order.CustomerName,
+						Email = order.CustomerEmail,
+						Address = order.Address,
+						Phone = order.CustomerPhone
+					})
+				);
+
+			// get full cart and total cost
 			order.Cart = new FullCartViewModel();
 
 			var elements = JsonConvert.
@@ -79,7 +95,11 @@ namespace EShop.Controllers.API
 
 			order.TotalAmountDue = order.Cart.GetTotalCost();
 
-			try
+            // empty cart
+            _http.Response.Cookies.Delete(CART_COOKIE_NAME);
+
+            // add to database
+            try
 			{
 				var customer = new Customer
 				{
@@ -126,12 +146,11 @@ namespace EShop.Controllers.API
 				Console.WriteLine(e.StackTrace);
 				_telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} - {order.CustomerPhone} has NOT been added to the database!");
 			}
-
+			
+			// notify us
 			_telegram.SendMessageAsync(order.ToString());
 
 			_push.SendAll($"New order from {order.CustomerName}");
-
-
 		}
 
 		// GET: api/order
