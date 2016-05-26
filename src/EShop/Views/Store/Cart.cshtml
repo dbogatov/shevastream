@@ -2,7 +2,7 @@
 @using EShop.ViewModels.Store;
 
 @{
-	ViewData["Title"] = "Cart";
+	ViewData["Title"] = "Кошик";
 }
 
 @section heading {
@@ -11,7 +11,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h2><span>//</span> Your cart</h2>
+					<h2><span>//</span> Ваш кошик</h2>
 				</div>
 			</div>
 		</div>
@@ -26,7 +26,7 @@
 			<div class="col-md-12">
 				<ol class="breadcrumb">
 					<li><a asp-controller="Store" asp-action="Index">Головна</a></li>
-					<li class="active">Your Cart</li>
+					<li class="active">Ваш кошик</li>
 				</ol>
 			</div>
 		</div>
@@ -66,14 +66,14 @@
 												}
 											}
 										</select>
-										<a class="btn btn-danger btn-block removeFromCartBtn" data-product="@(item.Product.Id)">Remove</a>
-										<h4 style="text-align: right;">Item cost: @item.Product.Cost</h4>
+										<a class="btn btn-danger btn-block removeFromCartBtn" data-product="@(item.Product.Id)">Видалити</a>
+										<h4 style="text-align: right;">Вартість продукту: @item.Product.Cost</h4>
 									</div>
 								</div>
 							</div>
 							
 							<div class="panel-footer" style="text-align: right;">
-								<b>Cost: @(item.Product.Cost * item.Quantity) UAH</b>
+								<b>Вартість: @(item.Product.Cost * item.Quantity) UAH</b>
 							</div>
 							
 						</div>
@@ -93,16 +93,16 @@
 							cost += item.Product.Cost * item.Quantity;
 						}
 					}
-					<h2 style="text-align: right;">Total cost: @cost UAH</h2>
+					<h2 style="text-align: right;">Загальна вартість: @cost UAH</h2>
 					
 				</div>
 				<div class="col-md-4 col-md-offset-8">
-					<a asp-controller="Store" asp-action="Order" class="btn btn-success btn-block">Order</a>
+					<a asp-controller="Store" asp-action="Order" class="btn btn-success btn-block">Замовити</a>
 				</div>
 			</div>
 		} else
 		{
-			<h1>Your cart is empty</h1> 
+			<h1>Ваш кошик порожній</h1> 
 		}
 		
 		

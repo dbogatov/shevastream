@@ -38,11 +38,11 @@ function updateCartButtons() {
 	}).length > 0);
 
 	if (isAdded) {
-		$(".addToCartBtn").text("Already in the cart");
+		$(".addToCartBtn").text("Вже у кошику");
 		$(".addToCartBtn").addClass("disabled");
 		$(".addToCartBtn").off("click", "**");
 
-		$(".addToCartAndCheckoutBtn").text("Checkout");
+		$(".addToCartAndCheckoutBtn").text("Замовити");
 		$(".addToCartAndCheckoutBtn").off("click", "**");
 		$(".addToCartAndCheckoutBtn").click(function () {
 			location.href = "/Store/Cart";
