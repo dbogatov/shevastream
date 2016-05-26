@@ -29,7 +29,8 @@ namespace EShop.Controllers.View
 					Id = bp.Id,
 					AuthorName = bp.Author.NickName,
 					DatePosted = bp.DatePosted,
-					Title = bp.Title
+					Title = bp.Title,
+					TitleUrl = bp.TitleUrl
 				});
 			return View(model);
 		}

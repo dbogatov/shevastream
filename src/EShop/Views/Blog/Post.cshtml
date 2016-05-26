@@ -23,38 +23,49 @@
 			<div class="col-md-12">
 				<ol class="breadcrumb">
 					<li><a asp-controller="Store" asp-action="Index">Головна</a></li>
-					<li class="active">Дякуємо</li>
+					<li><a asp-controller="Blog" asp-action="Index">Blog</a></li>
+					<li class="active">@(Model.Title)</li>
 				</ol>
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-md-3" style="text-align: center;">
-				<i class="fa fa-check-square-o fa-5x" style="font-size: 150pt; color: lightgreen;" ></i>
-			</div>
-			<div class="col-md-9">
-				<div class="heading-title">
-					<h1 style="text-align: center; font-size: 30pt;">Дякуємо!</h1>
-					<h2>Ми отримали Ваш запит. Зв'яжемося з вами найближчим часом.</h2>
-				</div>
-			</div>
-		</div>
-		
-		<div style="height: 30px;"></div>
-		
-		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Help us be better</h3>
+		<div class="row blog">
+			<!-- begin:blog-single -->
+			<div class="col-md-9 col-sm-9">
+				<div class="row blog-post">
+					<div class="col-md-12">
+						<h2>
+							<span class="the-calendar">
+								<span class="the-date"><i class="fa fa-calendar"></i>@(Model.DatePosted.ToString("dd/mm/yy"))</span>
+								<span class="the-comments"><i class="fa fa-eye"></i> @(Model.Id)</span>
+							</span>
+							<a asp-route="Blog" asp-route-title="@(Model.TitleUrl)">@(Model.Title)</a>
+						</h2>
+						<hr>
+						
+						@(Html.Raw(Model.HtmlContent))
+						
+						<p class="meta-tags"><i class="fa fa-user"></i> <a href="#">@(Model.AuthorName)</a></p>
 					</div>
-					<div class="panel-body" style="padding: 0px;">
-						<div class="embed-responsive embed-responsive-16by9">
-							<iframe src="https://docs.google.com/forms/d/1paz6XnbWI1fydtaV9KebqmTlbAe2BxbBs_xAY8M3HI0/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+				</div>
+				
+			</div>
+			<!-- end:blog-single -->
+			
+			<!-- begin:sidebar -->
+			<div class="col-md-3 col-sm-3">
+				<div class="row blog-sidebar">
+					<div class="col-md-12">
+						
+						<div class="widget">
+							<h3>Lorem ipsum dolor sit amet</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at posuere leo convallis. Sed blandit augue vitae augue scelerisque bibendum.</p>
 						</div>
+						
 					</div>
 				</div>
 			</div>
+			<!-- end:sidebar -->
 		</div>
 
 	</div>
