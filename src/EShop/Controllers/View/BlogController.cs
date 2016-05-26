@@ -61,18 +61,19 @@ namespace EShop.Controllers.View
 		}
 
 		[Authorize]
+		[Route("Blog/Edit/{title}")]
 		public IActionResult Edit(string title)
 		{
 			if (_context.BlogPosts.Any(bp => bp.Active && bp.TitleUrl == title))
 			{
 				var post =
-					(BlogPostViewModel)_context
+					BlogPostViewModel.FromBlogPost(_context
 					.BlogPosts.Include(bp => bp.Author)
 					.First(
 						bp =>
 							bp.Active &&
 							bp.TitleUrl == title
-						);
+					));
 
 				post.HtmlContent = _blog.MarkDownToHtml(post.Content);
 

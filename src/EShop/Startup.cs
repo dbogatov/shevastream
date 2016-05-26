@@ -113,6 +113,7 @@ namespace EShop
 					"Blog/{title}",
 					new { controller = "Blog", action = "Post" }
 				);
+				
             });
 
 			using(var context = serviceProvider.GetService<DataContext>())
