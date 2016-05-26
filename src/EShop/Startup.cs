@@ -36,7 +36,6 @@ namespace EShop
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-
 			services
 				.AddEntityFrameworkNpgsql()
 				.AddDbContext<DataContext>();
@@ -55,7 +54,8 @@ namespace EShop
 			services.AddTransient<ITelegramSender, TelegramSender>();
 			services.AddTransient<IDBLogService, DBLogService>();
 			services.AddTransient<IPushService, PushService>();
-		}
+            services.AddTransient<IBlogService, BlogService>();
+        }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
@@ -107,6 +107,11 @@ namespace EShop
 					"Error",
 					"Error/{code}",
 					new { controller = "Error", action = "Error" }
+				);
+				routes.MapRoute(
+					"Blog",
+					"Blog/{title}",
+					new { controller = "Blog", action = "Post" }
 				);
             });
 

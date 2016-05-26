@@ -28,6 +28,4 @@ namespace EShop.Services
 			return sb.ToString();
 		}
 	}
-
-
 }

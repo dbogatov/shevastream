@@ -30,7 +30,9 @@
 		"Microsoft.Extensions.Logging.Console": "1.0.0-*",
 		"Microsoft.Extensions.Logging.Debug": "1.0.0-*",
 		"NetTelegramBotApi": "3.7.50926",
-		"Microsoft.NETCore.Platforms": "1.0.1-*"
+		"Microsoft.NETCore.Platforms": "1.0.1-*",
+		"CommonMark.NET": "*",
+		"NickBuhro.Translit": "*"
 	},
 	"frameworks": {
 		"netcoreapp1.0": {

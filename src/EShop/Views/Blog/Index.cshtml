@@ -1,0 +1,70 @@
+﻿@{
+	ViewData["Title"] = "Index";
+}
+
+@section heading {
+	<!-- begin:heading -->
+	<div class="heads" style="background: url(/images/bg.jpg) center center;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2><span>//</span> Дякуємо</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end:heading -->
+}
+
+<!-- begin:content -->
+<div class="page-content">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li><a asp-controller="Store" asp-action="Index">Головна</a></li>
+					<li class="active">Дякуємо</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3" style="text-align: center;">
+				<i class="fa fa-check-square-o fa-5x" style="font-size: 150pt; color: lightgreen;" ></i>
+			</div>
+			<div class="col-md-9">
+				<div class="heading-title">
+					<h1 style="text-align: center; font-size: 30pt;">Дякуємо!</h1>
+					<h2>Ми отримали Ваш запит. Зв'яжемося з вами найближчим часом.</h2>
+				</div>
+			</div>
+		</div>
+		
+		<div style="height: 30px;"></div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Help us be better</h3>
+					</div>
+					<div class="panel-body" style="padding: 0px;">
+						<div class="embed-responsive embed-responsive-16by9">
+							<iframe src="https://docs.google.com/forms/d/1paz6XnbWI1fydtaV9KebqmTlbAe2BxbBs_xAY8M3HI0/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<!-- end:content -->
+
+@section scripts {
+	
+	<script>
+		var globalActive = "";
+	</script>
+	
+}

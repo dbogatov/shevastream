@@ -4,7 +4,6 @@ using System.Linq;
 using EShop.Models.Enitites;
 using EShop.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Newtonsoft.Json;
 
 public class DataContext : DbContext
@@ -14,8 +13,10 @@ public class DataContext : DbContext
 	public DbSet<Feedback> Feedbacks { get; set; }
 
 	public DbSet<LogEntry> LogEntries { get; set; }
+	
+	public DbSet<BlogPost> BlogPosts { get; set; }
 
-	public DbSet<Order> Orders { get; set; }
+    public DbSet<Order> Orders { get; set; }
 	public DbSet<OrderProduct> OrderProducts { get; set; }
     public DbSet<ShipmentMethod> ShipmentMethods { get; set; }
 	public DbSet<Customer> Customers { get; set; }
@@ -43,8 +44,10 @@ public class DataContext : DbContext
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
         builder.HasDefaultSchema("shevastream");
-		
-		base.OnModelCreating(builder);
+        builder.Entity<BlogPost>().HasAlternateKey(bp => bp.Title);
+		builder.Entity<BlogPost>().HasAlternateKey(bp => bp.TitleUrl);
+
+        base.OnModelCreating(builder);
 	}
 
 	public void EnsureSeedData()
