@@ -13,6 +13,7 @@
     "components-font-awesome": "^4.5.0",
     "animate.css": "^3.5.1",
     "magnific-popup": "^1.1.0",
-    "jquery.cookie": "^1.4.1"
+    "jquery.cookie": "^1.4.1",
+    "bootstrap-markdown": "^2.10.0"
   }
 }
