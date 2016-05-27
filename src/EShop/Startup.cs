@@ -84,7 +84,7 @@ namespace EShop
 			var options = new CookieAuthenticationOptions();
 			options.AuthenticationScheme = "MyCookieMiddlewareInstance";
 			options.LoginPath = PathString.Empty; //new PathString("/Account/Denied/");
-			options.AccessDeniedPath = new PathString("/Account/Forbidden/");
+			options.AccessDeniedPath = new PathString("/Account/Login");
 			options.AutomaticAuthenticate = true;
 			options.AutomaticChallenge = true;
 			options.CookieName = "AUTHCOOKIE";
