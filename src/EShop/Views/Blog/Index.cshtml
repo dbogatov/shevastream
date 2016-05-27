@@ -35,19 +35,36 @@
 				
 				@foreach (var post in Model)
 				{
+					var eyeIcon = "";
+					var eyeNum = 0;
+					@if (!post.Active) 
+					{
+						eyeIcon = "fa-eye";
+						eyeNum = post.Id;
+					} else
+					{
+						eyeIcon = "fa-eye-slash";
+						eyeNum = 0;
+					}
 				
 					<div class="row blog-post">
 						<div class="col-md-12">
 							<h2>
 								<span class="the-calendar">
 									<span class="the-date"><i class="fa fa-calendar"></i> @(post.DatePosted.ToString("dd/mm/yy"))</span>
-									<span class="the-comments"><i class="fa fa-eye"></i> @post.Id</span>
+									<span class="the-comments"><i class="fa @(eyeIcon)"></i> @eyeNum</span>
 								</span>
 								<a asp-route="Blog" asp-route-title="@(post.TitleUrl)">@post.Title</a>
 							</h2>
 							<hr>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at posuere leo convallis. Sed blandit augue vitae augue scelerisque bibendum. Vivamus sit amet libero turpis, non venenatis urna. In blandit, odio convallis suscipit venenatis, ante ipsum cursus augue.</p>
-							<p><a asp-route="Blog" asp-route-title="@(post.TitleUrl)" class="btn btn-purple">Read more &raquo;</a></p>
+							<p>
+								<a asp-route="Blog" asp-route-title="@(post.TitleUrl)" class="btn btn-purple">Read more &raquo;</a>
+								@if (Context.User.Identity.IsAuthenticated)
+								{
+									<a asp-controller="Blog" asp-action="Edit" asp-route-title="@(post.TitleUrl)" class="btn btn-info">Edit &raquo;</a>
+								}
+							</p>
 						</div>
 					</div>
 				}
@@ -80,6 +97,11 @@
 						<div class="widget">
 							<h3>Lorem ipsum dolor sit amet</h3>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at posuere leo convallis. Sed blandit augue vitae augue scelerisque bibendum.</p>
+						</div>
+						
+						<div class="widget">
+							<h3>ShevaStream Member?</h3>
+							<p><a asp-controller="Account" asp-action="Login" class="btn btn-info" asp-route-returnurl="@(Context.Request.GetDisplayUrl())">Login</a></p>
 						</div>
 						
 					</div>

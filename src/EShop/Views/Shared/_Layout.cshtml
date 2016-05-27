@@ -41,6 +41,11 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav nav-left">
+						@if (Context.User.Identity.IsAuthenticated)
+						{
+							<li id="Logout"><a href="/api/Secure/Logout" target="_blank">Logout</a></li>
+						}
+						
 						<li id="Index"><a asp-controller="Store" asp-action="Index">Головна</a></li>
 						<li id="Profile"><a asp-controller="Store" asp-action="Profile">Про нас</a></li>
 						<li id="Product"><a asp-controller="Store" asp-action="Product">Продукція</a></li>
@@ -55,7 +60,7 @@
 							<a asp-controller="Store" asp-action="Cart">
 								Кошик <span id="cartItemsNumber"></span>
 							</a>
-						</li>
+						</li>		
 					</ul>
 
 				</div><!-- /.navbar-collapse -->
