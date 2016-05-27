@@ -5,6 +5,7 @@ using EShop.ViewModels.Blog;
 using System;
 using EShop.Models.Enitites;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace EShop.Controllers.API
 {
@@ -96,7 +97,7 @@ namespace EShop.Controllers.API
 		// PUT api/Blog
 		[HttpPut]
 		[Authorize]
-		public bool Put(BlogPostViewModel post)
+		public string Put(BlogPostViewModel post)
 		{
             if (!_context.BlogPosts.Any(bp => bp.Title == post.Title.Trim()))
 			{
@@ -115,10 +116,11 @@ namespace EShop.Controllers.API
                 _context.BlogPosts.Add(@new);
 				
                 _context.SaveChanges();
-                return true;
+				
+                return JsonConvert.SerializeObject(@new.TitleUrl);
             } else
 			{
-                return false;
+                return JsonConvert.SerializeObject("");
             }
         }
 		

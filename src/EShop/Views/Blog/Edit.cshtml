@@ -27,7 +27,7 @@
 			<div class="col-md-12">
 				<ol class="breadcrumb">
 					<li><a asp-controller="Store" asp-action="Index">Головна</a></li>
-					<li><a asp-controller="Store" asp-action="Blog">Blog</a></li>
+					<li><a asp-controller="Blog" asp-action="Index">Blog</a></li>
 					<li class="active">@(Model.Title)</li>
 				</ol>
 			</div>
@@ -35,27 +35,33 @@
 
 		<form>
 			
-			<input name="title" type="text" placeholder="Title?" />
-			
-			<textarea name="content" data-provide="markdown" rows="10">@(Model.Content)</textarea>
-			
-			<label class="checkbox">
-				<input name="publish" type="checkbox"> Publish
-			</label>
+			<input id="title" name="title" type="text" class="form-control" placeholder="Title" value="@(Model.Title)" />
 			
 			<hr/>
 			
-			<button type="submit" class="btn">Submit</button>
+			<textarea id="content" style="padding: 5px;" name="content" data-provide="markdown" rows="10">@(Model.Content)</textarea>
+			
+			<hr/>
+			
+			<p>
+				<a id="publishBtn" class="btn btn-success">Publish</a>
+				<a id="draftBtn" class="btn btn-warning">Save to drafts</a>
+				<a id="removeBtn" class="btn btn-danger">Remove</a>
+			</p>
   		</form> 
 
 	</div>
 </div>
 <!-- end:content -->
 
+<div id="data" data-post="@(Model.Id)" data-url="@(Model.TitleUrl)"></div>
+
+
 @section scripts {
 	
 	<script src="/lib/bootstrap-markdown/js/bootstrap-markdown.js"></script>
 	<script src="/lib/markdown/lib/markdown.js"></script>
+	<script src="/js/blog/edit.js"></script>
 	
 	<script>
 		var globalActive = "Blog";
