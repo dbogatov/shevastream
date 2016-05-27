@@ -1,9 +1,7 @@
 $(document).ready(function () {
-	var postId = 0;
+	var postId = -1;
 
-	if ($("#data").data("post") === undefined) {
-		postId = -1;
-	} else {
+	if ($("#data").data("post") !== undefined) {
 		postId = parseInt($("#data").data("post"));
 	}
 
@@ -45,10 +43,12 @@ function savePost(publish, postId) {
 		}
 	} else {
 		Blog.setCallback(function (response) {
-			if (response.length > 0) {
+			if (publish && response.length > 0) {
 				location.href = "/Blog/" + response;
-			} else {
+			} else if (response.length == 0) {
 				alert("Choose different title");
+			} else {
+				location.href = "/Blog/Edit/" + response;
 			}
 		}).createPost(title, content, publish);
 	}

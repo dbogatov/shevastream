@@ -37,7 +37,7 @@
 				{
 					var eyeIcon = "";
 					var eyeNum = 0;
-					@if (!post.Active) 
+					@if (post.Active) 
 					{
 						eyeIcon = "fa-eye";
 						eyeNum = post.Id;
@@ -45,6 +45,11 @@
 					{
 						eyeIcon = "fa-eye-slash";
 						eyeNum = 0;
+					}
+				
+					@if (!post.Active && !Context.User.Identity.IsAuthenticated)
+					{
+						continue;
 					}
 				
 					<div class="row blog-post">
@@ -103,6 +108,14 @@
 							<h3>ShevaStream Member?</h3>
 							<p><a asp-controller="Account" asp-action="Login" class="btn btn-info" asp-route-returnurl="@(Context.Request.GetDisplayUrl())">Login</a></p>
 						</div>
+						
+						@if (Context.User.Identity.IsAuthenticated)
+						{
+							<div class="widget">
+								<h3>New post?</h3>
+								<p><a asp-controller="Blog" asp-action="Edit" class="btn btn-success">New post</a></p>
+							</div>
+						}
 						
 					</div>
 				</div>

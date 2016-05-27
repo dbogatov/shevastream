@@ -23,14 +23,14 @@ namespace EShop.Controllers.View
 			var model = _context
 				.BlogPosts
 				.Include(bp => bp.Author)
-				.Where(bp => bp.Active)
 				.Select(bp => new BlogPostViewModel
 				{
 					Id = bp.Id,
 					AuthorName = bp.Author.NickName,
 					DatePosted = bp.DatePosted,
 					Title = bp.Title,
-					TitleUrl = bp.TitleUrl
+					TitleUrl = bp.TitleUrl,
+					Active = bp.Active
 				});
 			return View(model);
 		}
@@ -61,18 +61,16 @@ namespace EShop.Controllers.View
 		}
 
 		[Authorize]
-		[Route("Blog/Edit/{title}")]
+		[Route("Blog/Edit/{title?}")]
 		public IActionResult Edit(string title)
 		{
-			if (_context.BlogPosts.Any(bp => bp.Active && bp.TitleUrl == title))
+			if (title != null && _context.BlogPosts.Any(bp => bp.TitleUrl == title))
 			{
 				var post =
 					BlogPostViewModel.FromBlogPost(_context
 					.BlogPosts.Include(bp => bp.Author)
 					.First(
-						bp =>
-							bp.Active &&
-							bp.TitleUrl == title
+						bp => bp.TitleUrl == title
 					));
 
 				post.HtmlContent = _blog.MarkDownToHtml(post.Content);
@@ -81,7 +79,12 @@ namespace EShop.Controllers.View
 			}
 			else
 			{
-				return View("New");
+				return View(new BlogPostViewModel {
+					Title = "New post",
+					Content = "content here...",
+					Id = -1,
+					TitleUrl = ""
+				});
 			}
 		}
 	}

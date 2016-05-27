@@ -2,10 +2,10 @@ var Blog = function () {
 	
 	var currentCallback = null;
 
-	var executeCallback = function () {
+	var executeCallback = function (param) {
 		$(document).trigger("eshop.blogupdated");
 		if (currentCallback != null) {
-			currentCallback();
+			currentCallback(param);
 			currentCallback = null;
 		}
 	};
@@ -25,7 +25,7 @@ var Blog = function () {
 
 			$.put("/api/Blog", data, function (response) {
 				if (response) {
-					executeCallback();
+					executeCallback(response);
 				} else {
 					alert("Choose another name");
 				}
