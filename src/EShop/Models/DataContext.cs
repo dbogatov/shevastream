@@ -74,7 +74,7 @@ public class DataContext : DbContext
 					"/images/products/notepad/item02.jpg",
 					"/images/products/notepad/item03.jpg",
 					"/images/products/notepad/item04.jpg",
-					"/images/products/notepad/item05.jpg",
+					"/images/products/notepad/item05.jpg"
                 }),
                 Description = "Незважаючи на те, що сучасний світ оповитий електронними девайсами з безліччю корисних функцій, ми все одно не припиняємо користуватися блокнотами. Сьогодні блокнот – це не тільки «паперовий друг», котрий завжди під рукою і допоможе навести вам порядок в «інформаційній каші», а й невід’ємний атрибут іміджу кожного з нас.",
                 Characteristics = JsonConvert.SerializeObject(new string[] {
@@ -97,11 +97,10 @@ public class DataContext : DbContext
                 Name = "Чохол для телефону",
                 Cost = 150,
                 ImageUrls = JsonConvert.SerializeObject(new string[] {
-                    "/images/products/notepad/item01.jpg",
-					"/images/products/notepad/item02.jpg",
-					"/images/products/notepad/item03.jpg",
-					"/images/products/notepad/item04.jpg",
-					"/images/products/notepad/item05.jpg",
+                    "/images/products/case/item01.jpg",
+					"/images/products/case/item02.jpg",
+					"/images/products/case/item03.jpg",
+					"/images/products/case/item04.jpg"
                 }),
                 Description = "Давно мріяли про оригінальний чохол для свого девайсу? Пластмасовий чохол для телефону від  Sheva Stream не тільки підкреслить Вашу оригінальність, а й Ваш статус студента найкращого ВНЗ України!",
                 Characteristics = JsonConvert.SerializeObject(new string[] {
@@ -125,11 +124,9 @@ public class DataContext : DbContext
                 Name = "Чохол для телефону VIP",
                 Cost = 180,
                 ImageUrls = JsonConvert.SerializeObject(new string[] {
-                    "/images/products/notepad/item01.jpg",
-					"/images/products/notepad/item02.jpg",
-					"/images/products/notepad/item03.jpg",
-					"/images/products/notepad/item04.jpg",
-					"/images/products/notepad/item05.jpg",
+                    "/images/products/casevip/item01.jpg",
+					"/images/products/casevip/item02.jpg",
+					"/images/products/casevip/item03.jpg"
                 }),
                 Description = "Мрієте про унікальний чохол для свого девайсу? У Вас є можливість замовити стильний cover для Вашого телефону з індивідуальним дизайном.",
                 Characteristics = JsonConvert.SerializeObject(new string[] {
