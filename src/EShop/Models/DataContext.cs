@@ -124,9 +124,10 @@ public class DataContext : DbContext
                 Name = "Чохол для телефону VIP",
                 Cost = 180,
                 ImageUrls = JsonConvert.SerializeObject(new string[] {
-                    "/images/products/casevip/item01.jpg",
-					"/images/products/casevip/item02.jpg",
-					"/images/products/casevip/item03.jpg"
+                    "/images/products/case/item02.jpg",
+					"/images/products/case/item01.jpg",
+					"/images/products/case/item03.jpg",
+					"/images/products/case/item04.jpg"
                 }),
                 Description = "Мрієте про унікальний чохол для свого девайсу? У Вас є можливість замовити стильний cover для Вашого телефону з індивідуальним дизайном.",
                 Characteristics = JsonConvert.SerializeObject(new string[] {
