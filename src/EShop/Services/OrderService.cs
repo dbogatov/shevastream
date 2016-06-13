@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using EShop.Models.Enitites;
 using EShop.ViewModels.Store;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +13,7 @@ namespace EShop.Services
 {
     public interface IOrderService
 	{
-		void PutOrder(OrderViewModel order);
+		Task PutOrderAsync(OrderViewModel order);
 		IEnumerable<object> GetOrders();
 		bool AssignToSelf(OrderIdViewModel order);
 		bool ChangeStatus(OrderStatusViewModel order);
@@ -50,7 +51,7 @@ namespace EShop.Services
 			_cart = cart;
 		}
 
-		public void PutOrder(OrderViewModel order)
+		public async Task PutOrderAsync(OrderViewModel order)
 		{
 			if (_cart.IsCartEmpty())
 			{
@@ -86,7 +87,7 @@ namespace EShop.Services
 				};
 
 				_context.Customers.Add(customer);
-				_context.SaveChanges();
+				await _context.SaveChangesAsync();
 
 				var dbOrder = new Order
 				{
@@ -105,7 +106,7 @@ namespace EShop.Services
 				};
 
 				_context.Orders.Add(dbOrder);
-				_context.SaveChanges();
+				await _context.SaveChangesAsync();
 
 				foreach (var item in order.Cart.Products)
 				{
@@ -116,16 +117,16 @@ namespace EShop.Services
 						Quantity = item.Quantity
 					});
 				}
-				_context.SaveChanges();
+				await _context.SaveChangesAsync();
 			}
 			catch (System.Exception e)
 			{
 				Console.WriteLine(e.StackTrace);
-				_telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} - {order.CustomerPhone} has NOT been added to the database!");
+				await _telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} - {order.CustomerPhone} has NOT been added to the database!");
 			}
 
 			// notify us
-			_telegram.SendMessageAsync(order.ToString());
+			await _telegram.SendMessageAsync(order.ToString());
 
 			_push.SendAll($"New order from {order.CustomerName}");
 		}

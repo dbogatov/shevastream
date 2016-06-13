@@ -1,4 +1,6 @@
-﻿@model int
+﻿@using EShop.ViewModels.Store
+
+@model OrderViewModel
 
 @{
 	ViewData["Title"] = "Замовлення";
@@ -33,38 +35,52 @@
 
 		<div class="row confirm">
 			<div class="col-md-12">
-				<form class="form-horizontal" role="form" id="oderForm" novalidate>
+				<form class="form-horizontal" role="form" asp-controller="Store" asp-antiforgery="true" asp-action="Order" novalidate>
 					<h3 class="text-center">Замовлення</h3>
 					<hr>
 					
+					@if (!ViewData.ModelState.IsValid)
+					{
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-6">
+								<div class="alert alert-danger" role="alert" id="orderValidationAlert">
+									<div asp-validation-summary="All"></div>
+								</div>
+							</div>
+						</div>
+					}
+
 					<div class="form-group">
-						<label class="col-sm-3 control-label" for="name">Ім'я *</label>
+						<label class="col-sm-3 control-label" asp-for="CustomerName"></label>
+						
 						<div class="col-sm-6">
-							<input type="text" class="form-control" id="name" placeholder="Ім'я" required>
+							<input asp-for="CustomerName" class="form-control" placeholder="Ім'я" />
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-3 control-label" for="email">Email</label>
+						<label class="col-sm-3 control-label" asp-for="CustomerEmail"></label>
+						
 						<div class="col-sm-6">
-							<input type="email" class="form-control" placeholder="Email" id="email">
+							<input asp-for="CustomerEmail" class="form-control" placeholder="Email" />
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-3 control-label" for="phone">Номер телефону *</label>
+						<label class="col-sm-3 control-label" asp-for="CustomerPhone"></label>
+
 						<div class="col-sm-6">
 							<div class="input-group">
 								<span class="input-group-addon" id="phoneNumAddon">+38</span>
-								<input type="tel" class="form-control" id="phone" aria-describedby="phoneNumAddon" placeholder="050 866 22 22" required>
+								<input asp-for="CustomerPhone" class="form-control" aria-describedby="phoneNumAddon" placeholder="050 866 22 22" />
 							</div>
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label class="col-sm-3 control-label" for="shipmentMethod">Спосіб доставки</label>
+						<label class="col-sm-3 control-label" asp-for="ShipmentMethodId"></label>
 						<div class="col-sm-6">
-							<select class="form-control" id="shipmentMethod" required>
+							<select asp-for="ShipmentMethodId" class="form-control">
 								<option value="1">Корпус КНУ ім. Т. Шевченко - безкоштовно</option>
 								<option value="2">По Києву - 30 грн</option>
 								<option value="3">По Україні - Новою поштою</option>
@@ -72,17 +88,17 @@
 						</div>
 					</div>
 					
-					<div class="form-group" id="addressGroup" hidden>
-						<label class="col-sm-3 control-label" for="address">Адреса доставки</label>
+					<div class="form-group" id="addressGroup">
+						<label class="col-sm-3 control-label" asp-for="Address"></label>
 						<div class="col-sm-6">
-							<textarea class="form-control" id="address" rows="3" placeholder="Адреса доставки" required></textarea>
+							<textarea asp-for="Address" class="form-control" rows="3" placeholder="Адреса доставки"></textarea>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-3 control-label" for="paymentMethod">Спосіб оплати</label>
+						<label class="col-sm-3 control-label" asp-for="PaymentMethodId"></label>
 						<div class="col-sm-6">
-							<select class="form-control" id="paymentMethod" required>
+							<select asp-for="PaymentMethodId" class="form-control">
 								<option value="1">Готівкою при отриманні товару</option>
 								<option value="2">Безготівковий розрахунок (на карту Приват банка)</option>
 							</select>
@@ -90,9 +106,9 @@
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-3 control-label" for="comment">Коментар</label>
+						<label class="col-sm-3 control-label" asp-for="Comment"></label>
 						<div class="col-sm-6">
-							<textarea class="form-control" id="comment" rows="8" placeholder="Не обов'язкове повідомлення"></textarea>
+							<textarea asp-for="Comment" class="form-control" rows="8" placeholder="Не обов'язкове повідомлення"></textarea>
 						</div>
 					</div>
 
@@ -102,19 +118,11 @@
 								<a asp-controller="Store" asp-action="Cart" class="btn btn-block btn-warning">Назад у кошик</a>
 							</div>
 							<div class="col-md-2">
-								<h4 style="text-align: center;">Загальна вартість: @(Model) UAH</h4>
+								<h4 style="text-align: center;">Загальна вартість: @(ViewBag.TotalCost) UAH</h4>
 							</div>
 							<div class="col-md-2">
-								<button type="submit" id="putOrderBtn" class="btn btn-block btn-purple">Замовити</button>
+								<button type="submit" id="submitBtn" class="btn btn-block btn-purple">Замовити</button>
 							</div>
-						</div>
-					</div>
-					
-					<div class="col-sm-offset-3 col-sm-6">
-						<div class="alert alert-danger" role="alert" id="orderValidationAlert" hidden>
-							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-							<span class="sr-only">Помилка:</span>
-							Всі поля з позначкою * - обов'язкові.
 						</div>
 					</div>
 					

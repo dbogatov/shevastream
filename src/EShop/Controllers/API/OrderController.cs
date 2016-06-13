@@ -22,7 +22,7 @@ namespace EShop.Controllers.API
 		[HttpPut]
 		public void Put(OrderViewModel order)
 		{
-			_order.PutOrder(order);
+			_order.PutOrderAsync(order);
 		}
 
 		// GET: api/order

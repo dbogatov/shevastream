@@ -1,5 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using EShop.Services;
+using EShop.ViewModels.Store;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EShop.Controllers.View
@@ -39,9 +43,27 @@ namespace EShop.Controllers.View
 
 		public IActionResult Order()
 		{
-            int model = _cart.GetTotalCost();
+			ViewBag.TotalCost = _cart.GetTotalCost();
 			
-			return View((object)model);
+			return View();
+		}
+
+		[HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Order(
+			[FromServices] IOrderService order,
+            [FromForm] OrderViewModel model,
+            CancellationToken requestAborted)
+		{
+			if (!ModelState.IsValid)
+            {
+				ViewBag.TotalCost = _cart.GetTotalCost();
+                return View(model);
+            }
+
+			await order.PutOrderAsync(model);
+
+			return RedirectToAction("ThankYou");
 		}
 
 		public IActionResult Product(int? id)
