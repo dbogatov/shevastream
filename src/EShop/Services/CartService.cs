@@ -14,6 +14,8 @@ namespace EShop.Services
 		CartViewModel GetSimpleCart();
 		void AddItem(CartElementViewModel element);
 		void RemoveItem(CartElementViewModel element);
+		bool IsCartEmpty();
+		void EmptyCart();
 	}
 
 	public class CartService : ICartService
@@ -172,6 +174,16 @@ namespace EShop.Services
 			}
 			SaveChanges();
         }
+
+		public bool IsCartEmpty()
+		{
+			return _http.Request.Cookies[CART_COOKIE_NAME] == null;
+		}
+
+		public void EmptyCart()
+		{
+			_http.Response.Cookies.Delete(CART_COOKIE_NAME);
+		}
 
 		private void SaveChanges()
 		{
