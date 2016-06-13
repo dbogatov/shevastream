@@ -1,7 +1,3 @@
-var total = 0;
-
-var products = [];
-
 $(document).ready(function () {
 
 	$("#addressGroup").hide();
