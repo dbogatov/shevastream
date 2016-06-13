@@ -39,17 +39,7 @@
 					
 					@foreach (var product in Model)
 					{
-						<li class="col-md-6 col-sm-6">
-							<div class="thumbnail">
-								<a asp-controller="Store" asp-action="Product" asp-route-id="@product.Id">
-									<img src="@JsonConvert.DeserializeObject(product.ImageUrls)[0]" class="img-responsive" alt="product dodolan manuk" />
-								</a>	
-								<div class="caption-details">
-									<h3>@product.Name</h3>
-									<span class="price">@product.Cost UAH</span>
-								</div>
-							</div>
-						</li>	
+						<thumbnail img="@(JsonConvert.DeserializeObject(product.ImageUrls)[0])" title="@(product.Name)" price="@(product.Cost)" product-id="@(product.Id)" />						
 					}
 					
 				</ul>

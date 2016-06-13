@@ -120,26 +120,11 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 col-sm-8 col-xs-12">
-				<div class="thumbnail">
-					<div class="caption-img" style="background: url(/images/products/notepad/popular.jpg);"></div>
-					<div class="caption-details">
-						<h3>Блокнот</h3>
-						<span class="price">185 UAH</span>
-					</div>
-					<a asp-controller="Store" asp-action="Product" asp-route-id="1"><div class="caption-link"><i class="fa fa-plus"></i></div></a>
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-8 col-xs-12">
-				<div class="thumbnail">
-					<div class="caption-img" style="background: url(/images/products/case/item01.jpg);"></div>
-					<div class="caption-details">
-						<h3>Чохол для телефону</h3>
-						<span class="price">150 UAH</span>
-					</div>
-					<a asp-controller="Store" asp-action="Product" asp-route-id="3"><div class="caption-link"><i class="fa fa-plus"></i></div></a>
-				</div>
-			</div>
+
+			<thumbnail img="/images/products/notepad/popular.jpg" title="Блокнот" price="185" product-id="1" />
+			
+			<thumbnail img="/images/products/case/item01.jpg" title="Чохол для телефону" price="150" product-id="3" />
+
 		</div>
 	</div>
 </div>
