@@ -1,13 +1,11 @@
-﻿using System.Linq;
-using EShop.Services;
+﻿using EShop.Services;
 using EShop.ViewModels.Blog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EShop.Controllers.View
 {
-	public class BlogController : Controller
+    public class BlogController : Controller
 	{
 		private readonly DataContext _context;
 		private readonly IBlogService _blog;
@@ -20,39 +18,18 @@ namespace EShop.Controllers.View
 
 		public IActionResult Index()
 		{
-			var model = _context
-				.BlogPosts
-				.Include(bp => bp.Author)
-				.Select(bp => new BlogPostViewModel
-				{
-					Id = bp.Id,
-					AuthorName = bp.Author.NickName,
-					DatePosted = bp.DatePosted,
-					Title = bp.Title,
-					TitleUrl = bp.TitleUrl,
-					Active = bp.Active
-				});
+			var model = _blog.GetAllPosts();
+
 			return View(model);
 		}
 
 		public IActionResult Post(string title)
 		{
-			if (_context.BlogPosts.Any(bp => bp.Active && bp.TitleUrl == title))
+			var model = _blog.GetPostByTitle(title);
+
+			if (model != null)
 			{
-				var post =
-					BlogPostViewModel.FromBlogPost(_context
-					.BlogPosts.Include(bp => bp.Author)
-					.First(
-						bp =>
-							bp.Active &&
-							bp.TitleUrl == title
-					));
-
-				post.HtmlContent = _blog.MarkDownToHtml(post.Content);
-				post.AuthorName = post.Author.NickName;
-				post.Author = null;
-
-				return View(post);
+				return View(model);
 			}
 			else
 			{
@@ -64,28 +41,25 @@ namespace EShop.Controllers.View
 		[Route("Blog/Edit/{title?}")]
 		public IActionResult Edit(string title)
 		{
-			if (title != null && _context.BlogPosts.Any(bp => bp.TitleUrl == title))
+			if (title != null)
 			{
-				var post =
-					BlogPostViewModel.FromBlogPost(_context
-					.BlogPosts.Include(bp => bp.Author)
-					.First(
-						bp => bp.TitleUrl == title
-					));
+				var post = _blog.GetPostByTitle(title, false);
 
-				post.HtmlContent = _blog.MarkDownToHtml(post.Content);
+				if (post != null)
+				{
+					post.HtmlContent = _blog.MarkDownToHtml(post.Content);
 
-				return View(post);
+					return View(post);	
+				}
 			}
-			else
-			{
-				return View(new BlogPostViewModel {
-					Title = "New post",
-					Content = "content here...",
-					Id = -1,
-					TitleUrl = ""
-				});
-			}
+
+			return View(new BlogPostViewModel {
+				Title = "New post",
+				Content = "content here...",
+				Id = -1,
+				TitleUrl = ""
+			});
+
 		}
 	}
 }
