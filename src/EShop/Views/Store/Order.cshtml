@@ -1,4 +1,6 @@
-﻿@{
+﻿@model int
+
+@{
 	ViewData["Title"] = "Замовлення";
 }
 
@@ -100,7 +102,7 @@
 								<a asp-controller="Store" asp-action="Cart" class="btn btn-block btn-warning">Назад у кошик</a>
 							</div>
 							<div class="col-md-2">
-								<h4 style="text-align: center;">Загальна вартість: @(Model.TotalCost) UAH</h4>
+								<h4 style="text-align: center;">Загальна вартість: @(Model) UAH</h4>
 							</div>
 							<div class="col-md-2">
 								<button type="submit" id="putOrderBtn" class="btn btn-block btn-purple">Замовити</button>

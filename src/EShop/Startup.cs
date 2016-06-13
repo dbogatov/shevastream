@@ -55,6 +55,7 @@ namespace EShop
 			services.AddTransient<IDBLogService, DBLogService>();
 			services.AddTransient<IPushService, PushService>();
             services.AddTransient<IBlogService, BlogService>();
+			services.AddTransient<ICartService, CartService>();
         }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
