@@ -47,16 +47,16 @@ namespace EShop
 			// Add application services.
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			
-			services.AddTransient<ICryptoService, CryptoService>();
-
 			services.AddTransient<DataContext, DataContext>();
 
+			services.AddTransient<ICryptoService, CryptoService>();
 			services.AddTransient<ITelegramSender, TelegramSender>();
 			services.AddTransient<IDBLogService, DBLogService>();
 			services.AddTransient<IPushService, PushService>();
             services.AddTransient<IBlogService, BlogService>();
 			services.AddTransient<ICartService, CartService>();
 			services.AddTransient<IOrderService, OrderService>();
+			services.AddTransient<IDataSeedService, DataSeedService>();
         }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -121,8 +121,9 @@ namespace EShop
 			using(var context = serviceProvider.GetService<DataContext>())
 			{
 				context.Database.EnsureCreated();
-				context.EnsureSeedData();
 			}
+
+			serviceProvider.GetService<IDataSeedService>().SeedData();
 		}
 
 		// Entry point for the application.
