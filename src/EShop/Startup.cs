@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Routing;
 using EShop.Services;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
+using EShop.Extensions;
 
 namespace EShop
 {
@@ -44,6 +46,8 @@ namespace EShop
 
 			services.AddMvc();
 
+			services.AddRouting(options => { options.LowercaseUrls = true; });
+
 			// Add application services.
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			
@@ -64,6 +68,8 @@ namespace EShop
 		{
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
+
+			app.UseToLowercase();
 
 			if (env.IsDevelopment())
 			{
