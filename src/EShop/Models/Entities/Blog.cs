@@ -25,6 +25,10 @@ namespace EShop.Models.Enitites
 
         public string Content { get; set; }
 
+		public string Preview { get; set; }
+
+		public int Views { get; set; }
+
         // navigation properties		
         [ForeignKey("AuthorId")]
 		public User Author { get; set; }

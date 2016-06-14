@@ -37,7 +37,7 @@
 						<h2>
 							<span class="the-calendar">
 								<span class="the-date"><i class="fa fa-calendar"></i>@(Model.DatePosted.ToString("dd/mm/yy"))</span>
-								<span class="the-comments"><i class="fa fa-eye"></i> @(Model.Id)</span>
+								<span class="the-comments"><i class="fa fa-eye"></i> @(Model.Views)</span>
 							</span>
 							<a asp-route="Blog" asp-route-title="@(Model.TitleUrl)">@(Model.Title)</a>
 						</h2>
@@ -45,7 +45,7 @@
 						
 						@(Html.Raw(Model.HtmlContent))
 						
-						<p class="meta-tags"><i class="fa fa-user"></i> <a href="#">@(Model.AuthorName)</a></p>
+						<p class="meta-tags"><i class="fa fa-user"></i> <a asp-controller="Store" asp-action="Profile">@(Model.Author.NickName)</a></p>
 					</div>
 				</div>
 				
@@ -58,8 +58,15 @@
 					<div class="col-md-12">
 						
 						<div class="widget">
-							<h3>Lorem ipsum dolor sit amet</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque. Sed pharetra nibh eget orci convallis at posuere leo convallis. Sed blandit augue vitae augue scelerisque bibendum.</p>
+							<h3>Author</h3>
+							<div class="team-container">
+								<div class="featured-photos">
+									<img src="@(Model.Author.ImageUrl)" class="img-responsive img-rounded" alt="Polina Guley">
+								</div>				
+								<h3><a asp-controller="Store" asp-action="Profile">@(Model.Author.FullName)</a></h3>
+								<h4>@(Model.Author.Position)</h4>
+								<p>@(Model.Author.Occupation)</p>
+							</div>
 						</div>
 						
 					</div>

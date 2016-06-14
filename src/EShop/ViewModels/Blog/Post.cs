@@ -19,6 +19,8 @@ namespace EShop.ViewModels.Blog
 				Title = post.Title,
 				TitleUrl = post.TitleUrl,
 				Content = post.Content,
+				Preview = post.Preview,
+				Views = post.Views,
 				Author = post.Author,
 				HtmlContent = null,
 				AuthorName = null

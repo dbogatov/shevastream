@@ -53,12 +53,13 @@ namespace EShop.Controllers.View
 			}
 		} 
 
-		public IActionResult Post(string title)
+		public async Task<IActionResult> Post(string title)
 		{
-			var model = _blog.GetPostByTitle(title);
+			var model = await _blog.GetPostByTitleAsync(title);
 
 			if (model != null)
 			{
+				await _blog.AddViewAsync(model);
 				return View(model);
 			}
 			else
@@ -69,13 +70,13 @@ namespace EShop.Controllers.View
 
 		[Authorize]
 		[Route("Blog/Edit/{title?}")]
-		public IActionResult Edit(string title)
+		public async Task<IActionResult> Edit(string title)
 		{
-			ModelState.Clear();
-
 			if (title != null)
 			{
-				var post = _blog.GetPostByTitle(title, false);
+				ModelState.Clear();
+
+				var post = await _blog.GetPostByTitleAsync(title, false);
 
 				if (post != null)
 				{

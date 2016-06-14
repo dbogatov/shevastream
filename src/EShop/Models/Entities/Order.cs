@@ -67,19 +67,19 @@ namespace EShop.Models.Enitites
 	[Table("OrderProduct")]
 	public class OrderProduct
 	{
-        [Key]
-        public int Id { get; set; }
-		
+		[Key]
+		public int Id { get; set; }
+
 		public int OrderId { get; set; }
 		[ForeignKey("OrderId")]
 		public Order Order { get; set; }
-		
+
 		public int ProductId { get; set; }
 		[ForeignKey("ProductId")]
 		public Product Product { get; set; }
-		
+
 		public int Quantity { get; set; }
-    }
+	}
 
 	[Table("ShipmentMethod")]
 	public class ShipmentMethod
@@ -131,14 +131,14 @@ namespace EShop.Models.Enitites
 		public int Cost { get; set; }
 		public string ImageUrls { get; set; }           // JSON list of URLs
 		public string Information { get; set; }
-        public string Description { get; set; }
+		public string Description { get; set; }
 		public string Characteristics { get; set; }
 		public string VideoData { get; set; }
 
 		[NotMapped]
 		public List<Order> Orders { get; set; }
 
-        public override string ToString()
+		public override string ToString()
 		{
 			return $@"
 				Product:
@@ -175,6 +175,8 @@ namespace EShop.Models.Enitites
 		public string NickName { get; set; }
 		public string PassHash { get; set; }
 		public string ImageUrl { get; set; }
+		public string Position { get; set; }
+		public string Occupation { get; set; }
 	}
 
 	[Table("OrderStatus")]

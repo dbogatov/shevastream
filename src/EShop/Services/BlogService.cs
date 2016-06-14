@@ -16,11 +16,12 @@ namespace EShop.Services
         string MarkDownToHtml(string content);
         string GenerateUrlFromTitle(string title);
 		IEnumerable<BlogPostViewModel> GetAllPosts();
-		BlogPostViewModel GetPostByTitle(string title, bool active = true);
+		Task<BlogPostViewModel> GetPostByTitleAsync(string title, bool active = true);
 		Task<BlogPost> UpdatePostAsync(BlogPostViewModel post);
 		void TogglePublish(BlogPostViewModel post, bool publish);
 		Task<BlogPost> CreatePostAsync(BlogPostViewModel post);
 		void RemovePost(BlogPostViewModel post);
+		Task AddViewAsync(BlogPostViewModel post);
 
     }
 
@@ -79,6 +80,7 @@ namespace EShop.Services
             return _context
 				.BlogPosts
 				.Include(bp => bp.Author)
+				.OrderByDescending(bp => bp.DatePosted)
 				.Select(bp => new BlogPostViewModel
 				{
 					Id = bp.Id,
@@ -86,24 +88,24 @@ namespace EShop.Services
 					DatePosted = bp.DatePosted,
 					Title = bp.Title,
 					TitleUrl = bp.TitleUrl,
-					Active = bp.Active
+					Active = bp.Active,
+					Views = bp.Views,
+					Preview = bp.Preview
 				});
         }
 
-		public BlogPostViewModel GetPostByTitle(string title, bool active = true)
+		public async Task<BlogPostViewModel> GetPostByTitleAsync(string title, bool active = true)
 		{
 			if (_context.BlogPosts.Any(bp => (active ? bp.Active : true) && bp.TitleUrl == title))
 			{
 				var post =
-					BlogPostViewModel.FromBlogPost(_context
+					BlogPostViewModel.FromBlogPost(await _context
 					.BlogPosts.Include(bp => bp.Author)
-					.First(
+					.FirstAsync(
 						bp => bp.TitleUrl == title
 					));
 
-				post.HtmlContent = MarkDownToHtml(post.Content);
-				post.AuthorName = post.Author.NickName;
-				post.Author = null;
+				post.HtmlContent = MarkDownToHtml(post.Content);;
 
 				return post;
 			}
@@ -123,6 +125,7 @@ namespace EShop.Services
                 old.Title = post.Title.Trim();
                 old.TitleUrl = GenerateUrlFromTitle(post.Title);
                 old.Content = post.Content;
+				old.Preview = MarkDownToHtml(post.Content.Substring(0, post.Content.IndexOf('\n')));
                 old.DateUpdated = DateTime.Now;
                 old.AuthorId = userId;
 				old.Active = post.Active;
@@ -182,6 +185,17 @@ namespace EShop.Services
                 _context.SaveChanges();
             }
         }
+
+		public async Task AddViewAsync(BlogPostViewModel post)
+		{
+			if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
+			{
+                var old = _context.BlogPosts.First(bp => bp.Id == post.Id);
+                old.Views++;
+
+                await _context.SaveChangesAsync();
+            }
+		}
     }
 }
 
