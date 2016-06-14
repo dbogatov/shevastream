@@ -7,6 +7,7 @@ using EShop.ViewModels.Blog;
 using Microsoft.EntityFrameworkCore;
 using NickBuhro.Translit;
 using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace EShop.Services
 {
@@ -16,9 +17,9 @@ namespace EShop.Services
         string GenerateUrlFromTitle(string title);
 		IEnumerable<BlogPostViewModel> GetAllPosts();
 		BlogPostViewModel GetPostByTitle(string title, bool active = true);
-		void UpdatePost(BlogPostViewModel post);
+		Task<BlogPost> UpdatePostAsync(BlogPostViewModel post);
 		void TogglePublish(BlogPostViewModel post, bool publish);
-		string CreatePost(BlogPostViewModel post);
+		Task<BlogPost> CreatePostAsync(BlogPostViewModel post);
 		void RemovePost(BlogPostViewModel post);
 
     }
@@ -112,7 +113,7 @@ namespace EShop.Services
 			}
 		}
 
-		public void UpdatePost(BlogPostViewModel post)
+		public async Task<BlogPost> UpdatePostAsync(BlogPostViewModel post)
 		{
 			if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
 			{
@@ -124,9 +125,14 @@ namespace EShop.Services
                 old.Content = post.Content;
                 old.DateUpdated = DateTime.Now;
                 old.AuthorId = userId;
+				old.Active = post.Active;
 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
+
+				return old;
             }
+
+			return null;
 		}
 
 		public void TogglePublish(BlogPostViewModel post, bool publish)
@@ -140,7 +146,7 @@ namespace EShop.Services
             }
 		}
 
-		public string CreatePost(BlogPostViewModel post)
+		public async Task<BlogPost> CreatePostAsync(BlogPostViewModel post)
 		{
             if (!_context.BlogPosts.Any(bp => bp.Title == post.Title.Trim()))
 			{
@@ -158,13 +164,12 @@ namespace EShop.Services
             	};
                 _context.BlogPosts.Add(@new);
 				
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 				
-                return @new.TitleUrl;
-            } else
-			{
-                return string.Empty;
+                return @new;
             }
+
+            return null;
         }
 
 		public void RemovePost(BlogPostViewModel post)

@@ -25,7 +25,7 @@ namespace EShop.Controllers.API
 		[Authorize]
 		public void Post(BlogPostViewModel post)
 		{
-			_blog.UpdatePost(post);
+			_blog.UpdatePostAsync(post);
 		}
 		
 		// POST api/Blog/Activate
@@ -51,7 +51,7 @@ namespace EShop.Controllers.API
 		[Authorize]
 		public string Put(BlogPostViewModel post)
 		{
-            return JsonConvert.SerializeObject(_blog.CreatePost(post));
+            return JsonConvert.SerializeObject(_blog.CreatePostAsync(post).Result.TitleUrl);
         }
 		
 		// DELETE api/Blog

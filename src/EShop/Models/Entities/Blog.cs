@@ -12,6 +12,8 @@ namespace EShop.Models.Enitites
 		public int Id { get; set; }
 		
 		public int AuthorId { get; set; }
+
+		[Display(Name = "Publish")]
 		public bool Active { get; set; }
 		public DateTime DatePosted { get; set; }
 		public DateTime DateUpdated { get; set; }
@@ -20,6 +22,7 @@ namespace EShop.Models.Enitites
 		public string Title { get; set; }
 		// [AlternateKey] Fluent API
 		public string TitleUrl { get; set; }
+
         public string Content { get; set; }
 
         // navigation properties		

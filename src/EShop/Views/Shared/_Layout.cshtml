@@ -213,20 +213,24 @@
 
 		
 		<script src="/lib/jquery/dist/jquery.min.js"></script>
-		<script async src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script async src="/lib/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-		<script async src="/lib/jquery.cookie/jquery.cookie.min.js"></script>
-		<script async src="/lib/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+		<script defer src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script defer src="/lib/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+		<script defer src="/lib/jquery.cookie/jquery.cookie.min.js"></script>
+		<script defer src="/lib/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
 		
 		<environment names="Development">
-			<script src="/js/script.js"></script>
-			<script src="/js/site.js"></script>
-			<script src="/js/cart.js"></script>
-			<script src="/js/blog.js"></script>
+			<script defer src="/js/script.js"></script>
+			<script defer src="/js/site.js"></script>
+			<script defer src="/js/cart.js"></script>
+			<script defer src="/js/blog.js"></script>
+
+			<script defer src="/js/order.js"></script>
+			<script defer src="/js/contact.js"></script>
+			<script defer src="/js/detail.js"></script>
 		</environment>
 
 		<environment names="Staging,Production">
-			<script async src="/js/site.min.js"></script>
+			<script defer src="/js/site.min.js"></script>
 		</environment>
 
 		@RenderSection("scripts", required: false)

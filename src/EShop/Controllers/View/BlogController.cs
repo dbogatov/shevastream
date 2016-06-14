@@ -1,4 +1,7 @@
-﻿using EShop.Services;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using EShop.Models.Enitites;
+using EShop.Services;
 using EShop.ViewModels.Blog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +26,33 @@ namespace EShop.Controllers.View
 			return View(model);
 		}
 
+		[HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Publish(
+			[FromServices] IBlogService order,
+            [FromForm] BlogPostViewModel model,
+            CancellationToken requestAborted)
+		{
+			if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+			var updated = await _blog.UpdatePostAsync(model);
+			if (updated == null)
+			{
+				updated = await _blog.CreatePostAsync(model);
+			}
+
+			if (updated.Active)
+			{
+				return RedirectToRoute("Blog", new { title = updated.TitleUrl });
+			} else
+			{
+				return RedirectToAction("Index");
+			}
+		} 
+
 		public IActionResult Post(string title)
 		{
 			var model = _blog.GetPostByTitle(title);
@@ -41,6 +71,8 @@ namespace EShop.Controllers.View
 		[Route("Blog/Edit/{title?}")]
 		public IActionResult Edit(string title)
 		{
+			ModelState.Clear();
+
 			if (title != null)
 			{
 				var post = _blog.GetPostByTitle(title, false);
