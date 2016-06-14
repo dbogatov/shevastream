@@ -216,3 +216,7 @@ ModelManifest.xml
 
 # Key
 *.pem
+
+# custom minified js and css
+**/wwwroot/js/**/*.min.js
+**/wwwroot/css/**/*.min.css
