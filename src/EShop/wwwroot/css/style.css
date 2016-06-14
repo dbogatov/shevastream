@@ -49,9 +49,6 @@
 	==================
 */
 
-@import url('/lib/components-font-awesome/css/font-awesome.css');
-@import url('/lib/animate.css/animate.css');
-
 @font-face {
     font-family: 'Open Sans';
     font-style: normal;

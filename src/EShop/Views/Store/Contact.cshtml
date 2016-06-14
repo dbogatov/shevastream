@@ -87,6 +87,30 @@
 	<script>
 		var globalActive = "Contact";
 	</script>
+
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
 	
-	<script src="/js/contact.js"></script>
+	<script>
+		$(document).ready(function() {
+			// Contact Maps
+			$("#maps").gmap3({
+				map: {
+					options: {
+						center: [50.441892, 30.511544],
+						zoom: 15,
+						scrollwheel: false
+					}
+				},
+				marker: {
+					latLng: [50.441892, 30.511544],
+					options: {
+						icon: new google.maps.MarkerImage(
+							"/images/location.png",
+							new google.maps.Size(48, 48, "px", "px")
+						)
+					}
+				}
+			});
+		});
+	</script>
 }

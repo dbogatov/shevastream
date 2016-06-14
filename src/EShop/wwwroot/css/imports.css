@@ -1,0 +1,35 @@
+/*
+	==================
+	[1. IMPORT FONTS]
+	==================
+*/
+
+@import url('/lib/components-font-awesome/css/font-awesome.css');
+@import url('/lib/animate.css/animate.css');
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Open Sans Light'), local('OpenSans-Light'), url(/fonts/OpenSans300.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url(/fonts/OpenSans400.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(/fonts/OpenSans600.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+}
