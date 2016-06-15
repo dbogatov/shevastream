@@ -19,6 +19,7 @@ namespace EShop.Services
         private readonly DataContext _context;
         private readonly HttpContext _http;
         private IUrlHelper _urlHelper;
+        private readonly string HOST = "shevastream.com";
 
         public SiteMapService(
             DataContext context,
@@ -41,7 +42,7 @@ namespace EShop.Services
                 .ToList()
                 .Select(post => new SiteMapItem
                 {
-                    Loc = new Uri(_urlHelper.RouteUrl("Blog", new { title = post.TitleUrl }, _http.Request.Scheme)),
+                    Loc = new Uri(_urlHelper.RouteUrl("Blog", new { title = post.TitleUrl }, _http.Request.Scheme, HOST)),
                     ChangeFreq = ChangeFrequency.Daily,
                     LastMod = post.DateUpdated
                 })
@@ -53,7 +54,7 @@ namespace EShop.Services
                 .ToList()
                 .Select(prod => new SiteMapItem
                 {
-                    Loc = new Uri(_urlHelper.Action("Product", "Store", new { id = prod.Id }, _http.Request.Scheme)),
+                    Loc = new Uri(_urlHelper.Action("Product", "Store", new { id = prod.Id }, _http.Request.Scheme, HOST)),
                     ChangeFreq = ChangeFrequency.Weekly
                 })
                 .ToList()
@@ -63,17 +64,17 @@ namespace EShop.Services
                 new List<SiteMapItem> {
                     new SiteMapItem
                     {
-                        Loc = new Uri(_urlHelper.Action("Index", "Store", null, _http.Request.Scheme)),
+                        Loc = new Uri(_urlHelper.Action("Index", "Store", null, _http.Request.Scheme, HOST)),
                         ChangeFreq = ChangeFrequency.Monthly
                     },
                     new SiteMapItem
                     {
-                        Loc = new Uri(_urlHelper.Action("Profile", "Store", null, _http.Request.Scheme)),
+                        Loc = new Uri(_urlHelper.Action("Profile", "Store", null, _http.Request.Scheme, HOST)),
                         ChangeFreq = ChangeFrequency.Monthly
                     },
                     new SiteMapItem
                     {
-                        Loc = new Uri(_urlHelper.Action("Contact", "Store", null, _http.Request.Scheme)),
+                        Loc = new Uri(_urlHelper.Action("Contact", "Store", null, _http.Request.Scheme, HOST)),
                         ChangeFreq = ChangeFrequency.Monthly
                     }
                 }
