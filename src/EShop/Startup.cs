@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using EShop.Extensions;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace EShop
 {
@@ -62,6 +63,7 @@ namespace EShop
 			services.AddTransient<IOrderService, OrderService>();
 			services.AddTransient<IDataSeedService, DataSeedService>();
 			services.AddTransient<ISiteMapService, SiteMapService>();
+			services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
         }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
