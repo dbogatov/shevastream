@@ -2,104 +2,113 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EShop.Models;
 using EShop.Services;
 using EShop.ViewModels.Store;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EShop.Controllers.View
 {
-	public class StoreController : Controller
-	{
-		private readonly DataContext _context;
-		private readonly ICartService _cart;
+    public class StoreController : Controller
+    {
+        private readonly DataContext _context;
+        private readonly ICartService _cart;
+        private readonly ISiteMapService _siteMap;
 
-		public StoreController(DataContext context, ICartService cart)
-		{
-			_context = context;
-			_cart = cart;
-		}
+        public StoreController(DataContext context, ICartService cart, ISiteMapService siteMap)
+        {
+            _context = context;
+            _cart = cart;
+            _siteMap = siteMap;
+        }
 
-		public IActionResult Index()
-		{
-			return View();
-		}
+        public SiteMapResult SiteMap()
+        {
+            var siteMap = _siteMap.GetSiteMap();
+            return new SiteMapResult(siteMap);
+        }
 
-		public IActionResult FAQ()
-		{
-			return View();
-		}
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-		public IActionResult Contact()
-		{
+        public IActionResult FAQ()
+        {
+            return View();
+        }
 
-			return View();
-		}
+        public IActionResult Contact()
+        {
 
-		public IActionResult Profile()
-		{
+            return View();
+        }
 
-			return View();
-		}
+        public IActionResult Profile()
+        {
 
-		public IActionResult Order()
-		{
-			ViewBag.TotalCost = _cart.GetTotalCost();
-			
-			return View();
-		}
+            return View();
+        }
 
-		[HttpPost]
+        public IActionResult Order()
+        {
+            ViewBag.TotalCost = _cart.GetTotalCost();
+
+            return View();
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Order(
-			[FromServices] IOrderService order,
+            [FromServices] IOrderService order,
             [FromForm] OrderViewModel model,
             CancellationToken requestAborted)
-		{
-			if (!ModelState.IsValid)
+        {
+            if (!ModelState.IsValid)
             {
-				ViewBag.TotalCost = _cart.GetTotalCost();
+                ViewBag.TotalCost = _cart.GetTotalCost();
                 return View(model);
             }
 
-			await order.PutOrderAsync(model);
+            await order.PutOrderAsync(model);
 
-			return RedirectToAction("ThankYou");
-		}
+            return RedirectToAction("ThankYou");
+        }
 
-		public IActionResult Product(int? id)
-		{
-			if (id.HasValue)
-			{
-				if (_context.Products.Any(p => p.Id == id))
-				{
-					var product = _context.Products.First(p => p.Id == id);
+        public IActionResult Product(int? id)
+        {
+            if (id.HasValue)
+            {
+                if (_context.Products.Any(p => p.Id == id))
+                {
+                    var product = _context.Products.First(p => p.Id == id);
                     RouteData.Values["id"] = null;
                     return View("Detail", product);
-				}
+                }
 
-				return NotFound();
-			}
+                return NotFound();
+            }
 
-			var products = _context.Products.AsEnumerable();
-			return View(products);
-		}
+            var products = _context.Products.AsEnumerable();
+            return View(products);
+        }
 
-		public IActionResult Cart()
-		{
-			var model = _cart.GetCart();
-			
-			return View(model);
-		}
+        public IActionResult Cart()
+        {
+            var model = _cart.GetCart();
 
-		public IActionResult ThankYou()
-		{
+            return View(model);
+        }
 
-			return View();
-		}
+        public IActionResult ThankYou()
+        {
 
-		public IActionResult Error()
-		{
-			return View();
-		}
-	}
+            return View();
+        }
+
+        public IActionResult Error()
+        {
+            return View();
+        }
+    }
 }

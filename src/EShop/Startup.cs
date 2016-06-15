@@ -61,6 +61,7 @@ namespace EShop
 			services.AddTransient<ICartService, CartService>();
 			services.AddTransient<IOrderService, OrderService>();
 			services.AddTransient<IDataSeedService, DataSeedService>();
+			services.AddTransient<ISiteMapService, SiteMapService>();
         }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,6 +121,11 @@ namespace EShop
 					"Blog",
 					"Blog/{title}",
 					new { controller = "Blog", action = "Post" }
+				);
+				routes.MapRoute(
+					"Sitemap",
+					"sitemap.xml",
+					new { controller = "Store", action = "SiteMap" }
 				);
 				
             });
