@@ -8,211 +8,262 @@ using Microsoft.EntityFrameworkCore;
 using NickBuhro.Translit;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace EShop.Services
 {
-	public interface IBlogService
-	{
-		string MarkDownToHtml(string content);
-		string GenerateUrlFromTitle(string title);
-		IEnumerable<BlogPostViewModel> GetAllPosts();
-		Task<BlogPostViewModel> GetPostByTitleAsync(string title, bool active = true);
-		Task<BlogPostViewModel> GetPostByIdAsync(int id, bool active = true);
-		Task<BlogPost> UpdatePostAsync(BlogPostViewModel post);
-		void TogglePublish(BlogPostViewModel post, bool publish);
-		Task<BlogPost> CreatePostAsync(BlogPostViewModel post);
-		void RemovePost(BlogPostViewModel post);
-		Task AddViewAsync(BlogPostViewModel post);
+    public interface IBlogService
+    {
+        string MarkDownToHtml(string content);
+        string GenerateUrlFromTitle(string title);
+		string GenerateUrlFromTitleStackOverflow(string title);
+        IEnumerable<BlogPostViewModel> GetAllPosts();
+        Task<BlogPostViewModel> GetPostByTitleAsync(string title, bool active = true);
+        Task<BlogPostViewModel> GetPostByIdAsync(int id, bool active = true);
+        Task<BlogPost> UpdatePostAsync(BlogPostViewModel post);
+        void TogglePublish(BlogPostViewModel post, bool publish);
+        Task<BlogPost> CreatePostAsync(BlogPostViewModel post);
+        void RemovePost(BlogPostViewModel post);
+        Task AddViewAsync(BlogPostViewModel post);
 
-	}
+    }
 
-	public class BlogService : IBlogService
-	{
-		private readonly DataContext _context;
-		private readonly HttpContext _http;
+    public class BlogService : IBlogService
+    {
+        private readonly DataContext _context;
+        private readonly HttpContext _http;
 
-		public BlogService(DataContext context, IHttpContextAccessor http)
-		{
-			_http = http.HttpContext;
-			_context = context;
-		}
+        public BlogService(DataContext context, IHttpContextAccessor http)
+        {
+            _http = http.HttpContext;
+            _context = context;
+        }
 
-		public string GenerateUrlFromTitle(string title)
-		{
-			title = Transliteration.CyrillicToLatin(title, Language.Ukrainian);
+        public string GenerateUrlFromTitleStackOverflow(string title)
+        {
+            if (title == null) return "";
 
-			// make it all lower case
-			title = title.ToLower();
+            const int maxlen = 80;
+            int len = title.Length;
+            bool prevdash = false;
+            var sb = new StringBuilder(len);
+            char c;
 
-			// remove entities
-			title = Regex.Replace(title, @"&\w+;", "");
+            for (int i = 0; i < len; i++)
+            {
+                c = title[i];
+                if ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'))
+                {
+                    sb.Append(c);
+                    prevdash = false;
+                }
+                else if (c >= 'A' && c <= 'Z')
+                {
+                    // tricky way to convert to lowercase
+                    sb.Append((char)(c | 32));
+                    prevdash = false;
+                }
+                else if (c == ' ' || c == ',' || c == '.' || c == '/' ||
+                    c == '\\' || c == '-' || c == '_' || c == '=')
+                {
+                    if (!prevdash && sb.Length > 0)
+                    {
+                        sb.Append('-');
+                        prevdash = true;
+                    }
+                }
+                else if ((int)c >= 128)
+                {
+                    int prevlen = sb.Length;
+                    sb.Append(Transliteration.CyrillicToLatin(c.ToString(), Language.Ukrainian));
+                    if (prevlen != sb.Length) prevdash = false;
+                }
+                if (i == maxlen) break;
+            }
 
-			// remove anything that is not letters, numbers, dash, or space
-			title = Regex.Replace(title, @"[^a-z0-9\-\s]", "");
+            if (prevdash)
+                return sb.ToString().Substring(0, sb.Length - 1);
+            else
+                return sb.ToString();
+        }
 
-			// replace spaces
-			title = title.Replace(' ', '-');
+        public string GenerateUrlFromTitle(string title)
+        {
+            title = Transliteration.CyrillicToLatin(title);
 
-			// collapse dashes
-			title = Regex.Replace(title, @"-{2,}", "-");
+            // make it all lower case
+            title = title.ToLower();
 
-			// trim excessive dashes at the beginning
-			title = title.TrimStart(new[] { '-' });
+            // remove entities
+            title = Regex.Replace(title, @"&\w+;", "");
 
-			// if it's too long, clip it
-			if (title.Length > 80)
-			{
-				title = title.Substring(0, 79);
-			}
+            // remove anything that is not letters, numbers, dash, or space
+            title = Regex.Replace(title, @"[^a-z0-9\-\s]", "");
 
-			// remove trailing dashes
-			title = title.TrimEnd(new[] { '-' });
+            // replace spaces
+            title = title.Replace(' ', '-');
 
-			return title;
-		}
+            // collapse dashes
+            title = Regex.Replace(title, @"-{2,}", "-");
 
-		public string MarkDownToHtml(string content)
-		{
-			return CommonMark.CommonMarkConverter.Convert(content);
-		}
+            // trim excessive dashes at the beginning
+            title = title.TrimStart(new[] { '-' });
 
-		public IEnumerable<BlogPostViewModel> GetAllPosts()
-		{
-			return _context
-				.BlogPosts
-				.Include(bp => bp.Author)
-				.OrderByDescending(bp => bp.DatePosted)
-				.Select(bp => new BlogPostViewModel
-				{
-					Id = bp.Id,
-					AuthorName = bp.Author.NickName,
-					DatePosted = bp.DatePosted,
-					Title = bp.Title,
-					TitleUrl = bp.TitleUrl,
-					Active = bp.Active,
-					Views = bp.Views,
-					Preview = bp.Preview
-				});
-		}
+            // if it's too long, clip it
+            if (title.Length > 80)
+            {
+                title = title.Substring(0, 79);
+            }
 
-		public async Task<BlogPostViewModel> GetPostByTitleAsync(string title, bool active = true)
-		{
-			if (_context.BlogPosts.Any(bp => (active ? bp.Active : true) && bp.TitleUrl == title))
-			{
-				var post =
-					BlogPostViewModel.FromBlogPost(await _context
-					.BlogPosts.Include(bp => bp.Author)
-					.FirstAsync(
-						bp => bp.TitleUrl == title
-					));
+            // remove trailing dashes
+            title = title.TrimEnd(new[] { '-' });
 
-				post.HtmlContent = MarkDownToHtml(post.Content); ;
+            return title;
+        }
 
-				return post;
-			}
-			else
-			{
-				return null;
-			}
-		}
+        public string MarkDownToHtml(string content)
+        {
+            return CommonMark.CommonMarkConverter.Convert(content);
+        }
 
-		public async Task<BlogPostViewModel> GetPostByIdAsync(int id, bool active = true)
-		{
-			if (_context.BlogPosts.Any(bp => (active ? bp.Active : true) && bp.Id == id))
-			{
-				var post =
-					BlogPostViewModel.FromBlogPost(await _context
-					.BlogPosts.Include(bp => bp.Author)
-					.FirstAsync(
-						bp => bp.Id == id
-					));
+        public IEnumerable<BlogPostViewModel> GetAllPosts()
+        {
+            return _context
+                .BlogPosts
+                .Include(bp => bp.Author)
+                .OrderByDescending(bp => bp.DatePosted)
+                .Select(bp => new BlogPostViewModel
+                {
+                    Id = bp.Id,
+                    AuthorName = bp.Author.NickName,
+                    DatePosted = bp.DatePosted,
+                    Title = bp.Title,
+                    TitleUrl = bp.TitleUrl,
+                    Active = bp.Active,
+                    Views = bp.Views,
+                    Preview = bp.Preview
+                });
+        }
 
-				post.HtmlContent = MarkDownToHtml(post.Content); ;
+        public async Task<BlogPostViewModel> GetPostByTitleAsync(string title, bool active = true)
+        {
+            if (_context.BlogPosts.Any(bp => (active ? bp.Active : true) && bp.TitleUrl == title))
+            {
+                var post =
+                    BlogPostViewModel.FromBlogPost(await _context
+                    .BlogPosts.Include(bp => bp.Author)
+                    .FirstAsync(
+                        bp => bp.TitleUrl == title
+                    ));
 
-				return post;
-			}
-			else
-			{
-				return null;
-			}
-		}
+                post.HtmlContent = MarkDownToHtml(post.Content); ;
 
-		public async Task<BlogPost> UpdatePostAsync(BlogPostViewModel post)
-		{
-			if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
-			{
-				var userId = Convert.ToInt32(_http.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+                return post;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
-				var old = _context.BlogPosts.First(bp => bp.Id == post.Id);
-				old.Title = post.Title.Trim();
-				old.TitleUrl = GenerateUrlFromTitle(post.Title);
-				old.Content = post.Content;
-				old.Preview = MarkDownToHtml(post.Content.Substring(0, post.Content.IndexOf('\n')));
-				old.DateUpdated = DateTime.Now;
-				old.AuthorId = userId;
-				old.Active = post.Active;
+        public async Task<BlogPostViewModel> GetPostByIdAsync(int id, bool active = true)
+        {
+            if (_context.BlogPosts.Any(bp => (active ? bp.Active : true) && bp.Id == id))
+            {
+                var post =
+                    BlogPostViewModel.FromBlogPost(await _context
+                    .BlogPosts.Include(bp => bp.Author)
+                    .FirstAsync(
+                        bp => bp.Id == id
+                    ));
 
-				await _context.SaveChangesAsync();
+                post.HtmlContent = MarkDownToHtml(post.Content); ;
 
-				return old;
-			}
+                return post;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
-			return null;
-		}
+        public async Task<BlogPost> UpdatePostAsync(BlogPostViewModel post)
+        {
+            if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
+            {
+                var userId = Convert.ToInt32(_http.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
 
-		public void TogglePublish(BlogPostViewModel post, bool publish)
-		{
-			if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
-			{
-				var old = _context.BlogPosts.First(bp => bp.Id == post.Id);
-				old.Active = publish;
+                var old = _context.BlogPosts.First(bp => bp.Id == post.Id);
+                old.Title = post.Title.Trim();
+                old.TitleUrl = GenerateUrlFromTitle(post.Title);
+                old.Content = post.Content;
+                old.Preview = MarkDownToHtml(post.Content.Substring(0, post.Content.IndexOf('\n')));
+                old.DateUpdated = DateTime.Now;
+                old.AuthorId = userId;
+                old.Active = post.Active;
 
-				_context.SaveChanges();
-			}
-		}
+                await _context.SaveChangesAsync();
 
-		public async Task<BlogPost> CreatePostAsync(BlogPostViewModel post)
-		{
-			var userId = Convert.ToInt32(_http.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+                return old;
+            }
 
-			var @new = new BlogPost
-			{
-				AuthorId = userId,
-				Active = post.Active,
-				DatePosted = DateTime.Now,
-				DateUpdated = DateTime.Now,
-				Title = post.Title.Trim(),
-				TitleUrl = GenerateUrlFromTitle(post.Title),
-				Content = post.Content
-			};
-			_context.BlogPosts.Add(@new);
+            return null;
+        }
 
-			await _context.SaveChangesAsync();
+        public void TogglePublish(BlogPostViewModel post, bool publish)
+        {
+            if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
+            {
+                var old = _context.BlogPosts.First(bp => bp.Id == post.Id);
+                old.Active = publish;
 
-			return @new;
-		}
+                _context.SaveChanges();
+            }
+        }
 
-		public void RemovePost(BlogPostViewModel post)
-		{
-			if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
-			{
-				var toRemove = _context.BlogPosts.First(bp => bp.Id == post.Id);
-				_context.BlogPosts.Remove(toRemove);
+        public async Task<BlogPost> CreatePostAsync(BlogPostViewModel post)
+        {
+            var userId = Convert.ToInt32(_http.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
 
-				_context.SaveChanges();
-			}
-		}
+            var @new = new BlogPost
+            {
+                AuthorId = userId,
+                Active = post.Active,
+                DatePosted = DateTime.Now,
+                DateUpdated = DateTime.Now,
+                Title = post.Title.Trim(),
+                TitleUrl = GenerateUrlFromTitle(post.Title),
+				Preview = MarkDownToHtml(post.Content.Substring(0, post.Content.IndexOf('\n') < 0 ? post.Content.Length : post.Content.IndexOf('\n'))),
+                Content = post.Content
+            };
+            _context.BlogPosts.Add(@new);
 
-		public async Task AddViewAsync(BlogPostViewModel post)
-		{
-			if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
-			{
-				var old = _context.BlogPosts.First(bp => bp.Id == post.Id);
-				old.Views++;
+            await _context.SaveChangesAsync();
 
-				await _context.SaveChangesAsync();
-			}
-		}
-	}
+            return @new;
+        }
+
+        public void RemovePost(BlogPostViewModel post)
+        {
+            if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
+            {
+                var toRemove = _context.BlogPosts.First(bp => bp.Id == post.Id);
+                _context.BlogPosts.Remove(toRemove);
+
+                _context.SaveChanges();
+            }
+        }
+
+        public async Task AddViewAsync(BlogPostViewModel post)
+        {
+            if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
+            {
+                var old = _context.BlogPosts.First(bp => bp.Id == post.Id);
+                old.Views++;
+
+                await _context.SaveChangesAsync();
+            }
+        }
+    }
 }
 

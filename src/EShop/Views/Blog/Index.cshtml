@@ -58,7 +58,10 @@
 							<hr>
 							<p>@(Html.Raw(post.Preview))</p>
 							<p>
-								<a asp-route="Blog" asp-route-id="@(post.Id)" asp-route-title="@(post.TitleUrl)" class="btn btn-purple">Read more &raquo;</a>
+								@if (post.Active)
+								{
+									<a asp-route="Blog" asp-route-id="@(post.Id)" asp-route-title="@(post.TitleUrl)" class="btn btn-purple">Read more &raquo;</a>
+								}
 								@if (Context.User.Identity.IsAuthenticated)
 								{
 									<a asp-controller="Blog" asp-action="Edit" asp-route-id="@(post.Id)" asp-route-title="@(post.TitleUrl)" class="btn btn-info">Edit &raquo;</a>
@@ -97,11 +100,14 @@
 							@await Component.InvokeAsync("PopularPosts", new { numPosts = 3})
 						</div>
 						
-						<div class="widget">
-							<h3>ShevaStream Member?</h3>
-							<p><a asp-controller="Account" asp-action="Login" class="btn btn-info" asp-route-returnurl="@(Context.Request.GetDisplayUrl())">Login</a></p>
-						</div>
-						
+						@if (!Context.User.Identity.IsAuthenticated)
+						{
+							<div class="widget">
+								<h3>ShevaStream Member?</h3>
+								<p><a asp-controller="Account" asp-action="Login" class="btn btn-info" asp-route-returnurl="@(Context.Request.GetDisplayUrl())">Login</a></p>
+							</div>
+						}
+
 						@if (Context.User.Identity.IsAuthenticated)
 						{
 							<div class="widget">

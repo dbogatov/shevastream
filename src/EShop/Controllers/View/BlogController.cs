@@ -27,6 +27,7 @@ namespace EShop.Controllers.View
 		}
 
 		[HttpPost]
+		[Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Publish(
 			[FromServices] IBlogService order,
