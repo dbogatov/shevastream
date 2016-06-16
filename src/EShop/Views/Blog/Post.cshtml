@@ -61,7 +61,7 @@
 							<h3>Author</h3>
 							<div class="team-container">
 								<div class="featured-photos">
-									<img src="@(Model.Author.ImageUrl)" class="img-responsive img-rounded" alt="Polina Guley">
+									<img src="@(Model.Author.ImageUrl)" class="img-responsive img-rounded" alt="@(Model.Author.FullName)">
 								</div>				
 								<h3><a asp-controller="Store" asp-action="Profile">@(Model.Author.FullName)</a></h3>
 								<h4>@(Model.Author.Position)</h4>

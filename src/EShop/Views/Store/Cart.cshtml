@@ -43,13 +43,13 @@
 						<div class="panel panel-success">
 							
 							<div class="panel-heading">
-								<h3 class="panel-title">@item.Product.Name</h3>
+								<h3 class="panel-title">@(item.Product.Name)</h3>
 							</div>
 							
 							<div class="panel-body">
 								<div class="row" style="padding: 20px;">
 									<div class="col-md-3">
-										<img width="100%" class="mg-responsive img-rounded" src="@( ((Newtonsoft.Json.Linq.JArray)JsonConvert.DeserializeObject(item.Product.ImageUrls)).ToObject<string[]>()[0] )" />
+										<img width="100%" class="mg-responsive img-rounded" alt="@(item.Product.Name)" src="@( ((Newtonsoft.Json.Linq.JArray)JsonConvert.DeserializeObject(item.Product.ImageUrls)).ToObject<string[]>()[0] )" />
 									</div>
 									<div class="col-md-6">
 										<h2><a asp-controller="Store" asp-action="Product" asp-route-id="@(item.Product.Id)">@item.Product.Name</a></h2>
