@@ -85,7 +85,7 @@
 	"@@context": "http://schema.org",
 	"@@type": "BlogPosting",
 	"headline": "@Model.Title",
-	"datePublished": "@Model.DatePosted.ToString()",
+	"datePublished": "@Model.DatePosted.ToString("YYYY-MM-dd")",
 	"description": "@Model.Preview",
 	"articleBody": "@Model.Content",
 	"author": {
@@ -94,18 +94,18 @@
 		"image": "@(Model.Author.ImageUrl)",
 		"jobTitle": "@(Model.Author.Position)"
 	},
-	"image": [
-		"/images/bg.jpg"
-	],
+	"image": "/images/bg.jpg",
 	"publisher" : {
 		"@@type": "Organization",
 		"legalName": "Sheva Stream",
-		"email": "shevastream@gmail.com"
+		"email": "shevastream@gmail.com",
+		"name": "Sheva Stream",
+		"logo": "/images/logo.jpg"
 	},
-	"dateModified" : "@Model.DateUpdated.ToString()",
+	"dateModified" : "@Model.DateUpdated.ToString("YYYY-MM-dd")",
 	"mainEntityOfPage": {
 		 "@@type": "WebPage",
-		 "@@id": "https://shevastream.com",
+		 "@@id": "https://shevastream.com"
 	}
 }
 </script>
