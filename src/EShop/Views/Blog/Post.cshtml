@@ -1,5 +1,5 @@
 ﻿@{
-	ViewData["Title"] = "Post";
+	ViewData["Title"] = Model.Title;
 }
 
 @section heading {
@@ -85,7 +85,7 @@
 	"@@context": "http://schema.org",
 	"@@type": "BlogPosting",
 	"headline": "@Model.Title",
-	"datePublished": "@Model.DatePosted.ToString("YYYY-MM-dd")",
+	"datePublished": "@Model.DatePosted.ToString("yyyy-MM-dd")",
 	"description": "@Model.Preview",
 	"articleBody": "@Model.Content",
 	"author": {
@@ -94,15 +94,21 @@
 		"image": "@(Model.Author.ImageUrl)",
 		"jobTitle": "@(Model.Author.Position)"
 	},
-	"image": "/images/bg.jpg",
+	"image": {
+		"@@type": "ImageObject",
+		"contentUrl": "/images/bg.jpg"
+	},
 	"publisher" : {
 		"@@type": "Organization",
 		"legalName": "Sheva Stream",
 		"email": "shevastream@gmail.com",
 		"name": "Sheva Stream",
-		"logo": "/images/logo.jpg"
+		"logo": {
+			"@@type": "ImageObject",
+			"contentUrl": "/images/logo.jpg"
+		}
 	},
-	"dateModified" : "@Model.DateUpdated.ToString("YYYY-MM-dd")",
+	"dateModified" : "@Model.DateUpdated.ToString("yyyy-MM-dd")",
 	"mainEntityOfPage": {
 		 "@@type": "WebPage",
 		 "@@id": "https://shevastream.com"
