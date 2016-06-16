@@ -53,12 +53,17 @@ namespace EShop.Controllers.View
 			}
 		} 
 
-		public async Task<IActionResult> Post(string title)
+		public async Task<IActionResult> Post(int id, string title)
 		{
-			var model = await _blog.GetPostByTitleAsync(title);
+			var model = await _blog.GetPostByIdAsync(id);
 
 			if (model != null)
 			{
+				if (title != model.TitleUrl)
+				{
+					return RedirectToRoutePermanent("Blog", new { id = id, title = model.TitleUrl });
+				}
+
 				await _blog.AddViewAsync(model);
 				return View(model);
 			}
@@ -69,18 +74,21 @@ namespace EShop.Controllers.View
 		}
 
 		[Authorize]
-		[Route("Blog/Edit/{title?}")]
-		public async Task<IActionResult> Edit(string title)
+		[Route("Blog/Edit/{id}/{title?}")]
+		public async Task<IActionResult> Edit(int id, string title)
 		{
 			if (title != null)
 			{
 				ModelState.Clear();
 
-				var post = await _blog.GetPostByTitleAsync(title, false);
+				var post = await _blog.GetPostByIdAsync(id, false);
 
 				if (post != null)
 				{
-					post.HtmlContent = _blog.MarkDownToHtml(post.Content);
+					if (title != post.TitleUrl)
+					{
+						return RedirectToActionPermanent("Edit", "Blog", new { id = id, title = post.TitleUrl });
+					}
 
 					return View(post);	
 				}

@@ -3,5 +3,5 @@
 <h3>Most popular posts</h3>
 @foreach (var post in Model)
 {
-	<h5><a asp-route="Blog" asp-route-title="@(post.TitleUrl)">@post.Title [@(post.Views) views]</a></h5>
+	<h5><a asp-route="Blog" asp-route-id="@(post.Id)" asp-route-title="@(post.TitleUrl)">@post.Title [@(post.Views) views]</a></h5>
 }

@@ -7,9 +7,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EShop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20160616130356_PostByID")]
+    partial class PostByID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasDefaultSchema("shevastream")

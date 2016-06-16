@@ -121,7 +121,7 @@ namespace EShop
 				);
 				routes.MapRoute(
 					"Blog",
-					"Blog/{title}",
+					"Blog/{id}/{title}",
 					new { controller = "Blog", action = "Post" }
 				);
 				routes.MapRoute(

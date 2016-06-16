@@ -43,7 +43,7 @@ namespace EShop.Services
                 .ToList()
                 .Select(post => new SiteMapItem
                 {
-                    Loc = new Uri(_urlHelper.RouteUrl("Blog", new { title = post.TitleUrl }, SCHEME, HOST)),
+                    Loc = new Uri(_urlHelper.RouteUrl("Blog", new { title = post.TitleUrl, id = post.Id }, SCHEME, HOST)),
                     ChangeFreq = ChangeFrequency.Daily,
                     LastMod = post.DateUpdated
                 })

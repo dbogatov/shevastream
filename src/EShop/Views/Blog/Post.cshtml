@@ -39,7 +39,7 @@
 								<span class="the-date"><i class="fa fa-calendar"></i>@(Model.DatePosted.ToString("dd/mm/yy"))</span>
 								<span class="the-comments"><i class="fa fa-eye"></i> @(Model.Views)</span>
 							</span>
-							<a asp-route="Blog" asp-route-title="@(Model.TitleUrl)">@(Model.Title)</a>
+							<a asp-route="Blog" asp-route-id="@(Model.Id)" asp-route-title="@(Model.TitleUrl)">@(Model.Title)</a>
 						</h2>
 						<hr>
 						

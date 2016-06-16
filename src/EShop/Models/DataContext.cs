@@ -44,8 +44,6 @@ public class DataContext : DbContext
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
         builder.HasDefaultSchema("shevastream");
-        builder.Entity<BlogPost>().HasAlternateKey(bp => bp.Title);
-		builder.Entity<BlogPost>().HasAlternateKey(bp => bp.TitleUrl);
 
         base.OnModelCreating(builder);
 	}
