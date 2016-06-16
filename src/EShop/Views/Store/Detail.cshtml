@@ -26,6 +26,18 @@
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
+<!-- Google plus API -->
+<script src="https://apis.google.com/js/platform.js" async defer>
+  {lang: 'uk'}
+</script>
+
+<!-- VK API -->
+<script type="text/javascript" src="//vk.com/js/api/openapi.js?122"></script>
+<script type="text/javascript">
+	VK.init({apiId: 5511170, onlyWidgets: true});
+</script>
+
+
 @section heading {
 	<!-- begin:heading -->
 	<div class="heads" style="background: url(/images/bg.jpg) center center;">
@@ -133,7 +145,7 @@
 								<p>@Html.Raw(Model.Information)</p>
 							</div>
 							<div class="tab-pane fade" id="review">
-								<div class="fb-comments" id="fbcomment" data-href="http://dev.shevastream.com/Store/Product/@(Model.Id)" data-width="700" data-numposts="5"></div>
+								<div class="fb-comments" id="fbcomment" data-href="https://shevastream.com/store/product/@(Model.Id)" data-width="700" data-numposts="5"></div>
 							</div>
 						</div>
 
@@ -146,6 +158,7 @@
 			
 			
 			<!-- end:product-content -->
+
 			<!-- begin:product-sidebar -->
 			<div class="col-md-3 col-sm-3">
 				<div class="row sidebar">
@@ -154,6 +167,20 @@
 						<ul class="nav nav-pills nav-stacked">
 							<li><a asp-controller="Store" asp-action="FAQ">Оплата</a></li>
 							<li><a asp-controller="Store" asp-action="FAQ">Доставка</a></li>
+						</ul>
+					</div>
+
+					<div class="col-md-12">
+						<h3>Social</h3>
+						<ul class="nav nav-pills nav-stacked social">
+							<li><div class="fb-like" data-href="https://shevastream.com/store/product/@(Model.Id)" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div></li>
+							<li><div class="g-plusone" data-size="tall" data-annotation="inline" data-width="200"></div></li>
+							<li>
+								<div id="vk_like"></div>
+								<script type="text/javascript">
+									VK.Widgets.Like("vk_like", {type: "button", height: 24});
+								</script>
+							</li>
 						</ul>
 					</div>
 				</div>
