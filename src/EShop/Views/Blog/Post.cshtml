@@ -16,6 +16,7 @@
 	<!-- end:heading -->
 }
 
+
 <!-- begin:content -->
 <div class="page-content">
 	<div class="container">
@@ -68,9 +69,16 @@
 								<p>@(Model.Author.Occupation)</p>
 							</div>
 						</div>
-						
 					</div>
 				</div>
+
+
+				<div class="row sidebar">
+					<div class="col-md-12">
+						@await Component.InvokeAsync("SocialWidget", $"https://shevastream.com/blog/post/{Model.Id}/{Model.TitleUrl}")
+					</div>					
+				</div>
+
 			</div>
 			<!-- end:sidebar -->
 		</div>
