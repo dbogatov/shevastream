@@ -79,6 +79,24 @@
 </div>
 <!-- end:content -->
 
+<!-- structured data -->
+<script type="application/ld+json">
+{
+	"@@context": "http://schema.org",
+	"@@type": "BlogPosting",
+	"headline": "@Model.Title",
+	"datePublished": "@Model.DatePosted.ToString("T")",
+	"description": "@Model.Preview",
+	"articleBody": "@Model.Content",
+	"author": {
+		"@@type": "Person",
+		"name": "@Model.Author.FullName",
+		"image": "@(Model.Author.ImageUrl)",
+		"jobTitle": "@(Model.Author.Position)"
+	}
+}
+</script>
+
 @section scripts {
 	
 	<script>

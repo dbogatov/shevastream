@@ -185,17 +185,17 @@
 <!-- structured data -->
 <script type="application/ld+json">
 {
-  "@@context": "http://schema.org",
-  "@@type": "Product",
-  "description": "@(Model.Description)",
-  "name": "@(Model.Name)",
-  "offers": {
-	"@@type": "Offer",
-	"availability": "http://schema.org/InStock",
-	"price": "@(Model.Cost)",
-	"priceCurrency": "UAH"
-  },
-  "image": "@( ((Newtonsoft.Json.Linq.JArray)JsonConvert.DeserializeObject(Model.ImageUrls)).ToObject<string[]>()[0] )"
+	"@@context": "http://schema.org",
+	"@@type": "Product",
+	"description": "@(Model.Description)",
+	"name": "@(Model.Name)",
+	"offers": {
+		"@@type": "Offer",
+		"availability": "http://schema.org/InStock",
+		"price": "@(Model.Cost)",
+		"priceCurrency": "UAH"
+	},
+	"image": "@( ((Newtonsoft.Json.Linq.JArray)JsonConvert.DeserializeObject(Model.ImageUrls)).ToObject<string[]>()[0] )"
 }
 </script>
 
