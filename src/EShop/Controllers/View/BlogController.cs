@@ -47,7 +47,7 @@ namespace EShop.Controllers.View
 
 			if (updated.Active)
 			{
-				return RedirectToRoute("Blog", new { title = updated.TitleUrl });
+				return RedirectToRoute("Blog", new { title = updated.TitleUrl, id = updated.Id });
 			} else
 			{
 				return RedirectToAction("Index");
