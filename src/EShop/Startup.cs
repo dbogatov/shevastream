@@ -10,10 +10,12 @@ using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using EShop.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using CommonMark;
+using EShop.Models;
 
 namespace EShop
 {
-    public class Startup
+	public class Startup
 	{
 		public Startup(IHostingEnvironment env)
 		{
@@ -51,20 +53,20 @@ namespace EShop
 
 			// Add application services.
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-			
+
 			services.AddTransient<DataContext, DataContext>();
 
 			services.AddTransient<ICryptoService, CryptoService>();
 			services.AddTransient<ITelegramSender, TelegramSender>();
 			services.AddTransient<IDBLogService, DBLogService>();
 			services.AddTransient<IPushService, PushService>();
-            services.AddTransient<IBlogService, BlogService>();
+			services.AddTransient<IBlogService, BlogService>();
 			services.AddTransient<ICartService, CartService>();
 			services.AddTransient<IOrderService, OrderService>();
 			services.AddTransient<IDataSeedService, DataSeedService>();
 			services.AddTransient<ISiteMapService, SiteMapService>();
 			services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-        }
+		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
@@ -76,15 +78,15 @@ namespace EShop
 
 			if (env.IsDevelopment())
 			{
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+				app.UseDeveloperExceptionPage();
+				app.UseDatabaseErrorPage();
 				app.UseRuntimeInfoPage();
 			}
 			else
 			{
 				app.UseExceptionHandler("/Error");
 			}
-			
+
 			app.UseStatusCodePagesWithReExecute("/Error/{0}");
 			//app.UseStatusCodePages();
 
@@ -114,7 +116,7 @@ namespace EShop
 					"{action}",
 					new { controller = "Store", action = "Index" }
 				);
-                routes.MapRoute(
+				routes.MapRoute(
 					"Error",
 					"Error/{code}",
 					new { controller = "Error", action = "Error" }
@@ -129,15 +131,20 @@ namespace EShop
 					"sitemap.xml",
 					new { controller = "Store", action = "SiteMap" }
 				);
-				
-            });
 
-			using(var context = serviceProvider.GetService<DataContext>())
+			});
+
+			using (var context = serviceProvider.GetService<DataContext>())
 			{
 				context.Database.EnsureCreated();
 			}
 
 			serviceProvider.GetService<IDataSeedService>().SeedData();
+
+			// set the default HTML formatter for all future conversions
+			CommonMarkSettings.Default.OutputDelegate =
+				(doc, output, settings) =>
+				new MyFormatter(output, settings).WriteDocument(doc);
 		}
 
 		// Entry point for the application.
