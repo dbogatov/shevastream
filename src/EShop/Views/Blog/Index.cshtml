@@ -1,5 +1,5 @@
 ﻿@{
-	ViewData["Title"] = "Blog";
+	ViewData["Title"] = "Блог";
 }
 
 
@@ -13,7 +13,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h2><span>//</span> Blog</h2>
+					<h2><span>//</span> Блог</h2>
 				</div>
 			</div>
 		</div>
@@ -28,7 +28,7 @@
 			<div class="col-md-12">
 				<ol class="breadcrumb">
 					<li><a asp-controller="Store" asp-action="Index">Головна</a></li>
-					<li class="active">Blog</li>
+					<li class="active">Блог</li>
 				</ol>
 			</div>
 		</div>
@@ -65,7 +65,7 @@
 							<p>
 								@if (post.Active)
 								{
-									<a asp-route="Blog" asp-route-id="@(post.Id)" asp-route-title="@(post.TitleUrl)" class="btn btn-purple">Read more &raquo;</a>
+									<a asp-route="Blog" asp-route-id="@(post.Id)" asp-route-title="@(post.TitleUrl)" class="btn btn-purple">Детальніше &raquo;</a>
 								}
 								@if (Context.User.Identity.IsAuthenticated)
 								{
@@ -108,7 +108,7 @@
 						@if (!Context.User.Identity.IsAuthenticated)
 						{
 							<div class="widget">
-								<h3>ShevaStream Member?</h3>
+								<h3>Учасник команди ShevaStream?</h3>
 								<p><a asp-controller="Account" asp-action="Login" class="btn btn-info" asp-route-returnurl="@(Context.Request.GetDisplayUrl())">Login</a></p>
 							</div>
 						}

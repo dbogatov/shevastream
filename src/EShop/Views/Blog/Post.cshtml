@@ -24,7 +24,7 @@
 			<div class="col-md-12">
 				<ol class="breadcrumb">
 					<li><a asp-controller="Store" asp-action="Index">Головна</a></li>
-					<li><a asp-controller="Blog" asp-action="Index">Blog</a></li>
+					<li><a asp-controller="Blog" asp-action="Index">Блог</a></li>
 					<li class="active">@(Model.Title)</li>
 				</ol>
 			</div>
@@ -59,7 +59,7 @@
 					<div class="col-md-12">
 						
 						<div class="widget">
-							<h3>Author</h3>
+							<h3>Автор</h3>
 							<div class="team-container">
 								<div class="featured-photos">
 									<img src="@(Model.Author.ImageUrl)" class="img-responsive img-rounded" alt="@(Model.Author.FullName)">

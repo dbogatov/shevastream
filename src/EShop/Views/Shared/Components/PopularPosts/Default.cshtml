@@ -1,6 +1,6 @@
 @model IEnumerable<EShop.Models.Enitites.BlogPost>
 
-<h3>Most popular posts</h3>
+<h3>Найбільш популярні пости</h3>
 @foreach (var post in Model)
 {
 	<h5><a asp-route="Blog" asp-route-id="@(post.Id)" asp-route-title="@(post.TitleUrl)">@post.Title [@(post.Views) views]</a></h5>
