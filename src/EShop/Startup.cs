@@ -80,7 +80,6 @@ namespace EShop
 			{
 				app.UseDeveloperExceptionPage();
 				app.UseDatabaseErrorPage();
-				app.UseRuntimeInfoPage();
 			}
 			else
 			{
