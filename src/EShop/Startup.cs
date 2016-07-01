@@ -12,6 +12,7 @@ using EShop.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using CommonMark;
 using EShop.Models;
+using Newtonsoft.Json.Serialization;
 
 namespace EShop
 {
@@ -47,7 +48,15 @@ namespace EShop
 
 			DataContext.connectionString = Configuration["Data:PGSQLConnection:ConnectionString"];
 
-			services.AddMvc();
+			services.AddMvc().AddJsonOptions(opt =>
+			{
+				var resolver = opt.SerializerSettings.ContractResolver;
+				if (resolver != null)
+				{
+					var res = resolver as DefaultContractResolver;
+					res.NamingStrategy = null;  // <<!-- this removes the camelcasing
+				}
+			});
 
 			services.AddRouting(options => { options.LowercaseUrls = true; });
 
