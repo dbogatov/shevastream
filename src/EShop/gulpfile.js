@@ -6,6 +6,7 @@ var gulp = require("gulp"),
     concat = require("gulp-concat"),
     cssmin = require("gulp-cssmin"),
     rename = require('gulp-rename'),
+    less = require('gulp-less'),
     uglify = require("gulp-uglify");
 
 var paths = {
@@ -14,6 +15,8 @@ var paths = {
 
 paths.js = paths.webroot + "js/**/*.js";
 paths.minJs = paths.webroot + "js/**/*.min.js";
+paths.less = paths.webroot + "css/less/**/*.less";
+paths.lessOut = paths.webroot + "css/";
 paths.css = paths.webroot + "css/**/*.css";
 paths.minCss = paths.webroot + "css/**/*.min.css";
 paths.concatJsDest = paths.webroot + "js/site.min.js";
@@ -37,14 +40,20 @@ gulp.task("min:js", function () {
         .pipe(gulp.dest("."));
 });
 
-gulp.task("min:css", function () {
+gulp.task("min:css", ["build-less"], function () {
     return gulp.src([paths.css, "!" + paths.minCss])
-        //.pipe(concat(paths.concatCssDest))
         .pipe(cssmin())
         .pipe(rename({
             suffix: '.min'
         }))
         .pipe(gulp.dest(paths.cssDest));
+});
+
+// Compiles LESS > CSS 
+gulp.task('build-less', function () {
+    return gulp.src(paths.less)
+        .pipe(less())
+        .pipe(gulp.dest(paths.lessOut));
 });
 
 gulp.task("min", ["min:js", "min:css"]);
