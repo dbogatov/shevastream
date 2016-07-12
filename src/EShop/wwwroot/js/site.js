@@ -1,8 +1,6 @@
 ﻿// Write your Javascript code.
 
 $(document).ready(function () {
-	$("#" + globalActive).addClass("active");
-
 	registerCallMeBack();
 
 	$("[href='#']").click(function (e) {

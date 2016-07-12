@@ -73,17 +73,17 @@
 							<li id="Logout"><a href="/api/Secure/Logout" target="_blank">Logout</a></li>
 						}
 						
-						<li id="Index"><a asp-controller="Store" asp-action="Index">Головна</a></li>
-						<li id="Profile"><a asp-controller="Store" asp-action="Profile">Про нас</a></li>
-						<li id="Product"><a asp-controller="Store" asp-action="Product">Продукція</a></li>
+						<li class="@(ViewBag.Current == "Index" ? "active" : "")" id="Index"><a asp-controller="Store" asp-action="Index">Головна</a></li>
+						<li class="@(ViewBag.Current == "Profile" ? "active" : "")" id="Profile"><a asp-controller="Store" asp-action="Profile">Про нас</a></li>
+						<li class="@(ViewBag.Current == "Product" ? "active" : "")" id="Product"><a asp-controller="Store" asp-action="Product">Продукція</a></li>
 					</ul>
 					<a asp-controller="Store" asp-action="Index" class="logo visible-lg visible-md"><img src="/images/logo.jpg" alt="Sheva Stream Logo"></a>
 					<div id="brand" class="visible-lg visible-md">&nbsp;</div>
 					<ul class="nav navbar-nav nav-right">
-						<li id="FAQ"><a asp-controller="Blog" asp-action="Index">Блог</a></li>
-						<li id="Contact"><a asp-controller="Store" asp-action="Contact">Контакти</a></li>
+						<li class="@(ViewBag.Current == "Blog" ? "active" : "")" id="Blog"><a asp-controller="Blog" asp-action="Index">Блог</a></li>
+						<li class="@(ViewBag.Current == "Contact" ? "active" : "")" id="Contact"><a asp-controller="Store" asp-action="Contact">Контакти</a></li>
 						
-						<li id="Cart">
+						<li class="@(ViewBag.Current == "Cart" ? "active" : "")" id="Cart">
 							<a asp-controller="Store" asp-action="Cart">
 								Кошик <span id="cartItemsNumber"></span>
 							</a>
@@ -98,7 +98,7 @@
 
 		@RenderBody()
 	   
-		<div id="footerFix" class="page-content"></div>
+		<div id="footerFix" class="page-content" style="padding: 0;"></div>
 	   
 		<!-- begin:footer -->
 		<div id="footer">

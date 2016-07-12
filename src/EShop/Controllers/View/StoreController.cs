@@ -14,12 +14,14 @@ namespace EShop.Controllers.View
         private readonly DataContext _context;
         private readonly ICartService _cart;
         private readonly ISiteMapService _siteMap;
+        private readonly IBlogService _blogService;
 
-        public StoreController(DataContext context, ICartService cart, ISiteMapService siteMap)
+        public StoreController(DataContext context, ICartService cart, ISiteMapService siteMap, IBlogService blogService)
         {
             _context = context;
             _cart = cart;
             _siteMap = siteMap;
+            _blogService = blogService;
         }
 
         public SiteMapResult SiteMap()
@@ -28,9 +30,9 @@ namespace EShop.Controllers.View
             return new SiteMapResult(siteMap);
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _blogService.GetLatestPostsAsync(3));
         }
 
         public IActionResult FAQ()

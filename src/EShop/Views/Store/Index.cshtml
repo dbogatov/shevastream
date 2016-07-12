@@ -1,5 +1,12 @@
-﻿@{
+﻿@using EShop.ViewModels.Blog
+@using System.Globalization
+@using EShop.Extensions
+
+@model IEnumerable<BlogPostViewModel>
+
+@{
 	ViewData["Title"] = "Головна";
+	ViewData["Current"] = "Index";
 }
 
 @section heading {
@@ -143,12 +150,12 @@
 				<div id="testi" class="carousel slide" data-ride="carousel">
 					<div class="carousel-inner">
 						<div class="item active">
-							<p class="testimoni-item">Придбала собі цей крутий блокнот! Дуже стильно виглядає, дякую за швидку доставку та приємні враження!</p>
-							<h4>&#8212; Катя Деревянко, КНУ ім. Т. Шевченка &#8212;</h4>
-						</div>
-						<div class="item">
 							<p class="testimoni-item">Отримав блокнот SHEVA Stream на день народження. Неймовірний дизайн, яскрава обкладинка, та й сам блокнот зручний у користуванні. Тепер буду найбільш стильним в групі!</p>
 							<h4>&#8212; Владислав Галясов, КНУ ім. Т. Шевченка &#8212;</h4>
+						</div>
+						<div class="item">
+							<p class="testimoni-item">Придбала собі цей крутий блокнот! Дуже стильно виглядає, дякую за швидку доставку та приємні враження!</p>
+							<h4>&#8212; Катя Деревянко, КНУ ім. Т. Шевченка &#8212;</h4>
 						</div>
 					</div>
 					<a class="left carousel-control" href="#testi" data-slide="prev">&lsaquo;</a>
@@ -160,10 +167,62 @@
 </div>
 <!-- end:testimoni -->
 
+<cache expires-after="@(TimeSpan.FromDays(1))" >
+	<!-- begin:blog -->
+	<div id="blog">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="heading-title">
+						<h2>Наш Блог</h2>
+						<p>Останні повідомлення з нашого блогу</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				@foreach (var post in Model)
+				{
+					<div class="col-md-4 col-sm-4">
+						<div class="blog-container">
+							<div class="blog-date">
+								<i class="fa fa-calendar"></i>
+								<span class="meta-date">@(post.DatePosted.Day)</span>
+								<span class="meta-month-year">@(post.DatePosted.ToString("MMM", new CultureInfo("uk-UA"))) @(post.DatePosted.Year)</span>
+							</div>
+							<h3 class="post-title"><a asp-route="Blog" asp-route-id="@(post.Id)" asp-route-title="@(post.TitleUrl)">@(post.Title)</a></h3>
+							<p class="post-preview">@Html.Raw(post.Preview.StripHTML().Truncate(160))</p>
+							<p><a asp-route="Blog" asp-route-id="@(post.Id)" asp-route-title="@(post.TitleUrl)" class="btn btn-purple">Детальніше &raquo;</a></p>
+						</div>
+					</div>
+				}		
+			</div>
+		</div>
+	</div>
+	<!-- end:blog -->
+
+</cache>
+
 @section scripts {
 	
 	<script>
-		var globalActive = "Index";
+		function fixHeight() {
+
+			var maxHeight = 0;
+
+			["testimoni-item", "item", "post-title", "post-preview"].forEach(function(element, index, array) {
+				maxHeight = 0;
+
+				$("." + element).each(function(){
+					var thisH = $(this).height();
+					if (thisH > maxHeight) { maxHeight = thisH; }
+				});
+
+				$("." + element).height(maxHeight);
+			});		
+		}
+
+		$(document).ready(function() { setTimeout(fixHeight, 300); });
+		$(window).resize(fixHeight);
 	</script>
 	
 }

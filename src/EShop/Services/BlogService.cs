@@ -25,7 +25,7 @@ namespace EShop.Services
         Task<BlogPost> CreatePostAsync(BlogPostViewModel post);
         void RemovePost(BlogPostViewModel post);
         Task AddViewAsync(BlogPostViewModel post);
-
+        Task<IEnumerable<BlogPostViewModel>> GetLatestPostsAsync(int postsNum);
     }
 
     public class BlogService : IBlogService
@@ -263,6 +263,16 @@ namespace EShop.Services
 
                 await _context.SaveChangesAsync();
             }
+        }
+
+		public async Task<IEnumerable<BlogPostViewModel>> GetLatestPostsAsync(int postsNum = 3)
+		{
+            return (await _context
+				.BlogPosts
+				.OrderByDescending(bp => bp.DatePosted)
+				.Take(postsNum)
+				.ToListAsync())
+				.Select(bp => BlogPostViewModel.FromBlogPost(bp));
         }
     }
 }

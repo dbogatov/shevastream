@@ -7,6 +7,7 @@
 
 @{
 	ViewData["Title"] = Model.Name;
+	ViewData["Current"] = "Product";
 }
 
 @section styles {
@@ -206,14 +207,3 @@
 	"image": "@( ((Newtonsoft.Json.Linq.JArray)JsonConvert.DeserializeObject(Model.ImageUrls)).ToObject<string[]>()[0] )"
 }
 </script>
-
-@section scripts {
-	
-	
-	<!--<script src="/js/detail.js"></script>-->
-	
-	<script>
-		var globalActive = "Detail";
-	</script>
-	
-}
