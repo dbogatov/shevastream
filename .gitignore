@@ -220,3 +220,5 @@ ModelManifest.xml
 # custom minified js and css
 **/wwwroot/js/**/*.min.js
 **/wwwroot/css/**/*.min.css
+
+**/wwwroot/css/style.css
