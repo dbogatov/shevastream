@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using CommonMark;
 using EShop.Models;
 using Newtonsoft.Json.Serialization;
+using WebMarkupMin.AspNetCore1;
 
 namespace EShop
 {
@@ -47,6 +48,16 @@ namespace EShop
 				.AddDbContext<DataContext>();
 
 			DataContext.connectionString = Configuration["Data:PGSQLConnection:ConnectionString"];
+
+			// Add WebMarkupMin services.
+			services
+				.AddWebMarkupMin(options => {
+					options.AllowMinificationInDevelopmentEnvironment = true;
+					options.AllowCompressionInDevelopmentEnvironment = true;
+				})
+				.AddHtmlMinification()
+				.AddXmlMinification()
+				.AddHttpCompression();
 
 			services.AddMvc().AddJsonOptions(opt =>
 			{
@@ -84,6 +95,8 @@ namespace EShop
 			loggerFactory.AddDebug();
 
 			app.UseToLowercase();
+
+			app.UseWebMarkupMin();
 
 			if (env.IsDevelopment())
 			{
