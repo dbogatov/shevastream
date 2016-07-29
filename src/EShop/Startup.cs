@@ -50,14 +50,14 @@ namespace EShop
 			DataContext.connectionString = Configuration["Data:PGSQLConnection:ConnectionString"];
 
 			// Add WebMarkupMin services.
-			services
-				.AddWebMarkupMin(options => {
-					options.AllowMinificationInDevelopmentEnvironment = true;
-					options.AllowCompressionInDevelopmentEnvironment = true;
-				})
-				.AddHtmlMinification()
-				.AddXmlMinification()
-				.AddHttpCompression();
+			// services
+			// 	.AddWebMarkupMin(options => {
+			// 		options.AllowMinificationInDevelopmentEnvironment = true;
+			// 		options.AllowCompressionInDevelopmentEnvironment = true;
+			// 	})
+			// 	.AddHtmlMinification()
+			// 	.AddXmlMinification()
+			// 	.AddHttpCompression();
 
 			services.AddMvc().AddJsonOptions(opt =>
 			{
@@ -96,7 +96,7 @@ namespace EShop
 
 			app.UseToLowercase();
 
-			app.UseWebMarkupMin();
+			// app.UseWebMarkupMin();
 
 			if (env.IsDevelopment())
 			{
