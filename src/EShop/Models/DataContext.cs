@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using EShop.Models.Enitites;
 using EShop.Services;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 public class DataContext : DbContext
 {
