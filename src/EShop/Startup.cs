@@ -150,7 +150,7 @@ namespace EShop
 				routes.MapRoute(
 					"Sitemap",
 					"sitemap.xml",
-					new { controller = "Store", action = "SiteMap" }
+					new { controller = "Home", action = "SiteMap" }
 				);
 
 			});

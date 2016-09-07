@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EShop.Models;
 using EShop.Services;
 using EShop.ViewModels.Store;
 using Microsoft.AspNetCore.Mvc;
@@ -13,43 +11,16 @@ namespace EShop.Controllers.View
     {
         private readonly DataContext _context;
         private readonly ICartService _cart;
-        private readonly ISiteMapService _siteMap;
-        private readonly IBlogService _blogService;
 
-        public StoreController(DataContext context, ICartService cart, ISiteMapService siteMap, IBlogService blogService)
+        public StoreController(DataContext context, ICartService cart)
         {
             _context = context;
             _cart = cart;
-            _siteMap = siteMap;
-            _blogService = blogService;
         }
 
-        public SiteMapResult SiteMap()
+        public IActionResult Index()
         {
-            var siteMap = _siteMap.GetSiteMap();
-            return new SiteMapResult(siteMap);
-        }
-
-        public async Task<IActionResult> Index()
-        {
-            return View(await _blogService.GetLatestPostsAsync(3));
-        }
-
-        public IActionResult FAQ()
-        {
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-
-            return View();
-        }
-
-        public IActionResult Profile()
-        {
-
-            return View();
+            return RedirectToActionPermanent("Index", "Home");
         }
 
         public IActionResult Order()
@@ -103,12 +74,6 @@ namespace EShop.Controllers.View
         }
 
         public IActionResult ThankYou()
-        {
-
-            return View();
-        }
-
-        public IActionResult Error()
         {
             return View();
         }
