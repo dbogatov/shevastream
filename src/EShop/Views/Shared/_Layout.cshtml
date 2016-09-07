@@ -50,6 +50,11 @@
 
 		@RenderSection("styles", required: false)
 
+		<!-- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent -->
+		<script type="text/javascript">
+			window.cookieconsent_options = {"message":"Цей сайт використовує файли cookie","dismiss":"Добре!","learnMore":"Що це таке?","link":"/home/privacy","theme":"light-bottom"};
+		</script>
+
 	</head>
 	<body>
 		<nav class="navbar navbar-default navbar-fixed-top">
@@ -125,6 +130,7 @@
 								<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
 								<li><a asp-controller="Store" asp-action="Detail">Продукція</a></li>
 								<li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
+								<li><a asp-controller="Home" asp-action="Privacy">Політика Конфіденційності</a></li>
 							</ul>
 						</div>
 					</div>
@@ -218,6 +224,7 @@
 		<script defer src="/lib/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
 		<script defer src="/lib/jquery.cookie/jquery.cookie.min.js"></script>
 		<script defer src="/lib/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+		<script defer src="/lib/cookieconsent/build/cookieconsent.min.js"></script>
 		
 		<environment names="Development">
 			<script defer src="/js/script.js"></script>

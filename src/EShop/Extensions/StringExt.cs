@@ -7,6 +7,11 @@ namespace EShop.Extensions
 {
     public static class StringExtensions
     {
+		public static bool Contains(this string source, string toCheck, StringComparison comp)
+		{
+			return source.IndexOf(toCheck, comp) >= 0;
+		}
+
         public static string UnicodeSafeSubstring(this string str, int startIndex, int length)
         {
             if (str == null)

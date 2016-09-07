@@ -10,6 +10,8 @@ namespace EShop.Controllers.View
         private readonly ISiteMapService _siteMap;
         private readonly IBlogService _blogService;
 
+        private readonly int PRIVACY_ID = 29;
+
         public HomeController(ISiteMapService siteMap, IBlogService blogService)
         {
             _siteMap = siteMap;
@@ -44,7 +46,7 @@ namespace EShop.Controllers.View
 
 		public IActionResult Privacy()
         {
-            return View();
+            return RedirectToRoutePermanent("Blog", new { id = PRIVACY_ID });
         }
     }
 }

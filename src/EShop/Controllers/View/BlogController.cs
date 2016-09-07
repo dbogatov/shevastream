@@ -60,7 +60,7 @@ namespace EShop.Controllers.View
 
 			if (model != null)
 			{
-				if (title != model.TitleUrl)
+				if (title == null && title != model.TitleUrl)
 				{
 					return RedirectToRoutePermanent("Blog", new { id = id, title = model.TitleUrl });
 				}
