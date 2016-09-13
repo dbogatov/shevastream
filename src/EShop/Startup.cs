@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using CommonMark;
 using EShop.Models;
 using Newtonsoft.Json.Serialization;
-using WebMarkupMin.AspNetCore1;
 
 namespace EShop
 {

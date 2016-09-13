@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace EShop.TagHelpers

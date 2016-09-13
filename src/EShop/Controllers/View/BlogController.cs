@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using EShop.Models.Enitites;
 using EShop.Services;
 using EShop.ViewModels.Blog;
 using Microsoft.AspNetCore.Authorization;
