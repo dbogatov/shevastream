@@ -61,18 +61,14 @@
 										<p>@item.Product.Description</p>
 									</div>
 									<div class="col-md-3">
-										<select data-product="@(item.Product.Id)" class="form-control quantityPicker">
-											@for(var i = 1; i <= 10; i++)
-											{
-												@if (i == @item.Quantity) 
-												{ 
-													<option selected>@i</option>
-												} else
-												{
-													<option>@i</option>	
-												}
-											}
-										</select>
+										<div class="input-group" style="margin-bottom: 10px;">
+											<input type="number" data-product="@(item.Product.Id)" class="form-control quantityPicker" min="1" max="100" value="@(item.Quantity)" step="1">
+											<span class="input-group-btn ">
+												<button class="btn btn-default saveQuantBtn disabled" type="button">
+													<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+												</button>
+											</span>
+										</div><!-- /input-group -->
 										<a class="btn btn-danger btn-block removeFromCartBtn" data-product="@(item.Product.Id)">Видалити</a>
 										<h4 style="text-align: right;">Вартість продукту: @item.Product.Cost</h4>
 									</div>
@@ -133,6 +129,14 @@
 			}).changeItem( $(this).data("product"), $(this).val() );
 		});
 		
+		$(".quantityPicker").focusin(function() {
+			$(this).next().find(".saveQuantBtn").removeClass("disabled");
+		});
+
+		$(".quantityPicker").focusout(function() {
+			$(this).next().find(".saveQuantBtn").addClass("disabled");
+		});
+
 	</script>
 	
 }
