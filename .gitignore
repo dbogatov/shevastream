@@ -222,3 +222,6 @@ ModelManifest.xml
 **/wwwroot/css/**/*.min.css
 
 **/wwwroot/css/style.css
+
+# Bower libs
+**/wwwroot/lib/
