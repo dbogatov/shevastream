@@ -34,7 +34,6 @@
 		"NickBuhro.Translit": "*",
 		"WebMarkupMin.Core": "*",
 		"WebMarkupMin.AspNetCore1": "*",
-
 		"Microsoft.NETCore.App": {
 			"type": "platform",
 			"version": "1.0.0"
@@ -81,9 +80,8 @@
 	"scripts": {
 		"prepublish": [
 			"npm install",
-			"bower install  --allow-root",
-			"gulp clean",
-			"gulp min"
+			"bower install --allow-root",
+			"gulp"
 		]
 	}
 }

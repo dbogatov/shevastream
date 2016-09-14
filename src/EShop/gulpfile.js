@@ -7,7 +7,8 @@ var gulp = require("gulp"),
     cssmin = require("gulp-cssmin"),
     rename = require('gulp-rename'),
     less = require('gulp-less'),
-    uglify = require("gulp-uglify");
+    uglify = require("gulp-uglify"),
+	runSequence = require('run-sequence');
 
 var paths = {
     webroot: "./wwwroot/"
@@ -57,3 +58,9 @@ gulp.task('build-less', function () {
 });
 
 gulp.task("min", ["min:js", "min:css"]);
+
+gulp.task("default", function (done) {
+    runSequence("clean", "min", function () {
+        done();
+    });
+});
