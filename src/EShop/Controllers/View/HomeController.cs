@@ -12,7 +12,7 @@ namespace EShop.Controllers.View
 
         private readonly int PRIVACY_ID = 29;
 
-        public HomeController(ISiteMapService siteMap, IBlogService blogService)
+        public HomeController(ISiteMapService siteMap, IBlogService blogService) 
         {
             _siteMap = siteMap;
             _blogService = blogService;

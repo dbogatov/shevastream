@@ -68,6 +68,7 @@
 	},
 	"publishOptions": {
 		"include": [
+			"version.json",
 			"appsettings.json",
 			"wwwroot",
 			"Views"

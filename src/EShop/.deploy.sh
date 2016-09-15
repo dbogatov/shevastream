@@ -15,6 +15,9 @@ cd $DIR
 git fetch origin
 git reset --hard origin/master
 
+# remmeber build hash
+printf "{\n\t\"Version\" : {\n\t\t\"GitHash\" : \"$(git rev-parse HEAD)\"\n\t}\n}\n" > version.json
+
 dotnet restore
 
 supervisorctl stop shevastream

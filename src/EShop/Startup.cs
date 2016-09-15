@@ -25,7 +25,8 @@ namespace EShop
 			var builder = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json")
-				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+				.AddJsonFile("version.json", optional: true);
 
 			if (env.IsDevelopment())
 			{
@@ -47,6 +48,7 @@ namespace EShop
 				.AddDbContext<DataContext>();
 
 			DataContext.connectionString = Configuration["Data:PGSQLConnection:ConnectionString"];
+			DataContext.version = Configuration["Version:GitHash"];
 
 			// Add WebMarkupMin services.
 			// services

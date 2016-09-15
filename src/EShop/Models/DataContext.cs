@@ -5,8 +5,9 @@ using Microsoft.EntityFrameworkCore;
 public class DataContext : DbContext
 {
 	public static string connectionString;
+    public static string version;
 
-	public DbSet<Feedback> Feedbacks { get; set; }
+    public DbSet<Feedback> Feedbacks { get; set; }
 
 	public DbSet<LogEntry> LogEntries { get; set; }
 	
