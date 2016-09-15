@@ -1,6 +1,5 @@
 using Xunit;
 using EShop.Services;
-using Moq;
 using Microsoft.AspNetCore.Http;
 
 namespace EShop.UnitTests.Services
@@ -26,13 +25,13 @@ namespace EShop.UnitTests.Services
 		[Fact]
 		public void ServicesTest()
 		{
-            Assert.Equal(_blog.GenerateUrlFromTitleStackOverflow("Мое длинное название"), "Moje-dlinnoje-nazvanije");
+            Assert.Equal("Moe-dly`nnoe-nazvany`e", _blog.GenerateUrlFromTitleStackOverflow("Мое длинное название"));
         }
 
 		[Fact]
 		public void FailingTest()
 		{
-			Assert.Equal(5, Add(3, 2));
+			Assert.Equal(7, Add(3, 2));
 		}
 
 		int Add(int x, int y)
