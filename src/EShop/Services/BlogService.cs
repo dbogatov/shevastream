@@ -269,6 +269,7 @@ namespace EShop.Services
 		{
             return (await _context
 				.BlogPosts
+				.Where(bp => bp.Active)
 				.OrderByDescending(bp => bp.DatePosted)
 				.Take(postsNum)
 				.ToListAsync())
