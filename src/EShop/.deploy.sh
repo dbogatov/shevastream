@@ -20,10 +20,10 @@ printf "{\n\t\"Version\" : {\n\t\t\"GitHash\" : \"$(git rev-parse --short HEAD)\
 
 dotnet restore
 
-supervisorctl stop shevastream
+#supervisorctl stop shevastream
 
-rm -rf /var/aspnet/shevastream/*
+rm -rf /srv/www/dotnetcore/shevastream/*
 
-dotnet publish -o /var/aspnet/shevastream
+dotnet publish -o /srv/www/dotnetcore/aspnet/shevastream
 
-supervisorctl start shevastream
+#supervisorctl start shevastream
