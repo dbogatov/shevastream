@@ -24,6 +24,6 @@ supervisorctl stop shevastream
 
 rm -rf /srv/www/dotnetcore/shevastream/*
 
-dotnet publish -o /srv/www/dotnetcore/aspnet/shevastream
+dotnet publish -o /srv/www/dotnetcore/shevastream
 
 supervisorctl start shevastream
