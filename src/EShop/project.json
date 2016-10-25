@@ -5,30 +5,35 @@
 		"Dmytro Bogatov"
 	],
 	"dependencies": {
-		"Microsoft.EntityFrameworkCore.Tools": "1.0.0-*",
-		"Npgsql": "3.1.*",
-		"Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0-*",
-		"Npgsql.EntityFrameworkCore.PostgreSQL.Design": "1.0.0-*",
-		"Microsoft.EntityFrameworkCore.SqlServer": "1.0.0-*",
-		"Microsoft.EntityFrameworkCore.SqlServer.Design": "1.0.0-*",
-		"Microsoft.EntityFrameworkCore.Sqlite": "1.0.0-*",
-		"Microsoft.EntityFrameworkCore.Sqlite.Design": "1.0.0-*",
-		"Microsoft.EntityFrameworkCore.InMemory": "1.0.0-*",
-		"Microsoft.ApplicationInsights.AspNetCore": "1.0.0-*",
-		"Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-*",
-		"Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0-*",
-		"Microsoft.AspNetCore.Diagnostics": "1.0.0-*",
-		"Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-*",
-		"Microsoft.AspNetCore.Server.IISIntegration": "1.0.0-*",
-		"Microsoft.AspNetCore.Mvc": "1.0.0-*",
-		"Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
-		"Microsoft.AspNetCore.StaticFiles": "1.0.0-*",
-		"Microsoft.AspNetCore.Razor.Tools": "1.0.0-*",
-		"Microsoft.Extensions.Configuration.Json": "1.0.0-*",
-		"Microsoft.Extensions.Configuration.UserSecrets": "1.0.0-*",
-		"Microsoft.Extensions.Logging": "1.0.0-*",
-		"Microsoft.Extensions.Logging.Console": "1.0.0-*",
-		"Microsoft.Extensions.Logging.Debug": "1.0.0-*",
+		"Microsoft.EntityFrameworkCore.Tools": {
+			"version": "1.0.0-preview2-final",
+			"type": "build"
+		},
+		"Npgsql": "3.1.8",
+		"Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.1",
+		"Npgsql.EntityFrameworkCore.PostgreSQL.Design": "1.0.1",
+		"Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+		"Microsoft.EntityFrameworkCore.SqlServer.Design": "1.0.0",
+		"Microsoft.EntityFrameworkCore.Sqlite": "1.0.0",
+		"Microsoft.EntityFrameworkCore.Sqlite.Design": "1.0.0",
+		"Microsoft.EntityFrameworkCore.InMemory": "1.0.0",
+		"Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
+		"Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
+		"Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0",
+		"Microsoft.AspNetCore.Diagnostics": "1.0.0",
+		"Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+		"Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
+		"Microsoft.AspNetCore.Mvc": "1.0.1",
+		"Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
+		"Microsoft.AspNetCore.StaticFiles": "1.0.0",
+		"Microsoft.AspNetCore.Razor.Tools": {
+			"version": "1.0.0-preview2-final",
+			"type": "build"
+		},
+		"Microsoft.Extensions.Configuration.Json": "1.0.0",
+		"Microsoft.Extensions.Logging": "1.0.0",
+		"Microsoft.Extensions.Logging.Console": "1.0.0",
+		"Microsoft.Extensions.Logging.Debug": "1.0.0",
 		"NetTelegramBotApi": "*",
 		"CommonMark.NET": "*",
 		"NickBuhro.Translit": "*",
@@ -36,7 +41,7 @@
 		"WebMarkupMin.AspNetCore1": "*",
 		"Microsoft.NETCore.App": {
 			"type": "platform",
-			"version": "1.0.0"
+			"version": "1.0.1"
 		}
 	},
 	"frameworks": {
@@ -47,10 +52,13 @@
 		}
 	},
 	"tools": {
-		"Microsoft.AspNetCore.Razor.Tools": "1.0.0-*",
-		"Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-*",
-		"Microsoft.EntityFrameworkCore.Tools": "1.0.0-*",
-		"Microsoft.Extensions.SecretManager.Tools": "1.0.0-*"
+		"Microsoft.EntityFrameworkCore.Tools": {
+			"version": "1.0.0-preview2-final",
+			"imports": [
+				"portable-net45+win8+dnxcore50",
+				"portable-net45+win8"
+			]
+		}
 	},
 	"runtimeOptions": {
 		"gcServer": false,
