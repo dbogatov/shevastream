@@ -76,6 +76,7 @@ namespace EShop
 			services.AddTransient<IDBLogService, DBLogService>();
 			services.AddTransient<IPushService, PushService>();
 			services.AddTransient<IBlogService, BlogService>();
+			services.AddTransient<ITransliterationService, TransliterationService>();
 			services.AddTransient<ICartService, CartService>();
 			services.AddTransient<IOrderService, OrderService>();
 			services.AddTransient<IDataSeedService, DataSeedService>();
@@ -126,7 +127,8 @@ namespace EShop
 			{
 				routes.MapRoute(
 					name: "default",
-					template: "{controller=Store}/{action=Index}/{id?}");
+					template: "{controller=Store}/{action=Index}/{id?}"
+				);
 				routes.MapRoute(
 					"OnlyAction",
 					"{action}",

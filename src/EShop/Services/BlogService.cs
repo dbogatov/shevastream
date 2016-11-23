@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using EShop.Models.Enitites;
 using EShop.ViewModels.Blog;
 using Microsoft.EntityFrameworkCore;
-using NickBuhro.Translit;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Text;
@@ -32,11 +31,13 @@ namespace EShop.Services
     {
         private readonly DataContext _context;
         private readonly HttpContext _http;
+		private readonly ITransliterationService _translit;
 
-        public BlogService(DataContext context, IHttpContextAccessor http)
+		public BlogService(DataContext context, IHttpContextAccessor http, ITransliterationService translit)
         {
             _http = http.HttpContext;
             _context = context;
+			_translit = translit;
         }
 
         public string GenerateUrlFromTitleStackOverflow(string title)
@@ -75,7 +76,7 @@ namespace EShop.Services
                 else if ((int)c >= 128)
                 {
                     int prevlen = sb.Length;
-                    sb.Append(Transliteration.CyrillicToLatin(c.ToString(), Language.Ukrainian));
+					sb.Append(_translit.CyrillicToLatin(c.ToString()));
                     if (prevlen != sb.Length) prevdash = false;
                 }
                 if (i == maxlen) break;
@@ -89,7 +90,7 @@ namespace EShop.Services
 
         public string GenerateUrlFromTitle(string title)
         {
-            title = Transliteration.CyrillicToLatin(title);
+			title = _translit.CyrillicToLatin(title);
 
             // make it all lower case
             title = title.ToLower();
@@ -156,7 +157,7 @@ namespace EShop.Services
                         bp => bp.TitleUrl == title
                     ));
 
-                post.HtmlContent = MarkDownToHtml(post.Content); ;
+                post.HtmlContent = MarkDownToHtml(post.Content);
 
                 return post;
             }
@@ -177,7 +178,7 @@ namespace EShop.Services
                         bp => bp.Id == id
                     ));
 
-                post.HtmlContent = MarkDownToHtml(post.Content); ;
+                post.HtmlContent = MarkDownToHtml(post.Content);
 
                 return post;
             }
