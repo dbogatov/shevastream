@@ -1,0 +1,96 @@
+{
+	"userSecretsId": "aspnet5-EShop-58a1b196-f710-4cff-9654-b95ee66598f8",
+	"version": "1.0.0",
+	"authors": [
+		"Dmytro Bogatov"
+	],
+	"dependencies": {
+		"Microsoft.EntityFrameworkCore.Tools": {
+			"version": "1.0.0-preview2-final",
+			"type": "build"
+		},
+		"Npgsql": "3.1.8",
+		"Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.1",
+		"Npgsql.EntityFrameworkCore.PostgreSQL.Design": "1.0.1",
+		"Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+		"Microsoft.EntityFrameworkCore.SqlServer.Design": "1.0.0",
+		"Microsoft.EntityFrameworkCore.Sqlite": "1.0.0",
+		"Microsoft.EntityFrameworkCore.Sqlite.Design": "1.0.0",
+		"Microsoft.EntityFrameworkCore.InMemory": "1.0.0",
+		"Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
+		"Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
+		"Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0",
+		"Microsoft.AspNetCore.Diagnostics": "1.0.0",
+		"Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+		"Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
+		"Microsoft.AspNetCore.Mvc": "1.0.1",
+		"Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
+		"Microsoft.AspNetCore.StaticFiles": "1.0.0",
+		"Microsoft.AspNetCore.Razor.Tools": {
+			"version": "1.0.0-preview2-final",
+			"type": "build"
+		},
+		"Microsoft.Extensions.Configuration.Json": "1.0.0",
+		"Microsoft.Extensions.Logging": "1.0.0",
+		"Microsoft.Extensions.Logging.Console": "1.0.0",
+		"Microsoft.Extensions.Logging.Debug": "1.0.0",
+		"NetTelegramBotApi": "*",
+		"CommonMark.NET": "*",
+		"NickBuhro.Translit": "*",
+		"WebMarkupMin.Core": "*",
+		"WebMarkupMin.AspNetCore1": "*",
+		"Microsoft.NETCore.App": {
+			"type": "platform",
+			"version": "1.0.1"
+		}
+	},
+	"frameworks": {
+		"netcoreapp1.0": {
+			"imports": [
+				"dnxcore50"
+			]
+		}
+	},
+	"tools": {
+		"Microsoft.EntityFrameworkCore.Tools": {
+			"version": "1.0.0-preview2-final",
+			"imports": [
+				"portable-net45+win8+dnxcore50",
+				"portable-net45+win8"
+			]
+		}
+	},
+	"runtimeOptions": {
+		"gcServer": false,
+		"gcConcurrent": true
+	},
+	"buildOptions": {
+		"emitEntryPoint": true,
+		"preserveCompilationContext": true,
+		"compile": {
+			"exclude": [
+				"wwwroot",
+				"node_modules"
+			]
+		}
+	},
+	"publishOptions": {
+		"include": [
+			"version.json",
+			"appsettings.json",
+			"wwwroot",
+			"Views"
+		],
+		"exclude": [
+			"**.user",
+			"**.vspscc"
+		]
+	},
+	"scripts": {
+		"prepublish": [
+			"npm install",
+			"bower install --allow-root",
+			"gulp"
+		]
+	}
+}
