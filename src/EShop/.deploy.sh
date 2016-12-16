@@ -2,6 +2,8 @@
 
 set -e
 
+PUBLISH_DIR = "/srv/www/dotnetcore/shevastream/"
+
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
   DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
@@ -26,8 +28,10 @@ gulp
 
 supervisorctl stop shevastream
 
-rm -rf /srv/www/dotnetcore/shevastream/*
+rm -rf $PUBLISH_DIR/*
 
-dotnet publish -o /srv/www/dotnetcore/shevastream
+dotnet publish -o $PUBLISH_DIR
+
+cp {appsettings,version}.json $PUBLISH_DIR
 
 supervisorctl start shevastream
