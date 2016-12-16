@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 15.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshop", "Eshop.csproj", "{4460C977-26C6-4838-A079-23FBBA4E2D6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop", "EShop.csproj", "{4460C977-26C6-4838-A079-23FBBA4E2D6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
