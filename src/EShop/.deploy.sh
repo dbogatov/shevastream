@@ -20,6 +20,10 @@ printf "{\n\t\"Version\" : {\n\t\t\"GitHash\" : \"$(git rev-parse --short HEAD)\
 
 dotnet restore
 
+npm install
+bower install --allow-root
+gulp
+
 supervisorctl stop shevastream
 
 rm -rf /srv/www/dotnetcore/shevastream/*
