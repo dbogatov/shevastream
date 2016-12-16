@@ -117,4 +117,10 @@
   </ItemGroup>
 
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <Target Name="AfterPublish">
+  	<Copy SourceFiles="appsettings.json" DestinationFiles="$(PublishFolder)" />
+	<Copy SourceFiles="version.json" DestinationFiles="$(PublishFolder)" />
+  </Target>
+
 </Project>
