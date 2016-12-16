@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace EShop.Services
 {
-    public interface IOrderService
+	public interface IOrderService
 	{
 		Task PutOrderAsync(OrderViewModel order);
 		IEnumerable<object> GetOrders();
