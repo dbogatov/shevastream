@@ -119,8 +119,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
   <Target Name="AfterPublish">
-  	<Copy SourceFiles="appsettings.json" DestinationFiles="$(PublishFolder)appsettings.json" />
-	<Copy SourceFiles="version.json" DestinationFiles="$(PublishFolder)version.json" />
+  	<Copy SourceFiles="appsettings.json" DestinationFiles="$(PublishFolder)/appsettings.json" />
+	<Copy SourceFiles="version.json" DestinationFiles="$(PublishFolder)/version.json" />
   </Target>
 
 </Project>
