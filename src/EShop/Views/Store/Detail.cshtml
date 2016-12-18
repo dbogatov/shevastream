@@ -106,8 +106,22 @@
 						<p>@Model.Description</p>
 						<h4>@Model.Cost UAH</h4>
 						<p>
-							<a href="#" data-product="@Model.Id" class="btn btn-primary btn-large addToCartBtn"><i class="icon-shopping-cart"></i> Покласти у кошик</a>
-							<a href="#" data-product="@Model.Id" class="btn btn-purple btn-large addToCartAndCheckoutBtn"><i class="icon-shopping-cart"></i> Покласти у кошик & Замовити</a>
+							<form class="form-horizontal" role="form" asp-controller="Store" asp-antiforgery="true" asp-action="CartAdd" novalidate>
+								<input class="hidden" name="ProductId" value="@(Model.Id)" />
+								<input class="hidden" name="Quantity" value="1" />
+								@if ((bool)ViewData["isInCart"])
+								{
+									<button disabled="disabled" class="disabled btn btn-primary btn-large">
+										<i class="icon-shopping-cart"></i> Вже у кошику
+									</button>
+								} 
+								else 
+								{
+									<button type="submit" class="btn btn-primary btn-large">
+										<i class="icon-shopping-cart"></i> Покласти у кошик
+									</button>
+								}
+							</form>
 						</p>
 					</div>
 				</div>
