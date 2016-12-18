@@ -116,6 +116,28 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+    <None Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Blog\Edit.cshtml" />
+    <None Include="Views\Blog\Index.cshtml" />
+    <None Include="Views\Blog\Post.cshtml" />
+    <None Include="Views\Home\Contact.cshtml" />
+    <None Include="Views\Home\FAQ.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Profile.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\Components\PopularPosts\Default.cshtml" />
+    <None Include="Views\Shared\Components\SocialWidget\Default.cshtml" />
+    <None Include="Views\Shared\Components\VersionHash\Default.cshtml" />
+    <None Include="Views\Store\Cart.cshtml" />
+    <None Include="Views\Store\Detail.cshtml" />
+    <None Include="Views\Store\Order.cshtml" />
+    <None Include="Views\Store\Product.cshtml" />
+    <None Include="Views\Store\ThankYou.cshtml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   
 </Project>

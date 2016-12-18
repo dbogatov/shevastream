@@ -126,7 +126,12 @@ namespace EShop.Services
 			}
 
 			// notify us
-			await _telegram.SendMessageAsync(order.ToString());
+			//await _telegram.SendMessageAsync(order.ToString());
+
+			// notify them
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+			_push.SendConfirmationEmailAsync(order.CustomerName, order.CustomerEmail, order.Cart.Products.Select(p => p.Product));
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
 			_push.SendAll($"New order from {order.CustomerName}");
 		}
