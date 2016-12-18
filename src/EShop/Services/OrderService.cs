@@ -126,7 +126,7 @@ namespace EShop.Services
 			}
 
 			// notify us
-			//await _telegram.SendMessageAsync(order.ToString());
+			await _telegram.SendMessageAsync(order.ToString());
 
 			// notify them
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed

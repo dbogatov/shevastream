@@ -15,8 +15,9 @@ namespace EShop.ViewModels.Store
 		public string CustomerName { get; set; }
 
 		[RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Email is not valid.")]
+		[Required(ErrorMessage = "Поле \"Email\" обов'язкове.")]
 		[DataType(DataType.EmailAddress)]
-		[Display(Name = "Email")]
+		[Display(Name = "Email *")]
 		public string CustomerEmail { get; set; }
 
 		[Required(ErrorMessage = "Поле \"Номер телефону\" обов'язкове.")]
