@@ -140,7 +140,7 @@
 								<ul>
 									@foreach (var characteristic in JsonConvert.DeserializeObject(Model.Characteristics))
 									{
-										<li>Html.Raw(characteristic)</li>
+										<li>@Html.Raw(characteristic)</li>
 									}	
 								</ul>
 							</div>
