@@ -90,7 +90,7 @@
 						
 						<li class="@(ViewBag.Current == "Cart" ? "active" : "")" id="Cart">
 							<a asp-controller="Store" asp-action="Cart">
-								Кошик <span id="cartItemsNumber"></span>
+								Кошик <span>@await Component.InvokeAsync("Cart")</span>
 							</a>
 						</li>		
 					</ul>
@@ -230,7 +230,6 @@
 		<environment names="Development">
 			<script defer src="/js/script.js"></script>
 			<script defer src="/js/site.js"></script>
-			<script defer src="/js/cart.js"></script>
 			<script defer src="/js/blog.js"></script>
 
 			<script defer src="/js/order.js"></script>

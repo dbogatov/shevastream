@@ -83,12 +83,12 @@
 							}
 							@foreach (var url in JsonConvert.DeserializeObject(Model.ImageUrls))
 							{
-								@if (index % 3 == 0)
+								if (index % 3 == 0)
 								{
 									@:<ol class="carousel-indicators">
 								}
 								<li data-target="#itemsingle" data-slide-to="@index" class="@active"><img src="@url" class="img-responsive img-rounded" alt="@(Model.Name)"></li>
-								@if ((index + 1) % 3 == 0)
+								if ((index + 1) % 3 == 0)
 								{
 									@:</ol>
 								}
@@ -106,7 +106,7 @@
 						<p>@Model.Description</p>
 						<h4>@Model.Cost UAH</h4>
 						<p>
-							<form class="form-horizontal" role="form" asp-controller="Store" asp-antiforgery="true" asp-action="CartAdd" novalidate>
+							<form class="form-horizontal" role="form" asp-controller="Store" asp-antiforgery="true" asp-action="Cart" novalidate>
 								<input class="hidden" name="ProductId" value="@(Model.Id)" />
 								<input class="hidden" name="Quantity" value="1" />
 								@if ((bool)ViewData["isInCart"])
@@ -140,7 +140,7 @@
 								<ul>
 									@foreach (var characteristic in JsonConvert.DeserializeObject(Model.Characteristics))
 									{
-										<li>@Html.Raw(characteristic)</li>
+										<li>Html.Raw(characteristic)</li>
 									}	
 								</ul>
 							</div>

@@ -12,7 +12,6 @@ namespace EShop.Services
 		int GetTotalCost();
 		void UpdateCart(CartElementViewModel element);
 		CartViewModel GetSimpleCart();
-		void AddItem(CartElementViewModel element);
 		void RemoveItem(CartElementViewModel element);
 		bool IsCartEmpty();
 		void EmptyCart();
@@ -147,6 +146,9 @@ namespace EShop.Services
                 var toRemove = Cart.Elements.First(el => el.ProductId == element.ProductId);
                 Cart.Elements.Remove(toRemove);
 				Cart.Elements.Add(element);
+			} else {
+				element.Quantity = 1;
+                Cart.Elements.Add(element);
 			}
 			SaveChanges();
 		}
@@ -155,15 +157,6 @@ namespace EShop.Services
 		{
 			return Cart;
 		}
-
-		public void AddItem(CartElementViewModel element)
-		{
-            if (!Cart.Elements.Any(el => el.ProductId == element.ProductId))
-            {
-                Cart.Elements.Add(element);
-				SaveChanges();
-            }
-        }
 
 		public void RemoveItem(CartElementViewModel element)
 		{

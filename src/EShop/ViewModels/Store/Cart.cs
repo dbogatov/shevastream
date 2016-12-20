@@ -8,30 +8,30 @@ namespace EShop.ViewModels.Store
 	{
 		public int ProductId { get; set; }
 		public int Quantity { get; set; }
-    }
+	}
 	
 	public class CartViewModel
 	{
-        public ICollection<CartElementViewModel> Elements { get; set; }
-    }
+		public ICollection<CartElementViewModel> Elements { get; set; }
+	}
 	
 	public class FullCartElementViewModel
 	{
 		public Product Product { get; set; }
 		public int Quantity { get; set; }
-    }
+	}
 
-    public class FullCartViewModel
-    {
-        public ICollection<FullCartElementViewModel> Products { get; set; }
+	public class FullCartViewModel
+	{
+		public ICollection<FullCartElementViewModel> Products { get; set; }
 
-        public int GetTotalCost() {
+		public int GetTotalCost() {
 			return Products.Sum(prod => prod.Product.Cost * prod.Quantity);
 		}
 
-        public override string ToString()
-        {
-            return $@"
+		public override string ToString()
+		{
+			return $@"
 				Cart:
 				
 					{
@@ -48,6 +48,6 @@ namespace EShop.ViewModels.Store
 									)
 								)
 					}";
-        }
-    }
+		}
+	}
 }

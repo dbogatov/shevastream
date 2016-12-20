@@ -61,15 +61,22 @@
 										<p>@item.Product.Description</p>
 									</div>
 									<div class="col-md-3">
-										<div class="input-group" style="margin-bottom: 10px;">
-											<input type="number" data-product="@(item.Product.Id)" class="form-control quantityPicker" min="1" max="100" value="@(item.Quantity)" step="1">
-											<span class="input-group-btn ">
-												<button class="btn btn-default saveQuantBtn disabled" type="button">
-													<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-												</button>
-											</span>
-										</div><!-- /input-group -->
-										<a class="btn btn-danger btn-block removeFromCartBtn" data-product="@(item.Product.Id)">Видалити</a>
+										<form role="form" asp-controller="Store" asp-antiforgery="true" asp-action="Cart" novalidate>
+											<div class="input-group" style="margin-bottom: 10px;">
+												<input type="number" name="Quantity" class="form-control quantityPicker" min="1" max="100" value="@(item.Quantity)" step="1">
+												<input class="hidden" name="ProductId" value="@(item.Product.Id)" />
+												<span class="input-group-btn ">
+													<button class="btn btn-default saveQuantBtn" type="submit">
+														<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+													</button>
+												</span>
+											</div><!-- /input-group -->
+										</form>
+										<form role="form" asp-controller="Store" asp-antiforgery="true" asp-action="Cart" novalidate>
+											<input class="hidden" name="ProductId" value="@(item.Product.Id)" />
+											<input class="hidden" name="Quantity" value="0" />
+											<button type="submit" class="btn btn-danger btn-block removeFromCartBtn">Видалити</button>
+										</form>
 										<h4 style="text-align: right;">Вартість продукту: @item.Product.Cost</h4>
 									</div>
 								</div>
@@ -117,26 +124,18 @@
 	
 	<script>
 		
-		$(".removeFromCartBtn").click(function() {
-			Cart.setCallback(function() {
-				location.reload();
-			}).removeItem( $(this).data("product") );
-		});
-		
+		var submitCartChanges = function(jQueryObject) {
+			jQueryObject.parent().closest("form").submit();
+		};
+
 		$(".quantityPicker").change(function() {
-			Cart.setCallback(function() {
-				location.reload();
-			}).changeItem( $(this).data("product"), $(this).val() );
-		});
-		
-		$(".quantityPicker").focusin(function() {
-			$(this).next().find(".saveQuantBtn").removeClass("disabled");
+			submitCartChanges($(this));
 		});
 
 		$(".quantityPicker").focusout(function() {
-			$(this).next().find(".saveQuantBtn").addClass("disabled");
+			submitCartChanges($(this));
 		});
-
+		
 	</script>
 	
 }

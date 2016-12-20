@@ -69,8 +69,6 @@ namespace EShop.Controllers.View
 			return View(products);
 		}
 
-		// CART
-
 		public IActionResult Cart()
 		{
 			var model = _cart.GetCart();
@@ -79,33 +77,21 @@ namespace EShop.Controllers.View
 		}
 
 		[HttpPost]
-		[Route("Store/Cart/Update")]
-		public IActionResult CartUpdate(CartElementViewModel element)
-		{
-			_cart.UpdateCart(element);
+		public IActionResult Cart(CartElementViewModel element)
+		{	
+			if (!ModelState.IsValid)
+			{
+                return RedirectToAction("Cart");
+            }
 
+			if (element.Quantity <= 0) {
+                _cart.RemoveItem(element);
+            } else {
+				_cart.UpdateCart(element);
+			}
+			
 			return RedirectToAction("Cart");
 		}
-
-		[HttpPost]
-		[Route("Store/Cart/Add")]
-		public IActionResult CartAdd(CartElementViewModel element)
-		{
-			_cart.AddItem(element);
-
-			return RedirectToAction("Cart");
-		}
-
-		[HttpPost]
-		[Route("Store/Cart/Remove")]
-		public IActionResult CartRemove(CartElementViewModel element)
-		{
-			_cart.RemoveItem(element);
-
-			return RedirectToAction("Cart");
-		}
-
-		// END CART
 
 		public IActionResult ThankYou()
 		{
