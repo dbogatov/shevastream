@@ -11,17 +11,14 @@ namespace EShop.Controllers.API
 	[Route("api/Secure")]
 	public class SecureController : Controller
 	{
-		private readonly ITelegramSender _telegram;
 		private readonly DataContext _context;
 		private readonly ICryptoService _crypto;
 
 		public SecureController(
-			ITelegramSender telegram,
 			DataContext context,
 			ICryptoService crypto
 		)
 		{
-			_telegram = telegram;
 			_context = context;
 			_crypto = crypto;
 		}

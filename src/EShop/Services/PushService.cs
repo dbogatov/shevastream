@@ -13,6 +13,8 @@ namespace EShop.Services
 	{
 		Task SendConfirmationEmailAsync(string name, string email, IEnumerable<Product> products);
 
+		Task SendNotificationAsync(string subject, string message);
+
 		bool SendAll(string message);
 		bool SendTo(IEnumerable<int> to, string message);
 	}
@@ -22,6 +24,7 @@ namespace EShop.Services
 		private readonly DataContext _context;
 		private readonly string _url = "http://push.dbogatov.org/api/push/send";
 		private readonly string _confiramtionUrl = "https://push.dbogatov.org/api/push/shevastream/confirm";
+		private readonly string _notificationUrl = "https://push.dbogatov.org/api/push/shevastream/notify";
 
 		public PushService(DataContext context)
 		{
@@ -76,13 +79,27 @@ namespace EShop.Services
 
 				var content = new FormUrlEncodedContent(values);
 
-				//Console.WriteLine($"{message} : {String.Join(",", tokens)}");
-
 				var response = client.PostAsync(_url, content);
 			}
 
 			return true;
 		}
-	}
+
+        public async Task SendNotificationAsync(string subject, string message)
+        {
+            using (var client = new HttpClient())
+			{
+				var values = new Dictionary<string, string>
+				{
+					{ "message", message },
+					{ "subject", subject }
+				};
+
+				var content = new FormUrlEncodedContent(values);
+
+				await client.PostAsync(_notificationUrl, content);
+			}
+        }
+    }
 }
 

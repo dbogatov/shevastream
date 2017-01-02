@@ -72,7 +72,6 @@ namespace EShop
 			services.AddTransient<DataContext, DataContext>();
 
 			services.AddTransient<ICryptoService, CryptoService>();
-			services.AddTransient<ITelegramSender, TelegramSender>();
 			services.AddTransient<IDBLogService, DBLogService>();
 			services.AddTransient<IPushService, PushService>();
 			services.AddTransient<IBlogService, BlogService>();

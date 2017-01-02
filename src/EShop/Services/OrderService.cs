@@ -24,7 +24,6 @@ namespace EShop.Services
 	{
 		private readonly string USER_COOKIE_NAME = "UserOrderData";
 
-		private readonly ITelegramSender _telegram;
 		private readonly DataContext _context;
 		private readonly IDBLogService _log;
 		private readonly IHostingEnvironment _env;
@@ -33,7 +32,6 @@ namespace EShop.Services
 		private readonly ICartService _cart;
 
 		public OrderService(
-			ITelegramSender telegram,
 			DataContext context,
 			IDBLogService log,
 			IHostingEnvironment env,
@@ -42,7 +40,6 @@ namespace EShop.Services
 			ICartService cart
 			)
 		{
-			_telegram = telegram;
 			_context = context;
 			_log = log;
 			_env = env;
@@ -122,14 +119,10 @@ namespace EShop.Services
 			catch (System.Exception e)
 			{
 				Console.WriteLine(e.StackTrace);
-				await _telegram.SendMessageAsync($"WARNING: the order from {order.CustomerName} - {order.CustomerPhone} has NOT been added to the database!");
 			}
-
-			// notify us
-			await _telegram.SendMessageAsync(order.ToString());
-
 			// notify them
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+			_push.SendNotificationAsync("New Order!", order.ToString());
 			_push.SendConfirmationEmailAsync(order.CustomerName, order.CustomerEmail, order.Cart.Products.Select(p => p.Product));
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 

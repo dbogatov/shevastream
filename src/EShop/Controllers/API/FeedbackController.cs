@@ -11,13 +11,13 @@ namespace EShop.Controllers.API
 	[Route("api/Feedback")]
 	public class FeedbackController : Controller
 	{
-		private readonly ITelegramSender _telegram;
+		private readonly IPushService _push;
 		private readonly DataContext _context;
 
 
-		public FeedbackController(ITelegramSender telegram, DataContext context, IHostingEnvironment env)
+		public FeedbackController(IPushService push, DataContext context, IHostingEnvironment env)
 		{
-			_telegram = telegram;
+			_push = push;
 			_context = context;
 		}
 
@@ -25,7 +25,7 @@ namespace EShop.Controllers.API
 		[HttpPost]
 		public bool Post(Feedback feedback)
 		{
-			_telegram.SendMessageAsync(feedback.ToString());
+			_push.SendNotificationAsync("Feedback", feedback.ToString());
 
 			_context.Feedbacks.Add(feedback);
 			_context.SaveChanges();
@@ -38,7 +38,7 @@ namespace EShop.Controllers.API
 		[HttpPost]
 		public bool CallMeBack(CallMeBackViewModel request)
 		{
-			_telegram.SendMessageAsync(request.ToString());
+			_push.SendNotificationAsync("Callback Request", request.ToString());
 
 			return true;
 		}
