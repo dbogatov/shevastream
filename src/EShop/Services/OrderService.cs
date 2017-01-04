@@ -122,8 +122,7 @@ namespace EShop.Services
 			}
 			// notify them
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-			_push.SendNotificationAsync("New Order!", order.ToString());
-			_push.SendConfirmationEmailAsync(order.CustomerName, order.CustomerEmail, order.Cart.Products.Select(p => p.Product));
+			_push.SendOrderAsync(order.ToString(), order.CustomerName, order.CustomerEmail, order.Cart.Products.Select(p => p.Product));
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
 			_push.SendAll($"New order from {order.CustomerName}");

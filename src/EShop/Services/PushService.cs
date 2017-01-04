@@ -11,9 +11,11 @@ namespace EShop.Services
 {
 	public interface IPushService
 	{
-		Task SendConfirmationEmailAsync(string name, string email, IEnumerable<Product> products);
+		Task SendOrderAsync(string orderDescription, string name, string email, IEnumerable<Product> products);
 
-		Task SendNotificationAsync(string subject, string message);
+		Task SendCallbackAsync(string phone);
+
+		Task SendFeedbackAsync(Feedback feedback);
 
 		bool SendAll(string message);
 		bool SendTo(IEnumerable<int> to, string message);
@@ -23,8 +25,9 @@ namespace EShop.Services
 	{
 		private readonly DataContext _context;
 		private readonly string _url = "http://push.dbogatov.org/api/push/send";
-		private readonly string _confiramtionUrl = "https://push.dbogatov.org/api/push/shevastream/confirm";
-		private readonly string _notificationUrl = "https://push.dbogatov.org/api/push/shevastream/notify";
+		private readonly string _orderUrl = "https://push.dbogatov.org/api/push/shevastream/order";
+		private readonly string _feedbackUrl = "https://push.dbogatov.org/api/push/shevastream/feedback";
+		private readonly string _callbackUrl = "https://push.dbogatov.org/api/push/shevastream/callback";
 
 		public PushService(DataContext context)
 		{
@@ -36,14 +39,15 @@ namespace EShop.Services
 			return SendTo(_context.PushPairs.Select(pp => pp.UserId), message);
 		}
 
-		public async Task SendConfirmationEmailAsync(string name, string email, IEnumerable<Product> products)
+		public async Task SendOrderAsync(string orderDescription, string name, string email, IEnumerable<Product> products)
 		{
 			using (var client = new HttpClient())
 			{
 				var values = new Dictionary<string, string>
 				{
+					{ "order", orderDescription },
 					{ "name", name },
-					{"recipient", email},
+					{ "recipient", email},
 					{
 						"products",
 						JsonConvert.SerializeObject(products.Select(prod => new {
@@ -55,7 +59,7 @@ namespace EShop.Services
 
 				var content = new FormUrlEncodedContent(values);
 
-				await client.PostAsync(_confiramtionUrl, content);
+				await client.PostAsync(_orderUrl, content);
 			}
 		}
 
@@ -85,21 +89,38 @@ namespace EShop.Services
 			return true;
 		}
 
-        public async Task SendNotificationAsync(string subject, string message)
-        {
-            using (var client = new HttpClient())
+		public async Task SendCallbackAsync(string phone)
+		{
+			using (var client = new HttpClient())
 			{
 				var values = new Dictionary<string, string>
 				{
-					{ "message", message },
-					{ "subject", subject }
+					{ "subscriberPhone", phone }
 				};
 
 				var content = new FormUrlEncodedContent(values);
 
-				await client.PostAsync(_notificationUrl, content);
+				await client.PostAsync(_callbackUrl, content);
 			}
-        }
-    }
+		}
+
+		public async Task SendFeedbackAsync(Feedback feedback)
+		{
+			using (var client = new HttpClient())
+			{
+				var values = new Dictionary<string, string>
+				{
+					{ "subscriberName", feedback.Name },
+					{ "subscriberEmail", feedback.Email },
+					{ "subject", feedback.Subject },
+					{ "message", feedback.Body }
+				};
+
+				var content = new FormUrlEncodedContent(values);
+
+				await client.PostAsync(_feedbackUrl, content);
+			}
+		}
+	}
 }
 

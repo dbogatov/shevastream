@@ -25,7 +25,7 @@ namespace EShop.Controllers.API
 		[HttpPost]
 		public bool Post(Feedback feedback)
 		{
-			_push.SendNotificationAsync("Feedback", feedback.ToString());
+			_push.SendFeedbackAsync(feedback);
 
 			_context.Feedbacks.Add(feedback);
 			_context.SaveChanges();
@@ -38,7 +38,7 @@ namespace EShop.Controllers.API
 		[HttpPost]
 		public bool CallMeBack(CallMeBackViewModel request)
 		{
-			_push.SendNotificationAsync("Callback Request", request.ToString());
+			_push.SendCallbackAsync(request.Phone);
 
 			return true;
 		}
