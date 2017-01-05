@@ -63,9 +63,9 @@
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
+						<span class="icon-bar"><!-- --></span>
+						<span class="icon-bar"><!-- --></span>
+						<span class="icon-bar"><!-- --></span>
 					</button>
 					<a class="navbar-brand visible-xs" asp-controller="Home" asp-action="Index">Sheva Stream</a>
 				</div>
@@ -90,7 +90,7 @@
 						
 						<li class="@(ViewBag.Current == "Cart" ? "active" : "")" id="Cart">
 							<a asp-controller="Store" asp-action="Cart">
-								Кошик <span>@await Component.InvokeAsync("Cart")</span>
+								Кошик <span>@await Component.InvokeAsync("Cart")<!-- --></span>
 							</a>
 						</li>		
 					</ul>
@@ -113,17 +113,17 @@
 					<div class="col-md-3">
 						<a asp-controller="Home" asp-action="FAQ" class="btn btn-success btn-block">Оплата та доставка</a>
 						<br>
-						<span style="font-size: 18pt;"><i class="fa fa-clock-o"></i> 8:00 – 20:00</span>
+						<span style="font-size: 18pt;"><i class="fa fa-clock-o"><!-- --></i> 8:00 – 20:00</span>
 					</div>
 					
 					<div class="col-md-6">
 						<h3>SHEVA STREAM</h3>
 
 						<ul class="list-unstyled social-icon">
-							<li><a rel="nofollow" href="https://www.facebook.com/shevastream" title="Facebook" class="icon-facebook"><span><i class="fa fa-facebook-square"></i></span></a></li>
-							<li><a rel="nofollow" href="https://vk.com/shevastream" title="VK" class="icon-vk"><span><i class="fa fa-vk"></i></span></a></li>
-							<li><a rel="nofollow" href="https://www.instagram.com/shevastream/" title="Instagram" class="icon-instagram"><span><i class="fa fa-instagram"></i></span></a></li>
-							<li><a rel="nofollow" href="https://www.linkedin.com/company/15218918" title="LinkedIn" class="icon-facebook"><span><i class="fa fa-linkedin"></i></span></a></li>
+							<li><a rel="nofollow" href="https://www.facebook.com/shevastream" title="Facebook" class="icon-facebook"><span><i class="fa fa-facebook-square"><!-- --></i></span></a></li>
+							<li><a rel="nofollow" href="https://vk.com/shevastream" title="VK" class="icon-vk"><span><i class="fa fa-vk"><!-- --></i></span></a></li>
+							<li><a rel="nofollow" href="https://www.instagram.com/shevastream/" title="Instagram" class="icon-instagram"><span><i class="fa fa-instagram"><!-- --></i></span></a></li>
+							<li><a rel="nofollow" href="https://www.linkedin.com/company/15218918" title="LinkedIn" class="icon-facebook"><span><i class="fa fa-linkedin"><!-- --></i></span></a></li>
 						</ul>
 
 						<div class="sitemap">
@@ -181,7 +181,7 @@
 								
 								<div class="row">
 									<div class="col-md-3" style="text-align: center;">
-										<i class="fa fa-check-square-o fa-5x" style="font-size: 50pt; color: lightgreen;" ></i>
+										<i class="fa fa-check-square-o fa-5x" style="font-size: 50pt; color: lightgreen;" ><!-- --></i>
 									</div>
 									<div class="col-md-9">
 										<div class="heading-title">
