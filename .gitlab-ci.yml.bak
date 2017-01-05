@@ -1,0 +1,25 @@
+# This file is a template, and might need editing before it works on your project.
+# Full project: https://gitlab.com/pages/plain-html
+
+before_script:
+- cd src/EShop
+- npm install
+- bower install --allow-root
+- gulp
+- dotnet restore
+- dotnet build
+
+broken-links:
+  type: test
+  script:
+  - curl -L http://localhost:5000 | tidy -config tidy.conf -e
+  - blc --filter-level 3 --input http://localhost:5000 -rog --exclude www.nginx.com
+  only:
+  - master
+  
+production:
+  type: deploy
+  script:
+  - curl --request POST 'https://deploy.dbogatov.org/deploy' --data "token=$TOKEN" --data "project=CV-Website"
+  only:
+  - master
