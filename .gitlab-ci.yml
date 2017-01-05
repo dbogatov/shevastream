@@ -4,6 +4,7 @@
 broken-links:
   type: test
   before_script:
+  - cd src/EShop
   - npm install
   - bower install --allow-root
   - gulp
