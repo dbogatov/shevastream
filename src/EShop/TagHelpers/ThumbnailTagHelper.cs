@@ -27,7 +27,7 @@ namespace EShop.TagHelpers
 							<h3>{Title}</h3>
 							<span class='price'>{Price} UAH</span>
 						</div>
-						<a href='/Store/Product/{ProductId}'><div class='caption-link'><i class='fa fa-plus'><!-- --></i></div></a>
+						<a href='/store/product/{ProductId}'><div class='caption-link'><i class='fa fa-plus'><!-- --></i></div></a>
 					</div>
 				"
 			);
