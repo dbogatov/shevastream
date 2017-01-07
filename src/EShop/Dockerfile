@@ -7,6 +7,8 @@ WORKDIR /usr/src/
 # Copy the source and restore dependencies
 COPY . /usr/src/
 
+RUN dotnet restore
+
 # Expose the port and start the app
 EXPOSE 5000
 CMD [ "dotnet", "run" ]

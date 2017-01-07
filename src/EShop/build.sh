@@ -15,8 +15,6 @@ cd $DIR
 # remmeber build hash
 printf "{\n\t\"Version\" : {\n\t\t\"GitHash\" : \"$(git rev-parse --short HEAD)\"\n\t}\n}\n" > version.json
 
-dotnet restore
-
 npm install
 bower install --allow-root
 gulp
