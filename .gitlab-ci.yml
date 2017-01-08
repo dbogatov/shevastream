@@ -3,9 +3,7 @@
 # https://hub.docker.com/r/library/node/tags/
 image: dbogatov/personal:dotnetcore
 
-tidy:
-  type: test
-  script:
+before_script:
   - cd src/EShop/
   - npm install
   - bower install --allow-root
@@ -14,8 +12,17 @@ tidy:
   - dotnet build
   - dotnet run </dev/null &>/dev/null &
   - sleep 30
+
+tidy:
+  type: test
+  script:
   - curl -L http://localhost:5000 | tidy -config tidy.conf -e
-  - blc --filter-level 3 --input http://localhost:5000 -rog --exclude www.nginx.com
   only:
   - master
   
+ blc:
+  type: test
+  script:
+  - blc --filter-level 3 --input http://localhost:5000 -rog --exclude www.nginx.com
+  only:
+  - master
