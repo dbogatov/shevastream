@@ -6,7 +6,12 @@ image: dbogatov/personal:dotnetcore
 tidy:
   type: test
   script:
-  - echo "Hello world"
+  - cd src/EShop/
+  - npm install
+  - bower install --allow-root
+  - gulp
+  - dotnet restore
+  - dotnet build
   only:
   - master
   
