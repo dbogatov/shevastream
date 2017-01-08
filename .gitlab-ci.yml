@@ -12,7 +12,7 @@ tidy:
   - gulp
   - dotnet restore
   - dotnet build
-  - dotner run &
+  - dotnet run &
   - sleep 30
   - curl -L http://localhost:5000
   only:
