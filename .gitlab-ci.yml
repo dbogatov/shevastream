@@ -12,6 +12,8 @@ tidy:
   - gulp
   - dotnet restore
   - dotnet build
+  - dotner run &
+  - curl -L http://localhost:5000
   only:
   - master
   
