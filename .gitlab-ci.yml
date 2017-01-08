@@ -20,7 +20,7 @@ tidy:
   only:
   - master
   
- blc:
+blc:
   type: test
   script:
   - blc --filter-level 3 --input http://localhost:5000 -rog --exclude www.nginx.com
