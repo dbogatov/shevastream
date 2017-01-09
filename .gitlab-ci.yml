@@ -12,6 +12,7 @@ build:
   - gulp
   - dotnet restore
   - dotnet publish -c release
+  - cp {appsettings,version}.json bin/Release/netcoreapp1.1/publish/
   artifacts:
     paths:
     - bin/
@@ -19,6 +20,10 @@ build:
 tidy:
   type: test
   before_script:
+  - ls /bin
+  - ls bin/Release
+  - ls bin/Release/netcoreapp1.1
+  - ls bin/Release/netcoreapp1.1/publish
   - dotnet bin/Release/netcoreapp1.1/publish/EShop.dll </dev/null &>/dev/null &
   - sleep 30
   script:
