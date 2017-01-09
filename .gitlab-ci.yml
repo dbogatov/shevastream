@@ -21,7 +21,7 @@ tidy:
   type: test
   before_script:
   - apt-get install -y tree
-  - tree
+  - tree -a
   - cd src/EShop/
   - ls bin
   - ls bin/Release
