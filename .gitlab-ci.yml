@@ -20,7 +20,8 @@ build:
 tidy:
   type: test
   before_script:
-  - ls /bin
+  - cd src/EShop/
+  - ls bin
   - ls bin/Release
   - ls bin/Release/netcoreapp1.1
   - ls bin/Release/netcoreapp1.1/publish
