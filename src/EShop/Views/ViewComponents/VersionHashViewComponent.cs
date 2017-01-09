@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using EShop.Extensions;
 
 namespace EShop.Views.ViewComponents
 {
@@ -9,7 +10,7 @@ namespace EShop.Views.ViewComponents
         {
 			// hack
 			await Task.FromResult(0);
-            return View((object)DataContext.version);
+            return View((object)DataContext.version.Truncate(8));
         }
     }
 }
