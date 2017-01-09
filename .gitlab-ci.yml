@@ -3,6 +3,12 @@
 # https://hub.docker.com/r/library/node/tags/
 image: dbogatov/personal:dotnetcore
 
+stages:
+- build
+- test
+- release
+- deploy
+
 build:
   stage: build
   script:
@@ -14,11 +20,12 @@ build:
   - dotnet publish -c release
   - cp {appsettings,version}.json bin/Release/netcoreapp1.1/publish/
   artifacts:
+    expire_in: 30 min
     paths:
     - src/EShop/bin/
 
 tidy:
-  type: test
+  stage: test
   dependencies:
   - build
   before_script:
@@ -29,7 +36,7 @@ tidy:
   - curl -L http://localhost:5000 | tidy -config tidy.conf -e
   
 blc:
-  type: test
+  stage: test
   dependencies:
   - build
   before_script:
@@ -38,3 +45,24 @@ blc:
   - sleep 30
   script:
   - blc --filter-level 3 --input http://localhost:5000 -rog --exclude www.nginx.com
+
+dockerify:
+  stage: release
+  image: docker:latest
+  dependencies:
+  - build
+  before_script:
+  - docker info
+  services:
+   - docker:dind
+   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
+  script:
+  - cd src/EShop
+  - docker build -t registry.dbogatov.org/dbogatov/shevastreameshop .
+  - docker push registry.dbogatov.org/dbogatov/shevastreameshop
+  
+ deploy:
+   stage: deploy
+   script:
+   - curl --request POST 'https://push.dbogatov.org/api/push/dmytro/deploy' --data "project=ShevaStream"
+  
