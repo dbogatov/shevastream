@@ -13,6 +13,7 @@ build:
   stage: build
   script:
   - cd src/EShop/
+  - printf "{\n\t\"Version\" : {\n\t\t\"GitHash\" : \"${$CI_BUILD_REF:0:8}\"\n\t}\n}\n" > version.json
   - npm install
   - bower install --allow-root
   - gulp
@@ -55,10 +56,10 @@ dockerify:
   - docker info
   services:
   - docker:dind
-  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
   script:
   - cd src/EShop
   - docker build -t registry.dbogatov.org/dbogatov/shevastreameshop .
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
   - docker push registry.dbogatov.org/dbogatov/shevastreameshop
   
 deploy:
