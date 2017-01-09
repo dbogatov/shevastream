@@ -15,7 +15,7 @@ build:
   - cp {appsettings,version}.json bin/Release/netcoreapp1.1/publish/
   artifacts:
     paths:
-    - bin/
+    - src/EShop/bin/
 
 tidy:
   type: test
