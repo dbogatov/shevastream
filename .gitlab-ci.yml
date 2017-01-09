@@ -55,13 +55,10 @@ blc:
 
 dockerify:
   stage: release
-  image: docker:latest
   dependencies:
   - build
   before_script:
   - docker info
-  services:
-  - docker:dind
   script:
   - cd src/EShop
   - docker build -t registry.dbogatov.org/dbogatov/shevastreameshop .
