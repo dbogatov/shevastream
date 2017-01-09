@@ -13,7 +13,7 @@ build:
   stage: build
   script:
   - cd src/EShop/
-  - printf "{\n\t\"Version\" : {\n\t\t\"GitHash\" : \"${$CI_BUILD_REF:0:8}\"\n\t}\n}\n" > version.json
+  - printf "{\n\t\"Version\" : {\n\t\t\"GitHash\" : \"$($CI_BUILD_REF:0:8)\"\n\t}\n}\n" > version.json
   - npm install
   - bower install --allow-root
   - gulp
