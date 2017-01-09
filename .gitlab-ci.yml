@@ -22,9 +22,8 @@ tidy:
   dependencies:
   - build
   before_script:
-  - apt-get install -y tree
-  - tree -a
-  - dotnet src/EShop/bin/Release/netcoreapp1.1/publish/EShop.dll #</dev/null &>/dev/null &
+  - cd src/EShop/bin/Release/netcoreapp1.1/publish
+  - dotnet EShop.dll </dev/null &>/dev/null &
   - sleep 30
   script:
   - curl -L http://localhost:5000 | tidy -config tidy.conf -e
@@ -34,7 +33,8 @@ blc:
   dependencies:
   - build
   before_script:
-  - dotnet src/EShop/bin/Release/netcoreapp1.1/publish/EShop.dll </dev/null &>/dev/null &
+  - cd src/EShop/bin/Release/netcoreapp1.1/publish
+  - dotnet EShop.dll </dev/null &>/dev/null &
   - sleep 30
   script:
   - blc --filter-level 3 --input http://localhost:5000 -rog --exclude www.nginx.com
