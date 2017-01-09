@@ -54,15 +54,15 @@ dockerify:
   before_script:
   - docker info
   services:
-   - docker:dind
-   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
+  - docker:dind
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
   script:
   - cd src/EShop
   - docker build -t registry.dbogatov.org/dbogatov/shevastreameshop .
   - docker push registry.dbogatov.org/dbogatov/shevastreameshop
   
- deploy:
-   stage: deploy
-   script:
-   - curl --request POST 'https://push.dbogatov.org/api/push/dmytro/deploy' --data "project=ShevaStream"
+deploy:
+  stage: deploy
+  script:
+  - curl --request POST 'https://push.dbogatov.org/api/push/dmytro/deploy' --data "project=ShevaStream"
   
