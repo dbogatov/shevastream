@@ -24,7 +24,7 @@ tidy:
   before_script:
   - apt-get install -y tree
   - tree -a
-  - dotnet src/EShop/bin/Release/netcoreapp1.1/publish/EShop.dll </dev/null &>/dev/null &
+  - dotnet src/EShop/bin/Release/netcoreapp1.1/publish/EShop.dll #</dev/null &>/dev/null &
   - sleep 30
   script:
   - curl -L http://localhost:5000 | tidy -config tidy.conf -e
