@@ -1,14 +1,14 @@
 FROM microsoft/dotnet:1.1-sdk-msbuild
 
 # Create directory for the app source code
-RUN mkdir -p /usr/src/
-WORKDIR /usr/src/
+WORKDIR /srv
 
 # Copy the source and restore dependencies
-COPY . /usr/src/
+COPY bin/Release/netcoreapp1.1/publish/ /srv
 
-RUN dotnet restore
+ENV ASPNETCORE_ENVIRONMENT Production
+ENV HOME /srv
 
 # Expose the port and start the app
 EXPOSE 5000
-CMD [ "dotnet", "run" ]
+ENTRYPOINT /bin/bash -c "dotnet EShop.dll"

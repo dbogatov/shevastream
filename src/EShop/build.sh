@@ -19,4 +19,8 @@ npm install
 bower install --allow-root
 gulp
 
+dotnet publish -c release
+
+cp {appsettings,version}.json bin/Release/netcoreapp1.1/publish/
+
 docker build -t registry.dbogatov.org/dbogatov/shevastreameshop .
