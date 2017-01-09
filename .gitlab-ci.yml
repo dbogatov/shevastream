@@ -24,6 +24,8 @@ build:
     expire_in: 30 min
     paths:
     - src/EShop/bin/
+  tags:
+  - Docker
 
 tidy:
   stage: test
@@ -35,6 +37,8 @@ tidy:
   - sleep 30
   script:
   - curl -L http://localhost:5000 | tidy -config tidy.conf -e
+  tags:
+  - Docker
   
 blc:
   stage: test
@@ -46,6 +50,8 @@ blc:
   - sleep 30
   script:
   - blc --filter-level 3 --input http://localhost:5000 -rog --exclude www.nginx.com
+  tags:
+  - Docker
 
 dockerify:
   stage: release
@@ -61,6 +67,8 @@ dockerify:
   - docker build -t registry.dbogatov.org/dbogatov/shevastreameshop .
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
   - docker push registry.dbogatov.org/dbogatov/shevastreameshop
+  tags:
+  - Shell
   
 deploy:
   stage: deploy
