@@ -3,31 +3,31 @@
 # https://hub.docker.com/r/library/node/tags/
 image: dbogatov/personal:dotnetcore
 
-before_script:
+build:
+  stage: build
+  script:
   - cd src/EShop/
   - npm install
   - bower install --allow-root
   - gulp
   - dotnet restore
   - dotnet publish -c release
-  - dotnet bin/Release/netcoreapp1.1/publish/EShop.dll </dev/null &>/dev/null &
-  - sleep 30
-
-cache:
-  paths:
-  - bin/
-  - node_modules/
+  artifacts:
+    paths:
+    - bin/
 
 tidy:
   type: test
+  before_script:
+  - dotnet bin/Release/netcoreapp1.1/publish/EShop.dll </dev/null &>/dev/null &
+  - sleep 30
   script:
   - curl -L http://localhost:5000 | tidy -config tidy.conf -e
-  only:
-  - master
   
 blc:
   type: test
+  before_script:
+  - dotnet bin/Release/netcoreapp1.1/publish/EShop.dll </dev/null &>/dev/null &
+  - sleep 30
   script:
   - blc --filter-level 3 --input http://localhost:5000 -rog --exclude www.nginx.com
-  only:
-  - master
