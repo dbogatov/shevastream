@@ -9,9 +9,14 @@ before_script:
   - bower install --allow-root
   - gulp
   - dotnet restore
-  - dotnet build
-  - dotnet run </dev/null &>/dev/null &
+  - dotnet publish -c release
+  - dotnet bin/Release/netcoreapp1.1/publish/EShop.dll </dev/null &>/dev/null &
   - sleep 30
+
+cache:
+  paths:
+  - bin/
+  - node_modules/
 
 tidy:
   type: test
