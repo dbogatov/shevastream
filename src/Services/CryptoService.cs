@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace EShop.Services
+namespace Shevastream.Services
 {
 	public interface ICryptoService
 	{

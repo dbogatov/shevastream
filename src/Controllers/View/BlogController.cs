@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using EShop.Services;
-using EShop.ViewModels.Blog;
+using Shevastream.Services;
+using Shevastream.ViewModels.Blog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Controllers.View
+namespace Shevastream.Controllers.View
 {
     public class BlogController : Controller
 	{

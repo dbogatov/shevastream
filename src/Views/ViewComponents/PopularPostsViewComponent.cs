@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace EShop.Views.ViewComponents
+namespace Shevastream.Views.ViewComponents
 {
     public class PopularPostsViewComponent : ViewComponent
     {

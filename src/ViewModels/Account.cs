@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EShop.ViewModels
+namespace Shevastream.ViewModels
 {
     public class LoginViewModel
     {

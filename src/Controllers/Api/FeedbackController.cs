@@ -1,10 +1,10 @@
-using EShop.Models.Enitites;
-using EShop.Services;
-using EShop.ViewModels.Store;
+using Shevastream.Models.Enitites;
+using Shevastream.Services;
+using Shevastream.ViewModels.Store;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Controllers.API
+namespace Shevastream.Controllers.API
 {
 
 	[Produces("application/json")]

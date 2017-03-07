@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
-using EShop.Extensions;
+using Shevastream.Extensions;
 
-namespace EShop.Middleware
+namespace Shevastream.Middleware
 {
     public class ToLowercaseMiddleware
     {

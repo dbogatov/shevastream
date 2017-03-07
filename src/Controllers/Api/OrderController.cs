@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using EShop.Services;
+using Shevastream.Services;
 using Microsoft.AspNetCore.Mvc;
-using EShop.ViewModels.Store;
+using Shevastream.ViewModels.Store;
 using Microsoft.AspNetCore.Authorization;
 
-namespace EShop.Controllers.API
+namespace Shevastream.Controllers.API
 {
 
     [Produces("application/json")]

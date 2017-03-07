@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using EShop.Extensions;
+using Shevastream.Extensions;
 
-namespace EShop.Views.ViewComponents
+namespace Shevastream.Views.ViewComponents
 {
     public class VersionHashViewComponent : ViewComponent
     {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace EShop.Extensions
+namespace Shevastream.Extensions
 {
 	public static class DbSetExtensions
 	{

@@ -2,7 +2,7 @@ using System;
 using CommonMark;
 using CommonMark.Syntax;
 
-namespace EShop.Models
+namespace Shevastream.Models
 {
 	class MyFormatter : CommonMark.Formatters.HtmlFormatter
 	{

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EShop.Models.Enitites;
+using Shevastream.Models.Enitites;
 using Newtonsoft.Json;
-using EShop.Extensions;
+using Shevastream.Extensions;
 
-namespace EShop.Services
+namespace Shevastream.Services
 {
     public interface IDataSeedService
 	{

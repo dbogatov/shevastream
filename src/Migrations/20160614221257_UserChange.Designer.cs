@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace EShop.Migrations
+namespace Shevastream.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20160614221257_UserChange")]
@@ -16,7 +16,7 @@ namespace EShop.Migrations
                 .HasDefaultSchema("shevastream")
                 .HasAnnotation("ProductVersion", "1.0.0-rc2-20896");
 
-            modelBuilder.Entity("EShop.Models.Enitites.BlogPost", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.BlogPost", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -53,7 +53,7 @@ namespace EShop.Migrations
                     b.ToTable("BlogPost");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.Customer", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -69,7 +69,7 @@ namespace EShop.Migrations
                     b.ToTable("Customer");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.Feedback", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.Feedback", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -91,7 +91,7 @@ namespace EShop.Migrations
                     b.ToTable("SSFeedback");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.LogEntry", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.LogEntry", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -107,7 +107,7 @@ namespace EShop.Migrations
                     b.ToTable("LogEntry");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.Order", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -153,7 +153,7 @@ namespace EShop.Migrations
                     b.ToTable("Order");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.OrderProduct", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.OrderProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -173,7 +173,7 @@ namespace EShop.Migrations
                     b.ToTable("OrderProduct");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.OrderStatus", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.OrderStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -185,7 +185,7 @@ namespace EShop.Migrations
                     b.ToTable("OrderStatus");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.PaymentMethod", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.PaymentMethod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -197,7 +197,7 @@ namespace EShop.Migrations
                     b.ToTable("PaymentMethod");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.Product", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -221,7 +221,7 @@ namespace EShop.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.PushPair", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.PushPair", b =>
                 {
                     b.Property<string>("DeviceToken");
 
@@ -234,7 +234,7 @@ namespace EShop.Migrations
                     b.ToTable("PushPair");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.ShipmentMethod", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.ShipmentMethod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -250,7 +250,7 @@ namespace EShop.Migrations
                     b.ToTable("ShipmentMethod");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.User", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -272,62 +272,62 @@ namespace EShop.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.BlogPost", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.BlogPost", b =>
                 {
-                    b.HasOne("EShop.Models.Enitites.User")
+                    b.HasOne("Shevastream.Models.Enitites.User")
                         .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.Order", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.Order", b =>
                 {
-                    b.HasOne("EShop.Models.Enitites.User")
+                    b.HasOne("Shevastream.Models.Enitites.User")
                         .WithMany()
                         .HasForeignKey("AssigneeId");
 
-                    b.HasOne("EShop.Models.Enitites.Customer")
+                    b.HasOne("Shevastream.Models.Enitites.Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EShop.Models.Enitites.OrderStatus")
+                    b.HasOne("Shevastream.Models.Enitites.OrderStatus")
                         .WithMany()
                         .HasForeignKey("OrderStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EShop.Models.Enitites.PaymentMethod")
+                    b.HasOne("Shevastream.Models.Enitites.PaymentMethod")
                         .WithMany()
                         .HasForeignKey("PaymentMethodId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EShop.Models.Enitites.Product")
+                    b.HasOne("Shevastream.Models.Enitites.Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EShop.Models.Enitites.ShipmentMethod")
+                    b.HasOne("Shevastream.Models.Enitites.ShipmentMethod")
                         .WithMany()
                         .HasForeignKey("ShipmentMethodId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.OrderProduct", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.OrderProduct", b =>
                 {
-                    b.HasOne("EShop.Models.Enitites.Order")
+                    b.HasOne("Shevastream.Models.Enitites.Order")
                         .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EShop.Models.Enitites.Product")
+                    b.HasOne("Shevastream.Models.Enitites.Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EShop.Models.Enitites.PushPair", b =>
+            modelBuilder.Entity("Shevastream.Models.Enitites.PushPair", b =>
                 {
-                    b.HasOne("EShop.Models.Enitites.User")
+                    b.HasOne("Shevastream.Models.Enitites.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EShop.Models.Enitites;
-using EShop.ViewModels.Store;
+using Shevastream.Models.Enitites;
+using Shevastream.ViewModels.Store;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-namespace EShop.Services
+namespace Shevastream.Services
 {
 	public interface IOrderService
 	{

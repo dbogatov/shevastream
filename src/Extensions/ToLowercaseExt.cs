@@ -1,7 +1,7 @@
-using EShop.Middleware;
+using Shevastream.Middleware;
 using Microsoft.AspNetCore.Builder;
 
-namespace EShop.Extensions
+namespace Shevastream.Extensions
 {
 	public static class ToLowercaseExtensions
 	{

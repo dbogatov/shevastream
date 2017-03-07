@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using EShop.Models.Enitites;
-using EShop.ViewModels.Blog;
+using Shevastream.Models.Enitites;
+using Shevastream.ViewModels.Blog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Text;
 
-namespace EShop.Services
+namespace Shevastream.Services
 {
     public interface IBlogService
     {

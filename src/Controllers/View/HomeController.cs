@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using EShop.Models;
-using EShop.Services;
+using Shevastream.Models;
+using Shevastream.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Controllers.View
+namespace Shevastream.Controllers.View
 {
     public class HomeController : Controller
     {

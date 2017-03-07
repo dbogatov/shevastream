@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace EShop.TagHelpers
+namespace Shevastream.TagHelpers
 {
     [HtmlTargetElement("thumbnail", Attributes = "img, title, price, product-id")]
     public class ThumbnailTagHelper : TagHelper

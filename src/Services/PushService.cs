@@ -2,12 +2,12 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
-using EShop.Models.Enitites;
+using Shevastream.Models.Enitites;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace EShop.Services
+namespace Shevastream.Services
 {
 	public interface IPushService
 	{

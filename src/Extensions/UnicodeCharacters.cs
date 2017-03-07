@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EShop.Extensions
+namespace Shevastream.Extensions
 {
 	public static partial class Unidecoder
 	{

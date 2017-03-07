@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using EShop.Services;
+using Shevastream.Services;
 
-namespace EShop.Views.ViewComponents
+namespace Shevastream.Views.ViewComponents
 {
     public class CartViewComponent : ViewComponent
     {

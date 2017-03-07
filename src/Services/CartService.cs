@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using EShop.ViewModels.Store;
+using Shevastream.ViewModels.Store;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace EShop.Services
+namespace Shevastream.Services
 {
     public interface ICartService
 	{

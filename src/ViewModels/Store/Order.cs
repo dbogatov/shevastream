@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace EShop.ViewModels.Store
+namespace Shevastream.ViewModels.Store
 {
 	public class OrderViewModel
 	{

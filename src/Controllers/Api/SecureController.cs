@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using EShop.Services;
+using Shevastream.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace EShop.Controllers.API
+namespace Shevastream.Controllers.API
 {
 
 	[Produces("application/json")]

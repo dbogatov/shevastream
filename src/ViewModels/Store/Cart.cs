@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using EShop.Models.Enitites;
+using Shevastream.Models.Enitites;
 
-namespace EShop.ViewModels.Store
+namespace Shevastream.ViewModels.Store
 {
 	public class CartElementViewModel
 	{

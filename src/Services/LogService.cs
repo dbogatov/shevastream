@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using EShop.Models.Enitites;
+using Shevastream.Models.Enitites;
 
-namespace EShop.Services
+namespace Shevastream.Services
 {
 	public enum DBLogEntryType
 	{

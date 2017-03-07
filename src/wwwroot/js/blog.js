@@ -3,7 +3,7 @@ var Blog = function () {
 	var currentCallback = null;
 
 	var executeCallback = function (param) {
-		$(document).trigger("eshop.blogupdated");
+		$(document).trigger("Shevastream.blogupdated");
 		if (currentCallback != null) {
 			currentCallback(param);
 			currentCallback = null;

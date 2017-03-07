@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Routing;
-using EShop.Services;
+using Shevastream.Services;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
-using EShop.Extensions;
+using Shevastream.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using CommonMark;
-using EShop.Models;
+using Shevastream.Models;
 using Newtonsoft.Json.Serialization;
 
 namespace EShop

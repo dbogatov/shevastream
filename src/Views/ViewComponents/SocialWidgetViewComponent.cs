@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Views.ViewComponents
+namespace Shevastream.Views.ViewComponents
 {
     public class SocialWidgetViewComponent : ViewComponent
     {

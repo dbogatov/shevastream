@@ -11,4 +11,4 @@ ENV HOME /srv
 
 # Expose the port and start the app
 EXPOSE 5000
-ENTRYPOINT /bin/bash -c "dotnet EShop.dll"
+ENTRYPOINT /bin/bash -c "dotnet Shevastream.dll"

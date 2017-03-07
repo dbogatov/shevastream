@@ -1,7 +1,7 @@
 ﻿using System;
-using EShop.Extensions;
+using Shevastream.Extensions;
 
-namespace EShop.Services
+namespace Shevastream.Services
 {
 	public interface ITransliterationService
 	{

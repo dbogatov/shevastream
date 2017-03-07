@@ -26,7 +26,7 @@ $(document).ready(function () {
 	updateCartButtons();
 });
 
-$(document).on("eshop.cartupdated", function () {
+$(document).on("Shevastream.cartupdated", function () {
 	updateCartButtons();
 });
 

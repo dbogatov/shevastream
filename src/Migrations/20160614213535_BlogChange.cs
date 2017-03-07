@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace EShop.Migrations
+namespace Shevastream.Migrations
 {
     public partial class BlogChange : Migration
     {

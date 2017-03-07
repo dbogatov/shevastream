@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Net.Http;
-using EShop.ViewModels;
+using Shevastream.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 
-namespace EShop.ActionFilters.ReCaptcha
+namespace Shevastream.ActionFilters.ReCaptcha
 {
     public class ReCaptchaAttribute : ActionFilterAttribute
     {

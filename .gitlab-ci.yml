@@ -33,7 +33,7 @@ tidy:
   - build
   before_script:
   - cd src/EShop/bin/Release/netcoreapp1.1/publish
-  - dotnet EShop.dll </dev/null &>/dev/null &
+  - dotnet Shevastream.dll </dev/null &>/dev/null &
   - sleep 30
   script:
   - curl -L http://localhost:5000 | tidy -config tidy.conf -e
@@ -46,7 +46,7 @@ blc:
   - build
   before_script:
   - cd src/EShop/bin/Release/netcoreapp1.1/publish
-  - dotnet EShop.dll </dev/null &>/dev/null &
+  - dotnet Shevastream.dll </dev/null &>/dev/null &
   - sleep 30
   script:
   - blc --filter-level 3 --input http://localhost:5000 -rog --exclude www.nginx.com

@@ -1,4 +1,4 @@
-namespace EShop.ViewModels.Store
+namespace Shevastream.ViewModels.Store
 {
 	public class CallMeBackViewModel
 	{

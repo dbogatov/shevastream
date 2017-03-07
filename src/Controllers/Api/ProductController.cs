@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using EShop.Models.Enitites;
+using Shevastream.Models.Enitites;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Controllers.API
+namespace Shevastream.Controllers.API
 {
 
     [Produces("application/json")]

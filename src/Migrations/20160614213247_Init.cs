@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace EShop.Migrations
+namespace Shevastream.Migrations
 {
     public partial class Init : Migration
     {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace EShop.TagHelpers
+namespace Shevastream.TagHelpers
 {
     [HtmlTargetElement("email", Attributes = "to")]
     public class EmailTagHelper : TagHelper

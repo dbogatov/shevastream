@@ -1,7 +1,7 @@
-﻿using EShop.ViewModels;
+﻿using Shevastream.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Controllers.View
+namespace Shevastream.Controllers.View
 {
 	public class ErrorController : Controller
 	{

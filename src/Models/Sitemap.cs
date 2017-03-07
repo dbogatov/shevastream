@@ -6,7 +6,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Models
+namespace Shevastream.Models
 {
 	public class SiteMapResult : IActionResult
 	{

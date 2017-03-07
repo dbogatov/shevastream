@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EShop.Services;
-using EShop.ViewModels.Store;
+using Shevastream.Services;
+using Shevastream.ViewModels.Store;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Controllers.View
+namespace Shevastream.Controllers.View
 {
 	public class StoreController : Controller
 	{

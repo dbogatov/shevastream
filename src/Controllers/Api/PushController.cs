@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
-using EShop.Models.Enitites;
-using EShop.ViewModels;
+using Shevastream.Models.Enitites;
+using Shevastream.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Controllers.API
+namespace Shevastream.Controllers.API
 {
 
 	[Produces("application/json")]

@@ -1,6 +1,6 @@
-using EShop.Models.Enitites;
+using Shevastream.Models.Enitites;
 
-namespace EShop.ViewModels.Blog
+namespace Shevastream.ViewModels.Blog
 {
 	public class BlogPostViewModel : BlogPost
 	{

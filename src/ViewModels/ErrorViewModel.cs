@@ -1,4 +1,4 @@
-namespace EShop.ViewModels
+namespace Shevastream.ViewModels
 {
 	public class ErrorViewModel
 	{

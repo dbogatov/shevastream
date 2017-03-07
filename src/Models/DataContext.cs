@@ -1,5 +1,5 @@
-using EShop.Models.Enitites;
-using EShop.Services;
+using Shevastream.Models.Enitites;
+using Shevastream.Services;
 using Microsoft.EntityFrameworkCore;
 
 public class DataContext : DbContext

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using EShop.ActionFilters.ReCaptcha;
-using EShop.Services;
-using EShop.ViewModels;
+using Shevastream.ActionFilters.ReCaptcha;
+using Shevastream.Services;
+using Shevastream.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EShop.Controllers.View
+namespace Shevastream.Controllers.View
 {
     public class AccountController : Controller
 	{

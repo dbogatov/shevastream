@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace EShop.Extensions
+namespace Shevastream.Extensions
 {
     public static class StringExtensions
     {
