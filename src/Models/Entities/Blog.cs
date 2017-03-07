@@ -1,12 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Shevastream.Models.Enitites
+namespace Shevastream.Models.Entities
 {
-
-	[Table("BlogPost")]
-	public class BlogPost
+    public class BlogPost
 	{
 		[Key]
 		public int Id { get; set; }
@@ -15,7 +12,7 @@ namespace Shevastream.Models.Enitites
 
 		[Display(Name = "Publish")]
 		public bool Active { get; set; }
-		public DateTime DatePosted { get; set; }
+		public DateTime DatePosted { get; set; } = DateTime.Now;
 		public DateTime DateUpdated { get; set; }
 		
 		// [AlternateKey] Fluent API
@@ -29,8 +26,6 @@ namespace Shevastream.Models.Enitites
 
 		public int Views { get; set; }
 
-        // navigation properties		
-        [ForeignKey("AuthorId")]
 		public User Author { get; set; }
     }
 }

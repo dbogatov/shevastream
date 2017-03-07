@@ -6,7 +6,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Shevastream.Models
+namespace Shevastream.Extensions
 {
 	public class SiteMapResult : IActionResult
 	{
@@ -53,14 +53,7 @@ namespace Shevastream.Models
 
 	public enum ChangeFrequency
 	{
-		NotSet,
-		Always,
-		Hourly,
-		Daily,
-		Weekly,
-		Monthly,
-		Yearly,
-		Never
+		NotSet, Always, Hourly, Daily, Weekly, Monthly, Yearly, Never
 	}
 
 	public class SiteMap

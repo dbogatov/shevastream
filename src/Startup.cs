@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Shevastream.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using CommonMark;
-using Shevastream.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 
 namespace EShop
@@ -38,8 +38,15 @@ namespace EShop
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
-				.AddEntityFrameworkNpgsql()
-				.AddDbContext<DataContext>();
+				.AddDbContext<DataContext>(
+					b => b
+						.UseInMemoryDatabase()
+						.UseInternalServiceProvider(
+							new ServiceCollection()
+								.AddEntityFrameworkInMemoryDatabase()
+								.BuildServiceProvider()
+						)
+				);
 
 			DataContext.connectionString = Configuration["Data:PGSQLConnection:ConnectionString"];
 			DataContext.version = Configuration["Version:GitHash"];
@@ -72,7 +79,6 @@ namespace EShop
 			services.AddTransient<DataContext, DataContext>();
 
 			services.AddTransient<ICryptoService, CryptoService>();
-			services.AddTransient<IDBLogService, DBLogService>();
 			services.AddTransient<IPushService, PushService>();
 			services.AddTransient<IBlogService, BlogService>();
 			services.AddTransient<ITransliterationService, TransliterationService>();
@@ -156,7 +162,19 @@ namespace EShop
 				context.Database.EnsureCreated();
 			}
 
-			serviceProvider.GetService<IDataSeedService>().SeedData();
+			// Seed the database. Should be awaited but not possible now
+			if (env.IsTesting())
+			{
+				// Testing requires synchronous code
+				// Test runner (at least XUnit) tends to run tests in parallel
+				// When 2+ threads try to setup a virtual server in an async environment,
+				// deadlock usually happens.
+				serviceProvider.GetRequiredService<IDataSeedService>().SeedData();
+			}
+			else
+			{
+				serviceProvider.GetRequiredService<IDataSeedService>().SeedDataAsync().Wait();
+			}
 
 			// set the default HTML formatter for all future conversions
 			CommonMarkSettings.Default.OutputDelegate =

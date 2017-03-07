@@ -1,4 +1,4 @@
-using Shevastream.Models.Enitites;
+using Shevastream.Models.Entities;
 
 namespace Shevastream.ViewModels.Blog
 {

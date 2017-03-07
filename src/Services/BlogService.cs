@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Shevastream.Models.Enitites;
+using Shevastream.Models.Entities;
 using Shevastream.ViewModels.Blog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;

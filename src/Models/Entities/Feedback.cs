@@ -1,11 +1,9 @@
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Shevastream.Models.Enitites
+namespace Shevastream.Models.Entities
 {
-
-	[Table("SSFeedback")]
-	public class Feedback
+    public class Feedback
 	{
 		[Key]
 		public int Id { get; set; }
@@ -14,8 +12,7 @@ namespace Shevastream.Models.Enitites
 		public string Body { get; set; }
 		public string Name { get; set; }
 
-		[Timestamp]
-		public byte[] Timestamp { get; set; }
+		public DateTime DateCreated { get; set; } = DateTime.Now;
 
 		public override string ToString()
 		{

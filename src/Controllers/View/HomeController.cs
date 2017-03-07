@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Shevastream.Models;
 using Shevastream.Services;
 using Microsoft.AspNetCore.Mvc;
+using Shevastream.Extensions;
 
 namespace Shevastream.Controllers.View
 {

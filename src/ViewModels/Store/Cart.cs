@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Shevastream.Models.Enitites;
+using Shevastream.Models.Entities;
 
 namespace Shevastream.ViewModels.Store
 {

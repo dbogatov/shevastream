@@ -2,7 +2,7 @@ using System;
 using CommonMark;
 using CommonMark.Syntax;
 
-namespace Shevastream.Models
+namespace Shevastream.Extensions
 {
 	class MyFormatter : CommonMark.Formatters.HtmlFormatter
 	{

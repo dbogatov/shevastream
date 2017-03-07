@@ -28,11 +28,11 @@ namespace Shevastream.ViewModels.Store
 
 		[Required(ErrorMessage = "Поле \"Спосіб оплати\" обов'язкове.")]
 		[Display(Name = "Спосіб оплати *")]
-		public int PaymentMethodId { get; set; }
+		public string PaymentMethod { get; set; }
 
 		[Required(ErrorMessage = "Поле \"Спосіб доставки\" обов'язкове.")]
 		[Display(Name = "Спосіб доставки *")]
-		public int ShipmentMethodId { get; set; }
+		public string ShipmentMethod { get; set; }
 
 		[Display(Name = "Адреса доставки *")]
 		[MaxLength(5000)]
@@ -41,35 +41,6 @@ namespace Shevastream.ViewModels.Store
 		[Display(Name = "Коментар")]
 		[MaxLength(5000)]
 		public string Comment { get; set; }
-
-		// api properties
-
-		[BindNever]
-		[ScaffoldColumn(false)]
-		public int Id { get; set; }
-
-		[BindNever]
-		[ScaffoldColumn(false)]
-		public int AssigneeId { get; set; }
-
-		[BindNever]
-		[ScaffoldColumn(false)]
-		public int OrderStatusId { get; set; }
-
-		// display properties
-
-		[BindNever]
-		[ScaffoldColumn(false)]
-		public string PaymentMethodName { get; set; }
-
-		[BindNever]
-		[ScaffoldColumn(false)]
-		public string ShipmentMethodName { get; set; }
-
-		[BindNever]
-		[ScaffoldColumn(false)]
-		public int TotalAmountDue { get; set; }
-
 
 		public override string ToString()
 		{
@@ -81,16 +52,13 @@ namespace Shevastream.ViewModels.Store
 					CustomerEmail: {(string.IsNullOrWhiteSpace(CustomerEmail) ? "no email" : CustomerEmail.Trim())}
 					CustomerPhone: {CustomerPhone}
 					PaymentMethodName:
-						{PaymentMethodName}
+						{PaymentMethod}
 					ShipmentMethodName: 
-						{ShipmentMethodName}
+						{ShipmentMethod}
 					Address:
 						{(string.IsNullOrWhiteSpace(Address) ? "no address" : Address.Trim())}
 					Comment:
 						{(string.IsNullOrWhiteSpace(Comment) ? "no comment" : Comment.Trim())}
-						
-					TotalAmountDue:
-						{TotalAmountDue} UAH
 				";
 		}
 	}
