@@ -1,74 +1,72 @@
-# This file is a template, and might need editing before it works on your project.
-# Official framework image. Look for the different tagged releases at:
-# https://hub.docker.com/r/library/node/tags/
-image: dbogatov/personal:dotnetcore
-
 stages:
 - build
+- dockerify
 - test
 - release
 - deploy
 
+before_script:
+- export RELEASE_IMAGE="registry.dbogatov.org/dbogatov/shevastream:$CI_BUILD_REF_NAME"
+- export TEST_IMAGE="$RELEASE_IMAGE-build"
+- export DOTNET_TAG="$CI_BUILD_REF_NAME-build"
+
 build:
+  image: dbogatov/docker-containers:dotnet-core-latest
   stage: build
   script:
-  - cd src/EShop/
-  - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > version.json
-  - npm install
-  - bower install --allow-root
-  - gulp
-  - dotnet restore
-  - dotnet publish -c release
-  - cp {appsettings,version}.json bin/Release/netcoreapp1.1/publish/
+  - export ASPNETCORE_ENVIRONMENT="Production"
+  - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > src/version.json
+  - ./build.sh
   artifacts:
     expire_in: 30 min
     paths:
-    - src/EShop/bin/
+    - src/bin/
   tags:
-  - Docker
-
-tidy:
-  stage: test
-  dependencies:
-  - build
-  before_script:
-  - cd src/EShop/bin/Release/netcoreapp1.1/publish
-  - dotnet Shevastream.dll </dev/null &>/dev/null &
-  - sleep 30
-  script:
-  - curl -L http://localhost:5000 | tidy -config tidy.conf -e
-  tags:
-  - Docker
-  
-blc:
-  stage: test
-  dependencies:
-  - build
-  before_script:
-  - cd src/EShop/bin/Release/netcoreapp1.1/publish
-  - dotnet Shevastream.dll </dev/null &>/dev/null &
-  - sleep 30
-  script:
-  - blc --filter-level 3 --input http://localhost:5000 -rog --exclude www.nginx.com
-  tags:
-  - Docker
+  - docker
 
 dockerify:
-  stage: release
+  stage: dockerify
   dependencies:
   - build
   before_script:
-  - docker info
   script:
-  - cd src/EShop
-  - docker build -t registry.dbogatov.org/dbogatov/shevastreameshop .
+  - docker build -t $TEST_IMAGE .
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
-  - docker push registry.dbogatov.org/dbogatov/shevastreameshop
+  - docker push $TEST_IMAGE
   tags:
-  - Shell
-  
-deploy:
-  stage: deploy
+  - shell
+
+# test-dotnet:
+#   stage: test
+#   image: registry.gitlab.com/rweda/docker:dotnet-core-latest
+#   script:
+#   - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > src/version.json
+#   - cd test
+#   - dotnet restore
+#   - ./test-dotnet.sh | tee tests.out
+#   - "cat tests.out | grep 'Failed: 0.'"
+#   tags:
+#   - docker
+
+# test-integration:
+#   stage: test
+#   script:
+#   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+#   - docker-compose pull
+#   - docker-compose build
+#   - docker-compose up &
+#   - sleep 60
+#   - test/./test-integration.sh
+#   - kill %1
+#   tags:
+#   - shell
+
+release:  
+  stage: release
   script:
-  - curl --request POST 'https://push.dbogatov.org/api/push/dmytro/deploy' --data "project=ShevaStream"
-  
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
+  - docker pull $TEST_IMAGE
+  - docker tag $TEST_IMAGE $RELEASE_IMAGE
+  - docker push $RELEASE_IMAGE
+  tags:
+  - shell

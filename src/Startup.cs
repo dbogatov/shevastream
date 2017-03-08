@@ -14,7 +14,7 @@ using CommonMark;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 
-namespace EShop
+namespace Shevastream
 {
 	public class Startup
 	{
@@ -49,17 +49,7 @@ namespace EShop
 				);
 
 			DataContext.connectionString = Configuration["Data:PGSQLConnection:ConnectionString"];
-			DataContext.version = Configuration["Version:GitHash"];
-
-			// Add WebMarkupMin services.
-			// services
-			// 	.AddWebMarkupMin(options => {
-			// 		options.AllowMinificationInDevelopmentEnvironment = true;
-			// 		options.AllowCompressionInDevelopmentEnvironment = true;
-			// 	})
-			// 	.AddHtmlMinification()
-			// 	.AddXmlMinification()
-			// 	.AddHttpCompression();
+			DataContext.version = "Lol"; //Configuration["Version:GitHash"];
 
 			services.AddMvc().AddJsonOptions(opt =>
 			{

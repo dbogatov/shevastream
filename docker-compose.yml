@@ -12,19 +12,17 @@ services:
     depends_on:
       - dotnet
   dotnet: # without image, compose will take Dockerfile from this direactory and build it (at least it should)
-    image: registry.gitlab.com/rweda/status-site:${DOTNET_TAG} # if DOTNET_TAG not set, use "", or :latest
+    image: registry.dbogatov.org/dbogatov/shevastream:${DOTNET_TAG} # if DOTNET_TAG not set, use "", or :latest
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     depends_on:
       - postgres
-    # ports:
-    #   - 5555:5555
     links:
       - "postgres:database"
     restart: on-failure
   postgres:
     image: postgres:latest
     environment: # define connection credentials to be used in app
-      - POSTGRES_DB=statussite
-      - POSTGRES_USER=statususer
+      - POSTGRES_DB=shevastream
+      - POSTGRES_USER=shevastream
       - POSTGRES_PASSWORD=SomethingWeird15

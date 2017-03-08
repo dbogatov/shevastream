@@ -1,5 +1,4 @@
 using Shevastream.Models.Entities;
-using Shevastream.Services;
 using Microsoft.EntityFrameworkCore;
 
 public class DataContext : DbContext
@@ -14,19 +13,7 @@ public class DataContext : DbContext
     public DbSet<Product> Products { get; set; }
 	public DbSet<User> Users { get; set; }
 	
-	private readonly ICryptoService _crypto;
-
-	public DataContext(ICryptoService crypto)
-	{
-		_crypto = crypto;
-	}
-
-	// This method connects the context with the database
-	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-	{
-		//optionsBuilder.UseInMemoryDatabase();
-		optionsBuilder.UseNpgsql(DataContext.connectionString);
-	}
+	public DataContext(DbContextOptions options) : base(options) { }
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
