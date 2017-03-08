@@ -99,7 +99,7 @@ build-dotnet () {
 	cd $CWD/src
 
 	echo "Building and publishing .NET app... Requires .NET SDK"
-	dotnet publish -c release > /dev/null
+	dotnet publish -c release #> /dev/null
 
 }
 
