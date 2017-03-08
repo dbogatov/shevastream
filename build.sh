@@ -76,7 +76,7 @@ generate-client-bundle () {
 	echo "Bundling front-end libraries... Requires Webpack (Installed by Yarn)"
 	rm -rf src/wwwroot/{js,css}/*
 
-	$(yarn bin)/webpack --context client/ --env prod --config client/webpack.config.js --output-path src/wwwroot/js > /dev/null
+	$(yarn bin)/webpack --context client/ --env prod --config client/webpack.config.js --output-path src/wwwroot/js #> /dev/null
 
 	mkdir -p src/wwwroot/css/
 	mv src/wwwroot/js/app.css src/wwwroot/css/
@@ -204,4 +204,4 @@ while getopts "f:d" o; do
 done
 shift $((OPTIND-1))
 
-build-app-parallel
+build-app-sequential

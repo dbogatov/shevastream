@@ -11,7 +11,7 @@ module.exports = function (env) {
 		entry: {
 			order: './' + tsPath + 'order.ts',
 			// metric: './' + tsPath + 'metric.ts',
-			less: './' + lessPath + 'less/app.less'
+			less: './' + lessPath + 'less/style.less'
 		},
 		output: {
 			filename: '[name]' + outFile + '.js'

@@ -1,0 +1,8 @@
+{
+  "name": "shevastream",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "ts-loader": "^2.0.0"
+  }
+}
