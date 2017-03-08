@@ -20,7 +20,6 @@ namespace Shevastream.Services
 	public class PushService : IPushService
 	{
 		private readonly DataContext _context;
-		private readonly string _url = "http://push.dbogatov.org/api/push/send";
 		private readonly string _orderUrl = "https://push.dbogatov.org/api/push/shevastream/order";
 		private readonly string _feedbackUrl = "https://push.dbogatov.org/api/push/shevastream/feedback";
 		private readonly string _callbackUrl = "https://push.dbogatov.org/api/push/shevastream/callback";

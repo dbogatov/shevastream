@@ -31,7 +31,6 @@ namespace Shevastream.Controllers.View
 		[ReCaptcha]
 		public IActionResult Authenticate()
 		{
-
 			if (!ModelState.IsValid)
 			{
 				return View(
