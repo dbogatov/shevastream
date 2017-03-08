@@ -22,7 +22,7 @@ build:
     paths:
     - src/bin/
   tags:
-  - docker
+  - Docker
 
 dockerify:
   stage: dockerify
@@ -34,7 +34,7 @@ dockerify:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
   - docker push $TEST_IMAGE
   tags:
-  - shell
+  - Shell
 
 # test-dotnet:
 #   stage: test
@@ -69,4 +69,4 @@ release:
   - docker tag $TEST_IMAGE $RELEASE_IMAGE
   - docker push $RELEASE_IMAGE
   tags:
-  - shell
+  - Shell
