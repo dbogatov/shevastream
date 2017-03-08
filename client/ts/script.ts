@@ -1,5 +1,5 @@
-$(document).ready(function() {
-
+$(() => {
+	
 	//Slider
 	$("#slider").carousel({
 		interval: 5000

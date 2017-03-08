@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "dependencies": {
-    "ts-loader": "^2.0.0"
+    "ts-loader": "^2.0.0",
+	"jquery": "2.2.4",
+    "jquery-mask-plugin": "igorescobar/jQuery-Mask-Plugin#^1.14.0",
+	"jquery-placeholder": "^2.3.1"
   }
 }

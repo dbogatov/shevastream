@@ -10,6 +10,10 @@ module.exports = function (env) {
 	return {
 		entry: {
 			order: './' + tsPath + 'order.ts',
+			contact: './' + tsPath + 'contact.ts',
+			detail: './' + tsPath + 'detail.ts',
+			script: './' + tsPath + 'script.ts',
+			site: './' + tsPath + 'site.ts',
 			// metric: './' + tsPath + 'metric.ts',
 			less: './' + lessPath + 'less/style.less'
 		},

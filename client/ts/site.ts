@@ -1,6 +1,6 @@
 ﻿// Write your Javascript code.
 
-$(document).ready(function () {
+$(() => {
 	registerCallMeBack();
 
 	$("[href='#']").click(function (e) {

@@ -1,25 +1,28 @@
-$(document).ready(function () {
-	$("#feedback").on("submit", function (e) {
+$(() => {
+	$("#feedback").on("submit",  (e) => {
         e.preventDefault();
 
-		var valid = true;
+		let valid: boolean = true;
 
-		$('input,textarea,select').filter('[required]:visible').each(function () {
-			valid = valid && $(this).val().length > 0;
-		});
+		$('input,textarea,select')
+			.filter('[required]:visible')
+			.each(function() {
+				valid = valid && $(this).val().length > 0;
+			});
 
 		if (!valid) {
 			$("#feadbackValidationAlert").show();
 		} else {
 			$("#feadbackValidationAlert").hide();
-			var data = {
+			
+			let data = {
 				Email: $("[name='email']").val(),
 				Subject: $("[name='subject']").val(),
 				Body: $("[name='message']").val(),
 				Name: $("[name='name']").val(),
 			};
 
-			$.post("/api/Feedback", data, function () {
+			$.post("/api/Feedback", data, () => {
 				$("#feadbackValidationSuccess").show();
 				$("#feedback").find("input[type=text], input[type=email], textarea").val("");
 			});
