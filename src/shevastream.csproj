@@ -42,4 +42,8 @@
 		<PackageReference Include="CommonMark.NET" Version="0.14.0" />
 	</ItemGroup>
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+	<Target Name="AfterBuild">
+		<Copy SourceFiles="appsettings.json" DestinationFolder="$(OutputPath)/publish" ContinueOnError="false" />
+		<Copy SourceFiles="version.json" DestinationFolder="$(OutputPath)/publish" ContinueOnError="true" />
+	</Target>
 </Project>
