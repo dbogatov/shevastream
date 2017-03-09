@@ -1,4 +1,4 @@
-﻿// Write your Javascript code.
+﻿import "jquery-mask-plugin"
 
 $(() => {
 	registerCallMeBack();
@@ -43,7 +43,7 @@ function registerCallMeBack() {
 			Phone: $("#callBackPhone").val()
 		};
 
-		$.post("/api/Feedback/CallMeBack", data, function () {
+		$.post("/api/feedback/callmeback", data, function () {
 			$("#confirmCallBackBtn").hide();
 			$("#requestCallBackBody").hide();
 			$("#responseCallBackBody").show();

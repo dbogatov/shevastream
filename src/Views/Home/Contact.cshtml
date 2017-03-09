@@ -86,7 +86,14 @@
 @section scripts {
 
 	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
-	<script src="/lib/gmap3/dist/gmap3.min.js"></script>
+	
+	<environment names="Development">
+		<script defer src="/js/ts/contact.js"></script>
+	</environment>
+
+	<environment names="Staging,Production">
+		<script defer src="/js/contact.min.js"></script>
+	</environment>
 
 	<script>
 		$(document).ready(function() {

@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/5358bfd10aed37bcd5752d3388af0a29f06819c0/jquery-mask-plugin/index.d.ts",
+    "raw": "registry:dt/jquery-mask-plugin#1.14.0+20170104223332",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/5358bfd10aed37bcd5752d3388af0a29f06819c0/jquery-mask-plugin/index.d.ts"
+  }
+}

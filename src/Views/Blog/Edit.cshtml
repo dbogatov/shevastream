@@ -69,6 +69,11 @@
 
 @section scripts {
 	
-	<script src="/lib/bootstrap-markdown/js/bootstrap-markdown.js"></script>
-	<script src="/lib/markdown/lib/markdown.js"></script>
+	<environment names="Development">
+		<script defer src="/js/ts/blog.js"></script>
+	</environment>
+
+	<environment names="Staging,Production">
+		<script defer src="/js/blog.min.js"></script>
+	</environment>
 }

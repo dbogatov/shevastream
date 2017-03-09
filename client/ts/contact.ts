@@ -1,3 +1,5 @@
+import "gmap3"
+
 $(() => {
 	$("#feedback").on("submit",  (e) => {
         e.preventDefault();

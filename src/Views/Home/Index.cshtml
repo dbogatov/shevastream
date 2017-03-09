@@ -203,6 +203,14 @@
 </cache>
 
 @section scripts {
+
+	<environment names="Development">
+		<script defer src="/js/ts/index.js"></script>
+	</environment>
+
+	<environment names="Staging,Production">
+		<script defer src="/js/index.min.js"></script>
+	</environment>
 	
 	<script>
 		function fixHeight() {

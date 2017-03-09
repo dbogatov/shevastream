@@ -1,3 +1,5 @@
+import "bootstrap"
+
 $(() => {
 	
 	//Slider
@@ -10,7 +12,7 @@ $(() => {
 	});
 
 	$("#itemsingle").carousel({
-		interval: false
+		interval: 4000
 	});
 });
 

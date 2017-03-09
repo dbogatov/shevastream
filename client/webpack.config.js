@@ -12,9 +12,9 @@ module.exports = function (env) {
 			order: './' + tsPath + 'order.ts',
 			contact: './' + tsPath + 'contact.ts',
 			detail: './' + tsPath + 'detail.ts',
-			script: './' + tsPath + 'script.ts',
-			site: './' + tsPath + 'site.ts',
-			// metric: './' + tsPath + 'metric.ts',
+			index: './' + tsPath + 'index.ts',
+			global: './' + tsPath + 'global.ts',
+			blog: './' + tsPath + 'blog.ts',
 			less: './' + lessPath + 'less/style.less'
 		},
 		output: {

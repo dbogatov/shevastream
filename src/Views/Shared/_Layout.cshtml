@@ -209,26 +209,13 @@
 			ga('create', 'UA-74110359-1', 'auto');
 			ga('send', 'pageview');
 		</script>
-
-		
-		<script src="/lib/jquery/dist/jquery.min.js"></script>
-		<script defer src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script defer src="/lib/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-		<script defer src="/lib/jquery.cookie/jquery.cookie.js"></script>
-		<script defer src="/lib/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
-		<script defer src="/lib/cookieconsent/build/cookieconsent.min.js"></script>
 		
 		<environment names="Development">
-			<script defer src="/js/script.min.js"></script>
-			<script defer src="/js/site.min.js"></script>
-
-			<script defer src="/js/order.min.js"></script>
-			<script defer src="/js/contact.min.js"></script>
-			<script defer src="/js/detail.min.js"></script>
+			<script defer src="/js/ts/global.js"></script>
 		</environment>
 
 		<environment names="Staging,Production">
-			<script defer src="/js/site.min.js"></script>
+			<script defer src="/js/global.min.js"></script>
 		</environment>
 
 		@RenderSection("scripts", required: false)

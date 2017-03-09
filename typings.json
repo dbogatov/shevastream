@@ -3,10 +3,8 @@
 		"main": "client/typings"
 	},
 	"globalDependencies": {
-		"bootstrap-notify": "registry:dt/bootstrap-notify#3.1.3+20161119044246",
-		"flot": "registry:dt/flot#0.0.0+20160510010627",
+		"bootstrap": "registry:dt/bootstrap#3.3.5+20160726204056",
 		"jquery": "registry:dt/jquery#1.10.0+20170123093700",
-		"jquery.datatables": "registry:dt/jquery.datatables#1.10.9+20170207101311",
-		"jquery.timeago": "registry:dt/jquery.timeago#1.0.2+20161128184045"
+		"jquery-mask-plugin": "registry:dt/jquery-mask-plugin#1.14.0+20170104223332"
 	}
 }
