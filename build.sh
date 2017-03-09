@@ -76,12 +76,26 @@ generate-client-bundle () {
 	echo "Bundling front-end libraries... Requires Webpack (Installed by Yarn)"
 	rm -rf src/wwwroot/{js,css}/*
 
-	$(yarn bin)/webpack --context client/ --env prod --config client/webpack.config.js --output-path src/wwwroot/js #> /dev/null
+	$(yarn bin)/webpack --context client/ --env prod --config client/webpack.config.js --output-path src/wwwroot/js > /dev/null
 
 	mkdir -p src/wwwroot/css/
 	mv src/wwwroot/js/app.css src/wwwroot/css/
 	rm src/wwwroot/js/*.map
 	rm src/wwwroot/js/less.*
+
+}
+
+generate-ccs-libs () {
+
+	cd $CWD/client/lib
+
+	echo "Generating CSS libs... Requires Yarn"
+	rm -rf $CWD/src/wwwroot/lib/*
+
+	yarn --ignore-engines > /dev/null
+
+	mkdir -p $CWD/src/wwwroot/lib
+	cp -r node_modules/* $CWD/src/wwwroot/lib
 
 }
 
@@ -137,6 +151,7 @@ build-app-parallel () {
 	install-client-libs &
 	restore-dotnet &
 	gen-server-docs &
+	generate-ccs-libs &
 
 	wait %install-doc-generators
 	
@@ -170,6 +185,7 @@ build-app-sequential () {
 
 	install-typings
 	generate-client-bundle
+	generate-ccs-libs
 	restore-dotnet
 
 	build-dotnet
