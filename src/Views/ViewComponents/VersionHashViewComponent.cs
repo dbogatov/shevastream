@@ -10,7 +10,7 @@ namespace Shevastream.Views.ViewComponents
         {
 			// hack
 			await Task.FromResult(0);
-            return View((object)DataContext.version.Truncate(8));
+            return View((object)(DataContext.version ?? "none").Truncate(8));
         }
     }
 }

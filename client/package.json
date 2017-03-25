@@ -6,7 +6,7 @@
     "bootstrap": "^3.3.7",
     "bootstrap-markdown": "^2.10.0",
     "cookieconsent": "^3.0.4",
-    "gmap3": "^7.2.0",
+    "gmaps": "^0.4.24",
     "jquery": "2.2.4",
     "jquery-mask-plugin": "igorescobar/jQuery-Mask-Plugin#^1.14.0",
     "jquery-placeholder": "^2.3.1",

@@ -9,10 +9,10 @@ namespace Shevastream.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Feedback(Feedback feedback)
 		{
-			await _push.SendFeedbackAsync(feedback);
+			// await _push.SendFeedbackAsync(feedback);
 
-			_context.Feedbacks.Add(feedback);
-			await _context.SaveChangesAsync();
+			// _context.Feedbacks.Add(feedback);
+			// await _context.SaveChangesAsync();
 
 			return Ok("Feedback recorded");
 		}

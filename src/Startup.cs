@@ -49,7 +49,7 @@ namespace Shevastream
 				);
 
 			DataContext.connectionString = Configuration["Data:PGSQLConnection:ConnectionString"];
-			DataContext.version = "Lol"; //Configuration["Version:GitHash"];
+			DataContext.version = Configuration["Version:GitHash"];
 
 			services.AddMvc().AddJsonOptions(opt =>
 			{
