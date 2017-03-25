@@ -205,6 +205,17 @@
 </div>
 <!-- end:content -->
 
+@section scripts {
+
+	<environment names="Development">
+		<script defer src="/js/ts/detail.js"></script>
+	</environment>
+
+	<environment names="Staging,Production">
+		<script defer src="/js/detail.min.js"></script>
+	</environment>
+}
+
 <!-- structured data -->
 <script type="application/ld+json">
 {

@@ -5,8 +5,8 @@
   "dependencies": {
     "animate.css": "^3.5.2",
     "bootstrap": "^3.3.7",
-    
     "components-font-awesome": "^4.7.0",
-    "jquery-mask-plugin": "^1.14.10"
+    "jquery-mask-plugin": "^1.14.10",
+    "magnific-popup": "^1.1.0"
   }
 }

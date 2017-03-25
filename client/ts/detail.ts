@@ -1,3 +1,5 @@
+import "magnific-popup"
+
 $(() => {
 
 	$(".gallery img").each(function () {
