@@ -8,7 +8,7 @@ namespace Shevastream.Models.Entities
 		[Key]
 		public int Id { get; set; }
 		
-		public int AuthorId { get; set; }
+		// public int AuthorId { get; set; }
 
 		[Display(Name = "Publish")]
 		public bool Active { get; set; }

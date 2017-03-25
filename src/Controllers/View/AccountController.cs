@@ -28,7 +28,13 @@ namespace Shevastream.Controllers.View
 			});
 		}
 
-		[ReCaptcha]
+		public IActionResult Logout()
+		{
+			HttpContext.Authentication.SignOutAsync("MyCookieMiddlewareInstance");
+			return RedirectToAction("Index", "Home");
+		}
+
+		// [ReCaptcha]
 		public IActionResult Authenticate()
 		{
 			if (!ModelState.IsValid)

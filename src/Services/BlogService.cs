@@ -193,6 +193,7 @@ namespace Shevastream.Services
             if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
             {
                 var userId = Convert.ToInt32(_http.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+				var user = await _context.Users.FindAsync(userId);
 
                 var old = _context.BlogPosts.First(bp => bp.Id == post.Id);
                 old.Title = post.Title.Trim();
@@ -200,7 +201,7 @@ namespace Shevastream.Services
                 old.Content = post.Content;
                 old.Preview = MarkDownToHtml(post.Content.Substring(0, post.Content.IndexOf('\n')));
                 old.DateUpdated = DateTime.Now;
-                old.AuthorId = userId;
+                old.Author = user;
                 old.Active = post.Active;
 
                 await _context.SaveChangesAsync();
@@ -225,10 +226,11 @@ namespace Shevastream.Services
         public async Task<BlogPost> CreatePostAsync(BlogPostViewModel post)
         {
             var userId = Convert.ToInt32(_http.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
-
+			var user = await _context.Users.FindAsync(userId);
+			
             var @new = new BlogPost
             {
-                AuthorId = userId,
+                Author = user,
                 Active = post.Active,
                 DatePosted = DateTime.Now,
                 DateUpdated = DateTime.Now,

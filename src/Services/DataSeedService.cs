@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Shevastream.Extensions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Shevastream.Services
 {
@@ -30,6 +31,7 @@ namespace Shevastream.Services
 
 		private IEnumerable<User> _users;
 		private IEnumerable<Product> _products;
+		private IEnumerable<BlogPost> _blogPosts;
 		private IEnumerable<Order> _orders;
 		private IEnumerable<OrderProduct> _orderProducts;
 
@@ -47,6 +49,7 @@ namespace Shevastream.Services
 			SeedSpecificEntity(_users, _context.Users);
 			SeedSpecificEntity(_orders, _context.Orders);
 			SeedSpecificEntity(_orderProducts, _context.OrderProducts);
+			SeedSpecificEntity(_blogPosts, _context.BlogPosts);
 		}
 
 		public async Task SeedDataAsync()
@@ -55,6 +58,7 @@ namespace Shevastream.Services
 			await SeedSpecificEntityAsync(_users, _context.Users);
 			await SeedSpecificEntityAsync(_orders, _context.Orders);
 			await SeedSpecificEntityAsync(_orderProducts, _context.OrderProducts);
+			await SeedSpecificEntityAsync(_blogPosts, _context.BlogPosts);
 		}
 
 		private void ReadConfiguration()
@@ -190,6 +194,47 @@ namespace Shevastream.Services
 						HasVideo = false,
 						Url = ""
 					})
+				}
+			};
+
+			_blogPosts = new List<BlogPost> {
+				new BlogPost {
+					Id = 29,
+					Author = _users.First(u => u.Id == 1),
+					Active = true,
+					DatePosted = new DateTime(2016, 9, 7),
+					DateUpdated = DateTime.Now,
+					Title = "Використання файлів cookie",
+					TitleUrl = "vikoristannya-fajlv-cookie",
+					Content = @"
+					
+						На даному Сайті використовуються файли `cookie`, тому цей розділ детально пояснює, як використовуються файли `cookie`, і як Ви можете контролювати, залишати або видаляти файли cookie.
+
+						### Що таке файли cookie?
+
+						Частки інформації, які передаються на жорсткий диск Вашого комп'ютера з веб-сайту, називаються `cookie`. Вони не є комп'ютерними програмами, просто невеликими інформаційними файлами, які дозволяють веб-сайтам зберігати інформацію про пошукові схеми користувачів і отримувати доступ до такої інформації. Більшість веб-сайтів використовують файли `cookie`, оскільки вони дозволяють перетворити Інтернет на ефективний засіб для користувачів.
+
+						Cookie-файли дозволяють веб-сайтам надавати індивідуалізовані послуги (наприклад, запам'ятовування логіна, збереження продуктів у споживчому кошику або демонстрацію необхідного вмісту). Існує кілька різновидів файлів `cookie`: тимчасові `cookie` (або сеансові `cookie`) стираються, коли браузер закривається; постійні `cookie` не стираються, але залишаються до тих пір, поки їх навмисно не видаляють або закінчується термін їхньої дії (він залежить від того, на який час веб-сайт програмує тривалість дії `cookie`).
+
+						### Як видалити файли `cookie`?
+
+						Більшість браузерів автоматично налаштовані приймати файли `cookie`. Ви можете відключити файли `cookie` на своєму браузері, але пам'ятайте, що якщо ви це зробите, ви можете втратити багато характеристик, необхідних для адекватної роботи Вашого веб-сайту. Якщо вам необхідна більш детальна інформація про файли `cookie`, будь ласка, відвідайте сайт [www.aboutcookies.org](http://www.aboutcookies.org), який містить вичерпну і незалежну інформацію про те, як відключити `cookie`, використовуючи налаштування браузера, і як видалити `cookie`, що вже знаходяться на Вашому комп'ютері. Щоб видалити файли cookie зі свого мобільного телефону, Вам необхідно проконсультуватися з інструкцією до свого телефонного пристрою.
+
+						### How do we use `cookie`
+
+						We store `cookie`s on Your computer for two purposes. Firstly, we store your cart in `cookie`s, so that you may visit the site later and have your desired products in your cart. Secondly, we remember your inputs in the order form, so that we can save your time by filling part of the form for you next time you make a purchase. Finally, we use Google Analytics system on our website, so that we can better understand our market and optimize our site for our customers.
+
+						### Прийняття умов використання
+
+						Приймаючи Умови використання, а також отримання доступу до Сайту і використання його, Ви погоджуєтеся на використання файлів `cookie`. Ви також можете погодитися на використання нами файлів `cookie`, за допомогою налаштувань, вибраних Вами в своєму веб-браузері.
+
+					",
+					Preview = @"
+					
+						<p>На даному Сайті використовуються файли <code>cookie</code>, тому цей розділ детально пояснює, як використовуються файли <code>cookie</code>, і як Ви можете контролювати, залишати або видаляти файли cookie.</p>
+					
+					",
+					Views = (DateTime.Now - new DateTime(2016, 9, 7)).Days / 2
 				}
 			};
 		}

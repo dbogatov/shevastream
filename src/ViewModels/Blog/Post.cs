@@ -12,7 +12,6 @@ namespace Shevastream.ViewModels.Blog
 			return new BlogPostViewModel
 			{
 				Id = post.Id,
-				AuthorId = post.AuthorId,
 				Active = post.Active,
 				DatePosted = post.DatePosted,
 				DateUpdated = post.DateUpdated,
