@@ -1,5 +1,3 @@
-import "bootstrap"
-
 $(() => {
 
 	let fixHeight = () => {

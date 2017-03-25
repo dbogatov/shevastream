@@ -1,4 +1,5 @@
 ﻿import "jquery-mask-plugin"
+import "bootstrap"
 
 $(() => {
 
@@ -14,6 +15,8 @@ $(() => {
 	};
 
 	let registerCallMeBack = () => {
+
+		debugger;
 
 		$("#callMeBackModal").on("shown.bs.modal", () => {
 			$("#callBackPhone").focus();
