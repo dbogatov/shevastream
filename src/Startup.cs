@@ -14,14 +14,19 @@ using CommonMark;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using Shevastream.Models;
+using Shevastream.Services.Factories;
 
 namespace Shevastream
 {
 	public class Startup
 	{
+		private readonly IHostingEnvironment _env;
+
 		public Startup(IHostingEnvironment env)
 		{
 			// Set up configuration sources.
+
+			_env = env;
 
 			var builder = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory())
@@ -66,6 +71,11 @@ namespace Shevastream
 
 			// Add application services.
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+			if (!_env.IsTesting())
+			{
+				services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
+			}
 
 			services.AddTransient<DataContext, DataContext>();
 

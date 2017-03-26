@@ -7,6 +7,8 @@ using Shevastream.Models;
 using System;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Shevastream.Services.Factories;
+using Shevastream.Tests.Mock;
 
 namespace Shevastream.Tests
 {
@@ -19,12 +21,12 @@ namespace Shevastream.Tests
 		/// Registers all available services for testing environment.
 		/// </summary>
 		/// <returns>Service provider with all services registered</returns>
-		public static IServiceProvider RegisterServices()
+		public static IServiceCollection RegisterServices(IServiceCollection givenServices = null)
 		{
 			// Needed for DataContext
 			var efServiceProvider = new ServiceCollection().AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
 
-			var services = new ServiceCollection();
+			var services = givenServices ?? new ServiceCollection();
 
 			// Create service of DataContext with inMemory data provider
 			services
@@ -35,7 +37,10 @@ namespace Shevastream.Tests
 				);
 
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
+
 			services.AddTransient<IDataSeedService, DataSeedService>();
+			
 			services.AddTransient<ICryptoService, CryptoService>();
 			services.AddTransient<IPushService, PushService>();
 			services.AddTransient<IBlogService, BlogService>();
@@ -45,7 +50,7 @@ namespace Shevastream.Tests
 			services.AddTransient<IDataSeedService, DataSeedService>();
 			services.AddTransient<ISiteMapService, SiteMapService>();
 			services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-			services.AddTransient<IHostingEnvironment, MockHostingEnvironmentTesting>();
+			// services.AddTransient<IHostingEnvironment, MockHostingEnvironmentTesting>();
 
 			services.AddSingleton<IConfiguration>(
 				new ConfigurationBuilder()
@@ -53,7 +58,7 @@ namespace Shevastream.Tests
 				.Build()
 			);
 
-			return services.BuildServiceProvider();
+			return services;
 		}
 	}
 }

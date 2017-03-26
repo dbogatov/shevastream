@@ -36,17 +36,17 @@ dockerify:
   tags:
   - Shell
 
-# test-dotnet:
-#   stage: test
-#   image: registry.gitlab.com/rweda/docker:dotnet-core-latest
-#   script:
-#   - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > src/version.json
-#   - cd test
-#   - dotnet restore
-#   - ./test-dotnet.sh | tee tests.out
-#   - "cat tests.out | grep 'Failed: 0.'"
-#   tags:
-#   - docker
+test-dotnet:
+  stage: test
+  image: registry.gitlab.com/rweda/docker:dotnet-core-latest
+  script:
+  - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > src/version.json
+  - cd test
+  - dotnet restore
+  - ./test-dotnet.sh | tee tests.out
+  - "cat tests.out | grep 'Failed: 0.'"
+  tags:
+  - docker
 
 # test-integration:
 #   stage: test

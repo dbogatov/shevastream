@@ -29,7 +29,7 @@ namespace Shevastream.Tests.UnitTests.Services
 		/// </summary>
 		public DataSeedServiceTest()
 		{
-			_serviceProvider = Extensions.RegisterServices();
+			_serviceProvider = Extensions.RegisterServices().BuildServiceProvider();
 		}
 
 		[Fact]

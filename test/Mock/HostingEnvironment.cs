@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 
-namespace Shevastream.Tests
+namespace Shevastream.Tests.Mock
 {
 	/// <summary>
 	/// Only EnvironmentName is implemented.

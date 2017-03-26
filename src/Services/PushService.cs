@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Shevastream.Models;
+using Shevastream.Services.Factories;
 
 namespace Shevastream.Services
 {
@@ -21,18 +22,21 @@ namespace Shevastream.Services
 	public class PushService : IPushService
 	{
 		private readonly DataContext _context;
+		private readonly IHttpClientFactory _httpClientFactory;
+
 		private readonly string _orderUrl = "https://push.dbogatov.org/api/push/shevastream/order";
 		private readonly string _feedbackUrl = "https://push.dbogatov.org/api/push/shevastream/feedback";
 		private readonly string _callbackUrl = "https://push.dbogatov.org/api/push/shevastream/callback";
 
-		public PushService(DataContext context)
+		public PushService(DataContext context, IHttpClientFactory httpClientFactory)
 		{
 			_context = context;
+			_httpClientFactory = httpClientFactory;
 		}
 
 		public async Task SendOrderAsync(string orderDescription, string name, string email, IEnumerable<Product> products)
 		{
-			using (var client = new HttpClient())
+			using (var client = _httpClientFactory.BuildClient())
 			{
 				var values = new Dictionary<string, string>
 				{
@@ -56,7 +60,7 @@ namespace Shevastream.Services
 
 		public async Task SendCallbackAsync(string phone)
 		{
-			using (var client = new HttpClient())
+			using (var client = _httpClientFactory.BuildClient())
 			{
 				var values = new Dictionary<string, string>
 				{
@@ -71,7 +75,7 @@ namespace Shevastream.Services
 
 		public async Task SendFeedbackAsync(Feedback feedback)
 		{
-			using (var client = new HttpClient())
+			using (var client = _httpClientFactory.BuildClient())
 			{
 				var values = new Dictionary<string, string>
 				{
