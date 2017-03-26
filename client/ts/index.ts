@@ -21,19 +21,6 @@ $(() => {
 
 	$(document).ready(function () { setTimeout(fixHeight, 300); });
 	$(window).resize(fixHeight);
-
-	//Slider
-	$("#slider").carousel({
-		interval: 5000
-	});
-
-	$("#testi").carousel({
-		interval: 4000
-	});
-
-	$("#itemsingle").carousel({
-		interval: 4000
-	});
 });
 
 
