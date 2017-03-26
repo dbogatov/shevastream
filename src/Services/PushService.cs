@@ -5,6 +5,7 @@ using Shevastream.Models.Entities;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Shevastream.Models;
 
 namespace Shevastream.Services
 {

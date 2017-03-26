@@ -3,6 +3,7 @@ using System.Linq;
 using Shevastream.ViewModels.Store;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Shevastream.Models;
 
 namespace Shevastream.Services
 {

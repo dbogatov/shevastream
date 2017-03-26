@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Shevastream.Services;
 using Shevastream.ViewModels.Store;
 using Microsoft.AspNetCore.Mvc;
+using Shevastream.Models;
 
 namespace Shevastream.Controllers.View
 {

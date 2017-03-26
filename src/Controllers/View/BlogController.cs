@@ -4,6 +4,7 @@ using Shevastream.Services;
 using Shevastream.ViewModels.Blog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shevastream.Models;
 
 namespace Shevastream.Controllers.View
 {

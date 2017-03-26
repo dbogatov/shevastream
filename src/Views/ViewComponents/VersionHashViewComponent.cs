@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Shevastream.Extensions;
+using Shevastream.Models;
 
 namespace Shevastream.Views.ViewComponents
 {

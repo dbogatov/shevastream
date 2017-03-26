@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Shevastream.Extensions;
+using Shevastream.Models;
 
 namespace Shevastream.Services
 {

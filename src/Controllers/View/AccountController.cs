@@ -5,6 +5,7 @@ using Shevastream.ActionFilters.ReCaptcha;
 using Shevastream.Services;
 using Shevastream.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Shevastream.Models;
 
 namespace Shevastream.Controllers.View
 {
@@ -34,7 +35,7 @@ namespace Shevastream.Controllers.View
 			return RedirectToAction("Index", "Home");
 		}
 
-		// [ReCaptcha]
+		[ReCaptcha]
 		public IActionResult Authenticate()
 		{
 			if (!ModelState.IsValid)

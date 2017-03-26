@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Shevastream.Models;
 using Shevastream.Services;
 
 namespace Shevastream.Controllers

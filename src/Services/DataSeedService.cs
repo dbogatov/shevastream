@@ -6,6 +6,7 @@ using Shevastream.Extensions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Shevastream.Models;
 
 namespace Shevastream.Services
 {

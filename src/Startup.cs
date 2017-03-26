@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using CommonMark;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
+using Shevastream.Models;
 
 namespace Shevastream
 {
