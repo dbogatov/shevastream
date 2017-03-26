@@ -234,4 +234,4 @@ while getopts "f:d" o; do
 done
 shift $((OPTIND-1))
 
-build-app-parallel
+build-app-sequential
