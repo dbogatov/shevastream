@@ -87,15 +87,27 @@ generate-client-bundle () {
 
 generate-ccs-libs () {
 
-	cd $CWD/client/lib
+	cd $CWD/client/lib/css
 
 	echo "Generating CSS libs... Requires Yarn"
-	rm -rf $CWD/src/wwwroot/lib/*
+	rm -rf $CWD/src/wwwroot/lib/css/*
 
 	yarn --ignore-engines > /dev/null
 
-	mkdir -p $CWD/src/wwwroot/lib
-	cp -r node_modules/* $CWD/src/wwwroot/lib
+	mkdir -p $CWD/src/wwwroot/lib/css
+	cp -r node_modules/* $CWD/src/wwwroot/lib/css
+
+}
+
+generate-js-libs () {
+
+	cd $CWD/client/lib/js
+
+	echo "Generating JS libs..."
+	rm -rf $CWD/src/wwwroot/lib/js/*
+
+	mkdir -p $CWD/src/wwwroot/lib/js
+	cp -r ./* $CWD/src/wwwroot/lib/js
 
 }
 
@@ -152,6 +164,7 @@ build-app-parallel () {
 	restore-dotnet &
 	gen-server-docs &
 	generate-ccs-libs &
+	generate-js-libs &
 
 	wait %install-doc-generators
 	
@@ -186,6 +199,7 @@ build-app-sequential () {
 	install-typings
 	generate-client-bundle
 	generate-ccs-libs
+	generate-js-libs
 	restore-dotnet
 
 	build-dotnet
@@ -220,4 +234,4 @@ while getopts "f:d" o; do
 done
 shift $((OPTIND-1))
 
-build-app-sequential
+build-app-parallel
