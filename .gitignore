@@ -38,6 +38,7 @@ test/appsettings*.json
 # Mac temp files
 .DS_Store
 
+*.lock
 
 # TODO remove
 /src/wwwroot/lib/
