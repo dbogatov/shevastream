@@ -110,32 +110,23 @@
 					<a asp-controller="Store" asp-action="Order" class="btn btn-success btn-block">Замовити</a>
 				</div>
 			</div>
-		} else
+		} 
+		else
 		{
 			<h1>Ваш кошик порожній</h1> 
 		}
-		
 		
 	</div>
 </div>
 <!-- end:content -->
 
 @section scripts {
-	
-	<script>
-		
-		var submitCartChanges = function(jQueryObject) {
-			jQueryObject.parent().closest("form").submit();
-		};
 
-		$(".quantityPicker").change(function() {
-			submitCartChanges($(this));
-		});
+	<environment names="Development">
+		<script defer src="/js/ts/cart.js"></script>
+	</environment>
 
-		$(".quantityPicker").focusout(function() {
-			submitCartChanges($(this));
-		});
-		
-	</script>
-	
+	<environment names="Staging,Production">
+		<script defer src="/js/cart.min.js"></script>
+	</environment>
 }

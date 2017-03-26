@@ -7,16 +7,23 @@ module.exports = function (env) {
 	var lessPath = env == "prod" ? "" : "dist/";
 	var outFile = env == "prod" ? ".min" : "";
 
+	var entries = [
+		"order",
+		"contact",
+		"detail",
+		"index",
+		"global",
+		"blog",
+		"cart"
+	];
+	var entriesObj = new Object();
+	entries.forEach(function (entry) {
+		entriesObj[entry] = './' + tsPath + entry + '.ts';
+	});
+	entriesObj["less"] = './' + lessPath + 'less/style.less';
+
 	return {
-		entry: {
-			order: './' + tsPath + 'order.ts',
-			contact: './' + tsPath + 'contact.ts',
-			detail: './' + tsPath + 'detail.ts',
-			index: './' + tsPath + 'index.ts',
-			global: './' + tsPath + 'global.ts',
-			blog: './' + tsPath + 'blog.ts',
-			less: './' + lessPath + 'less/style.less'
-		},
+		entry: entriesObj,
 		output: {
 			filename: '[name]' + outFile + '.js'
 		},
