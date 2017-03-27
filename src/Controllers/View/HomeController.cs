@@ -34,17 +34,23 @@ namespace Shevastream.Controllers.View
 
         public IActionResult FAQ()
         {
-            return View();
+            var result = View();
+			result.StatusCode = HttpStatusCode.OK.AsInt();
+			return result;
         }
 
         public IActionResult Contact()
         {
-            return View();
+            var result = View();
+			result.StatusCode = HttpStatusCode.OK.AsInt();
+			return result;
         }
 
         public IActionResult Profile()
         {
-            return View();
+            var result = View();
+			result.StatusCode = HttpStatusCode.OK.AsInt();
+			return result;
         }
 
 		public IActionResult Privacy()

@@ -10,11 +10,11 @@ namespace Shevastream.Extensions
 {
 	public class SiteMapResult : IActionResult
 	{
-		private SiteMap _siteMap;
+		public SiteMap SiteMap { get; private set; }
 
 		public SiteMapResult(SiteMap siteMap)
 		{
-			_siteMap = siteMap;
+			SiteMap = siteMap;
 		}
 
 		public Task ExecuteResultAsync(ActionContext context)
@@ -35,7 +35,7 @@ namespace Shevastream.Extensions
 			var xml = new XDocument(
 				new XDeclaration("1.0", "utf-8", "yes"),
 				new XElement(ns + "urlset",
-						_siteMap.Items
+						SiteMap.Items
 						.Select(
 							item => new XElement(
 								ns + "url",

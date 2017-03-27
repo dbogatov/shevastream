@@ -8,7 +8,7 @@ using Shevastream.Models;
 
 namespace Shevastream.Controllers.View
 {
-    public class BlogController : Controller
+	public class BlogController : Controller
 	{
 		private readonly DataContext _context;
 		private readonly IBlogService _blog;
@@ -28,16 +28,16 @@ namespace Shevastream.Controllers.View
 
 		[HttpPost]
 		[Authorize]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Publish(
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Publish(
 			[FromServices] IBlogService order,
-            [FromForm] BlogPostViewModel model,
-            CancellationToken requestAborted)
+			[FromForm] BlogPostViewModel model,
+			CancellationToken requestAborted)
 		{
 			if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+			{
+				return View(model);
+			}
 
 			var updated = await _blog.UpdatePostAsync(model);
 			if (updated == null)
@@ -48,11 +48,12 @@ namespace Shevastream.Controllers.View
 			if (updated.Active)
 			{
 				return RedirectToRoute("Blog", new { title = updated.TitleUrl, id = updated.Id });
-			} else
+			}
+			else
 			{
 				return RedirectToAction("Index");
 			}
-		} 
+		}
 
 		public async Task<IActionResult> Post(int id, string title)
 		{
@@ -91,11 +92,12 @@ namespace Shevastream.Controllers.View
 						return RedirectToActionPermanent("Edit", "Blog", new { id = id, title = post.TitleUrl });
 					}
 
-					return View(post);	
+					return View(post);
 				}
 			}
 
-			return View(new BlogPostViewModel {
+			return View(new BlogPostViewModel
+			{
 				Title = "New post",
 				Content = "content here...",
 				Id = -1,

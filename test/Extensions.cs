@@ -50,7 +50,7 @@ namespace Shevastream.Tests
 			var mockUrlHelperFactory = new Mock<IUrlHelperFactory>();
 			mockUrlHelperFactory
 				.Setup(factory => factory.GetUrlHelper(It.IsAny<ActionContext>()))
-				.Returns(new Mock<IUrlHelper>().Object); 
+				.Returns(new Mock<IUrlHelper>().Object);
 
 			services.AddSingleton<IUrlHelperFactory>(mockUrlHelperFactory.Object);
 

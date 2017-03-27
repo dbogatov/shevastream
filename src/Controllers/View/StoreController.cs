@@ -5,6 +5,8 @@ using Shevastream.Services;
 using Shevastream.ViewModels.Store;
 using Microsoft.AspNetCore.Mvc;
 using Shevastream.Models;
+using System.Net;
+using Shevastream.Extensions;
 
 namespace Shevastream.Controllers.View
 {
@@ -28,7 +30,9 @@ namespace Shevastream.Controllers.View
 		{
 			ViewBag.TotalCost = _cart.GetTotalCost();
 
-			return View();
+			var result = View();
+			result.StatusCode = HttpStatusCode.OK.AsInt();
+			return result;
 		}
 
 		[HttpPost]
@@ -96,7 +100,9 @@ namespace Shevastream.Controllers.View
 
 		public IActionResult ThankYou()
 		{
-			return View();
+			var result = View();
+			result.StatusCode = HttpStatusCode.OK.AsInt();
+			return result;
 		}
 	}
 }

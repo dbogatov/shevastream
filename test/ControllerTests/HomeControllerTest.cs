@@ -9,10 +9,11 @@ using Xunit;
 using Microsoft.AspNetCore.Http;
 using Shevastream.Controllers.View;
 using Shevastream.ViewModels.Blog;
-using Shevastream.Tests;
 using Shevastream.Extensions;
+using Moq;
+using System.Linq;
 
-namespace StatusMonitor.Tests.ControllerTests
+namespace Shevastream.Tests.ControllerTests
 {
 	[Collection("The Collection")]
 	/// <summary>
@@ -31,16 +32,31 @@ namespace StatusMonitor.Tests.ControllerTests
 		{
 			_serviceProvider = Extensions.RegisterServices().BuildServiceProvider();
 
-			var siteMap = _serviceProvider.GetRequiredService<ISiteMapService>();
 			var blogService = _serviceProvider.GetRequiredService<IBlogService>();
+			var siteMap = new Mock<ISiteMapService>();
+			siteMap.
+				Setup(map => map.GetSiteMap()).
+				Returns(new SiteMap { 
+					Items = new List<SiteMapItem> {
+						new SiteMapItem {
+							Loc = new Uri("https://shevastream.com"),
+							LastMod = DateTime.Now,
+							ChangeFreq = ChangeFrequency.Monthly
+						}
+					} 
+				});
+			
 
-			_controller = new HomeController(siteMap, blogService);
+			_controller = new HomeController(siteMap.Object, blogService);
 
 			// In testing environment, controller does not have HttpContext.
 			// As a result, all calls to Response trigger NullPointer exception
 			// We need to manually set default values (or mock)
 			_controller.ControllerContext = new ControllerContext();
 			_controller.ControllerContext.HttpContext = new DefaultHttpContext();
+
+			// Arrange
+			_serviceProvider.GetRequiredService<IDataSeedService>().SeedData();
 		}
 
 		[Fact]
@@ -49,7 +65,7 @@ namespace StatusMonitor.Tests.ControllerTests
 		/// </summary>
 		public async Task IndexTest()
 		{
-			// Arrange			
+			// Arrange
 			await _serviceProvider.GetRequiredService<IDataSeedService>().SeedDataAsync();
 			
 			// Act
@@ -65,6 +81,40 @@ namespace StatusMonitor.Tests.ControllerTests
 			);
 
 			Assert.NotEmpty(model);
+		}
+
+		[Fact]
+		public void SiteMapTest()
+		{	
+			// Act
+			var result = _controller.SiteMap();
+
+			// Assert
+			var siteMapResult = Assert.IsType<SiteMapResult>(result);
+
+			var model = Assert.IsType<SiteMap>(
+				siteMapResult.SiteMap
+			);
+
+			Assert.NotEmpty(model.Items);
+		}
+
+		[Fact]
+		public void PrivacyTest()
+		{	
+			// Act
+			var result = _controller.Privacy();
+
+			// Assert
+			var redirectResult = Assert.IsType<RedirectToRouteResult>(result);
+
+			Assert.True(redirectResult.Permanent);
+
+			Assert.True(redirectResult.RouteValues.Keys.Any(key => key == "id"));
+
+			var id = Assert.IsType<int>(redirectResult.RouteValues["id"]);
+
+			Assert.NotEqual(0, id);
 		}
 
 	}
