@@ -1,10 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Shevastream.Services;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Shevastream.Models;
-using System;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Shevastream.Services.Factories;

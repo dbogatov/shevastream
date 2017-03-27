@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Shevastream.Extensions;
 
 namespace Shevastream.Tests.UnitTests.Services
 {
