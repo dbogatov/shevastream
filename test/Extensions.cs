@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Shevastream.Services.Factories;
 using Shevastream.Tests.Mock;
+using Moq;
+using System.Net.Http;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Shevastream.Tests
 {
@@ -36,8 +40,22 @@ namespace Shevastream.Tests
 						.UseInternalServiceProvider(efServiceProvider)
 				);
 
+			var mockHttpFactory = new Mock<IHttpClientFactory>();
+			mockHttpFactory
+				.Setup(factory => factory.BuildClient())
+				.Returns(new HttpClient(new ResponseHandler()));
+
+			services.AddSingleton<IHttpClientFactory>(mockHttpFactory.Object);
+			
+			var mockUrlHelperFactory = new Mock<IUrlHelperFactory>();
+			mockUrlHelperFactory
+				.Setup(factory => factory.GetUrlHelper(It.IsAny<ActionContext>()))
+				.Returns(new Mock<IUrlHelper>().Object); 
+
+			services.AddSingleton<IUrlHelperFactory>(mockUrlHelperFactory.Object);
+
+			
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-			services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
 
 			services.AddTransient<IDataSeedService, DataSeedService>();
 			

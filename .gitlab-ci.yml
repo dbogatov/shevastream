@@ -46,7 +46,7 @@ test-dotnet:
   - ./test-dotnet.sh | tee tests.out
   - "cat tests.out | grep 'Failed: 0.'"
   tags:
-  - docker
+  - Docker
 
 # test-integration:
 #   stage: test

@@ -2,6 +2,7 @@
 using Shevastream.Services;
 using Microsoft.AspNetCore.Mvc;
 using Shevastream.Extensions;
+using System.Net;
 
 namespace Shevastream.Controllers.View
 {
@@ -25,8 +26,10 @@ namespace Shevastream.Controllers.View
         }
 
         public async Task<IActionResult> Index()
-        {
-            return View(await _blogService.GetLatestPostsAsync(3));
+        {	
+            var result =  View(await _blogService.GetLatestPostsAsync(3));
+			result.StatusCode = HttpStatusCode.OK.AsInt();
+			return result;
         }
 
         public IActionResult FAQ()

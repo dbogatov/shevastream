@@ -13,25 +13,21 @@ namespace Shevastream.Tests.IntegrationTests
 		/// <summary>
 		/// Check if ApiController.CpuLoad endpoint returns status codes as per documentation
 		/// </summary>
-		public async Task FeedbackEndpoint()
+		public async Task CallbackEndpoint()
 		{
 			// Arrange
 			var requestMade = false;
 			
 			_responseHandler.AddHandler(
-				new Uri("https://push.dbogatov.org/api/push/shevastream/feedback"), 
+				new Uri("https://push.dbogatov.org/api/push/shevastream/callback"), 
 				() => requestMade = true
 			);
 
-			var _url = "/api/feedback";
+			var _url = "/api/CallbackRequest";
 
 			var parameters = new Dictionary<string, string> { };
 
-			// Check OK when metric already exists
-			parameters["email"] = "name@example.com";
-			parameters["subject"] = "Test";
-			parameters["body"] = "Test body";
-			parameters["name"] = "Test customer";
+			parameters["phone"] = "+38 (505) 455-55-55";
 
 			// Act
 			var ok = await _client.PostAsync(_url, new FormUrlEncodedContent(parameters));
@@ -42,7 +38,7 @@ namespace Shevastream.Tests.IntegrationTests
 			Assert.True(requestMade);
 
 			// Clean up
-			_responseHandler.RemoveHandler(new Uri("https://push.dbogatov.org/api/push/shevastream/feedback"));
+			_responseHandler.RemoveHandler(new Uri("https://push.dbogatov.org/api/push/shevastream/callback"));
 		}
 	}
 }
