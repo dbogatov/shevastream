@@ -52,7 +52,7 @@ namespace Shevastream.Tests.ControllerTests
 		/// <summary>
 		/// Checks that Index method returns proper model and status codes.
 		/// </summary>
-		public void LoginTest()
+		public void Login()
 		{
 			// Act
 			var result = _controller.Login();
@@ -74,7 +74,7 @@ namespace Shevastream.Tests.ControllerTests
 		/// <summary>
 		/// Checks that Index method returns proper model and status codes.
 		/// </summary>
-		public void LogoutTest()
+		public void Logout()
 		{
 			// Arrange
 			var authenticated = true;
@@ -111,7 +111,7 @@ namespace Shevastream.Tests.ControllerTests
 		/// <summary>
 		/// Checks that Index method returns proper model and status codes.
 		/// </summary>
-		public async Task AuthenticateTest(bool shouldAuthenticate)
+		public async Task Authenticate(bool shouldSucceed)
 		{
 			// Arrange
 			var authenticated = false;
@@ -128,7 +128,7 @@ namespace Shevastream.Tests.ControllerTests
 			await dataContext.SaveChangesAsync();
 
 			var mockForm = new Mock<IFormCollection>();
-			mockForm.Setup(form => form["password"]).Returns(shouldAuthenticate ? "test-password" : "wrong-password");
+			mockForm.Setup(form => form["password"]).Returns(shouldSucceed ? "test-password" : "wrong-password");
 
 			var mockQuery = new Mock<IQueryCollection>();
 			mockQuery.Setup(query => query["returnurl"]).Returns("/return");
@@ -153,9 +153,9 @@ namespace Shevastream.Tests.ControllerTests
 			var result = _controller.Authenticate();
 
 			// Assert
-			Assert.True(shouldAuthenticate ? authenticated : !authenticated);
+			Assert.True(shouldSucceed ? authenticated : !authenticated);
 
-			if (shouldAuthenticate)
+			if (shouldSucceed)
 			{
 				var redirectResult = Assert.IsType<RedirectResult>(result);
 

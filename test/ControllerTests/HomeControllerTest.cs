@@ -62,7 +62,7 @@ namespace Shevastream.Tests.ControllerTests
 		/// <summary>
 		/// Checks that Index method returns proper model and status codes.
 		/// </summary>
-		public async Task IndexTest()
+		public async Task Index()
 		{
 			// Act
 			var result = await _controller.Index();
@@ -80,7 +80,7 @@ namespace Shevastream.Tests.ControllerTests
 		}
 
 		[Fact]
-		public void SiteMapTest()
+		public void SiteMap()
 		{	
 			// Act
 			var result = _controller.SiteMap();
@@ -96,7 +96,7 @@ namespace Shevastream.Tests.ControllerTests
 		}
 
 		[Fact]
-		public void PrivacyTest()
+		public void Privacy()
 		{	
 			// Act
 			var result = _controller.Privacy();

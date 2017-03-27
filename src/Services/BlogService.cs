@@ -17,7 +17,7 @@ namespace Shevastream.Services
         string MarkDownToHtml(string content);
         string GenerateUrlFromTitle(string title);
 		string GenerateUrlFromTitleStackOverflow(string title);
-        IEnumerable<BlogPostViewModel> GetAllPosts();
+        Task<IEnumerable<BlogPostViewModel>> GetAllPostsAsync();
         Task<BlogPostViewModel> GetPostByTitleAsync(string title, bool active = true);
         Task<BlogPostViewModel> GetPostByIdAsync(int id, bool active = true);
         Task<BlogPost> UpdatePostAsync(BlogPostViewModel post);
@@ -128,9 +128,9 @@ namespace Shevastream.Services
             return CommonMark.CommonMarkConverter.Convert(content);
         }
 
-        public IEnumerable<BlogPostViewModel> GetAllPosts()
+        public async Task<IEnumerable<BlogPostViewModel>> GetAllPostsAsync()
         {
-            return _context
+            return await _context
                 .BlogPosts
                 .Include(bp => bp.Author)
                 .OrderByDescending(bp => bp.DatePosted)
@@ -144,7 +144,8 @@ namespace Shevastream.Services
                     Active = bp.Active,
                     Views = bp.Views,
                     Preview = bp.Preview
-                });
+                })
+				.ToListAsync();
         }
 
         public async Task<BlogPostViewModel> GetPostByTitleAsync(string title, bool active = true)

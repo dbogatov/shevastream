@@ -5,6 +5,9 @@ using Shevastream.ViewModels.Blog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shevastream.Models;
+using System.Net;
+using Shevastream.Extensions;
+using System.Linq;
 
 namespace Shevastream.Controllers.View
 {
@@ -19,24 +22,23 @@ namespace Shevastream.Controllers.View
 			_blog = blog;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			var model = _blog.GetAllPosts();
+			var model = await _blog.GetAllPostsAsync();
 
-			return View(model);
+			var result = View(model);
+			result.StatusCode = (model.Count() > 0 ? HttpStatusCode.OK : HttpStatusCode.NoContent).AsInt();
+			return result;
 		}
 
 		[HttpPost]
 		[Authorize]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Publish(
-			[FromServices] IBlogService order,
-			[FromForm] BlogPostViewModel model,
-			CancellationToken requestAborted)
+		public async Task<IActionResult> Publish(BlogPostViewModel model)
 		{
 			if (!ModelState.IsValid)
 			{
-				return View(model);
+				return Unauthorized();
 			}
 
 			var updated = await _blog.UpdatePostAsync(model);

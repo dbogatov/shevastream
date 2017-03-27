@@ -52,7 +52,6 @@ namespace Shevastream.Tests
 
 			services.AddSingleton<IUrlHelperFactory>(mockUrlHelperFactory.Object);
 
-			
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 			services.AddTransient<IDataSeedService, DataSeedService>();
@@ -66,7 +65,6 @@ namespace Shevastream.Tests
 			services.AddTransient<IDataSeedService, DataSeedService>();
 			services.AddTransient<ISiteMapService, SiteMapService>();
 			services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-			// services.AddTransient<IHostingEnvironment, MockHostingEnvironmentTesting>();
 
 			services.AddSingleton<IConfiguration>(
 				new ConfigurationBuilder()

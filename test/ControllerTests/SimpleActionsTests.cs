@@ -60,7 +60,7 @@ namespace Shevastream.Tests.ControllerTests
 		[InlineData(Controllers.Home, "Profile")]
 		[InlineData(Controllers.Store, "Order")]
 		[InlineData(Controllers.Store, "ThankYou")]
-		public async Task ActionTest(Controllers controllerEnum, string actionString)
+		public async Task Action(Controllers controllerEnum, string actionString)
 		{
 			// Arrange
 			Controller controller;

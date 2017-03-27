@@ -10,7 +10,6 @@ using System.Collections.Generic;
 
 namespace Shevastream.Tests.UnitTests.Services
 {
-	[Collection("The Collection")]
 	/// <summary>
 	/// Unit tests for IDataSeedService
 	/// </summary>
