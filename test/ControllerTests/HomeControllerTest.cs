@@ -15,7 +15,6 @@ using System.Linq;
 
 namespace Shevastream.Tests.ControllerTests
 {
-	[Collection("The Collection")]
 	/// <summary>
 	/// Integration tests for HomeController
 	/// </summary>
@@ -65,9 +64,6 @@ namespace Shevastream.Tests.ControllerTests
 		/// </summary>
 		public async Task IndexTest()
 		{
-			// Arrange
-			await _serviceProvider.GetRequiredService<IDataSeedService>().SeedDataAsync();
-			
 			// Act
 			var result = await _controller.Index();
 

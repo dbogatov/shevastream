@@ -14,7 +14,6 @@ using Moq;
 
 namespace Shevastream.Tests.ControllerTests
 {
-	[Collection("The Collection")]
 	/// <summary>
 	/// Integration tests for HomeController
 	/// </summary>

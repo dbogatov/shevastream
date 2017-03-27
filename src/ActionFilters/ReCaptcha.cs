@@ -4,16 +4,28 @@ using Shevastream.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Hosting;
 
-namespace Shevastream.ActionFilters.ReCaptcha
+namespace Shevastream.ActionFilters
 {
-    public class ReCaptchaAttribute : ActionFilterAttribute
+    public class ReCaptcha : ActionFilterAttribute
     {
 		private readonly string CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify";
 		private readonly string SECRET = "6LfYAiETAAAAAMGrNgFMnY5rnc5jxjFuU8yveqnj";
+		private readonly IHostingEnvironment _env;
+
+		public ReCaptcha(IHostingEnvironment env)
+		{
+			_env = env;
+		}
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+			if (!_env.IsProduction())
+			{
+				return;
+			}
+
 			try
 			{
 				// Get recaptcha value
@@ -27,8 +39,7 @@ namespace Shevastream.ActionFilters.ReCaptcha
 						{ "response", captchaResponse },
 						{ "remoteip", filterContext.HttpContext.Request.HttpContext.Connection.RemoteIpAddress.ToString() }
 					};
-
-
+					
 					var content = new FormUrlEncodedContent(values);
 
 					var result = client.PostAsync(CAPTCHA_URL, content).Result;

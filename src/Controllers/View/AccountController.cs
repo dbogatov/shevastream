@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Shevastream.ActionFilters.ReCaptcha;
+using Shevastream.ActionFilters;
 using Shevastream.Services;
 using Shevastream.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Shevastream.Models;
+using System.Net;
+using Shevastream.Extensions;
 
 namespace Shevastream.Controllers.View
 {
@@ -22,11 +24,13 @@ namespace Shevastream.Controllers.View
 
 		public IActionResult Login()
 		{
-			return View(new ReturnUrlViewModel
+			var result = View(new ReturnUrlViewModel
 			{
 				ReturnUrl = Request.Query["returnurl"].FirstOrDefault() ?? "",
 				IsError = false
 			});
+			result.StatusCode = HttpStatusCode.OK.AsInt();
+			return result;
 		}
 
 		public IActionResult Logout()
@@ -35,7 +39,7 @@ namespace Shevastream.Controllers.View
 			return RedirectToAction("Index", "Home");
 		}
 
-		[ReCaptcha]
+		[ServiceFilter(typeof(ReCaptcha))]
 		public IActionResult Authenticate()
 		{
 			if (!ModelState.IsValid)
@@ -68,7 +72,7 @@ namespace Shevastream.Controllers.View
 
 				if (string.IsNullOrEmpty(Request.Query["returnurl"]))
 				{
-					return RedirectToAction("Index", "Store"); 
+					return RedirectToAction("Index", "Home"); 
 				} else
 				{
 					return Redirect(Request.Query["returnurl"]);	
@@ -76,12 +80,14 @@ namespace Shevastream.Controllers.View
 			}
 			else
 			{
-				return View("Login", new ReturnUrlViewModel
+				var result =  View("Login", new ReturnUrlViewModel
 				{
 					ReturnUrl = Request.Query["returnurl"],
 					IsError = true,
 					Error = "Wrong password"
 				});
+				result.StatusCode = HttpStatusCode.Unauthorized.AsInt();
+				return result;
 			}
 		}
 	}
