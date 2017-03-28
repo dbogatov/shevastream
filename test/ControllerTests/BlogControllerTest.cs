@@ -18,6 +18,7 @@ using System.Security.Claims;
 using Shevastream.Models.Entities;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Routing;
 
 namespace Shevastream.Tests.ControllerTests
 {
@@ -81,9 +82,9 @@ namespace Shevastream.Tests.ControllerTests
 			blogService
 				.Setup(blog => blog.GetAllPostsAsync())
 				.ReturnsAsync(
-					hasContent ? 
-					new List<BlogPostViewModel> { new BlogPostViewModel() } : 
-					new List<BlogPostViewModel>{}
+					hasContent ?
+					new List<BlogPostViewModel> { new BlogPostViewModel() } :
+					new List<BlogPostViewModel> { }
 				);
 
 			var controller = new BlogController(blogService.Object);
@@ -174,6 +175,126 @@ namespace Shevastream.Tests.ControllerTests
 				var redirectResult = Assert.IsType<RedirectToActionResult>(result);
 
 				Assert.Equal("Index", redirectResult.ActionName);
+			}
+		}
+
+		[Theory]
+		[InlineData(true, true)]
+		[InlineData(true, false)]
+		[InlineData(false, false)]
+		public async Task Post(bool found, bool redirect)
+		{
+			// Arrange
+			var blogService = new Mock<IBlogService>();
+			blogService
+				.Setup(blog => blog.GetPostByIdAsync(1, true))
+				.ReturnsAsync(
+					new BlogPostViewModel()
+					{
+						Id = 1,
+						TitleUrl = "right-title-url"
+					}
+				);
+			blogService
+				.Setup(blog => blog.GetPostByIdAsync(-1, true))
+				.ReturnsAsync(null);
+
+			var controller = new BlogController(blogService.Object);
+
+			// Act
+			var result = await controller.Post(
+				found ? 1 : -1,
+				$"{(redirect ? "wrong" : "right")}-title-url"
+			);
+
+			// Assert
+			if (found)
+			{
+				if (redirect)
+				{
+					var redirectResult = Assert.IsType<RedirectToRouteResult>(result);
+
+					Assert.True(redirectResult.Permanent);
+					Assert.Equal("Blog", redirectResult.RouteName);
+					Assert.Equal(
+						new RouteValueDictionary(new { id = 1, title = "right-title-url" }),
+						redirectResult.RouteValues
+					);
+				}
+				else
+				{
+					blogService.Verify(blog => blog.AddViewAsync(It.IsAny<BlogPostViewModel>()));
+
+					var viewResult = Assert.IsType<ViewResult>(result);
+
+					var model = Assert.IsAssignableFrom<BlogPostViewModel>(
+						viewResult.ViewData.Model
+					);
+
+					Assert.Equal(1, model.Id);
+				}
+			}
+			else
+			{
+				Assert.IsType<NotFoundResult>(result);
+			}
+		}
+
+		[Theory]
+		[InlineData(true, false)]
+		[InlineData(false, true)]
+		[InlineData(false, false)]
+		public async Task Edit(bool @new, bool found)
+		{
+			// Arrange
+			var blogService = new Mock<IBlogService>();
+			blogService
+				.Setup(blog => blog.GetPostByIdAsync(1, false))
+				.ReturnsAsync(
+					new BlogPostViewModel()
+					{
+						Id = 1
+					}
+				);
+			blogService
+				.Setup(blog => blog.GetPostByIdAsync(2, false))
+				.ReturnsAsync(null);
+
+			var controller = new BlogController(blogService.Object);
+
+			// Act
+			var result = await controller.Edit(
+				@new ? -1 : (found ? 1 : 2),
+				"title-url"
+			);
+
+			// Assert
+			if (@new)
+			{
+				var viewResult = Assert.IsType<ViewResult>(result);
+
+				var model = Assert.IsAssignableFrom<BlogPostViewModel>(
+					viewResult.ViewData.Model
+				);
+
+				Assert.Equal(-1, model.Id);
+			}
+			else
+			{
+				if (found)
+				{
+					var viewResult = Assert.IsType<ViewResult>(result);
+
+					var model = Assert.IsAssignableFrom<BlogPostViewModel>(
+						viewResult.ViewData.Model
+					);
+
+					Assert.Equal(1, model.Id);
+				}
+				else
+				{
+					Assert.IsType<NotFoundResult>(result);
+				}
 			}
 		}
 	}

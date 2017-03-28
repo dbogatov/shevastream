@@ -61,7 +61,7 @@ namespace Shevastream.Controllers.View
 
 			if (model != null)
 			{
-				if (title == null && title != model.TitleUrl)
+				if (title == null || title != model.TitleUrl)
 				{
 					return RedirectToRoutePermanent("Blog", new { id = id, title = model.TitleUrl });
 				}
@@ -79,7 +79,7 @@ namespace Shevastream.Controllers.View
 		[Route("Blog/Edit/{id}/{title?}")]
 		public async Task<IActionResult> Edit(int id, string title)
 		{
-			if (title != null)
+			if (id > -1)
 			{
 				ModelState.Clear();
 
@@ -87,23 +87,23 @@ namespace Shevastream.Controllers.View
 
 				if (post != null)
 				{
-					if (title != post.TitleUrl)
-					{
-						return RedirectToActionPermanent("Edit", "Blog", new { id = id, title = post.TitleUrl });
-					}
-
 					return View(post);
 				}
+				else
+				{
+					return NotFound();
+				}
 			}
-
-			return View(new BlogPostViewModel
+			else
 			{
-				Title = "New post",
-				Content = "content here...",
-				Id = -1,
-				TitleUrl = ""
-			});
-
+				return View(new BlogPostViewModel
+				{
+					Title = "New post",
+					Content = "content here...",
+					Id = -1,
+					TitleUrl = ""
+				});
+			}
 		}
 	}
 }
