@@ -24,13 +24,11 @@ namespace Shevastream.Controllers.View
 
 		public IActionResult Login()
 		{
-			var result = View(new ReturnUrlViewModel
+			return View(new ReturnUrlViewModel
 			{
 				ReturnUrl = Request.Query["returnurl"].FirstOrDefault() ?? "",
 				IsError = false
 			});
-			result.StatusCode = HttpStatusCode.OK.AsInt();
-			return result;
 		}
 
 		public IActionResult Logout()
@@ -80,14 +78,12 @@ namespace Shevastream.Controllers.View
 			}
 			else
 			{
-				var result =  View("Login", new ReturnUrlViewModel
+				return View("Login", new ReturnUrlViewModel
 				{
 					ReturnUrl = Request.Query["returnurl"],
 					IsError = true,
 					Error = "Wrong password"
 				});
-				result.StatusCode = HttpStatusCode.Unauthorized.AsInt();
-				return result;
 			}
 		}
 	}

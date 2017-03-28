@@ -72,8 +72,6 @@ namespace Shevastream.Tests.ControllerTests
 			// Assert
 			var viewResult = Assert.IsType<ViewResult>(result);
 
-			Assert.Equal(HttpStatusCode.OK.AsInt(), viewResult.StatusCode.Value);
-
 			var model = Assert.IsAssignableFrom<ReturnUrlViewModel>(
 				viewResult.ViewData.Model
 			);
@@ -160,8 +158,6 @@ namespace Shevastream.Tests.ControllerTests
 			else
 			{
 				var viewResult = Assert.IsType<ViewResult>(result);
-
-				Assert.Equal(HttpStatusCode.Unauthorized.AsInt(), viewResult.StatusCode.Value);
 
 				var model = Assert.IsAssignableFrom<ReturnUrlViewModel>(
 					viewResult.ViewData.Model

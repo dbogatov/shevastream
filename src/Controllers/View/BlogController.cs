@@ -24,9 +24,7 @@ namespace Shevastream.Controllers.View
 		{
 			var model = await _blog.GetAllPostsAsync();
 
-			var result = View(model);
-			result.StatusCode = (model.Count() > 0 ? HttpStatusCode.OK : HttpStatusCode.NoContent).AsInt();
-			return result;
+			return View(model);
 		}
 
 		[HttpPost]

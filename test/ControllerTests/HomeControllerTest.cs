@@ -55,8 +55,6 @@ namespace Shevastream.Tests.ControllerTests
 			// Assert
 			var viewResult = Assert.IsType<ViewResult>(result);
 
-			Assert.Equal(HttpStatusCode.OK.AsInt(), viewResult.StatusCode.Value);
-
 			var model = Assert.IsAssignableFrom<IEnumerable<BlogPostViewModel>>(
 				viewResult.ViewData.Model
 			);

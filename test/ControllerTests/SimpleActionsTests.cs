@@ -62,8 +62,6 @@ namespace Shevastream.Tests.ControllerTests
 			var actionResult = Assert.IsAssignableFrom<IActionResult>(response);
 			var viewResult = Assert.IsType<ViewResult>(actionResult);
 
-			Assert.Equal(HttpStatusCode.OK.AsInt(), viewResult.StatusCode.Value);
-
 			Assert.Null(viewResult.ViewData.Model);
 		}
 

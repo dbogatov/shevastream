@@ -27,30 +27,22 @@ namespace Shevastream.Controllers.View
 
         public async Task<IActionResult> Index()
         {	
-            var result = View(await _blogService.GetLatestPostsAsync(3));
-			result.StatusCode = HttpStatusCode.OK.AsInt();
-			return result;
+            return View(await _blogService.GetLatestPostsAsync(3));
         }
 
         public IActionResult FAQ()
         {
-            var result = View();
-			result.StatusCode = HttpStatusCode.OK.AsInt();
-			return result;
+            return View();
         }
 
         public IActionResult Contact()
         {
-            var result = View();
-			result.StatusCode = HttpStatusCode.OK.AsInt();
-			return result;
+            return View();
         }
 
         public IActionResult Profile()
         {
-            var result = View();
-			result.StatusCode = HttpStatusCode.OK.AsInt();
-			return result;
+           return View();
         }
 
 		public IActionResult Privacy()

@@ -30,9 +30,7 @@ namespace Shevastream.Controllers.View
 		{
 			ViewBag.TotalCost = _cart.GetTotalCost();
 
-			var result = View();
-			result.StatusCode = HttpStatusCode.OK.AsInt();
-			return result;
+			return View();
 		}
 
 		[HttpPost]
@@ -100,9 +98,7 @@ namespace Shevastream.Controllers.View
 
 		public IActionResult ThankYou()
 		{
-			var result = View();
-			result.StatusCode = HttpStatusCode.OK.AsInt();
-			return result;
+			return View();
 		}
 	}
 }
