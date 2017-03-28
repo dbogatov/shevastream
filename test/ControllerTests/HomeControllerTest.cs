@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Shevastream.Services;
 using Xunit;
-using Microsoft.AspNetCore.Http;
 using Shevastream.Controllers.View;
 using Shevastream.ViewModels.Blog;
 using Shevastream.Extensions;
@@ -22,16 +20,13 @@ namespace Shevastream.Tests.ControllerTests
 	{
 		private readonly HomeController _controller;
 
-		/// <summary>
-		/// Provides registered service through dependency injection.
-		/// </summary>
-		private readonly IServiceProvider _serviceProvider;
-
 		public HomeControllerTest()
 		{
-			_serviceProvider = Extensions.RegisterServices().BuildServiceProvider();
+			var blogService = new Mock<IBlogService>();
+			blogService
+				.Setup(blog => blog.GetLatestPostsAsync(It.IsAny<int>()))
+				.ReturnsAsync(new List<BlogPostViewModel> { new BlogPostViewModel() });
 
-			var blogService = _serviceProvider.GetRequiredService<IBlogService>();
 			var siteMap = new Mock<ISiteMapService>();
 			siteMap.
 				Setup(map => map.GetSiteMap()).
@@ -45,17 +40,7 @@ namespace Shevastream.Tests.ControllerTests
 					} 
 				});
 			
-
-			_controller = new HomeController(siteMap.Object, blogService);
-
-			// In testing environment, controller does not have HttpContext.
-			// As a result, all calls to Response trigger NullPointer exception
-			// We need to manually set default values (or mock)
-			_controller.ControllerContext = new ControllerContext();
-			_controller.ControllerContext.HttpContext = new DefaultHttpContext();
-
-			// Arrange
-			_serviceProvider.GetRequiredService<IDataSeedService>().SeedData();
+			_controller = new HomeController(siteMap.Object, blogService.Object);
 		}
 
 		[Fact]

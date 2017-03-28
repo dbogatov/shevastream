@@ -2,10 +2,8 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Shevastream.Services;
 using Xunit;
-using Microsoft.AspNetCore.Http;
 using Shevastream.Controllers.View;
 using Shevastream.Extensions;
 using Shevastream.Models;
@@ -22,36 +20,13 @@ namespace Shevastream.Tests.ControllerTests
 		private readonly HomeController _home;
 		private readonly StoreController _store;
 
-
-		/// <summary>
-		/// Provides registered service through dependency injection.
-		/// </summary>
-		private readonly IServiceProvider _serviceProvider;
-
 		public SimpleActionsTests()
 		{
-			_serviceProvider = Extensions.RegisterServices().BuildServiceProvider();
-
-			var siteMap = _serviceProvider.GetRequiredService<ISiteMapService>();
-			var blogService = _serviceProvider.GetRequiredService<IBlogService>();
-			var dataContext = _serviceProvider.GetRequiredService<DataContext>();
 			var cartService = new Mock<ICartService>();
-			
 			cartService.Setup(cart => cart.GetTotalCost()).Returns(0);
 
-			_home = new HomeController(siteMap, blogService);
-			_store = new StoreController(dataContext, cartService.Object);
-
-			// In testing environment, controller does not have HttpContext.
-			// As a result, all calls to Response trigger NullPointer exception
-			// We need to manually set default values (or mock)
-			_home.ControllerContext = new ControllerContext();
-			_home.ControllerContext.HttpContext = new DefaultHttpContext();
-			_store.ControllerContext = new ControllerContext();
-			_store.ControllerContext.HttpContext = new DefaultHttpContext();
-
-			// Arrange			
-			_serviceProvider.GetRequiredService<IDataSeedService>().SeedData();
+			_home = new HomeController(new Mock<ISiteMapService>().Object, new Mock<IBlogService>().Object);
+			_store = new StoreController(new Mock<IDataContext>().Object, cartService.Object);
 		}
 
 		[Theory]

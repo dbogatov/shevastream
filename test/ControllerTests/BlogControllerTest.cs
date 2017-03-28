@@ -26,59 +26,46 @@ namespace Shevastream.Tests.ControllerTests
 	/// </summary>
 	public partial class BlogControllerTest
 	{
-		private readonly BlogController _controller;
-
-		/// <summary>
-		/// Provides registered service through dependency injection.
-		/// </summary>
-		private readonly IServiceProvider _serviceProvider;
-
 		public BlogControllerTest()
 		{
-			var services = Extensions.RegisterServices();
+			// var services = Extensions.RegisterServices();
 
-			var mockHttpContext = new Mock<HttpContext>();
-			mockHttpContext
-				.Setup(http => http.User.Claims)
-				.Returns(new List<Claim> {
-					new Claim("UserId", int.MaxValue.ToString())
-				});
+			// var mockHttpContext = new Mock<HttpContext>();
+			// mockHttpContext
+			// 	.Setup(http => http.User.Claims)
+			// 	.Returns(new List<Claim> {
+			// 		new Claim("UserId", int.MaxValue.ToString())
+			// 	});
 
-			var mockHttpAccessor = new Mock<IHttpContextAccessor>();
-			mockHttpAccessor.Setup(accessor => accessor.HttpContext).Returns(mockHttpContext.Object);
+			// var mockHttpAccessor = new Mock<IHttpContextAccessor>();
+			// mockHttpAccessor.Setup(accessor => accessor.HttpContext).Returns(mockHttpContext.Object);
 
-			services.Replace(
-				new ServiceDescriptor(
-					typeof(IHttpContextAccessor),
-					accessor => mockHttpAccessor.Object,
-					ServiceLifetime.Singleton
-				)
-			);
+			// services.Replace(
+			// 	new ServiceDescriptor(
+			// 		typeof(IHttpContextAccessor),
+			// 		accessor => mockHttpAccessor.Object,
+			// 		ServiceLifetime.Singleton
+			// 	)
+			// );
 
-			_serviceProvider = services.BuildServiceProvider();
-
-			var blogService = _serviceProvider.GetRequiredService<IBlogService>();
-			var cryptoService = _serviceProvider.GetRequiredService<ICryptoService>();
-			var dataContext = _serviceProvider.GetRequiredService<DataContext>();
-
-			_controller = new BlogController(dataContext, blogService);
+			// _serviceProvider = Extensions.RegisterServices().BuildServiceProvider();
 
 			// In testing environment, controller does not have HttpContext.
 			// As a result, all calls to Response trigger NullPointer exception
 			// We need to manually set default values (or mock)
-			_controller.ControllerContext = new ControllerContext();
-			_controller.ControllerContext.HttpContext = new DefaultHttpContext();
+			// _controller.ControllerContext = new ControllerContext();
+			// _controller.ControllerContext.HttpContext = new DefaultHttpContext();
 
-			_serviceProvider.GetRequiredService<IDataSeedService>().SeedData();
+			// _serviceProvider.GetRequiredService<IDataSeedService>().SeedData();
 
-			dataContext.Users.Add(
-				new User
-				{
-					Id = int.MaxValue,
-					PassHash = cryptoService.CalculateHash("test-password"),
-				}
-			);
-			dataContext.SaveChanges();
+			// dataContext.Users.Add(
+			// 	new User
+			// 	{
+			// 		Id = int.MaxValue,
+			// 		PassHash = cryptoService.CalculateHash("test-password"),
+			// 	}
+			// );
+			// dataContext.SaveChanges();
 		}
 
 		[Theory]
@@ -90,13 +77,19 @@ namespace Shevastream.Tests.ControllerTests
 		public async Task Index(bool hasContent)
 		{
 			// Arrange
-			if (hasContent)
-			{
-				_serviceProvider.GetRequiredService<IDataSeedService>().SeedData();
-			}
+			var blogService = new Mock<IBlogService>();
+			blogService
+				.Setup(blog => blog.GetAllPostsAsync())
+				.ReturnsAsync(
+					hasContent ? 
+					new List<BlogPostViewModel> { new BlogPostViewModel() } : 
+					new List<BlogPostViewModel>{}
+				);
+
+			var controller = new BlogController(blogService.Object);
 
 			// Act
-			var result = await _controller.Index();
+			var result = await controller.Index();
 
 			// Assert
 			var viewResult = Assert.IsType<ViewResult>(result);
@@ -120,11 +113,13 @@ namespace Shevastream.Tests.ControllerTests
 			}
 		}
 
-		[Fact]
-		public void PublishAuthorize()
+		[Theory]
+		[InlineData("Publish")]
+		[InlineData("Edit")]
+		public void AuthorizationEnabled(string method)
 		{
-			var type = _controller.GetType();
-			var methodInfo = type.GetMethod("Publish", new Type[] { typeof(BlogPostViewModel) });
+			var type = typeof(BlogController);
+			var methodInfo = type.GetMethod(method);
 			var attributes = methodInfo.GetCustomAttributes(typeof(AuthorizeAttribute), true);
 			Assert.True(attributes.Any());
 		}
@@ -135,15 +130,29 @@ namespace Shevastream.Tests.ControllerTests
 		public async Task Publish(bool active)
 		{
 			// Arrange
-			var blogPost = new BlogPostViewModel
+			var blogPost = new BlogPost
 			{
 				Active = active,
 				Title = "Test post",
-				Content = "Something.. Something.. Something.. Something.. Something.. "
+				Content = "Something.. Something.. Something.. Something.. Something.. ",
+				TitleUrl = "test-post"
 			};
+			var blogPostViewModel = BlogPostViewModel.FromBlogPost(blogPost);
+
+			var blogService = new Mock<IBlogService>();
+			blogService
+				.Setup(blog => blog.UpdatePostAsync(blogPostViewModel))
+				.ReturnsAsync(blogPost);
+			blogService
+				.Setup(blog => blog.CreatePostAsync(blogPostViewModel))
+				.ReturnsAsync(blogPost);
+
+			var dataContext = new Mock<IDataContext>();
+
+			var controller = new BlogController(blogService.Object);
 
 			// Act
-			var result = await _controller.Publish(blogPost);
+			var result = await controller.Publish(blogPostViewModel);
 
 			// Assert
 			if (active)
@@ -151,9 +160,7 @@ namespace Shevastream.Tests.ControllerTests
 				var redirectResult = Assert.IsType<RedirectToRouteResult>(result);
 
 				Assert.Equal(
-					_serviceProvider
-						.GetRequiredService<IBlogService>()
-						.GenerateUrlFromTitle(blogPost.Title),
+					"test-post",
 					redirectResult.RouteValues["title"]
 				);
 

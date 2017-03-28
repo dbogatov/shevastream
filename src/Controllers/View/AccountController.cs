@@ -14,9 +14,9 @@ namespace Shevastream.Controllers.View
     public class AccountController : Controller
 	{
 		private readonly ICryptoService _crypto;
-		private readonly DataContext _context;
+		private readonly IDataContext _context;
 
-		public AccountController(ICryptoService crypto, DataContext context)
+		public AccountController(ICryptoService crypto, IDataContext context)
 		{
 			_crypto = crypto;
 			_context = context;

@@ -56,6 +56,10 @@ namespace Shevastream.Tests
 
 			services.AddTransient<IDataSeedService, DataSeedService>();
 			
+			// TODO: remove
+			// services.AddTransient<DataContext, DataContext>();
+			services.AddTransient<IDataContext, DataContext>();
+
 			services.AddTransient<ICryptoService, CryptoService>();
 			services.AddTransient<IPushService, PushService>();
 			services.AddTransient<IBlogService, BlogService>();

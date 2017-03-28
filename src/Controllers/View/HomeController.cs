@@ -27,7 +27,7 @@ namespace Shevastream.Controllers.View
 
         public async Task<IActionResult> Index()
         {	
-            var result =  View(await _blogService.GetLatestPostsAsync(3));
+            var result = View(await _blogService.GetLatestPostsAsync(3));
 			result.StatusCode = HttpStatusCode.OK.AsInt();
 			return result;
         }

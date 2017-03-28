@@ -13,12 +13,10 @@ namespace Shevastream.Controllers.View
 {
 	public class BlogController : Controller
 	{
-		private readonly DataContext _context;
 		private readonly IBlogService _blog;
 
-		public BlogController(DataContext context, IBlogService blog)
+		public BlogController(IBlogService blog)
 		{
-			_context = context;
 			_blog = blog;
 		}
 
@@ -38,7 +36,7 @@ namespace Shevastream.Controllers.View
 		{
 			if (!ModelState.IsValid)
 			{
-				return Unauthorized();
+				return BadRequest();
 			}
 
 			var updated = await _blog.UpdatePostAsync(model);

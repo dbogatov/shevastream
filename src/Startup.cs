@@ -77,7 +77,9 @@ namespace Shevastream
 				services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
 			}
 
+			// TODO: remove
 			services.AddTransient<DataContext, DataContext>();
+			services.AddTransient<IDataContext, DataContext>();
 
 			services.AddTransient<ICryptoService, CryptoService>();
 			services.AddTransient<IPushService, PushService>();

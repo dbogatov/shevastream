@@ -12,10 +12,10 @@ namespace Shevastream.Controllers.View
 {
 	public class StoreController : Controller
 	{
-		private readonly DataContext _context;
+		private readonly IDataContext _context;
 		private readonly ICartService _cart;
 
-		public StoreController(DataContext context, ICartService cart)
+		public StoreController(IDataContext context, ICartService cart)
 		{
 			_context = context;
 			_cart = cart;

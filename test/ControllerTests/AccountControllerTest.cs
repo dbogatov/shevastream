@@ -14,6 +14,9 @@ using Shevastream.ViewModels;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http.Authentication;
 using Shevastream.Models.Entities;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Shevastream.Tests.ControllerTests
 {
@@ -24,28 +27,37 @@ namespace Shevastream.Tests.ControllerTests
 	{
 		private readonly AccountController _controller;
 
-		/// <summary>
-		/// Provides registered service through dependency injection.
-		/// </summary>
-		private readonly IServiceProvider _serviceProvider;
-
 		public AccountControllerTest()
 		{
-			_serviceProvider = Extensions.RegisterServices().BuildServiceProvider();
+			var cryptoService = new Mock<ICryptoService>();
+			cryptoService
+				.Setup(crypto => crypto.CalculateHash("good-password"))
+				.Returns("good-hash");
+			cryptoService
+				.Setup(crypto => crypto.CalculateHash("bad-password"))
+				.Returns("bad-hash");
 
-			var cryptoService = _serviceProvider.GetRequiredService<ICryptoService>();
-			var dataContext = _serviceProvider.GetRequiredService<DataContext>();
+			var users = new List<User> 
+            { 
+                new User { 
+					PassHash = "good-hash" 
+				}
+            }.AsQueryable(); 
+ 
+			var mockSet = new Mock<DbSet<User>>(); 
+			mockSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(users.Provider); 
+            mockSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(users.Expression); 
+            mockSet.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(users.ElementType); 
+            mockSet.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(() => users.GetEnumerator()); 
 
-			_controller = new AccountController(cryptoService, dataContext);
+			var dataContext = new Mock<IDataContext>();
+			dataContext
+				.Setup(context => context.Users)
+				.Returns(mockSet.Object);
 
-			// In testing environment, controller does not have HttpContext.
-			// As a result, all calls to Response trigger NullPointer exception
-			// We need to manually set default values (or mock)
-			_controller.ControllerContext = new ControllerContext();
+			_controller = new AccountController(cryptoService.Object, dataContext.Object);
+
 			_controller.ControllerContext.HttpContext = new DefaultHttpContext();
-
-			// Arrange
-			_serviceProvider.GetRequiredService<IDataSeedService>().SeedData();
 		}
 
 		[Fact]
@@ -77,17 +89,13 @@ namespace Shevastream.Tests.ControllerTests
 		public void Logout()
 		{
 			// Arrange
-			var authenticated = true;
-
 			var mockAuth = new Mock<AuthenticationManager>();
 			mockAuth
 				.Setup(
 					auth => auth
 						.SignOutAsync("MyCookieMiddlewareInstance")
-				)
-				.Returns(Task.CompletedTask)
-				.Callback(() => authenticated = false);
-
+				);
+			
 			var mockContext = new Mock<HttpContext>();
 			mockContext.Setup(context => context.Authentication).Returns(mockAuth.Object);
 
@@ -97,7 +105,7 @@ namespace Shevastream.Tests.ControllerTests
 			var result = _controller.Logout();
 
 			// Assert
-			Assert.False(authenticated);
+			mockAuth.Verify(auth => auth.SignOutAsync("MyCookieMiddlewareInstance"));
 
 			var redirectResult = Assert.IsType<RedirectToActionResult>(result);
 
@@ -111,24 +119,11 @@ namespace Shevastream.Tests.ControllerTests
 		/// <summary>
 		/// Checks that Index method returns proper model and status codes.
 		/// </summary>
-		public async Task Authenticate(bool shouldSucceed)
+		public void Authenticate(bool shouldSucceed)
 		{
 			// Arrange
-			var authenticated = false;
-
-			var dataContext = _serviceProvider.GetRequiredService<DataContext>();
-			var cryptoService = _serviceProvider.GetRequiredService<ICryptoService>();
-			dataContext.Users.Add(
-				new User
-				{
-					Id = int.MaxValue,
-					PassHash = cryptoService.CalculateHash("test-password"),
-				}
-			);
-			await dataContext.SaveChangesAsync();
-
 			var mockForm = new Mock<IFormCollection>();
-			mockForm.Setup(form => form["password"]).Returns(shouldSucceed ? "test-password" : "wrong-password");
+			mockForm.Setup(form => form["password"]).Returns(shouldSucceed ? "good-password" : "bad-password");
 
 			var mockQuery = new Mock<IQueryCollection>();
 			mockQuery.Setup(query => query["returnurl"]).Returns("/return");
@@ -138,9 +133,7 @@ namespace Shevastream.Tests.ControllerTests
 				.Setup(
 					auth => auth
 						.SignInAsync("MyCookieMiddlewareInstance", It.IsAny<ClaimsPrincipal>())
-				)
-				.Returns(Task.CompletedTask)
-				.Callback(() => authenticated = true);
+				);
 
 			var mockContext = new Mock<HttpContext>();
 			mockContext.Setup(context => context.Authentication).Returns(mockAuth.Object);
@@ -153,7 +146,10 @@ namespace Shevastream.Tests.ControllerTests
 			var result = _controller.Authenticate();
 
 			// Assert
-			Assert.True(shouldSucceed ? authenticated : !authenticated);
+			mockAuth.Verify(
+				auth => auth.SignInAsync("MyCookieMiddlewareInstance", It.IsAny<ClaimsPrincipal>()), 
+				shouldSucceed ? Times.Once() : Times.Never()
+			);
 
 			if (shouldSucceed)
 			{

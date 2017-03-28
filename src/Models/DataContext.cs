@@ -3,7 +3,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Shevastream.Models
 {
-	public class DataContext : DbContext
+	public interface IDataContext
+	{
+		DbSet<Feedback> Feedbacks { get; set; }
+		DbSet<BlogPost> BlogPosts { get; set; }
+		DbSet<Order> Orders { get; set; }
+		DbSet<OrderProduct> OrderProducts { get; set; }
+		DbSet<Product> Products { get; set; }
+		DbSet<User> Users { get; set; }
+	}
+	
+	public class DataContext : DbContext, IDataContext
 	{
 		public static string connectionString;
 		public static string version;
