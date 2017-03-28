@@ -5,17 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Shevastream.Services;
 using Xunit;
 using Shevastream.Controllers.View;
-using Shevastream.ViewModels.Blog;
-using Shevastream.Extensions;
 using Moq;
 using System.Linq;
 using Shevastream.Models;
 using Shevastream.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Shevastream.ViewModels.Store;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Mvc.Abstractions;
 
 namespace Shevastream.Tests.ControllerTests
 {
