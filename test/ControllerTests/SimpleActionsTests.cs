@@ -1,11 +1,9 @@
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Shevastream.Services;
 using Xunit;
 using Shevastream.Controllers.View;
-using Shevastream.Extensions;
 using Shevastream.Models;
 using System.Reflection;
 using Moq;

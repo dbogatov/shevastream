@@ -6,12 +6,10 @@ using Shevastream.Services;
 using Shevastream.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Shevastream.Models;
-using System.Net;
-using Shevastream.Extensions;
 
 namespace Shevastream.Controllers.View
 {
-    public class AccountController : Controller
+	public class AccountController : Controller
 	{
 		private readonly ICryptoService _crypto;
 		private readonly IDataContext _context;

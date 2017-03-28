@@ -5,8 +5,6 @@ using Shevastream.Services;
 using Shevastream.ViewModels.Store;
 using Microsoft.AspNetCore.Mvc;
 using Shevastream.Models;
-using System.Net;
-using Shevastream.Extensions;
 
 namespace Shevastream.Controllers.View
 {

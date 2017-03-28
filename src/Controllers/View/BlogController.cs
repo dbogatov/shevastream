@@ -1,13 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Shevastream.Services;
 using Shevastream.ViewModels.Blog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shevastream.Models;
-using System.Net;
-using Shevastream.Extensions;
-using System.Linq;
 
 namespace Shevastream.Controllers.View
 {

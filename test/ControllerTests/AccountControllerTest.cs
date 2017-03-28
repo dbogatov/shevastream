@@ -1,13 +1,8 @@
-using System;
-using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Shevastream.Services;
 using Xunit;
 using Microsoft.AspNetCore.Http;
 using Shevastream.Controllers.View;
-using Shevastream.Extensions;
 using Moq;
 using Shevastream.Models;
 using Shevastream.ViewModels;

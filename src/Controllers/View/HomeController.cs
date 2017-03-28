@@ -2,11 +2,10 @@
 using Shevastream.Services;
 using Microsoft.AspNetCore.Mvc;
 using Shevastream.Extensions;
-using System.Net;
 
 namespace Shevastream.Controllers.View
 {
-    public class HomeController : Controller
+	public class HomeController : Controller
     {
         private readonly ISiteMapService _siteMap;
         private readonly IBlogService _blogService;
