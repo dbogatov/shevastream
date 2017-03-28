@@ -24,7 +24,7 @@ namespace Shevastream.Tests.ControllerTests
 			cartService.Setup(cart => cart.GetTotalCost()).Returns(0);
 
 			_home = new HomeController(new Mock<ISiteMapService>().Object, new Mock<IBlogService>().Object);
-			_store = new StoreController(new Mock<IDataContext>().Object, cartService.Object);
+			_store = new StoreController(new Mock<IDataContext>().Object, cartService.Object, new Mock<IOrderService>().Object);
 		}
 
 		[Theory]

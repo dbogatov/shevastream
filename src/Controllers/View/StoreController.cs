@@ -5,6 +5,7 @@ using Shevastream.Services;
 using Shevastream.ViewModels.Store;
 using Microsoft.AspNetCore.Mvc;
 using Shevastream.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Shevastream.Controllers.View
 {
@@ -12,11 +13,13 @@ namespace Shevastream.Controllers.View
 	{
 		private readonly IDataContext _context;
 		private readonly ICartService _cart;
+		private readonly IOrderService _order;
 
-		public StoreController(IDataContext context, ICartService cart)
+		public StoreController(IDataContext context, ICartService cart, IOrderService order)
 		{
 			_context = context;
 			_cart = cart;
+			_order = order;
 		}
 
 		public IActionResult Index()
@@ -33,18 +36,14 @@ namespace Shevastream.Controllers.View
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Order(
-			[FromServices] IOrderService order,
-			[FromForm] OrderViewModel model,
-			CancellationToken requestAborted)
+		public async Task<IActionResult> Order(OrderViewModel model)
 		{
 			if (!ModelState.IsValid)
 			{
-				ViewBag.TotalCost = _cart.GetTotalCost();
-				return View(model);
+				return RedirectToAction("Order");
 			}
 
-			await order.PutOrderAsync(model);
+			await _order.PutOrderAsync(model);
 
 			return RedirectToAction("ThankYou");
 		}
@@ -80,17 +79,11 @@ namespace Shevastream.Controllers.View
 		[HttpPost]
 		public IActionResult Cart(CartElementViewModel element)
 		{	
-			if (!ModelState.IsValid)
+			if (ModelState.IsValid)
 			{
-                return RedirectToAction("Cart");
+				_cart.UpdateCart(element);
             }
 
-			if (element.Quantity <= 0) {
-                _cart.RemoveItem(element);
-            } else {
-				_cart.UpdateCart(element);
-			}
-			
 			return RedirectToAction("Cart");
 		}
 

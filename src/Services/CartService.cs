@@ -13,7 +13,7 @@ namespace Shevastream.Services
 		int GetTotalCost();
 		void UpdateCart(CartElementViewModel element);
 		CartViewModel GetSimpleCart();
-		void RemoveItem(CartElementViewModel element);
+		// void RemoveItem(CartElementViewModel element);
 		bool IsCartEmpty();
 		void EmptyCart();
 	}
@@ -146,7 +146,10 @@ namespace Shevastream.Services
 			{
                 var toRemove = Cart.Elements.First(el => el.ProductId == element.ProductId);
                 Cart.Elements.Remove(toRemove);
-				Cart.Elements.Add(element);
+				if (element.Quantity > 0)
+				{
+					Cart.Elements.Add(element);	
+				}
 			} else {
 				element.Quantity = 1;
                 Cart.Elements.Add(element);
