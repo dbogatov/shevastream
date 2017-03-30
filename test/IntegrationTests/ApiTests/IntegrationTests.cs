@@ -13,7 +13,7 @@ namespace Shevastream.Tests.IntegrationTests
 	/// Integration tests for ApiController
 	/// Does NOT check data layer (eq. if data gets properly stored), there are different tests which check that
 	/// </summary>
-	public partial class ApiControllerTest
+	public partial class IntegrationTests
 	{
 		/// <summary>
 		/// Server object which mimics a real running server
@@ -29,7 +29,7 @@ namespace Shevastream.Tests.IntegrationTests
 		/// <summary>
 		/// Setup mock server and client
 		/// </summary>
-		public ApiControllerTest()
+		public IntegrationTests()
 		{
 			var mockHttpFactory = new Mock<IHttpClientFactory>();
 			mockHttpFactory

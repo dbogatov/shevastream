@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Shevastream.Tests.IntegrationTests
 {
-	public partial class ApiControllerTest
+	public partial class IntegrationTests
 	{
 		[Fact]
 		/// <summary>

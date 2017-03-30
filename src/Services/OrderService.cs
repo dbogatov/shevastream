@@ -81,14 +81,14 @@ namespace Shevastream.Services
 					PaymentMethod = order.PaymentMethod,
 					Comment = order.Comment,
 				};
+				await _context.Orders.AddAsync(dbOrder);
 
-				_context.Orders.Add(dbOrder);
 				await _context.SaveChangesAsync();
 
 				foreach (var item in order.Cart.Products)
 				{
 					// TODO use navigation property
-					_context.OrderProducts.Add(new OrderProduct
+					await _context.OrderProducts.AddAsync(new OrderProduct
 					{
 						OrderId = dbOrder.Id,
 						ProductId = item.Product.Id,

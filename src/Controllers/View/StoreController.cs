@@ -33,7 +33,6 @@ namespace Shevastream.Controllers.View
 		}
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Order(OrderViewModel model)
 		{
 			if (!ModelState.IsValid)

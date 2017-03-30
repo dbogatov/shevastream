@@ -66,14 +66,14 @@ namespace Shevastream.Services
 		{
 			_orderProducts = new List<OrderProduct> {
 				new OrderProduct {
-					OrderId = 1,
+					OrderId = 0,
 					ProductId = 1
 				}
 			};
 
 			_orders = new List<Order> {
 				new Order {
-					Id = 1,
+					Id = 0,
 					Address = "100 Institute Road",
 					CustomerName = "Dmytro",
 					CustomerPhone = "+18577778350",
