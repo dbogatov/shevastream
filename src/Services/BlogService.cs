@@ -119,7 +119,8 @@ namespace Shevastream.Services
         {
             if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
             {
-				var user = await _auth.GetCurrentUser();
+				var userId = _auth.GetCurrentUserId();
+				var user = await _context.Users.FindAsync(userId);
 
                 var old = _context.BlogPosts.First(bp => bp.Id == post.Id);
                 old.Title = post.Title.Trim();
@@ -144,7 +145,8 @@ namespace Shevastream.Services
 
         public async Task<BlogPost> CreatePostAsync(BlogPostViewModel post)
         {
-            var user = await _auth.GetCurrentUser();
+            var userId = _auth.GetCurrentUserId();
+			var user = await _context.Users.FindAsync(userId);
 			
             var @new = new BlogPost
             {

@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using Shevastream.Models;
 using Shevastream.Services.Factories;
+using Shevastream.ActionFilters;
 
 namespace Shevastream
 {
@@ -91,6 +92,8 @@ namespace Shevastream
 			services.AddTransient<IDataSeedService, DataSeedService>();
 			services.AddTransient<ISiteMapService, SiteMapService>();
 			services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+			services.AddTransient<ReCaptcha>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -177,7 +180,7 @@ namespace Shevastream
 			}
 			else
 			{
-				serviceProvider.GetRequiredService<IDataSeedService>().SeedDataAsync().Wait();
+				serviceProvider.GetRequiredService<IDataSeedService>().SeedData(); //Async().Wait();
 			}
 
 			// set the default HTML formatter for all future conversions

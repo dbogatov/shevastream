@@ -33,7 +33,7 @@ namespace Shevastream.Tests.UnitTests.Services
 			
 
 			var authMock = new Mock<IAuthService>();
-			authMock.Setup(auth => auth.GetCurrentUser()).ReturnsAsync(user);
+			authMock.Setup(auth => auth.GetCurrentUserId()).Returns(1);
 			_authService = authMock.Object;
 
 			_translitService = serviceProvider.GetRequiredService<ITransliterationService>();

@@ -11,6 +11,7 @@ using Moq;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc;
+using Shevastream.ActionFilters;
 
 namespace Shevastream.Tests
 {
@@ -70,6 +71,8 @@ namespace Shevastream.Tests
 			services.AddTransient<IDataSeedService, DataSeedService>();
 			services.AddTransient<ISiteMapService, SiteMapService>();
 			services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+			services.AddTransient<ReCaptcha>();
 
 			services.AddSingleton<IConfiguration>(
 				new ConfigurationBuilder()

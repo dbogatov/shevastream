@@ -1,15 +1,13 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Shevastream.Models;
-using Shevastream.Models.Entities;
 
 namespace Shevastream.Services
 {
 	public interface IAuthService
 	{
-		Task<User> GetCurrentUser();
+		int? GetCurrentUserId();
 	}
 
 	public class AuthService : IAuthService
@@ -23,12 +21,11 @@ namespace Shevastream.Services
 			_context = context;
 		}
 
-		public async Task<User> GetCurrentUser()
+		public int? GetCurrentUserId()
 		{
 			if (_http.HttpContext.User.Claims.Any(c => c.Type == "UserId"))
 			{
-				var userId = Convert.ToInt32(_http.HttpContext.User.Claims.First(c => c.Type == "UserId").Value);
-				return await _context.Users.FindAsync(userId);
+				return Convert.ToInt32(_http.HttpContext.User.Claims.First(c => c.Type == "UserId").Value);
 			}
 
 			return null;

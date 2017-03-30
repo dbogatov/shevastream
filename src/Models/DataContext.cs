@@ -1,6 +1,7 @@
 using Shevastream.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Shevastream.Models
 {
@@ -13,7 +14,7 @@ namespace Shevastream.Models
 		DbSet<Product> Products { get; set; }
 		DbSet<User> Users { get; set; }
 
-		Task<int> SaveChangesAsync();
+		Task<int> SaveChangesAsync(CancellationToken token = default(CancellationToken));
 		int SaveChanges();
 	}
 	
@@ -36,16 +37,6 @@ namespace Shevastream.Models
 			builder.HasDefaultSchema("shevastream");
 
 			base.OnModelCreating(builder);
-		}
-
-		async Task<int> IDataContext.SaveChangesAsync()
-		{
-			return await base.SaveChangesAsync();
-		}
-
-		int IDataContext.SaveChanges()
-		{
-			return base.SaveChanges();
 		}
 	}
 }

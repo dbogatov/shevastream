@@ -37,7 +37,6 @@ namespace Shevastream.Models.Entities
 		}
 	}
 
-	[Table("OrderProduct")]
 	public class OrderProduct
 	{
 		[Key]
@@ -79,7 +78,6 @@ namespace Shevastream.Models.Entities
 		}
 	}
 
-	[Table("User")]
 	public class User
 	{
 		[Key]
