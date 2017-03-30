@@ -14,6 +14,7 @@ namespace Shevastream.Models
 		DbSet<User> Users { get; set; }
 
 		Task<int> SaveChangesAsync();
+		int SaveChanges();
 	}
 	
 	public class DataContext : DbContext, IDataContext
@@ -40,6 +41,11 @@ namespace Shevastream.Models
 		async Task<int> IDataContext.SaveChangesAsync()
 		{
 			return await base.SaveChangesAsync();
+		}
+
+		int IDataContext.SaveChanges()
+		{
+			return base.SaveChanges();
 		}
 	}
 }

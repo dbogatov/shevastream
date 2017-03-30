@@ -63,6 +63,7 @@ namespace Shevastream.Tests
 			services.AddTransient<ICryptoService, CryptoService>();
 			services.AddTransient<IPushService, PushService>();
 			services.AddTransient<IBlogService, BlogService>();
+			services.AddTransient<IAuthService, AuthService>();
 			services.AddTransient<ITransliterationService, TransliterationService>();
 			services.AddTransient<ICartService, CartService>();
 			services.AddTransient<IOrderService, OrderService>();

@@ -5,13 +5,12 @@ using System.Text.RegularExpressions;
 using Shevastream.Models.Entities;
 using Shevastream.ViewModels.Blog;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using Shevastream.Models;
 
 namespace Shevastream.Services
 {
-    public interface IBlogService
+	public interface IBlogService
     {
         string MarkDownToHtml(string content);
         string GenerateUrlFromTitle(string title);
@@ -26,12 +25,12 @@ namespace Shevastream.Services
     public class BlogService : IBlogService
     {
         private readonly IDataContext _context;
-        private readonly HttpContext _http;
+        private readonly IAuthService _auth;
 		private readonly ITransliterationService _translit;
 
-		public BlogService(IDataContext context, IHttpContextAccessor http, ITransliterationService translit)
+		public BlogService(IDataContext context, IAuthService auth, ITransliterationService translit)
         {
-            _http = http.HttpContext;
+            _auth = auth;
             _context = context;
 			_translit = translit;
         }
@@ -120,14 +119,17 @@ namespace Shevastream.Services
         {
             if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
             {
-                var userId = Convert.ToInt32(_http.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
-				var user = await _context.Users.FindAsync(userId);
+				var user = await _auth.GetCurrentUser();
 
                 var old = _context.BlogPosts.First(bp => bp.Id == post.Id);
                 old.Title = post.Title.Trim();
                 old.TitleUrl = GenerateUrlFromTitle(post.Title);
                 old.Content = post.Content;
-                old.Preview = MarkDownToHtml(post.Content.Substring(0, post.Content.IndexOf('\n')));
+                old.Preview = MarkDownToHtml(
+					post.Content.TrimStart().IndexOf('\n') > 0 ? 
+					post.Content.Substring(0, post.Content.TrimStart().IndexOf('\n')) : 
+					post.Content
+				);
                 old.DateUpdated = DateTime.Now;
                 old.Author = user;
                 old.Active = post.Active;
@@ -142,8 +144,7 @@ namespace Shevastream.Services
 
         public async Task<BlogPost> CreatePostAsync(BlogPostViewModel post)
         {
-            var userId = Convert.ToInt32(_http.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
-			var user = await _context.Users.FindAsync(userId);
+            var user = await _auth.GetCurrentUser();
 			
             var @new = new BlogPost
             {
@@ -153,7 +154,11 @@ namespace Shevastream.Services
                 DateUpdated = DateTime.Now,
                 Title = post.Title.Trim(),
                 TitleUrl = GenerateUrlFromTitle(post.Title),
-				Preview = MarkDownToHtml(post.Content.Substring(0, post.Content.IndexOf('\n') < 0 ? post.Content.Length : post.Content.IndexOf('\n'))),
+				Preview = MarkDownToHtml(
+					post.Content.TrimStart().IndexOf('\n') > 0 ? 
+					post.Content.Substring(0, post.Content.TrimStart().IndexOf('\n')) : 
+					post.Content
+				),
                 Content = post.Content
             };
             _context.BlogPosts.Add(@new);

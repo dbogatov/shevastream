@@ -24,7 +24,7 @@ namespace Shevastream.Models.Entities
 
 		public string Preview { get; set; }
 
-		public int Views { get; set; }
+		public int Views { get; set; } = 1;
 
 		public User Author { get; set; }
     }
