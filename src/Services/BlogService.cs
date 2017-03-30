@@ -7,7 +7,6 @@ using Shevastream.ViewModels.Blog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
-using System.Text;
 using Shevastream.Models;
 
 namespace Shevastream.Services
@@ -16,79 +15,27 @@ namespace Shevastream.Services
     {
         string MarkDownToHtml(string content);
         string GenerateUrlFromTitle(string title);
-		string GenerateUrlFromTitleStackOverflow(string title);
         Task<IEnumerable<BlogPostViewModel>> GetAllPostsAsync();
-        Task<BlogPostViewModel> GetPostByTitleAsync(string title, bool active = true);
         Task<BlogPostViewModel> GetPostByIdAsync(int id, bool active = true);
         Task<BlogPost> UpdatePostAsync(BlogPostViewModel post);
-        void TogglePublish(BlogPostViewModel post, bool publish);
         Task<BlogPost> CreatePostAsync(BlogPostViewModel post);
-        void RemovePost(BlogPostViewModel post);
         Task AddViewAsync(BlogPostViewModel post);
         Task<IEnumerable<BlogPostViewModel>> GetLatestPostsAsync(int postsNum);
     }
 
     public class BlogService : IBlogService
     {
-        private readonly DataContext _context;
+        private readonly IDataContext _context;
         private readonly HttpContext _http;
 		private readonly ITransliterationService _translit;
 
-		public BlogService(DataContext context, IHttpContextAccessor http, ITransliterationService translit)
+		public BlogService(IDataContext context, IHttpContextAccessor http, ITransliterationService translit)
         {
             _http = http.HttpContext;
             _context = context;
 			_translit = translit;
         }
-
-        public string GenerateUrlFromTitleStackOverflow(string title)
-        {
-            if (title == null) return "";
-
-            const int maxlen = 80;
-            int len = title.Length;
-            bool prevdash = false;
-            var sb = new StringBuilder(len);
-            char c;
-
-            for (int i = 0; i < len; i++)
-            {
-                c = title[i];
-                if ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'))
-                {
-                    sb.Append(c);
-                    prevdash = false;
-                }
-                else if (c >= 'A' && c <= 'Z')
-                {
-                    // tricky way to convert to lowercase
-                    sb.Append((char)(c | 32));
-                    prevdash = false;
-                }
-                else if (c == ' ' || c == ',' || c == '.' || c == '/' ||
-                    c == '\\' || c == '-' || c == '_' || c == '=')
-                {
-                    if (!prevdash && sb.Length > 0)
-                    {
-                        sb.Append('-');
-                        prevdash = true;
-                    }
-                }
-                else if ((int)c >= 128)
-                {
-                    int prevlen = sb.Length;
-					sb.Append(_translit.CyrillicToLatin(c.ToString()));
-                    if (prevlen != sb.Length) prevdash = false;
-                }
-                if (i == maxlen) break;
-            }
-
-            if (prevdash)
-                return sb.ToString().Substring(0, sb.Length - 1);
-            else
-                return sb.ToString();
-        }
-
+		
         public string GenerateUrlFromTitle(string title)
         {
 			title = _translit.CyrillicToLatin(title);
@@ -148,27 +95,6 @@ namespace Shevastream.Services
 				.ToListAsync();
         }
 
-        public async Task<BlogPostViewModel> GetPostByTitleAsync(string title, bool active = true)
-        {
-            if (_context.BlogPosts.Any(bp => (active ? bp.Active : true) && bp.TitleUrl == title))
-            {
-                var post =
-                    BlogPostViewModel.FromBlogPost(await _context
-                    .BlogPosts.Include(bp => bp.Author)
-                    .FirstAsync(
-                        bp => bp.TitleUrl == title
-                    ));
-
-                post.HtmlContent = MarkDownToHtml(post.Content);
-
-                return post;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
         public async Task<BlogPostViewModel> GetPostByIdAsync(int id, bool active = true)
         {
             if (_context.BlogPosts.Any(bp => (active ? bp.Active : true) && bp.Id == id))
@@ -214,17 +140,6 @@ namespace Shevastream.Services
             return null;
         }
 
-        public void TogglePublish(BlogPostViewModel post, bool publish)
-        {
-            if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
-            {
-                var old = _context.BlogPosts.First(bp => bp.Id == post.Id);
-                old.Active = publish;
-
-                _context.SaveChanges();
-            }
-        }
-
         public async Task<BlogPost> CreatePostAsync(BlogPostViewModel post)
         {
             var userId = Convert.ToInt32(_http.User.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
@@ -246,17 +161,6 @@ namespace Shevastream.Services
             await _context.SaveChangesAsync();
 
             return @new;
-        }
-
-        public void RemovePost(BlogPostViewModel post)
-        {
-            if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
-            {
-                var toRemove = _context.BlogPosts.First(bp => bp.Id == post.Id);
-                _context.BlogPosts.Remove(toRemove);
-
-                _context.SaveChanges();
-            }
         }
 
         public async Task AddViewAsync(BlogPostViewModel post)

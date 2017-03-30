@@ -1,5 +1,6 @@
 using Shevastream.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Shevastream.Models
 {
@@ -11,6 +12,8 @@ namespace Shevastream.Models
 		DbSet<OrderProduct> OrderProducts { get; set; }
 		DbSet<Product> Products { get; set; }
 		DbSet<User> Users { get; set; }
+
+		Task<int> SaveChangesAsync();
 	}
 	
 	public class DataContext : DbContext, IDataContext
@@ -24,7 +27,7 @@ namespace Shevastream.Models
 		public DbSet<OrderProduct> OrderProducts { get; set; }
 		public DbSet<Product> Products { get; set; }
 		public DbSet<User> Users { get; set; }
-
+		
 		public DataContext(DbContextOptions options) : base(options) { }
 
 		protected override void OnModelCreating(ModelBuilder builder)
@@ -32,6 +35,11 @@ namespace Shevastream.Models
 			builder.HasDefaultSchema("shevastream");
 
 			base.OnModelCreating(builder);
+		}
+
+		async Task<int> IDataContext.SaveChangesAsync()
+		{
+			return await base.SaveChangesAsync();
 		}
 	}
 }
