@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Shevastream.Models.Entities;
 using Shevastream.ViewModels.Store;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Shevastream.Models;
 
@@ -14,40 +11,36 @@ namespace Shevastream.Services
 {
 	public interface IOrderService
 	{
-		Task PutOrderAsync(OrderViewModel order);
-		Task<IEnumerable<object>> GetOrdersAsync();
+		Task<int> PutOrderAsync(OrderViewModel order);
 	}
 
 	public class OrderService : IOrderService
 	{
 		private readonly string USER_COOKIE_NAME = "UserOrderData";
 
-		private readonly DataContext _context;
-		private readonly IHostingEnvironment _env;
+		private readonly IDataContext _context;
 		private readonly IPushService _push;
 		private readonly HttpContext _http;
 		private readonly ICartService _cart;
 
 		public OrderService(
-			DataContext context,
-			IHostingEnvironment env,
+			IDataContext context,
 			IPushService push,
 			IHttpContextAccessor http,
 			ICartService cart
 			)
 		{
 			_context = context;
-			_env = env;
 			_push = push;
 			_http = http.HttpContext;
 			_cart = cart;
 		}
 
-		public async Task PutOrderAsync(OrderViewModel order)
+		public async Task<int> PutOrderAsync(OrderViewModel order)
 		{
 			if (_cart.IsCartEmpty())
 			{
-				return;
+				return -1;
 			}
 
 			SaveUserData(
@@ -68,10 +61,12 @@ namespace Shevastream.Services
 			// empty cart
 			_cart.EmptyCart();
 
+			var dbOrder = new Order();
+
 			// add to database
 			try
 			{
-				var dbOrder = new Order
+				dbOrder = new Order
 				{
 					CustomerName = order.CustomerName,
 					CustomerPhone = order.CustomerPhone,
@@ -103,39 +98,8 @@ namespace Shevastream.Services
 			}
 			// notify them
 			await _push.SendOrderAsync(order.ToString(), order.CustomerName, order.CustomerEmail, order.Cart.Products.Select(p => p.Product));
-		}
 
-		public async Task<IEnumerable<object>> GetOrdersAsync()
-		{
-			// TODO try SelectMany or navigation properties
-			var orderProducts = await _context.OrderProducts.ToListAsync();
-			var products = await _context.Products.ToListAsync();
-			var orders = await _context.Orders.ToListAsync();
-
-			return orders
-				.Select(o => new
-				{
-					o.Id,
-					Products = (
-						from orderProduct in orderProducts.Where(op => op.OrderId == o.Id)
-						join product in products on orderProduct.ProductId equals product.Id
-						select new
-						{
-							product.Name,
-							product.Cost,
-							orderProduct.Quantity
-						}
-					),
-					o.CustomerName,
-					o.CustomerEmail,
-					o.CustomerPhone,
-					o.ShipmentMethod,
-					Address = o.Address ?? "",
-					o.PaymentMethod,
-					Comment = o.Comment ?? "No commnet",
-					o.DateCreated
-				})
-				.AsEnumerable();
+			return dbOrder.Id;
 		}
 
 		private void SaveUserData(OrderUserData data)
