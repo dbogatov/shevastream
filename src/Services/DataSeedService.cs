@@ -27,7 +27,7 @@ namespace Shevastream.Services
 
 	public class DataSeedService : IDataSeedService
 	{
-		private readonly DataContext _context;
+		private readonly IDataContext _context;
 		private readonly ICryptoService _crypto;
 
 		private IEnumerable<User> _users;
@@ -36,7 +36,7 @@ namespace Shevastream.Services
 		private IEnumerable<Order> _orders;
 		private IEnumerable<OrderProduct> _orderProducts;
 
-		public DataSeedService(DataContext context, ICryptoService crypto)
+		public DataSeedService(IDataContext context, ICryptoService crypto)
 		{
 			_context = context;
 			_crypto = crypto;

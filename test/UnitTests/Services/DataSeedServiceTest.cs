@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 using Shevastream.Models.Entities;
 using Shevastream.Services;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Moq;
 
 namespace Shevastream.Tests.UnitTests.Services
 {
@@ -15,19 +15,24 @@ namespace Shevastream.Tests.UnitTests.Services
 	/// </summary>
 	public class DataSeedServiceTest
 	{
-		/// <summary>
-		/// Provides registered service through dependency injection.
-		/// </summary>
-		private readonly IServiceProvider _serviceProvider;
+		private readonly IDataContext _dataContext;
 
-		/// <summary>
-		/// Sets up service provider for the test.
-		/// For this particular test set we need DataContext (using inMemory data provider), the IDataSeedService
-		/// which we will test and IMetricService needed for IDataSeedService.
-		/// </summary>
 		public DataSeedServiceTest()
 		{
-			_serviceProvider = Extensions.RegisterServices().BuildServiceProvider();
+			var serviceProvider = Extensions.RegisterServices().BuildServiceProvider();
+			_dataContext = serviceProvider.GetRequiredService<IDataContext>();
+
+		}
+
+		[Fact]
+		public void InitiallyNoValues()
+		{
+			// Assert
+			Assert.Empty(_dataContext.Users);
+			Assert.Empty(_dataContext.Products);
+			Assert.Empty(_dataContext.BlogPosts);
+			Assert.Empty(_dataContext.Orders);
+			Assert.Empty(_dataContext.OrderProducts);
 		}
 
 		[Fact]
@@ -36,26 +41,21 @@ namespace Shevastream.Tests.UnitTests.Services
 		/// </summary>
 		public async Task ServiceSeedsValuesToDataProvider()
 		{
-			// Pull required services
-			var dataContext = _serviceProvider.GetRequiredService<DataContext>();
-			var dataSeedService = _serviceProvider.GetRequiredService<IDataSeedService>();
+			// Arrange
+			var dataSeedService = new DataSeedService(
+				_dataContext,
+				new Mock<ICryptoService>().Object
+			);
 
-			// Check if the data provider is initially empty
-			Assert.Empty(dataContext.Users);
-			Assert.Empty(dataContext.Products);
-			Assert.Empty(dataContext.BlogPosts);
-			Assert.Empty(dataContext.Orders);
-			Assert.Empty(dataContext.OrderProducts);
-
-			// Seed initial data
+			// Act
 			await dataSeedService.SeedDataAsync();
 
-			// Check if the data is seeded
-			Assert.NotEmpty(dataContext.Users);
-			Assert.NotEmpty(dataContext.Products);
-			Assert.NotEmpty(dataContext.BlogPosts);
-			Assert.NotEmpty(dataContext.Orders);
-			Assert.NotEmpty(dataContext.OrderProducts);
+			// Assert
+			Assert.NotEmpty(_dataContext.Users);
+			Assert.NotEmpty(_dataContext.Products);
+			Assert.NotEmpty(_dataContext.BlogPosts);
+			Assert.NotEmpty(_dataContext.Orders);
+			Assert.NotEmpty(_dataContext.OrderProducts);
 		}
 
 		[Fact]
@@ -63,16 +63,18 @@ namespace Shevastream.Tests.UnitTests.Services
 		/// Test that if correct data is already in place, service does not insert duplicates,
 		/// or removes the whole data.
 		/// </summary>
-		public async Task ProperlyUpdatesData()
+		public async Task ProperlyOverridesData()
 		{
-			// Pull required services
-			var dataContext = _serviceProvider.GetRequiredService<DataContext>();
-			var dataSeedService = _serviceProvider.GetRequiredService<IDataSeedService>();
+			// Arrange
+			var dataSeedService = new DataSeedService(
+				_dataContext,
+				new Mock<ICryptoService>().Object
+			);
 
 			// Put some data as it were already there
-			await dataContext.Orders.AddRangeAsync(new List<Order> {
+			await _dataContext.Orders.AddRangeAsync(new List<Order> {
 				new Order {
-					Id = 1,
+					Id = 3,
 					Address = "100 Institute Road",
 					CustomerName = "Dmytro",
 					CustomerPhone = "+18577778350",
@@ -82,28 +84,30 @@ namespace Shevastream.Tests.UnitTests.Services
 					Comment = "Wanted to try blue one"
 				}
 			});
+			await _dataContext.SaveChangesAsync();
 
-			await dataContext.SaveChangesAsync();
-
-			// Seed initial data
+			// Act
 			await dataSeedService.SeedDataAsync();
 
-			// Check that we have the same number of records for the entity
-			Assert.Equal(await dataContext.Orders.CountAsync(), 1);
+			// Assert
+			Assert.Equal(await _dataContext.Orders.CountAsync(), 1);
+		}
 
-
-			// Remove one entity, now there are not as many as required items
-			dataContext.Orders.Remove(
-				await dataContext.Orders.FindAsync(1)
+		[Fact]
+		public async Task NoDuplicates()
+		{
+			// Arrange
+			var dataSeedService = new DataSeedService(
+				_dataContext,
+				new Mock<ICryptoService>().Object
 			);
 
-			await dataContext.SaveChangesAsync();
-
-			// Seed initial data
+			// Act
+			await dataSeedService.SeedDataAsync();
 			await dataSeedService.SeedDataAsync();
 
-			// Check that we have the same number of records for the entity
-			Assert.Equal(await dataContext.Orders.CountAsync(), 1);
+			// Assert
+			Assert.Equal(await _dataContext.Orders.CountAsync(), 1);
 		}
 	}
 }
