@@ -13,7 +13,6 @@ namespace Shevastream.Services
 		int GetTotalCost();
 		void UpdateCart(CartElementViewModel element);
 		CartViewModel GetSimpleCart();
-		// void RemoveItem(CartElementViewModel element);
 		bool IsCartEmpty();
 		void EmptyCart();
 	}
@@ -23,7 +22,7 @@ namespace Shevastream.Services
 		private readonly string CART_COOKIE_NAME = "Cart";
 
 		private readonly HttpContext _http;
-		private readonly DataContext _context;
+		private readonly IDataContext _context;
 
 		private CartViewModel _cart;
 		private CartViewModel Cart
@@ -73,7 +72,7 @@ namespace Shevastream.Services
 			}
 		}
 
-		public CartService(IHttpContextAccessor http, DataContext context)
+		public CartService(IHttpContextAccessor http, IDataContext context)
 		{
 			_http = http.HttpContext;
 			_context = context;
