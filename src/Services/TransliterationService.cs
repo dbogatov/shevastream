@@ -2,7 +2,7 @@
 
 namespace Shevastream.Services
 {
-    public interface ITransliterationService
+	public interface ITransliterationService
 	{
 		string CyrillicToLatin(string text);
 	}

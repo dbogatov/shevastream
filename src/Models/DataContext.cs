@@ -17,7 +17,7 @@ namespace Shevastream.Models
 		Task<int> SaveChangesAsync(CancellationToken token = default(CancellationToken));
 		int SaveChanges();
 	}
-	
+
 	public class DataContext : DbContext, IDataContext
 	{
 		public static string connectionString;
@@ -29,7 +29,7 @@ namespace Shevastream.Models
 		public DbSet<OrderProduct> OrderProducts { get; set; }
 		public DbSet<Product> Products { get; set; }
 		public DbSet<User> Users { get; set; }
-		
+
 		public DataContext(DbContextOptions options) : base(options) { }
 
 		protected override void OnModelCreating(ModelBuilder builder)

@@ -48,7 +48,7 @@ namespace Shevastream.Tests.IntegrationTests
 			_client
 				.DefaultRequestHeaders
 				.Add(
-					"Cookie", 
+					"Cookie",
 					$"Cart={Uri.EscapeDataString(new Cookie("Cart", JsonConvert.SerializeObject(orderCart)).Value)}"
 				);
 

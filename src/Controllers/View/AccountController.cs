@@ -68,10 +68,11 @@ namespace Shevastream.Controllers.View
 
 				if (string.IsNullOrEmpty(Request.Query["returnurl"]))
 				{
-					return RedirectToAction("Index", "Home"); 
-				} else
+					return RedirectToAction("Index", "Home");
+				}
+				else
 				{
-					return Redirect(Request.Query["returnurl"]);	
+					return Redirect(Request.Query["returnurl"]);
 				}
 			}
 			else

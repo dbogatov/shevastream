@@ -40,7 +40,8 @@ namespace Shevastream.Tests.IntegrationTests
 				new WebHostBuilder()
 					.UseEnvironment("Testing")
 					.UseStartup<Startup>()
-					.ConfigureServices(services => {
+					.ConfigureServices(services =>
+					{
 						services.Replace(ServiceDescriptor.Singleton<IHttpClientFactory>(mockHttpFactory.Object));
 					})
 			);

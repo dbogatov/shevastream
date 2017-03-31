@@ -4,7 +4,7 @@ using Shevastream.ViewModels.Store;
 
 namespace Shevastream.Controllers
 {
-    public partial class ApiController
+	public partial class ApiController
 	{
 		[HttpPost]
 		public async Task<IActionResult> CallbackRequest(CallMeBackViewModel model)

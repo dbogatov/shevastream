@@ -75,11 +75,11 @@ namespace Shevastream.Controllers.View
 
 		[HttpPost]
 		public IActionResult Cart(CartElementViewModel element)
-		{	
+		{
 			if (ModelState.IsValid)
 			{
 				_cart.UpdateCart(element);
-            }
+			}
 
 			return RedirectToAction("Cart");
 		}

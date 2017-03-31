@@ -17,9 +17,9 @@ namespace Shevastream.Tests.IntegrationTests
 		{
 			// Arrange
 			var requestMade = false;
-			
+
 			_responseHandler.AddHandler(
-				new Uri("https://push.dbogatov.org/api/push/shevastream/callback"), 
+				new Uri("https://push.dbogatov.org/api/push/shevastream/callback"),
 				() => requestMade = true
 			);
 
@@ -34,7 +34,7 @@ namespace Shevastream.Tests.IntegrationTests
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, ok.StatusCode);
-			
+
 			Assert.True(requestMade);
 
 			// Clean up

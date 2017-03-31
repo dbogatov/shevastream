@@ -29,16 +29,17 @@ namespace Shevastream.Tests.ControllerTests
 			var siteMap = new Mock<ISiteMapService>();
 			siteMap.
 				Setup(map => map.GetSiteMap()).
-				Returns(new SiteMap { 
+				Returns(new SiteMap
+				{
 					Items = new List<SiteMapItem> {
 						new SiteMapItem {
 							Loc = new Uri("https://shevastream.com"),
 							LastMod = DateTime.Now,
 							ChangeFreq = ChangeFrequency.Monthly
 						}
-					} 
+					}
 				});
-			
+
 			_controller = new HomeController(siteMap.Object, blogService.Object);
 		}
 
@@ -63,7 +64,7 @@ namespace Shevastream.Tests.ControllerTests
 
 		[Fact]
 		public void SiteMap()
-		{	
+		{
 			// Act
 			var result = _controller.SiteMap();
 
@@ -79,7 +80,7 @@ namespace Shevastream.Tests.ControllerTests
 
 		[Fact]
 		public void Privacy()
-		{	
+		{
 			// Act
 			var result = _controller.Privacy();
 

@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Shevastream.TagHelpers
 {
-    [HtmlTargetElement("email", Attributes = "to")]
-    public class EmailTagHelper : TagHelper
-    {
-        public string To { get; set; }
-        public string Subject { get; set; } = "";
+	[HtmlTargetElement("email", Attributes = "to")]
+	public class EmailTagHelper : TagHelper
+	{
+		public string To { get; set; }
+		public string Subject { get; set; } = "";
 
 		public override void Process(TagHelperContext context, TagHelperOutput output)
 		{
@@ -19,5 +19,5 @@ namespace Shevastream.TagHelpers
 
 			output.Content.SetContent(To);
 		}
-    }
+	}
 }

@@ -45,7 +45,7 @@ namespace Shevastream.Tests
 				.Returns(new HttpClient(new ResponseHandler()));
 
 			services.AddSingleton<IHttpClientFactory>(mockHttpFactory.Object);
-			
+
 			var mockUrlHelperFactory = new Mock<IUrlHelperFactory>();
 			mockUrlHelperFactory
 				.Setup(factory => factory.GetUrlHelper(It.IsAny<ActionContext>()))
@@ -56,7 +56,7 @@ namespace Shevastream.Tests
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 			services.AddTransient<IDataSeedService, DataSeedService>();
-			
+
 			// TODO: remove
 			// services.AddTransient<DataContext, DataContext>();
 			services.AddTransient<IDataContext, DataContext>();

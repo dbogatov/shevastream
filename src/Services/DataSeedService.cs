@@ -10,7 +10,7 @@ using Shevastream.Models;
 
 namespace Shevastream.Services
 {
-    public interface IDataSeedService
+	public interface IDataSeedService
 	{
 		/// <summary>
 		/// Populates data provider with initial set of records (like enums)

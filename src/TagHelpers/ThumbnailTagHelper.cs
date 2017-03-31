@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Shevastream.TagHelpers
 {
-    [HtmlTargetElement("thumbnail", Attributes = "img, title, price, product-id")]
-    public class ThumbnailTagHelper : TagHelper
-    {
+	[HtmlTargetElement("thumbnail", Attributes = "img, title, price, product-id")]
+	public class ThumbnailTagHelper : TagHelper
+	{
 		[HtmlAttributeName("img")]
-        public string Image { get; set; }
-        public string Title { get; set; }
+		public string Image { get; set; }
+		public string Title { get; set; }
 		public string Price { get; set; }
 		public int ProductId { get; set; }
 
@@ -32,5 +32,5 @@ namespace Shevastream.TagHelpers
 				"
 			);
 		}
-    }
+	}
 }

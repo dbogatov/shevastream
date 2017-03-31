@@ -10,7 +10,7 @@ using Shevastream.Services.Factories;
 
 namespace Shevastream.Services
 {
-    public interface IPushService
+	public interface IPushService
 	{
 		Task SendOrderAsync(string orderDescription, string name, string email, IEnumerable<Product> products);
 

@@ -32,18 +32,18 @@ namespace Shevastream.Tests.ControllerTests
 				.Setup(crypto => crypto.CalculateHash("bad-password"))
 				.Returns("bad-hash");
 
-			var users = new List<User> 
-            { 
-                new User { 
-					PassHash = "good-hash" 
+			var users = new List<User>
+			{
+				new User {
+					PassHash = "good-hash"
 				}
-            }.AsQueryable(); 
- 
-			var mockSet = new Mock<DbSet<User>>(); 
-			mockSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(users.Provider); 
-            mockSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(users.Expression); 
-            mockSet.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(users.ElementType); 
-            mockSet.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(() => users.GetEnumerator()); 
+			}.AsQueryable();
+
+			var mockSet = new Mock<DbSet<User>>();
+			mockSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(users.Provider);
+			mockSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(users.Expression);
+			mockSet.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(users.ElementType);
+			mockSet.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(() => users.GetEnumerator());
 
 			var dataContext = new Mock<IDataContext>();
 			dataContext
@@ -88,7 +88,7 @@ namespace Shevastream.Tests.ControllerTests
 					auth => auth
 						.SignOutAsync("MyCookieMiddlewareInstance")
 				);
-			
+
 			var mockContext = new Mock<HttpContext>();
 			mockContext.Setup(context => context.Authentication).Returns(mockAuth.Object);
 
@@ -140,7 +140,7 @@ namespace Shevastream.Tests.ControllerTests
 
 			// Assert
 			mockAuth.Verify(
-				auth => auth.SignInAsync("MyCookieMiddlewareInstance", It.IsAny<ClaimsPrincipal>()), 
+				auth => auth.SignInAsync("MyCookieMiddlewareInstance", It.IsAny<ClaimsPrincipal>()),
 				shouldSucceed ? Times.Once() : Times.Never()
 			);
 

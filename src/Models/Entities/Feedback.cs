@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shevastream.Models.Entities
 {
-    public class Feedback
+	public class Feedback
 	{
 		[Key]
 		public int Id { get; set; }

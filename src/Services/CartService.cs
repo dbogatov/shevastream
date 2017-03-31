@@ -7,7 +7,7 @@ using Shevastream.Models;
 
 namespace Shevastream.Services
 {
-    public interface ICartService
+	public interface ICartService
 	{
 		FullCartViewModel GetCart();
 		int GetTotalCost();
@@ -40,16 +40,16 @@ namespace Shevastream.Services
 						DeserializeObject<CartViewModel>(
 							_http.Request.Cookies[CART_COOKIE_NAME]
 						);
-                    return _cart;
-                }
+					return _cart;
+				}
 				else
 				{
-                    _cart = new CartViewModel
-                    {
-                        Elements = new List<CartElementViewModel>()
-                    };
-					
-                    _http.
+					_cart = new CartViewModel
+					{
+						Elements = new List<CartElementViewModel>()
+					};
+
+					_http.
 						Response.
 						Cookies.
 						Append(
@@ -71,7 +71,7 @@ namespace Shevastream.Services
 						JsonConvert.SerializeObject(_cart)
 					);
 			}
-		} 
+		}
 
 		public CartService(IHttpContextAccessor http, DataContext context)
 		{
@@ -87,10 +87,10 @@ namespace Shevastream.Services
 		{
 			FullCartViewModel model = new FullCartViewModel();
 
-            if (_http.Request.Cookies[CART_COOKIE_NAME] == null)
+			if (_http.Request.Cookies[CART_COOKIE_NAME] == null)
 			{
-                model.Products = new List<FullCartElementViewModel>();
-            }
+				model.Products = new List<FullCartElementViewModel>();
+			}
 			else
 			{
 				var elements = JsonConvert.
@@ -98,13 +98,13 @@ namespace Shevastream.Services
 						_http.Request.Cookies[CART_COOKIE_NAME]
 					).Elements;
 
-                var products = _context.Products.AsEnumerable();
+				var products = _context.Products.AsEnumerable();
 
-                model.Products = ( 
+				model.Products = (
 					from element in elements
-    				join prod in products on element.ProductId equals prod.Id
-    				select new FullCartElementViewModel
-					{ 
+					join prod in products on element.ProductId equals prod.Id
+					select new FullCartElementViewModel
+					{
 						Product = prod,
 						Quantity = element.Quantity
 					}).ToList();
@@ -117,10 +117,10 @@ namespace Shevastream.Services
 		{
 			int model;
 
-            if (_http.Request.Cookies[CART_COOKIE_NAME] == null)
+			if (_http.Request.Cookies[CART_COOKIE_NAME] == null)
 			{
-                model = 0;
-            }
+				model = 0;
+			}
 			else
 			{
 				var elements = JsonConvert.
@@ -128,12 +128,12 @@ namespace Shevastream.Services
 						_http.Request.Cookies[CART_COOKIE_NAME]
 					).Elements;
 
-                var products = _context.Products.AsEnumerable();
+				var products = _context.Products.AsEnumerable();
 
-                model = (
-                    from element in elements
-                    join prod in products on element.ProductId equals prod.Id
-                    select prod.Cost * element.Quantity
+				model = (
+					from element in elements
+					join prod in products on element.ProductId equals prod.Id
+					select prod.Cost * element.Quantity
 				).Sum();
 			}
 
@@ -144,15 +144,17 @@ namespace Shevastream.Services
 		{
 			if (Cart.Elements.Any(el => el.ProductId == element.ProductId))
 			{
-                var toRemove = Cart.Elements.First(el => el.ProductId == element.ProductId);
-                Cart.Elements.Remove(toRemove);
+				var toRemove = Cart.Elements.First(el => el.ProductId == element.ProductId);
+				Cart.Elements.Remove(toRemove);
 				if (element.Quantity > 0)
 				{
-					Cart.Elements.Add(element);	
+					Cart.Elements.Add(element);
 				}
-			} else {
+			}
+			else
+			{
 				element.Quantity = 1;
-                Cart.Elements.Add(element);
+				Cart.Elements.Add(element);
 			}
 			SaveChanges();
 		}
@@ -166,11 +168,11 @@ namespace Shevastream.Services
 		{
 			if (Cart.Elements.Any(el => el.ProductId == element.ProductId))
 			{
-                var toRemove = Cart.Elements.First(el => el.ProductId == element.ProductId);
-                Cart.Elements.Remove(toRemove);
+				var toRemove = Cart.Elements.First(el => el.ProductId == element.ProductId);
+				Cart.Elements.Remove(toRemove);
 			}
 			SaveChanges();
-        }
+		}
 
 		public bool IsCartEmpty()
 		{
@@ -184,7 +186,7 @@ namespace Shevastream.Services
 
 		private void SaveChanges()
 		{
-            Cart = Cart;
-        }
+			Cart = Cart;
+		}
 	}
 }

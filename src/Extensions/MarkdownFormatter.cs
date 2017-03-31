@@ -25,7 +25,7 @@ namespace Shevastream.Extensions
 
 			if (
 				// start and end of each node may be visited separately
-        		isOpening
+				isOpening
 				// verify that the inline element is one that should be modified
 				&& inline.Tag == InlineTag.Image
 				// verify that the formatter should output HTML and not plain text

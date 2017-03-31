@@ -22,7 +22,8 @@ namespace Shevastream.Tests.UnitTests.Services
 		{
 			var serviceProvider = Extensions.RegisterServices().BuildServiceProvider();
 
-			var user = new User {
+			var user = new User
+			{
 				Id = 1,
 				FullName = "Test user"
 			};
@@ -30,7 +31,7 @@ namespace Shevastream.Tests.UnitTests.Services
 			_dataContext = serviceProvider.GetRequiredService<IDataContext>();
 			_dataContext.Users.Add(user);
 			_dataContext.SaveChanges();
-			
+
 
 			var authMock = new Mock<IAuthService>();
 			authMock.Setup(auth => auth.GetCurrentUserId()).Returns(1);
@@ -108,8 +109,8 @@ quotted code
 				{ "title", "title" },
 				{ "Title word", "title-word" },
 				{ "Title word 123", "title-word-123" },
-				{ 
-					"Британія оприлюднила план заміни законів ЄС після Brexit", 
+				{
+					"Британія оприлюднила план заміни законів ЄС після Brexit",
 					"britaniya-oprilyudnila-plan-zamini-zakoniv-ies-pislya-brexit"
 				},
 				{ "Авдіївка досі без світла", "avdiyivka-dosi-bez-svitla" }
@@ -188,18 +189,18 @@ quotted code
 				_authService,
 				translitService.Object
 			);
-			
+
 			var blogPost = new BlogPost { Title = "Title", Content = "Content", Active = true };
 			var dbPost = await _dataContext.BlogPosts.AddAsync(blogPost);
 			await _dataContext.SaveChangesAsync();
-			
+
 			var goodPost = BlogPostViewModel.FromBlogPost(blogPost);
 			goodPost.Id = dbPost.Entity.Id;
 			goodPost.Title = "New title";
 
 			var badPost = BlogPostViewModel.FromBlogPost(blogPost);
 			badPost.Id = -1;
-			
+
 			// Act
 			var successfull = await blogService.UpdatePostAsync(goodPost);
 			var unsuccessful = await blogService.UpdatePostAsync(badPost);
@@ -222,11 +223,11 @@ quotted code
 				_authService,
 				translitService.Object
 			);
-			
+
 			var blogPost = BlogPostViewModel.FromBlogPost(
 				new BlogPost { Title = "Title", Content = "Content", Active = true }
 			);
-			
+
 			// Act
 			var successfull = await blogService.UpdatePostAsync(blogPost);
 
@@ -243,13 +244,13 @@ quotted code
 				new Mock<IAuthService>().Object,
  				new Mock<ITransliterationService>().Object
 			);
-			
+
 			var blogPost = new BlogPost { Title = "Title", Content = "Content", Active = true };
 			var dbPost = await _dataContext.BlogPosts.AddAsync(blogPost);
 			await _dataContext.SaveChangesAsync();
 
 			var beforeViews = dbPost.Entity.Views;
-			
+
 			// Act
 			await blogService.AddViewAsync(BlogPostViewModel.FromBlogPost(blogPost));
 

@@ -9,7 +9,8 @@ namespace Shevastream.Services.Factories
 
 	public class HttpClientFactory : IHttpClientFactory
 	{
-		public HttpClient BuildClient() {
+		public HttpClient BuildClient()
+		{
 			return new HttpClient();
 		}
 	}

@@ -9,12 +9,12 @@ namespace Shevastream.ViewModels.Store
 		public int ProductId { get; set; }
 		public int Quantity { get; set; }
 	}
-	
+
 	public class CartViewModel
 	{
 		public ICollection<CartElementViewModel> Elements { get; set; }
 	}
-	
+
 	public class FullCartElementViewModel
 	{
 		public Product Product { get; set; }
@@ -25,7 +25,8 @@ namespace Shevastream.ViewModels.Store
 	{
 		public ICollection<FullCartElementViewModel> Products { get; set; }
 
-		public int GetTotalCost() {
+		public int GetTotalCost()
+		{
 			return Products.Sum(prod => prod.Product.Cost * prod.Quantity);
 		}
 
@@ -37,12 +38,12 @@ namespace Shevastream.ViewModels.Store
 					{
 						string.
 							Join(
-								"\n", 
+								"\n",
 								Products.
-									Select(element => 
+									Select(element =>
 										string.Format(
 											"{0} item(s) of {1}",
-											element.Quantity, 
+											element.Quantity,
 											element.Product.Name
 										)
 									)

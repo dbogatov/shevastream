@@ -19,10 +19,10 @@ namespace Shevastream.Tests.Mock
 		public void RemoveHandler(Uri uri)
 		{
 			_actions.Remove(uri);
-		}	
+		}
 
 		protected async override Task<HttpResponseMessage> SendAsync(
-			HttpRequestMessage request, 
+			HttpRequestMessage request,
 			CancellationToken cancellationToken
 		)
 		{
