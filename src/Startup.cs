@@ -33,30 +33,42 @@ namespace Shevastream
 				.SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json")
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-				.AddJsonFile("version.json", optional: true);
+				.AddJsonFile("version.json", optional: true)
+				.AddEnvironmentVariables();
 
-			//builder.AddEnvironmentVariables();
 			Configuration = builder.Build();
+
+			CurrentEnvironment = env;
 		}
 
 		public IConfigurationRoot Configuration { get; set; }
+		private IHostingEnvironment CurrentEnvironment { get; set; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services
-				.AddDbContext<DataContext>(
-					b => b
-						.UseInMemoryDatabase()
-						.UseInternalServiceProvider(
-							new ServiceCollection()
-								.AddEntityFrameworkInMemoryDatabase()
-								.BuildServiceProvider()
-						)
-				);
-
-			DataContext.connectionString = Configuration["Data:PGSQLConnection:ConnectionString"];
-			DataContext.version = Configuration["Version:GitHash"];
+			// Use Entity Framework
+			if (CurrentEnvironment.IsProduction())
+			{
+				services
+					.AddEntityFrameworkNpgsql()
+					.AddDbContext<DataContext>(
+						b => b.UseNpgsql(Configuration["Data:ConnectionString"])
+					);
+			}
+			else
+			{
+				services
+					.AddDbContext<DataContext>(
+						b => b
+							.UseInMemoryDatabase()
+							.UseInternalServiceProvider(
+								new ServiceCollection()
+									.AddEntityFrameworkInMemoryDatabase()
+									.BuildServiceProvider()
+							)
+					);
+			}
 
 			services.AddMvc().AddJsonOptions(opt =>
 			{
@@ -78,10 +90,9 @@ namespace Shevastream
 				services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
 			}
 
-			// TODO: remove
-			services.AddTransient<DataContext, DataContext>();
-			services.AddTransient<IDataContext, DataContext>();
+			services.AddSingleton<IConfiguration>(Configuration);
 
+			services.AddTransient<IDataContext, DataContext>();
 			services.AddTransient<ICryptoService, CryptoService>();
 			services.AddTransient<IPushService, PushService>();
 			services.AddTransient<IBlogService, BlogService>();
@@ -164,7 +175,7 @@ namespace Shevastream
 
 			});
 
-			using (var context = serviceProvider.GetService<DataContext>())
+			using (var context = serviceProvider.GetService<IDataContext>())
 			{
 				context.Database.EnsureCreated();
 			}

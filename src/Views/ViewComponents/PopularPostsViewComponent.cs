@@ -8,9 +8,9 @@ namespace Shevastream.Views.ViewComponents
 {
 	public class PopularPostsViewComponent : ViewComponent
 	{
-		private readonly DataContext _context;
+		private readonly IDataContext _context;
 
-		public PopularPostsViewComponent(DataContext context)
+		public PopularPostsViewComponent(IDataContext context)
 		{
 			_context = context;
 		}

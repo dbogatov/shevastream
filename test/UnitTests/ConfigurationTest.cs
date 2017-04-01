@@ -3,7 +3,6 @@ using Xunit;
 
 namespace Shevastream.Tests.UnitTests
 {
-	[Collection("The Collection")]
 	/// <summary>
 	/// Unit tests which check that configuration has all required properties set.
 	/// </summary>

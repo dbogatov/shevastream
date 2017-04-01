@@ -8,12 +8,12 @@ namespace Shevastream.Controllers
 	public partial class ApiController : Controller
 	{
 		// Context for data provider
-		private readonly DataContext _context;
+		private readonly IDataContext _context;
 		private readonly IPushService _push;
 		private readonly IOrderService _orders;
 
 		public ApiController(
-			DataContext context,
+			IDataContext context,
 			IPushService push,
 			IOrderService orders
 		)

@@ -54,13 +54,8 @@ namespace Shevastream.Tests
 			services.AddSingleton<IUrlHelperFactory>(mockUrlHelperFactory.Object);
 
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
 			services.AddTransient<IDataSeedService, DataSeedService>();
-
-			// TODO: remove
-			// services.AddTransient<DataContext, DataContext>();
 			services.AddTransient<IDataContext, DataContext>();
-
 			services.AddTransient<ICryptoService, CryptoService>();
 			services.AddTransient<IPushService, PushService>();
 			services.AddTransient<IBlogService, BlogService>();

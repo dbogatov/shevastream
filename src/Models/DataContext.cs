@@ -2,10 +2,12 @@ using Shevastream.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Threading;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using System;
 
 namespace Shevastream.Models
 {
-	public interface IDataContext
+	public interface IDataContext : IDisposable
 	{
 		DbSet<Feedback> Feedbacks { get; set; }
 		DbSet<BlogPost> BlogPosts { get; set; }
@@ -14,15 +16,14 @@ namespace Shevastream.Models
 		DbSet<Product> Products { get; set; }
 		DbSet<User> Users { get; set; }
 
+		DatabaseFacade Database { get; }
+
 		Task<int> SaveChangesAsync(CancellationToken token = default(CancellationToken));
 		int SaveChanges();
 	}
 
 	public class DataContext : DbContext, IDataContext
 	{
-		public static string connectionString;
-		public static string version;
-
 		public DbSet<Feedback> Feedbacks { get; set; }
 		public DbSet<BlogPost> BlogPosts { get; set; }
 		public DbSet<Order> Orders { get; set; }

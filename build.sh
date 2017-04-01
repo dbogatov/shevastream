@@ -146,6 +146,7 @@ build-dev-client () {
 
 	echo "Copying generated code"
 	mkdir -p ../src/wwwroot/js/ts
+	mkdir -p ../src/wwwroot/css
 	cp -R dist/ts/* ../src/wwwroot/js/ts/
 	cp dist/ts/app.css ../src/wwwroot/css/app.css
 
