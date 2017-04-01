@@ -17,20 +17,17 @@ namespace Shevastream.Services
 
 	public class SiteMapService : ISiteMapService
 	{
-		private readonly DataContext _context;
-		private readonly HttpContext _http;
+		private readonly IDataContext _context;
 		private IUrlHelper _urlHelper;
 		private readonly string HOST = "shevastream.com";
 		private readonly string SCHEME = "https";
 
 		public SiteMapService(
-			DataContext context,
-			IHttpContextAccessor http,
+			IDataContext context,
 			IUrlHelperFactory urlHelperFactory,
 			IActionContextAccessor actionContextAccessor
 		)
 		{
-			_http = http.HttpContext;
 			_context = context;
 			_urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
 		}
