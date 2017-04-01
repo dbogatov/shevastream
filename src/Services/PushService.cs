@@ -21,16 +21,14 @@ namespace Shevastream.Services
 
 	public class PushService : IPushService
 	{
-		private readonly DataContext _context;
 		private readonly IHttpClientFactory _httpClientFactory;
 
 		private readonly string _orderUrl = "https://push.dbogatov.org/api/push/shevastream/order";
 		private readonly string _feedbackUrl = "https://push.dbogatov.org/api/push/shevastream/feedback";
 		private readonly string _callbackUrl = "https://push.dbogatov.org/api/push/shevastream/callback";
 
-		public PushService(DataContext context, IHttpClientFactory httpClientFactory)
+		public PushService(IHttpClientFactory httpClientFactory)
 		{
-			_context = context;
 			_httpClientFactory = httpClientFactory;
 		}
 
