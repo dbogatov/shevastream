@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Shevastream.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Shevastream.Services
 {
@@ -29,6 +30,7 @@ namespace Shevastream.Services
 	{
 		private readonly IDataContext _context;
 		private readonly ICryptoService _crypto;
+		private readonly ILogger<DataSeedService> _logger;
 
 		private IEnumerable<User> _users;
 		private IEnumerable<Product> _products;
@@ -36,21 +38,29 @@ namespace Shevastream.Services
 		private IEnumerable<Order> _orders;
 		private IEnumerable<OrderProduct> _orderProducts;
 
-		public DataSeedService(IDataContext context, ICryptoService crypto)
+		public DataSeedService(
+			IDataContext context, 
+			ICryptoService crypto,
+			ILogger<DataSeedService> logger)
 		{
 			_context = context;
 			_crypto = crypto;
+			_logger = logger;
 
 			ReadConfiguration();
 		}
 
 		public void SeedData()
 		{
+			_logger.LogInformation(LoggingEvents.Startup.AsInt(), "DataSeed started");
+
 			SeedSpecificEntity(_products, _context.Products);
 			SeedSpecificEntity(_users, _context.Users);
 			SeedSpecificEntity(_orders, _context.Orders);
 			SeedSpecificEntity(_orderProducts, _context.OrderProducts);
 			SeedSpecificEntity(_blogPosts, _context.BlogPosts);
+
+			_logger.LogInformation(LoggingEvents.Startup.AsInt(), "DataSeed started");
 		}
 
 		public async Task SeedDataAsync()

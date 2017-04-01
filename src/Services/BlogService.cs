@@ -7,6 +7,8 @@ using Shevastream.ViewModels.Blog;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Shevastream.Models;
+using Microsoft.Extensions.Logging;
+using Shevastream.Extensions;
 
 namespace Shevastream.Services
 {
@@ -27,12 +29,19 @@ namespace Shevastream.Services
 		private readonly IDataContext _context;
 		private readonly IAuthService _auth;
 		private readonly ITransliterationService _translit;
+		private readonly ILogger<BlogService> _logger;
 
-		public BlogService(IDataContext context, IAuthService auth, ITransliterationService translit)
+		public BlogService(
+			IDataContext context,
+			IAuthService auth,
+			ITransliterationService translit,
+			ILogger<BlogService> logger
+		)
 		{
 			_auth = auth;
 			_context = context;
 			_translit = translit;
+			_logger = logger;
 		}
 
 		public string GenerateUrlFromTitle(string title)
@@ -137,6 +146,8 @@ namespace Shevastream.Services
 
 				await _context.SaveChangesAsync();
 
+				_logger.LogInformation(LoggingEvents.Blog.AsInt(), $"Post {old.Id} has been updated");
+
 				return old;
 			}
 
@@ -166,6 +177,8 @@ namespace Shevastream.Services
 			_context.BlogPosts.Add(@new);
 
 			await _context.SaveChangesAsync();
+
+			_logger.LogInformation(LoggingEvents.Blog.AsInt(), $"Post {@new.Id} has been created");
 
 			return @new;
 		}

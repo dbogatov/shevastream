@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Shevastream.Extensions;
 using Shevastream.Models.Entities;
 
 namespace Shevastream.Controllers
@@ -13,6 +15,8 @@ namespace Shevastream.Controllers
 
 			_context.Feedbacks.Add(feedback);
 			await _context.SaveChangesAsync();
+
+			_logger.LogInformation(LoggingEvents.Feedback.AsInt(), $"Feedback {feedback} received");
 
 			return Ok("Feedback recorded");
 		}

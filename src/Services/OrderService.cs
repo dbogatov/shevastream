@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Shevastream.Models.Entities;
@@ -6,6 +5,8 @@ using Shevastream.ViewModels.Store;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Shevastream.Models;
+using Microsoft.Extensions.Logging;
+using Shevastream.Extensions;
 
 namespace Shevastream.Services
 {
@@ -22,18 +23,21 @@ namespace Shevastream.Services
 		private readonly IPushService _push;
 		private readonly HttpContext _http;
 		private readonly ICartService _cart;
+		private readonly ILogger<OrderService> _logger;
 
 		public OrderService(
 			IDataContext context,
 			IPushService push,
 			IHttpContextAccessor http,
-			ICartService cart
+			ICartService cart,
+			ILogger<OrderService> logger
 			)
 		{
 			_context = context;
 			_push = push;
 			_http = http.HttpContext;
 			_cart = cart;
+			_logger = logger;
 		}
 
 		public async Task<int> PutOrderAsync(OrderViewModel order)
@@ -92,12 +96,26 @@ namespace Shevastream.Services
 				}
 				await _context.SaveChangesAsync();
 			}
-			catch (System.Exception e)
+			catch (System.Exception exception)
 			{
-				Console.WriteLine(e.StackTrace);
+				_logger.LogError(
+					LoggingEvents.Order.AsInt(), 
+					exception, 
+					$"Error saving order {dbOrder} into the data provider unavailable. See stack trace."
+				);
 			}
-			// notify them
-			await _push.SendOrderAsync(order.ToString(), order.CustomerName, order.CustomerEmail, order.Cart.Products.Select(p => p.Product));
+			
+			await _push.SendOrderAsync(
+				order.ToString(), 
+				order.CustomerName, 
+				order.CustomerEmail, 
+				order.Cart.Products.Select(p => p.Product)
+			);
+
+			_logger.LogInformation(
+				LoggingEvents.Order.AsInt(), 
+				$"Order: ${dbOrder}, cart: ${order.Cart}"
+			);
 
 			return dbOrder.Id;
 		}

@@ -5,18 +5,17 @@ using Shevastream.Models.Entities;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using Shevastream.Models;
 using Shevastream.Services.Factories;
+using Shevastream.ViewModels;
 
 namespace Shevastream.Services
 {
 	public interface IPushService
 	{
 		Task SendOrderAsync(string orderDescription, string name, string email, IEnumerable<Product> products);
-
 		Task SendCallbackAsync(string phone);
-
 		Task SendFeedbackAsync(Feedback feedback);
+		Task SendLogAsync(LogMessageViewModel logMessage);
 	}
 
 	public class PushService : IPushService
@@ -87,6 +86,12 @@ namespace Shevastream.Services
 
 				await client.PostAsync(_feedbackUrl, content);
 			}
+		}
+
+		// TODO
+		public Task SendLogAsync(LogMessageViewModel logMessage)
+		{
+			return Task.CompletedTask;
 		}
 	}
 }

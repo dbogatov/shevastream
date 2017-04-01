@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Moq;
+using Microsoft.Extensions.Logging;
 
 namespace Shevastream.Tests.UnitTests.Services
 {
@@ -21,7 +22,6 @@ namespace Shevastream.Tests.UnitTests.Services
 		{
 			var serviceProvider = Extensions.RegisterServices().BuildServiceProvider();
 			_dataContext = serviceProvider.GetRequiredService<IDataContext>();
-
 		}
 
 		[Fact]
@@ -44,7 +44,8 @@ namespace Shevastream.Tests.UnitTests.Services
 			// Arrange
 			var dataSeedService = new DataSeedService(
 				_dataContext,
-				new Mock<ICryptoService>().Object
+				new Mock<ICryptoService>().Object,
+				new Mock<ILogger<DataSeedService>>().Object
 			);
 
 			// Act
@@ -68,7 +69,8 @@ namespace Shevastream.Tests.UnitTests.Services
 			// Arrange
 			var dataSeedService = new DataSeedService(
 				_dataContext,
-				new Mock<ICryptoService>().Object
+				new Mock<ICryptoService>().Object,
+				new Mock<ILogger<DataSeedService>>().Object
 			);
 
 			// Put some data as it were already there
@@ -99,7 +101,8 @@ namespace Shevastream.Tests.UnitTests.Services
 			// Arrange
 			var dataSeedService = new DataSeedService(
 				_dataContext,
-				new Mock<ICryptoService>().Object
+				new Mock<ICryptoService>().Object,
+				new Mock<ILogger<DataSeedService>>().Object
 			);
 
 			// Act

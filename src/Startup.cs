@@ -16,6 +16,7 @@ using Newtonsoft.Json.Serialization;
 using Shevastream.Models;
 using Shevastream.Services.Factories;
 using Shevastream.ActionFilters;
+using System.Linq;
 
 namespace Shevastream
 {
@@ -110,12 +111,14 @@ namespace Shevastream
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
 		{
-			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-			loggerFactory.AddDebug();
+			loggerFactory
+				.AddShevastreamLogger(
+					serviceProvider.GetService<IPushService>(),
+					env.IsTesting() ? LogLevel.Error : Configuration["Logging:MinLogLevel"].ToEnum<LogLevel>(),
+					Configuration.StringsFromArray("Logging:Exclude").ToArray()
+				);
 
 			app.UseToLowercase();
-
-			// app.UseWebMarkupMin();
 
 			if (env.IsDevelopment())
 			{
@@ -128,7 +131,6 @@ namespace Shevastream
 			}
 
 			app.UseStatusCodePagesWithReExecute("/Error/{0}");
-			//app.UseStatusCodePages();
 
 			app.UseStaticFiles();
 

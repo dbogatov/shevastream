@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 using Shevastream.Services;
 using Shevastream.Models;
@@ -8,10 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Shevastream.Models.Entities;
 using System.Threading.Tasks;
-using Shevastream.ViewModels.Blog;
 using Microsoft.AspNetCore.Http;
 using Shevastream.ViewModels.Store;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace Shevastream.Tests.UnitTests.Services
 {
@@ -75,7 +74,8 @@ namespace Shevastream.Tests.UnitTests.Services
 				_dataContext,
 				_pushService.Object,
 				_httpAccessor.Object,
-				_cartService.Object
+				_cartService.Object,
+				new Mock<ILogger<OrderService>>().Object
 			);
 
 			var order = new OrderViewModel

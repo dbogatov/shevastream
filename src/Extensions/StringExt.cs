@@ -8,6 +8,14 @@ namespace Shevastream.Extensions
 {
 	public static class StringExtensions
 	{
+		/// <summary>
+		/// Parses string into enum of given type T.
+		/// </summary>
+		public static T ToEnum<T>(this string value)
+		{
+			return (T)Enum.Parse(typeof(T), value, true);
+		}
+		
 		public static bool Contains(this string source, string toCheck, StringComparison comp)
 		{
 			return source.IndexOf(toCheck, comp) >= 0;

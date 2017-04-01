@@ -9,6 +9,7 @@ using System.Linq;
 using Shevastream.Models.Entities;
 using System.Threading.Tasks;
 using Shevastream.ViewModels.Blog;
+using Microsoft.Extensions.Logging;
 
 namespace Shevastream.Tests.UnitTests.Services
 {
@@ -47,7 +48,8 @@ namespace Shevastream.Tests.UnitTests.Services
 			var blogService = new BlogService(
 				new Mock<IDataContext>().Object,
 				new Mock<IAuthService>().Object,
-				new Mock<ITransliterationService>().Object
+				new Mock<ITransliterationService>().Object,
+				new Mock<ILogger<BlogService>>().Object
 			);
 
 			var text = $@"
@@ -102,7 +104,8 @@ quotted code
 			var blogService = new BlogService(
 				new Mock<IDataContext>().Object,
 				new Mock<IAuthService>().Object,
-				_translitService
+				_translitService,
+				new Mock<ILogger<BlogService>>().Object
 			);
 
 			var expected = new Dictionary<string, string> {
@@ -132,7 +135,8 @@ quotted code
 			var blogService = new BlogService(
 				_dataContext,
 				new Mock<IAuthService>().Object,
-				new Mock<ITransliterationService>().Object
+				new Mock<ITransliterationService>().Object,
+				new Mock<ILogger<BlogService>>().Object
 			);
 
 			await _dataContext.BlogPosts.AddRangeAsync(new List<BlogPost> {
@@ -157,7 +161,8 @@ quotted code
 			var blogService = new BlogService(
 				_dataContext,
 				new Mock<IAuthService>().Object,
-				new Mock<ITransliterationService>().Object
+				new Mock<ITransliterationService>().Object,
+				new Mock<ILogger<BlogService>>().Object
 			);
 
 			await _dataContext.BlogPosts.AddRangeAsync(new List<BlogPost> {
@@ -187,7 +192,8 @@ quotted code
 			var blogService = new BlogService(
 				_dataContext,
 				_authService,
-				translitService.Object
+				translitService.Object,
+				new Mock<ILogger<BlogService>>().Object
 			);
 
 			var blogPost = new BlogPost { Title = "Title", Content = "Content", Active = true };
@@ -221,7 +227,8 @@ quotted code
 			var blogService = new BlogService(
 				_dataContext,
 				_authService,
-				translitService.Object
+				translitService.Object,
+				new Mock<ILogger<BlogService>>().Object
 			);
 
 			var blogPost = BlogPostViewModel.FromBlogPost(
@@ -242,7 +249,8 @@ quotted code
 			var blogService = new BlogService(
 				_dataContext,
 				new Mock<IAuthService>().Object,
- 				new Mock<ITransliterationService>().Object
+ 				new Mock<ITransliterationService>().Object,
+				 new Mock<ILogger<BlogService>>().Object
 			);
 
 			var blogPost = new BlogPost { Title = "Title", Content = "Content", Active = true };
@@ -266,7 +274,8 @@ quotted code
 			var blogService = new BlogService(
 				_dataContext,
 				new Mock<IAuthService>().Object,
-				new Mock<ITransliterationService>().Object
+				new Mock<ITransliterationService>().Object,
+				new Mock<ILogger<BlogService>>().Object
 			);
 
 			await _dataContext.BlogPosts.AddRangeAsync(new List<BlogPost> {
