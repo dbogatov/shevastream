@@ -35,6 +35,7 @@ namespace Shevastream.Extensions
 				.Count(
 					pair => !pair
 						.Key
+						.Substring(pair.Key.IndexOf($"{section}"))
 						.Replace($"{section}:", "")
 						.Contains(":")
 				);
@@ -55,6 +56,7 @@ namespace Shevastream.Extensions
 		{
 			return config
 				.SectionsFromArray(section)
+				.Where(sect => !string.IsNullOrEmpty(sect.Value))
 				.Select(sect => sect.Value);
 		}
 	}

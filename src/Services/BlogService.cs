@@ -16,6 +16,7 @@ namespace Shevastream.Services
 	{
 		string MarkDownToHtml(string content);
 		string GenerateUrlFromTitle(string title);
+		string GeneratePreview(string content);
 		Task<IEnumerable<BlogPostViewModel>> GetAllPostsAsync();
 		Task<BlogPostViewModel> GetPostByIdAsync(int id, bool active = true);
 		Task<BlogPost> UpdatePostAsync(BlogPostViewModel post);
@@ -135,11 +136,7 @@ namespace Shevastream.Services
 				old.Title = post.Title.Trim();
 				old.TitleUrl = GenerateUrlFromTitle(post.Title);
 				old.Content = post.Content;
-				old.Preview = MarkDownToHtml(
-					post.Content.TrimStart().IndexOf('\n') > 0 ?
-					post.Content.Substring(0, post.Content.TrimStart().IndexOf('\n')) :
-					post.Content
-				);
+				old.Preview = GeneratePreview(post.Content);
 				old.DateUpdated = DateTime.Now;
 				old.Author = user;
 				old.Active = post.Active;
@@ -167,11 +164,7 @@ namespace Shevastream.Services
 				DateUpdated = DateTime.Now,
 				Title = post.Title.Trim(),
 				TitleUrl = GenerateUrlFromTitle(post.Title),
-				Preview = MarkDownToHtml(
-					post.Content.TrimStart().IndexOf('\n') > 0 ?
-					post.Content.Substring(0, post.Content.TrimStart().IndexOf('\n')) :
-					post.Content
-				),
+				Preview = GeneratePreview(post.Content),
 				Content = post.Content
 			};
 			_context.BlogPosts.Add(@new);
@@ -203,6 +196,15 @@ namespace Shevastream.Services
 				.Take(postsNum)
 				.ToListAsync())
 				.Select(bp => BlogPostViewModel.FromBlogPost(bp));
+		}
+
+		public string GeneratePreview(string content)
+		{
+			return MarkDownToHtml(
+				content.TrimStart().IndexOf('\n') > 0 ?
+				content.Substring(0, content.TrimStart().IndexOf('\n')) :
+				content
+			);
 		}
 	}
 }
