@@ -38,8 +38,6 @@ namespace Shevastream.Services
 		private IEnumerable<User> _users;
 		private IEnumerable<Product> _products;
 		private IEnumerable<BlogPost> _blogPosts;
-		private IEnumerable<Order> _orders;
-		private IEnumerable<OrderProduct> _orderProducts;
 
 		public DataSeedService(
 			IConfiguration configuration,
@@ -63,8 +61,6 @@ namespace Shevastream.Services
 
 			SeedSpecificEntity(_products, _context.Products);
 			SeedSpecificEntity(_users, _context.Users);
-			// SeedSpecificEntity(_orders, _context.Orders);
-			// SeedSpecificEntity(_orderProducts, _context.OrderProducts);
 			SeedSpecificEntity(_blogPosts, _context.BlogPosts);
 
 			_logger.LogInformation(LoggingEvents.Startup.AsInt(), "DataSeed started");
@@ -74,8 +70,6 @@ namespace Shevastream.Services
 		{
 			await SeedSpecificEntityAsync(_products, _context.Products);
 			await SeedSpecificEntityAsync(_users, _context.Users);
-			await SeedSpecificEntityAsync(_orders, _context.Orders);
-			await SeedSpecificEntityAsync(_orderProducts, _context.OrderProducts);
 			await SeedSpecificEntityAsync(_blogPosts, _context.BlogPosts);
 		}
 

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Moq;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace Shevastream.Tests.UnitTests.Services
 {
@@ -17,11 +18,28 @@ namespace Shevastream.Tests.UnitTests.Services
 	public class DataSeedServiceTest
 	{
 		private readonly IDataContext _dataContext;
+		private readonly IDataSeedService _dataSeed;
 
 		public DataSeedServiceTest()
 		{
 			var serviceProvider = Extensions.RegisterServices().BuildServiceProvider();
 			_dataContext = serviceProvider.GetRequiredService<IDataContext>();
+
+			var mockBlogService = new Mock<IBlogService>();
+			mockBlogService
+				.Setup(mock => mock.GenerateUrlFromTitle(It.IsAny<string>()))
+				.Returns("url-title");
+			mockBlogService
+				.Setup(mock => mock.GeneratePreview(It.IsAny<string>()))
+				.Returns("<p>preview</p>");
+
+			_dataSeed = new DataSeedService(
+				serviceProvider.GetRequiredService<IConfiguration>(),
+				_dataContext,
+				new Mock<ICryptoService>().Object,
+				mockBlogService.Object,
+				new Mock<ILogger<DataSeedService>>().Object
+			);
 		}
 
 		[Fact]
@@ -41,22 +59,13 @@ namespace Shevastream.Tests.UnitTests.Services
 		/// </summary>
 		public async Task ServiceSeedsValuesToDataProvider()
 		{
-			// Arrange
-			var dataSeedService = new DataSeedService(
-				_dataContext,
-				new Mock<ICryptoService>().Object,
-				new Mock<ILogger<DataSeedService>>().Object
-			);
-
 			// Act
-			await dataSeedService.SeedDataAsync();
+			await _dataSeed.SeedDataAsync();
 
 			// Assert
 			Assert.NotEmpty(_dataContext.Users);
 			Assert.NotEmpty(_dataContext.Products);
 			Assert.NotEmpty(_dataContext.BlogPosts);
-			Assert.NotEmpty(_dataContext.Orders);
-			Assert.NotEmpty(_dataContext.OrderProducts);
 		}
 
 		[Fact]
@@ -67,50 +76,25 @@ namespace Shevastream.Tests.UnitTests.Services
 		public async Task ProperlyOverridesData()
 		{
 			// Arrange
-			var dataSeedService = new DataSeedService(
-				_dataContext,
-				new Mock<ICryptoService>().Object,
-				new Mock<ILogger<DataSeedService>>().Object
-			);
-
-			// Put some data as it were already there
-			await _dataContext.Orders.AddRangeAsync(new List<Order> {
-				new Order {
-					Id = 3,
-					Address = "100 Institute Road",
-					CustomerName = "Dmytro",
-					CustomerPhone = "+18577778350",
-					CustomerEmail = "dmytro@dbogatov.org",
-					ShipmentMethod = "К корпусу Шевченка",
-					PaymentMethod = "Наличными",
-					Comment = "Wanted to try blue one"
-				}
-			});
+			await _dataContext.Users.AddAsync(new User { Id = int.MaxValue });
 			await _dataContext.SaveChangesAsync();
 
 			// Act
-			await dataSeedService.SeedDataAsync();
+			await _dataSeed.SeedDataAsync();
 
 			// Assert
-			Assert.Equal(await _dataContext.Orders.CountAsync(), 1);
+			Assert.Equal(await _dataContext.Users.CountAsync(), 3);
 		}
 
 		[Fact]
 		public async Task NoDuplicates()
 		{
-			// Arrange
-			var dataSeedService = new DataSeedService(
-				_dataContext,
-				new Mock<ICryptoService>().Object,
-				new Mock<ILogger<DataSeedService>>().Object
-			);
-
 			// Act
-			await dataSeedService.SeedDataAsync();
-			await dataSeedService.SeedDataAsync();
+			await _dataSeed.SeedDataAsync();
+			await _dataSeed.SeedDataAsync();
 
 			// Assert
-			Assert.Equal(await _dataContext.Orders.CountAsync(), 1);
+			Assert.Equal(await _dataContext.Users.CountAsync(), 3);
 		}
 	}
 }
