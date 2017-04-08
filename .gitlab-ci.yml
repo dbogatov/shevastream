@@ -39,6 +39,7 @@ test-dotnet:
   stage: test
   image: dbogatov/docker-containers:dotnet-core-latest
   script:
+  - export ASPNETCORE_ENVIRONMENT="Testing"
   - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > src/version.json
   - cd test
   - dotnet restore
@@ -53,16 +54,19 @@ tidy:
   dependencies:
   - build
   before_script:
+  - export ASPNETCORE_ENVIRONMENT="Staging"
   - cd src/bin/release/netcoreapp1.1/publish/
   - dotnet shevastream.dll > /dev/null &
-  - sleep 5
+  - sleep 10
   script:
   - curl -Ls http://localhost:5555/ | tidy -e
-  # - curl -Ls http://localhost:8080/academics.html | tidy -e
-  # - curl -Ls http://localhost:8080/contacts.html | tidy -e
-  # - curl -Ls http://localhost:8080/feedback.html | tidy -e
-  # - curl -Ls http://localhost:8080/portfolio.html | tidy -e
-  # - curl -Ls http://localhost:8080/resume.html | tidy -e
+  - curl -Ls http://localhost:8080/home/profile | tidy -e
+  - curl -Ls http://localhost:8080//home/contact | tidy -e
+  - curl -Ls http://localhost:8080/store/product | tidy -e
+  - curl -Ls http://localhost:8080/store/product/1 | tidy -e
+  - curl -Ls http://localhost:8080/store/cart | tidy -e
+  - curl -Ls http://localhost:8080/blog | tidy -e
+  - curl -Ls http://localhost:8080/blog/29 | tidy -e
   tags:
   - Docker
   
@@ -72,9 +76,10 @@ blc:
   dependencies:
   - build
   before_script:
+  - export ASPNETCORE_ENVIRONMENT="Staging"
   - cd src/bin/release/netcoreapp1.1/publish/
   - dotnet shevastream.dll > /dev/null &
-  - sleep 5
+  - sleep 10
   script:
   - blc --filter-level 3 --input http://localhost:5555 -rog --exclude "*linkedin.*"
   tags:
