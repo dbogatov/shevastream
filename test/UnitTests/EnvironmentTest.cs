@@ -3,7 +3,6 @@ using Xunit;
 
 namespace Shevastream.Tests.UnitTests
 {
-	[Collection("The Collection")]
 	/// <summary>
 	/// Tests environment settings
 	/// </summary>

@@ -96,6 +96,7 @@ namespace Shevastream.Tests.IntegrationTests
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, ok.StatusCode);
+			Assert.NotEmpty(await ok.Content.ReadAsStringAsync());
 		}
 
 		[Fact]
@@ -111,7 +112,11 @@ namespace Shevastream.Tests.IntegrationTests
 			);
 
 			// Assert
-			results.ToList().ForEach(res => Assert.Equal(HttpStatusCode.OK, res.StatusCode));
+			foreach (var result in results)
+			{
+				Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+				Assert.NotEmpty(await result.Content.ReadAsStringAsync());
+			}
 		}
 
 		[Fact]
@@ -127,7 +132,11 @@ namespace Shevastream.Tests.IntegrationTests
 			);
 
 			// Assert
-			results.ToList().ForEach(res => Assert.Equal(HttpStatusCode.OK, res.StatusCode));
+			foreach (var result in results)
+			{
+				Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+				Assert.NotEmpty(await result.Content.ReadAsStringAsync());
+			}
 		}
 	}
 }
