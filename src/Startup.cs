@@ -57,6 +57,14 @@ namespace Shevastream
 						b => b.UseNpgsql(Configuration["Data:ConnectionString"])
 					);
 			}
+			else if (CurrentEnvironment.IsDevelopment())
+			{
+				services
+					.AddEntityFrameworkSqlite()
+					.AddDbContext<DataContext>(
+						b => b.UseSqlite("Data Source=development.db")
+					);
+			}
 			else
 			{
 				services
@@ -182,24 +190,7 @@ namespace Shevastream
 				context.Database.EnsureCreated();
 			}
 
-			// Seed the database. Should be awaited but not possible now
-			if (env.IsTesting())
-			{
-				// Testing requires synchronous code
-				// Test runner (at least XUnit) tends to run tests in parallel
-				// When 2+ threads try to setup a virtual server in an async environment,
-				// deadlock usually happens.
-				serviceProvider.GetRequiredService<IDataSeedService>().SeedData();
-			}
-			else
-			{
-				serviceProvider.GetRequiredService<IDataSeedService>().SeedData(); //Async().Wait();
-			}
-
-			// set the default HTML formatter for all future conversions
-			CommonMarkSettings.Default.OutputDelegate =
-				(doc, output, settings) =>
-				new MyFormatter(output, settings).WriteDocument(doc);
+			serviceProvider.GetRequiredService<IDataSeedService>().SeedData();
 		}
 
 		// Entry point for the application.

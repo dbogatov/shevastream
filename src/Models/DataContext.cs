@@ -35,8 +35,6 @@ namespace Shevastream.Models
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
-			builder.HasDefaultSchema("shevastream");
-
 			base.OnModelCreating(builder);
 		}
 	}

@@ -32,8 +32,8 @@ version.json
 test/appsettings*.json
 
 # TypeScript
-/src/Client/dist/
-/src/Client/typings/
+/src/client/dist/
+/src/client/typings/
 
 # Mac temp files
 .DS_Store
