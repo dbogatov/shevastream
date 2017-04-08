@@ -14,7 +14,6 @@ build:
   image: dbogatov/docker-containers:dotnet-core-latest
   stage: build
   script:
-  - export ASPNETCORE_ENVIRONMENT="Production"
   - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > src/version.json
   - ./build.sh
   artifacts:
@@ -38,28 +37,48 @@ dockerify:
 
 test-dotnet:
   stage: test
-  image: registry.gitlab.com/rweda/docker:dotnet-core-latest
+  image: dbogatov/docker-containers:dotnet-core-latest
   script:
   - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > src/version.json
   - cd test
   - dotnet restore
-  - ./test-dotnet.sh | tee tests.out
+  - ./test.sh | tee tests.out
   - "cat tests.out | grep 'Failed: 0.'"
   tags:
   - Docker
 
-# test-integration:
-#   stage: test
-#   script:
-#   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-#   - docker-compose pull
-#   - docker-compose build
-#   - docker-compose up &
-#   - sleep 60
-#   - test/./test-integration.sh
-#   - kill %1
-#   tags:
-#   - shell
+tidy:
+  image: dbogatov/docker-containers:dotnet-core-latest
+  stage: test
+  dependencies:
+  - build
+  before_script:
+  - cd src/bin/release/netcoreapp1.1/publish/
+  - dotnet shevastream.dll > /dev/null &
+  - sleep 5
+  script:
+  - curl -Ls http://localhost:5555/ | tidy -e
+  # - curl -Ls http://localhost:8080/academics.html | tidy -e
+  # - curl -Ls http://localhost:8080/contacts.html | tidy -e
+  # - curl -Ls http://localhost:8080/feedback.html | tidy -e
+  # - curl -Ls http://localhost:8080/portfolio.html | tidy -e
+  # - curl -Ls http://localhost:8080/resume.html | tidy -e
+  tags:
+  - Docker
+  
+blc:
+  image: dbogatov/docker-containers:dotnet-core-latest
+  stage: test
+  dependencies:
+  - build
+  before_script:
+  - cd src/bin/release/netcoreapp1.1/publish/
+  - dotnet shevastream.dll > /dev/null &
+  - sleep 5
+  script:
+  - blc --filter-level 3 --input http://localhost:5555 -rog --exclude "*linkedin.*"
+  tags:
+  - Docker
 
 release:  
   stage: release
