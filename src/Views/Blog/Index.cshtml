@@ -50,8 +50,8 @@
 						<div class="col-md-12">
 							<h2>
 								<span class="the-calendar">
-									<span class="the-date"><i class="fa fa-calendar"></i> @(post.DatePosted.ToString("dd/MM/yy"))</span>
-									<span class="the-comments"><i class="fa fa-eye"></i> @(post.Views)</span>
+									<span class="the-date"><i class="fa fa-calendar"><!-- --></i> @(post.DatePosted.ToString("dd/MM/yy"))</span>
+									<span class="the-comments"><i class="fa fa-eye"><!-- --></i> @(post.Views)</span>
 								</span>
 								@if (post.Active)
 								{
@@ -62,7 +62,7 @@
 								}
 							</h2>
 							<hr>
-							<p>@(Html.Raw(post.Preview))</p>
+							@(Html.Raw(post.Preview))
 							<p>
 								@if (post.Active)
 								{

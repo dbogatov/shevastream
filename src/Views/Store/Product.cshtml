@@ -40,26 +40,14 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h2>Наша продукція</h2>
-				<ul class="thumbnails" style="padding-left: 0;">
-					
+				<div class="row">
+
 					@foreach (var product in Model)
 					{
 						<thumbnail img="@(JsonConvert.DeserializeObject(product.ImageUrls)[0])" title="@(product.Name)" price="@(product.Cost)" product-id="@(product.Id)" />						
 					}
-					
-				</ul>
 
-				<ul class="pagination" style="visibility: hidden;">
-					<li class="disabled"><a href="#">Page 1 of 2</a></li>
-					<li class="disabled"><a href="#">&laquo;</a></li>
-					<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#">&raquo;</a></li>
-				</ul>
-
+				</div>
 			</div>
 		</div>
 	</div>

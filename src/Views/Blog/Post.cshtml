@@ -38,8 +38,8 @@
 					<div class="col-md-12">
 						<h2>
 							<span class="the-calendar">
-								<span class="the-date"><i class="fa fa-calendar"></i>@(Model.DatePosted.ToString("dd/mm/yy"))</span>
-								<span class="the-comments"><i class="fa fa-eye"></i> @(Model.Views)</span>
+								<span class="the-date"><i class="fa fa-calendar"><!-- --></i>@(Model.DatePosted.ToString("dd/mm/yy"))</span>
+								<span class="the-comments"><i class="fa fa-eye"><!-- --></i> @(Model.Views)</span>
 							</span>
 							<a asp-route="Blog" asp-route-id="@(Model.Id)" asp-route-title="@(Model.TitleUrl)">@(Model.Title)</a>
 						</h2>
@@ -47,7 +47,7 @@
 						
 						@(Html.Raw(Model.HtmlContent))
 						
-						<p class="meta-tags"><i class="fa fa-user"></i> <a asp-controller="Home" asp-action="Profile">@(Model.Author.NickName)</a></p>
+						<p class="meta-tags"><i class="fa fa-user"><!-- --></i> <a asp-controller="Home" asp-action="Profile">@(Model.Author.NickName)</a></p>
 					</div>
 				</div>
 				

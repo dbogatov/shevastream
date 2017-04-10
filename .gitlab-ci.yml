@@ -1,14 +1,7 @@
 stages:
 - build
-- dockerify
 - test
 - release
-- deploy
-
-before_script:
-- export RELEASE_IMAGE="registry.dbogatov.org/dbogatov/shevastream:$CI_BUILD_REF_NAME"
-- export TEST_IMAGE="$RELEASE_IMAGE-build"
-- export DOTNET_TAG="$CI_BUILD_REF_NAME-build"
 
 build:
   image: dbogatov/docker-containers:dotnet-core-latest
@@ -17,23 +10,11 @@ build:
   - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > src/version.json
   - ./build.sh
   artifacts:
-    expire_in: 30 min
+    expire_in: 90 min
     paths:
     - src/bin/
   tags:
   - Docker
-
-dockerify:
-  stage: dockerify
-  dependencies:
-  - build
-  before_script:
-  script:
-  - docker build -t $TEST_IMAGE .
-  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
-  - docker push $TEST_IMAGE
-  tags:
-  - Shell
 
 test-dotnet:
   stage: test
@@ -57,16 +38,17 @@ tidy:
   - export ASPNETCORE_ENVIRONMENT="Staging"
   - cd src/bin/release/netcoreapp1.1/publish/
   - dotnet shevastream.dll > /dev/null &
-  - sleep 10
+  - sleep 15
   script:
   - curl -Ls http://localhost:5555/ | tidy -e
-  - curl -Ls http://localhost:8080/home/profile | tidy -e
-  - curl -Ls http://localhost:8080//home/contact | tidy -e
-  - curl -Ls http://localhost:8080/store/product | tidy -e
-  - curl -Ls http://localhost:8080/store/product/1 | tidy -e
-  - curl -Ls http://localhost:8080/store/cart | tidy -e
-  - curl -Ls http://localhost:8080/blog | tidy -e
-  - curl -Ls http://localhost:8080/blog/29 | tidy -e
+  - curl -Ls http://localhost:5555/home/profile | tidy -e
+  - curl -Ls http://localhost:5555/home/contact | tidy -e
+  - curl -Ls http://localhost:5555/home/faq | tidy -e
+  - curl -Ls http://localhost:5555/store/product | tidy -e
+  - curl -Ls http://localhost:5555/store/product/1 | tidy -e
+  - curl -Ls http://localhost:5555/store/cart | tidy -e
+  - curl -Ls http://localhost:5555/blog | tidy -e
+  - curl -Ls http://localhost:5555/blog/29 | tidy -e
   tags:
   - Docker
   
@@ -79,18 +61,19 @@ blc:
   - export ASPNETCORE_ENVIRONMENT="Staging"
   - cd src/bin/release/netcoreapp1.1/publish/
   - dotnet shevastream.dll > /dev/null &
-  - sleep 10
+  - sleep 15
   script:
   - blc --filter-level 3 --input http://localhost:5555 -rog --exclude "*linkedin.*"
   tags:
   - Docker
 
-release:  
+release:
   stage: release
+  dependencies:
+  - build
   script:
+  - docker build -t registry.dbogatov.org/dbogatov/shevastream:$CI_BUILD_REF_NAME .
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
-  - docker pull $TEST_IMAGE
-  - docker tag $TEST_IMAGE $RELEASE_IMAGE
-  - docker push $RELEASE_IMAGE
+  - docker push registry.dbogatov.org/dbogatov/shevastream:$CI_BUILD_REF_NAME
   tags:
   - Shell
