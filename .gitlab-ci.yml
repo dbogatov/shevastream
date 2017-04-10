@@ -1,5 +1,4 @@
 stages:
-- pre-build
 - build
 - dockerify
 - test
@@ -37,7 +36,7 @@ dockerify:
   - Shell
 
 test-dotnet:
-  stage: pre-build
+  stage: test
   image: dbogatov/docker-containers:dotnet-core-latest
   script:
   - export ASPNETCORE_ENVIRONMENT="Testing"
