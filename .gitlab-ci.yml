@@ -1,4 +1,5 @@
 stages:
+- pre-build
 - build
 - dockerify
 - test
@@ -36,7 +37,7 @@ dockerify:
   - Shell
 
 test-dotnet:
-  stage: test
+  stage: pre-build
   image: dbogatov/docker-containers:dotnet-core-latest
   script:
   - export ASPNETCORE_ENVIRONMENT="Testing"
@@ -46,7 +47,8 @@ test-dotnet:
   - dotnet build
   - ls ../src/
   - ls bin/Debug/netcoreapp1.1/
-  - less bin/Debug/netcoreapp1.1/appsettings.testing.json
+  - cat bin/Debug/netcoreapp1.1/appsettings.testing.json
+  - echo $ASPNETCORE_ENVIRONMENT
   - ./test.sh | tee tests.out
   - "cat tests.out | grep 'Failed: 0.'"
   tags:
