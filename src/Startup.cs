@@ -33,7 +33,7 @@ namespace Shevastream
 			var builder = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json")
-				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: false)
+				.AddJsonFile($"appsettings.{env.EnvironmentName.ToLower()}.json", optional: true)
 				.AddJsonFile("version.json", optional: true)
 				.AddEnvironmentVariables();
 
