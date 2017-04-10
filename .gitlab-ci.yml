@@ -43,6 +43,10 @@ test-dotnet:
   - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > src/version.json
   - cd test
   - dotnet restore
+  - dotnet build
+  - ls ../src/
+  - ls bin/Debug/netcoreapp1.1/
+  - less bin/Debug/netcoreapp1.1/appsettings.testing.json
   - ./test.sh | tee tests.out
   - "cat tests.out | grep 'Failed: 0.'"
   tags:
