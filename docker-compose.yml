@@ -14,7 +14,7 @@ services:
   dotnet: # without image, compose will take Dockerfile from this direactory and build it (at least it should)
     image: registry.dbogatov.org/dbogatov/shevastream:${DOTNET_TAG} # if DOTNET_TAG not set, use "", or :latest
     environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_ENVIRONMENT=Production
     depends_on:
       - postgres
     links:
