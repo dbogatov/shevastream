@@ -1,4 +1,8 @@
-﻿@{
+﻿@using Microsoft.Extensions.Configuration
+
+@inject IConfiguration Config
+
+@{
 	ViewData["Title"] = "Login";
 }
 
@@ -54,7 +58,7 @@
 					
 					<div class="form-group">
 						<div class="col-sm-6 col-sm-offset-3">
-							<div class="g-recaptcha" data-sitekey="6LfYAiETAAAAAIPHSA0zKXysAQ_hpXmWoAFOfLcb"></div>
+							<div class="g-recaptcha" data-sitekey="@Config["ReCaptcha:SiteKey"]"></div>
 						</div>
 					</div>
 

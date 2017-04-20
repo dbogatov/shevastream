@@ -4,24 +4,27 @@ using Shevastream.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using System;
 
 namespace Shevastream.ActionFilters
 {
 	public class ReCaptcha : ActionFilterAttribute
 	{
 		private readonly string CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify";
-		private readonly string SECRET = "6LfYAiETAAAAAMGrNgFMnY5rnc5jxjFuU8yveqnj";
-		private readonly IHostingEnvironment _env;
+		private readonly string SECRET = "set-by-config";
+		private readonly IConfiguration _conf;
 
-		public ReCaptcha(IHostingEnvironment env)
+		public ReCaptcha(IConfiguration conf)
 		{
-			_env = env;
+			_conf = conf;
+
+			SECRET = _conf["ReCaptcha:SecretKey"];
 		}
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			if (!_env.IsProduction())
+			if (!Convert.ToBoolean(_conf["ReCaptcha:Enable"]))
 			{
 				return;
 			}

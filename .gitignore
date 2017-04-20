@@ -40,6 +40,8 @@ test/appsettings*.json
 
 *.lock
 
+src/appsettings.production.json
+
 # TODO remove
 /src/wwwroot/lib/
 
