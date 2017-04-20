@@ -1,3 +1,5 @@
+// Event listeners for cart update
+
 $(() => {
 
 	let submitCartChanges = (jQueryObject) => {

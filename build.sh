@@ -125,7 +125,7 @@ build-dotnet () {
 	cd $CWD/src
 
 	echo "Building and publishing .NET app... Requires .NET SDK"
-	dotnet publish -c release #> /dev/null
+	dotnet publish -c release > /dev/null
 
 }
 
@@ -235,4 +235,4 @@ while getopts "f:d" o; do
 done
 shift $((OPTIND-1))
 
-build-app-sequential
+build-app-parallel

@@ -1,5 +1,6 @@
 $(() => {
 
+	// Some similar items need to have equal heights
 	let fixHeight = () => {
 
 		var maxHeight = 0;

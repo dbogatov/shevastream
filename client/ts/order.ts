@@ -1,9 +1,12 @@
+import * as Cookies from "js-cookie";
+import "jquery-mask-plugin"
+
 $(() => {
 
 	$("#addressGroup").hide();
 
-	// TODO
-	var userData = (<any>$).cookie("UserOrderData");
+	// Restore user information if available
+	var userData = Cookies.get("UserOrderData");
 
 	if (userData != null) {
 		var data = JSON.parse(userData);

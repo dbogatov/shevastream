@@ -137,3 +137,15 @@
 	</div>
 </div>
 <!-- end:content -->
+
+@section scripts {
+
+	<environment names="Development">
+		<script defer src="/js/ts/order.js"></script>
+	</environment>
+
+	<environment names="Staging,Production">
+		<script defer src="/js/order.min.js"></script>
+	</environment>
+}
+	

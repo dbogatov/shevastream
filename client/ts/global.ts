@@ -1,4 +1,7 @@
-﻿import "jquery-mask-plugin"
+﻿// This instructions should be loaded for every page
+// Most of it is dealing with the layout piece
+
+import "jquery-mask-plugin"
 import "bootstrap"
 
 $(() => {
@@ -8,6 +11,7 @@ $(() => {
 		e.preventDefault();
 	});
 
+	// Footer needs to be "stick" to the bottom
 	let fixFooter = () => {
 		if ($("body").height() < $(window.top).height()) {
 			$("#footerFix").height($(window.top).height() - $("body").height());
@@ -52,6 +56,7 @@ $(() => {
 	registerCallMeBack();
 });
 
+// Extend JQuery with AJAX PUT and DELETE methods
 jQuery.each(["put", "delete"], function (i, method) {
 	jQuery[method] = function (url, data, callback, type) {
 		if (jQuery.isFunction(data)) {
