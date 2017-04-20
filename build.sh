@@ -235,4 +235,7 @@ while getopts "f:d" o; do
 done
 shift $((OPTIND-1))
 
+# Clean yarn cache
+yarn cache clean
+
 build-app-parallel

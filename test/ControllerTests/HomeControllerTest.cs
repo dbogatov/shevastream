@@ -9,6 +9,7 @@ using Shevastream.ViewModels.Blog;
 using Shevastream.Extensions;
 using Moq;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace Shevastream.Tests.ControllerTests
 {
@@ -18,6 +19,7 @@ namespace Shevastream.Tests.ControllerTests
 	public partial class HomeControllerTest
 	{
 		private readonly HomeController _controller;
+		private readonly int PRIVACY_ID = 1;
 
 		public HomeControllerTest()
 		{
@@ -27,9 +29,9 @@ namespace Shevastream.Tests.ControllerTests
 				.ReturnsAsync(new List<BlogPostViewModel> { new BlogPostViewModel() });
 
 			var siteMap = new Mock<ISiteMapService>();
-			siteMap.
-				Setup(map => map.GetSiteMap()).
-				Returns(new SiteMap
+			siteMap
+				.Setup(map => map.GetSiteMap())
+				.Returns(new SiteMap
 				{
 					Items = new List<SiteMapItem> {
 						new SiteMapItem {
@@ -40,7 +42,14 @@ namespace Shevastream.Tests.ControllerTests
 					}
 				});
 
-			_controller = new HomeController(siteMap.Object, blogService.Object);
+			var config = new Mock<IConfiguration>();
+			config
+				.SetupGet(c => c["Data:PrivacyPolicy:Id"])
+				.Returns($"{PRIVACY_ID}");
+
+			
+
+			_controller = new HomeController(siteMap.Object, blogService.Object, config.Object);
 		}
 
 		[Fact]
@@ -93,7 +102,7 @@ namespace Shevastream.Tests.ControllerTests
 
 			var id = Assert.IsType<int>(redirectResult.RouteValues["id"]);
 
-			Assert.NotEqual(0, id);
+			Assert.Equal(PRIVACY_ID, id);
 		}
 
 	}

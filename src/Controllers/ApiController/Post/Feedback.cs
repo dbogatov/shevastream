@@ -12,7 +12,7 @@ namespace Shevastream.Controllers
 		/// <summary>
 		/// Records a feedback / contact request.
 		/// </summary>
-		/// <param name="model">Set of parameters representing data regarding the feedback</param>
+		/// <param name="feedback">Set of parameters representing data regarding the feedback</param>
 		/// <returns>400 if parameters are malformed, 200 otherwise</returns>
 		public async Task<IActionResult> Feedback(Feedback feedback)
 		{

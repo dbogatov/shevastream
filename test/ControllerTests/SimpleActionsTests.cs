@@ -7,6 +7,7 @@ using Shevastream.Controllers.View;
 using Shevastream.Models;
 using System.Reflection;
 using Moq;
+using Microsoft.Extensions.Configuration;
 
 namespace Shevastream.Tests.ControllerTests
 {
@@ -23,8 +24,16 @@ namespace Shevastream.Tests.ControllerTests
 			var cartService = new Mock<ICartService>();
 			cartService.Setup(cart => cart.GetTotalCost()).Returns(0);
 
-			_home = new HomeController(new Mock<ISiteMapService>().Object, new Mock<IBlogService>().Object);
-			_store = new StoreController(new Mock<IDataContext>().Object, cartService.Object, new Mock<IOrderService>().Object);
+			_home = new HomeController(
+				new Mock<ISiteMapService>().Object,
+				new Mock<IBlogService>().Object,
+				new Mock<IConfiguration>().Object
+			);
+			_store = new StoreController(
+				new Mock<IDataContext>().Object,
+				cartService.Object,
+				new Mock<IOrderService>().Object
+			);
 		}
 
 		[Theory]
