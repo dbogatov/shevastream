@@ -32,7 +32,7 @@ namespace Shevastream.Services
 		}
 
 		public async Task SendOrderAsync(string orderDescription, string name, string email, IEnumerable<Product> products)
-		{return;
+		{
 			using (var client = _httpClientFactory.BuildClient())
 			{
 				var values = new Dictionary<string, string>

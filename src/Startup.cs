@@ -140,6 +140,7 @@ namespace Shevastream
 
 			app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
+			app.UseDefaultFiles(); // in wwwroot folder, index.html is served when opening a directory
 			app.UseStaticFiles();
 
 			// To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
