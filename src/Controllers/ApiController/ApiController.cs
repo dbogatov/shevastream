@@ -6,6 +6,9 @@ using Shevastream.Services;
 namespace Shevastream.Controllers
 {
 	[Produces("application/json")]
+	/// <summary>
+	/// Controller responsible for API endpoints - /api
+	/// </summary>
 	public partial class ApiController : Controller
 	{
 		// Context for data provider

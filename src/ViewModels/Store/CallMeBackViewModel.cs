@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Shevastream.ViewModels.Store
 {
 	public class CallMeBackViewModel
 	{
+		[Required]
 		public string Phone { get; set; }
 
 

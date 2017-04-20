@@ -227,6 +227,6 @@ namespace Shevastream.Extensions
 	/// </summary>
 	public enum LoggingEvents
 	{
-		Startup, Order, Feedback, Blog
+		Startup, Order, Feedback, Blog, ActionFilters
 	}
 }
