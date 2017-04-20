@@ -18,7 +18,7 @@ namespace Shevastream.Tests.UnitTests
 			_config =
 				new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json", optional: false)
-				.AddJsonFile("appsettings.testing.json", optional: false)
+				.AddJsonFile("appsettings.testing.json", optional: true)
 				.Build();
 		}
 
