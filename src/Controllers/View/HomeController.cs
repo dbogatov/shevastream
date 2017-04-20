@@ -2,22 +2,31 @@
 using Shevastream.Services;
 using Microsoft.AspNetCore.Mvc;
 using Shevastream.Extensions;
+using Microsoft.Extensions.Configuration;
+using System;
 
 namespace Shevastream.Controllers.View
 {
+	/// <summary>
+	/// Controller responsible for home endpoints - /home
+	/// </summary>
 	public class HomeController : Controller
 	{
 		private readonly ISiteMapService _siteMap;
 		private readonly IBlogService _blogService;
 
-		private readonly int PRIVACY_ID = 29;
+		private readonly int PRIVACY_ID = -1; // Set by config
 
-		public HomeController(ISiteMapService siteMap, IBlogService blogService)
+		public HomeController(ISiteMapService siteMap, IBlogService blogService, IConfiguration config)
 		{
 			_siteMap = siteMap;
 			_blogService = blogService;
+			PRIVACY_ID = Convert.ToInt32(config["Data:PrivacyPolicy:Id"]);
 		}
 
+		/// <summary>
+		/// Generates SiteMap from existing static pages, blog posts and products
+		/// </summary>
 		public SiteMapResult SiteMap()
 		{
 			var siteMap = _siteMap.GetSiteMap();
@@ -44,6 +53,9 @@ namespace Shevastream.Controllers.View
 			return View();
 		}
 
+		/// <summary>
+		/// Redirects to the blog post with privacy statement
+		/// </summary>
 		public IActionResult Privacy()
 		{
 			return RedirectToRoutePermanent("Blog", new { id = PRIVACY_ID });

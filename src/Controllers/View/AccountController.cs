@@ -9,6 +9,9 @@ using Shevastream.Models;
 
 namespace Shevastream.Controllers.View
 {
+	/// <summary>
+	/// Controller responsible for authentication related endpoints - /account
+	/// </summary>
 	public class AccountController : Controller
 	{
 		private readonly ICryptoService _crypto;
@@ -38,6 +41,7 @@ namespace Shevastream.Controllers.View
 		[ServiceFilter(typeof(ReCaptcha))]
 		public IActionResult Authenticate()
 		{
+			// Check ReCaptcha
 			if (!ModelState.IsValid)
 			{
 				return View(
@@ -51,11 +55,13 @@ namespace Shevastream.Controllers.View
 				);
 			}
 
+			// Compute hash of password and find a user with such hash
 			string hash = _crypto.CalculateHash(Request.Form["password"]);
 			var user = _context.Users.FirstOrDefault(u => u.PassHash == hash);
 
 			if (user != null)
 			{
+				// User found, authenticate him
 				var principal = new ClaimsPrincipal(
 					new ClaimsIdentity(
 						new List<Claim> {
@@ -77,6 +83,7 @@ namespace Shevastream.Controllers.View
 			}
 			else
 			{
+				// No user found, wrong password
 				return View("Login", new ReturnUrlViewModel
 				{
 					ReturnUrl = Request.Query["returnurl"],

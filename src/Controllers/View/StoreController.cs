@@ -7,6 +7,9 @@ using Shevastream.Models;
 
 namespace Shevastream.Controllers.View
 {
+	/// <summary>
+	/// Controller responsible for store endpoints - /store
+	/// </summary>
 	public class StoreController : Controller
 	{
 		private readonly IDataContext _context;
@@ -27,6 +30,7 @@ namespace Shevastream.Controllers.View
 
 		public IActionResult Order()
 		{
+			// Compute cart total cost
 			ViewBag.TotalCost = _cart.GetTotalCost();
 
 			return View();

@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Shevastream.Controllers.View
 {
+	/// <summary>
+	/// Controller responsible for blog endpoints - /blog
+	/// </summary>
 	public class BlogController : Controller
 	{
 		private readonly IBlogService _blog;
@@ -27,17 +30,20 @@ namespace Shevastream.Controllers.View
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Publish(BlogPostViewModel model)
 		{
+			// Verify parameter consistency
 			if (!ModelState.IsValid)
 			{
 				return BadRequest();
 			}
 
+			// Try to update, otherwise create
 			var updated = await _blog.UpdatePostAsync(model);
 			if (updated == null)
 			{
 				updated = await _blog.CreatePostAsync(model);
 			}
 
+			// Show the post or redirect to index
 			if (updated.Active)
 			{
 				return RedirectToRoute("Blog", new { title = updated.TitleUrl, id = updated.Id });
@@ -50,12 +56,15 @@ namespace Shevastream.Controllers.View
 
 		public async Task<IActionResult> Post(int id, string title)
 		{
+			// Try to retrieve post by id
 			var model = await _blog.GetPostByIdAsync(id);
 
 			if (model != null)
 			{
+				// If found, verify title-url (needed for SEO consistency)
 				if (title == null || title != model.TitleUrl)
 				{
+					// If title-url is wrong, redirect ot the right one
 					return RedirectToRoutePermanent("Blog", new { id = id, title = model.TitleUrl });
 				}
 
