@@ -19,6 +19,8 @@ services:
       - postgres
     links:
       - "postgres:database"
+    volumes:
+      - ./appsettings.json:/srv/appsettings.production.json
     restart: on-failure
   postgres:
     image: postgres:latest

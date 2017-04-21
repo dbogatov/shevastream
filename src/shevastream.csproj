@@ -43,7 +43,7 @@
 	</ItemGroup>
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 	<ItemGroup>
-		<AppSettings Include="appsettings*.json;"/>
+		<AppSettings Include="appsettings*.json"/>
 	</ItemGroup>
 	<Target Name="AfterBuild">
 		<Copy SourceFiles="@(AppSettings)" DestinationFolder="$(OutputPath)/" ContinueOnError="false" />
