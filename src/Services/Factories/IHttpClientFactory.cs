@@ -4,6 +4,9 @@ namespace Shevastream.Services.Factories
 {
 	public interface IHttpClientFactory
 	{
+		/// <summary>
+		/// Returns HttpClient
+		/// </summary>
 		HttpClient BuildClient();
 	}
 

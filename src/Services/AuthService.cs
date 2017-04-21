@@ -7,6 +7,11 @@ namespace Shevastream.Services
 {
 	public interface IAuthService
 	{
+		/// <summary>
+		/// Returns an id of the currently authenticated user
+		/// Or null if user is not authenticated
+		/// </summary>
+		/// <returns>Id of the authenticated user</returns>
 		int? GetCurrentUserId();
 	}
 

@@ -14,14 +14,69 @@ namespace Shevastream.Services
 {
 	public interface IBlogService
 	{
+		/// <summary>
+		/// Generate HTML from Markdown
+		/// </summary>
+		/// <param name="content">Markdown input</param>
+		/// <returns>HTML output</returns>
 		string MarkDownToHtml(string content);
+
+		/// <summary>
+		/// Generate TitleUrl property of the blog post
+		/// </summary>
+		/// <param name="title">Original post title</param>
+		/// <returns>TitleUrl property of the post</returns>
 		string GenerateUrlFromTitle(string title);
+
+		/// <summary>
+		/// Generates HTML version of the post preview
+		/// </summary>
+		/// <param name="content">Markdown post content</param>
+		/// <returns>HTML preview</returns>
 		string GeneratePreview(string content);
+
+		/// <summary>
+		/// Returns all available posts, including not active ones
+		/// </summary>
+		/// <returns>All available posts</returns>
 		Task<IEnumerable<BlogPostViewModel>> GetAllPostsAsync();
+
+		/// <summary>
+		/// Returns the post given by the unique ID
+		/// </summary>
+		/// <param name="id">ID of the post to find</param>
+		/// <param name="active">If true, and the post is not active, return null</param>
+		/// <returns>Post given by ID or null, if post not found</returns>
 		Task<BlogPostViewModel> GetPostByIdAsync(int id, bool active = true);
+
+		/// <summary>
+		/// Tries to find the post in the database, updates it and saves changes.
+		/// If cannot find, returns null.
+		/// </summary>
+		/// <param name="post">Post to update</param>
+		/// <returns>Updated post if post was found, null otherwise</returns>
 		Task<BlogPost> UpdatePostAsync(BlogPostViewModel post);
+
+		/// <summary>
+		/// Creates the post in the database and return it.
+		/// </summary>
+		/// <param name="post">Post to create.</param>
+		/// <returns>Created post.</returns>
 		Task<BlogPost> CreatePostAsync(BlogPostViewModel post);
-		Task AddViewAsync(BlogPostViewModel post);
+
+		/// <summary>
+		/// Increments a view counter for the given post.
+		/// Saves changes in the database.
+		/// </summary>
+		/// <param name="post">Post for which to increase view counter.</param>
+		/// <returns>New number of views, or null if post does not exist in the database.</returns>
+		Task<int?> AddViewAsync(BlogPostViewModel post);
+
+		/// <summary>
+		/// Return postsNum of latest posts.
+		/// </summary>
+		/// <param name="postsNum">Number of post to return.</param>
+		/// <returns>Returns postsNum (or fewer) latest posts in a chronological order.</returns>
 		Task<IEnumerable<BlogPostViewModel>> GetLatestPostsAsync(int postsNum);
 	}
 
@@ -176,7 +231,7 @@ namespace Shevastream.Services
 			return @new;
 		}
 
-		public async Task AddViewAsync(BlogPostViewModel post)
+		public async Task<int?> AddViewAsync(BlogPostViewModel post)
 		{
 			if (_context.BlogPosts.Any(bp => bp.Id == post.Id))
 			{
@@ -184,6 +239,12 @@ namespace Shevastream.Services
 				old.Views++;
 
 				await _context.SaveChangesAsync();
+
+				return old.Views;
+			}
+			else
+			{
+				return null;
 			}
 		}
 
