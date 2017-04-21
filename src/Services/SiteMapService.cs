@@ -11,6 +11,10 @@ namespace Shevastream.Services
 {
 	public interface ISiteMapService
 	{
+		/// <summary>
+		/// Generates SiteMap from the posts / products / static pages
+		/// </summary>
+		/// <returns>Site map model (list of items)</returns>
 		SiteMap GetSiteMap();
 	}
 

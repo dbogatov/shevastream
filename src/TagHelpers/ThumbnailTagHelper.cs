@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Shevastream.TagHelpers
 {
 	[HtmlTargetElement("thumbnail", Attributes = "img, title, price, product-id")]
+	/// <summary>
+	/// Generates thumbnail div for the product
+	/// </summary>
 	public class ThumbnailTagHelper : TagHelper
 	{
 		[HtmlAttributeName("img")]

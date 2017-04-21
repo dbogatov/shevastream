@@ -9,11 +9,39 @@ namespace Shevastream.Services
 {
 	public interface ICartService
 	{
+		/// <summary>
+		/// Returns a full cart model (includes list of products)
+		/// </summary>
+		/// <returns>Full cart model</returns>
 		FullCartViewModel GetCart();
+
+		/// <summary>
+		/// Returns a total cost of all items in the cart
+		/// </summary>
+		/// <returns>Cart total cost</returns>
 		int GetTotalCost();
+
+		/// <summary>
+		/// Update cart with a new element
+		/// </summary>
+		/// <param name="element">Element to be added.removed/updated</param>
 		void UpdateCart(CartElementViewModel element);
+
+		/// <summary>
+		/// Returns a simplified cart model (includes list of product IDs)
+		/// </summary>
+		/// <returns>Simplified cart model</returns>
 		CartViewModel GetSimpleCart();
+
+		/// <summary>
+		/// Checks if the cart is empty or does not exist
+		/// </summary>
+		/// <returns>False if cart contains any items, true otherwise</returns>
 		bool IsCartEmpty();
+
+		/// <summary>
+		/// Empties the cart
+		/// </summary>
 		void EmptyCart();
 	}
 
@@ -78,10 +106,6 @@ namespace Shevastream.Services
 			_context = context;
 		}
 
-		/// <summary>
-		/// Returns a cart model for the user
-		/// </summary>
-		/// <returns>Model with empty product list if there is no cart; list of products in the cart otherwise</returns>
 		public FullCartViewModel GetCart()
 		{
 			FullCartViewModel model = new FullCartViewModel();

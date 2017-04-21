@@ -78,5 +78,6 @@ release:
   artifacts:
     paths:
     - docker-compose.yml
+    - nginx.conf
   tags:
   - Shell

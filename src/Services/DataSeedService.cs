@@ -15,7 +15,7 @@ namespace Shevastream.Services
 	public interface IDataSeedService
 	{
 		/// <summary>
-		/// Populates data provider with initial set of records (like enums)
+		/// Populates data provider with initial set of records (mostly from config)
 		/// </summary>
 		Task SeedDataAsync();
 
@@ -73,6 +73,9 @@ namespace Shevastream.Services
 			await SeedSpecificEntityAsync(_blogPosts, _context.BlogPosts);
 		}
 
+		/// <summary>
+		/// Reads values from configuration and stores them in class properties
+		/// </summary>
 		private void ReadConfiguration()
 		{
 			_users = _configuration
@@ -146,10 +149,14 @@ namespace Shevastream.Services
 		/// in the supplied list.
 		/// </summary>
 		/// <param name="values">List of supplied values to be inserted/replaced</param>
-		/// <param name="dbSets">The set of entities of this type in the data provider. 
-		/// These are to be replaced by values.</param>
-		/// <returns>True if values has been replaced, false if values were in sync and did not require 
-		/// replacement.</returns>
+		/// <param name="dbSets">
+		/// The set of entities of this type in the data provider. 
+		/// These are to be replaced by values.
+		/// </param>
+		/// <returns>
+		/// True if values has been replaced, false if values were in sync and 
+		/// did not require replacement.
+		/// </returns>
 		private async Task<bool> SeedSpecificEntityAsync<T>(IEnumerable<T> values, DbSet<T> dbSets, bool ignoreCount = false) where T : class
 		{
 			if (values.Count() != await dbSets.CountAsync() || ignoreCount)

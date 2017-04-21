@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Shevastream.TagHelpers
 {
 	[HtmlTargetElement("email", Attributes = "to")]
+	/// <summary>
+	/// Generates mailto link for emails
+	/// </summary>
 	public class EmailTagHelper : TagHelper
 	{
 		public string To { get; set; }

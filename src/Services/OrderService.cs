@@ -12,6 +12,11 @@ namespace Shevastream.Services
 {
 	public interface IOrderService
 	{
+		/// <summary>
+		/// Stores the order in the database and triggers notification service
+		/// </summary>
+		/// <param name="order">Order to put in the database</param>
+		/// <returns>The ID of the order in the database</returns>
 		Task<int> PutOrderAsync(OrderViewModel order);
 	}
 
@@ -120,6 +125,10 @@ namespace Shevastream.Services
 			return dbOrder.Id;
 		}
 
+		/// <summary>
+		/// Stores user information in the cookie
+		/// </summary>
+		/// <param name="data">User information to store</param>
 		private void SaveUserData(OrderUserData data)
 		{
 			// save user data in cookie
