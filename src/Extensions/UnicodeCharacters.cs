@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Shevastream.Extensions
 {
+	/// <summary>
+	/// Credit: https://github.com/thecoderok/Unidecode.NET
+	/// </summary>
 	public static partial class Unidecoder
 	{
 		private static readonly Dictionary<int, string[]> characters;

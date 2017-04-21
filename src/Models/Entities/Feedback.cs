@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shevastream.Models.Entities
 {
+	/// <summary>
+	/// Entity that represents feedback / complaint / suggestion /issue
+	/// </summary>
 	public class Feedback
 	{
 		[Key]

@@ -16,11 +16,26 @@ namespace Shevastream.Extensions
 			return (T)Enum.Parse(typeof(T), value, true);
 		}
 		
+		/// <summary>
+		/// Enhanced version of string.Contains that includes StringComparison options.
+		/// </summary>
+		/// <param name="source">The string to check</param>
+		/// <param name="toCheck">The substring that is checked to be in the input</param>
+		/// <param name="comp">Comparison options</param>
+		/// <returns>True if toCheck is in the source given comp options, false otherwise</returns>
 		public static bool Contains(this string source, string toCheck, StringComparison comp)
 		{
 			return source.IndexOf(toCheck, comp) >= 0;
 		}
 
+		/// <summary>
+		/// Enhanced string.Substring methods that takes into account Unicode encoding.
+		/// Credit: http://stackoverflow.com/a/31936096/1644554
+		/// </summary>
+		/// <param name="str">String from which to extract substring</param>
+		/// <param name="startIndex">Start index in str of substring</param>
+		/// <param name="length">Length of substring</param>
+		/// <returns>Substring of the str</returns>
 		public static string UnicodeSafeSubstring(this string str, int startIndex, int length)
 		{
 			if (str == null)
@@ -91,11 +106,22 @@ namespace Shevastream.Extensions
 			return sb.ToString();
 		}
 
+		/// <summary>
+		/// Enhanced version of string.Truncate method that is Unicode aware.
+		/// </summary>
+		/// <param name="value">String to truncate</param>
+		/// <param name="maxChars">Number of characters to leave</param>
+		/// <returns>Truncated string with ellipses (...) or original string if value length is less than maxChars </returns>
 		public static string Truncate(this string value, int maxChars)
 		{
 			return new StringInfo(value).LengthInTextElements <= maxChars ? value : value.UnicodeSafeSubstring(0, maxChars) + "...";
 		}
 
+		/// <summary>
+		/// Removes all tags (<tag>)
+		/// </summary>
+		/// <param name="input">String from which to remove tags</param>
+		/// <returns>Input with tags removed</returns>
 		public static string StripHTML(this string input)
 		{
 			return Regex.Replace(input, "<.*?>", String.Empty);
@@ -159,6 +185,7 @@ namespace Shevastream.Extensions
 
 		/// <summary>
 		/// Transliterate Unicode character to ASCII string.
+		/// Credit: https://github.com/thecoderok/Unidecode.NET
 		/// </summary>
 		/// <param name="c">Character you want to transliterate into ASCII</param>
 		/// <returns>

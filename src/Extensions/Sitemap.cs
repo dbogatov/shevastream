@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Shevastream.Extensions
 {
+	/// <summary>
+	/// Special action result that returns sitemap
+	/// </summary>
 	public class SiteMapResult : IActionResult
 	{
 		public SiteMap SiteMap { get; private set; }
@@ -26,9 +29,13 @@ namespace Shevastream.Extensions
 				WriteTo(output);
 			}
 
-			return Task.FromResult(0);
+			return Task.CompletedTask;
 		}
 
+		/// <summary>
+		/// Generate XML from the SiteMap list
+		/// </summary>
+		/// <param name="writer">XmlWriter to generate to</param>
 		public void WriteTo(XmlWriter writer)
 		{
 			XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
@@ -51,16 +58,25 @@ namespace Shevastream.Extensions
 		}
 	}
 
+	/// <summary>
+	/// Available SiteMap frequencies
+	/// </summary>
 	public enum ChangeFrequency
 	{
 		NotSet, Always, Hourly, Daily, Weekly, Monthly, Yearly, Never
 	}
-
+	
+	/// <summary>
+	/// List of SiteMap items
+	/// </summary>
 	public class SiteMap
 	{
 		public List<SiteMapItem> Items { get; set; }
 	}
 
+	/// <summary>
+	/// A single SiteMap item
+	/// </summary>
 	public class SiteMapItem
 	{
 		public Uri Loc { get; set; }

@@ -7,6 +7,10 @@ using Shevastream.Extensions;
 
 namespace Shevastream.Middleware
 {
+	/// <summary>
+	/// Middleware to ensure that all URL are lowercase (except API, images/css/js and query strings)
+	/// Needed for SEO purposes
+	/// </summary>
 	public class ToLowercaseMiddleware
 	{
 		private readonly RequestDelegate _next;
@@ -18,7 +22,7 @@ namespace Shevastream.Middleware
 
 		public async Task Invoke(HttpContext context)
 		{
-			//You don't want to redirect on posts, or images/css/js
+			// Do not redirect on posts, or images/css/js
 			bool isGet = context.Request.Method.ToLowerInvariant().Contains("get");
 			var absolutePath = UriHelper.GetDisplayUrl(context.Request);
 			var isApi = absolutePath.Contains("/api/", StringComparison.OrdinalIgnoreCase);
@@ -29,7 +33,7 @@ namespace Shevastream.Middleware
 				string lowercaseURL = (context.Request.Scheme + "://" + context.Request.Host.Host + (context.Request.Host.Port.HasValue ? $":{context.Request.Host.Port}" : "") + context.Request.Path);
 				if (Regex.IsMatch(lowercaseURL, @"[A-Z]"))
 				{
-					//You don't want to change casing on query strings
+					// Do not change casing on query strings
 					lowercaseURL = lowercaseURL.ToLower() + context.Request.QueryString;
 
 					context.Response.Clear();
