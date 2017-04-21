@@ -75,5 +75,8 @@ release:
   - docker build -t registry.dbogatov.org/dbogatov/shevastream:$CI_BUILD_REF_NAME .
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
   - docker push registry.dbogatov.org/dbogatov/shevastream:$CI_BUILD_REF_NAME
+  artifacts:
+    paths:
+    - docker-compose.yml
   tags:
   - Shell
