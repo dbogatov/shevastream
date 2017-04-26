@@ -24,9 +24,6 @@ namespace Shevastream.Tests.ControllerTests
 		[Theory]
 		[InlineData(true)]
 		[InlineData(true)]
-		/// <summary>
-		/// Checks that Index method returns proper model and status codes.
-		/// </summary>
 		public async Task Index(bool hasContent)
 		{
 			// Arrange

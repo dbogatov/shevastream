@@ -27,7 +27,6 @@ namespace Shevastream.Tests.IntegrationTests
 
 			var parameters = new Dictionary<string, string> { };
 
-			// Check OK when metric already exists
 			parameters["email"] = "name@example.com";
 			parameters["subject"] = "Test";
 			parameters["body"] = "Test body";

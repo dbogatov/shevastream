@@ -13,9 +13,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace Shevastream.Tests.ControllerTests
 {
-	/// <summary>
-	/// Integration tests for HomeController
-	/// </summary>
 	public partial class HomeControllerTest
 	{
 		private readonly HomeController _controller;
@@ -53,9 +50,6 @@ namespace Shevastream.Tests.ControllerTests
 		}
 
 		[Fact]
-		/// <summary>
-		/// Checks that Index method returns proper model and status codes.
-		/// </summary>
 		public async Task Index()
 		{
 			// Act

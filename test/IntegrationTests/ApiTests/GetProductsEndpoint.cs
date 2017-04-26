@@ -10,10 +10,6 @@ namespace Shevastream.Tests.IntegrationTests
 	public partial class IntegrationTests
 	{
 		[Fact]
-		/// <summary>
-		/// Check if ApiController.GetData endpoint returns status codes as per documentation
-		/// Check if endpoint returns valid JSON in OK cases
-		/// </summary>
 		public async Task GetProductsEndpoint()
 		{
 			// Arrange

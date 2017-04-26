@@ -218,6 +218,7 @@ quotted code
 			Assert.Null(unsuccessful);
 		}
 
+		[Fact]
 		public async Task CreatesPost()
 		{
 			// Arrange
@@ -243,6 +244,7 @@ quotted code
 			Assert.Equal("Title", _dataContext.BlogPosts.First(bp => bp.Id == successfull.Id).Title);
 		}
 
+		[Fact]
 		public async Task AddsView()
 		{
 			// Arrange

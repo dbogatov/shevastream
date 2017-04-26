@@ -5,7 +5,6 @@ namespace Shevastream.ViewModels
 	public class LoginViewModel
 	{
 		public string Password { get; set; }
-		//public string g-recaptcha-response {get; set;}
 	}
 
 	public class ReturnUrlViewModel

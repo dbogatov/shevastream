@@ -26,9 +26,6 @@ namespace Shevastream.Tests.IntegrationTests
 
 		private readonly ResponseHandler _responseHandler = new ResponseHandler();
 
-		/// <summary>
-		/// Setup mock server and client
-		/// </summary>
 		public IntegrationTests()
 		{
 			var mockHttpFactory = new Mock<IHttpClientFactory>();

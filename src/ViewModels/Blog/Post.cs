@@ -4,6 +4,9 @@ namespace Shevastream.ViewModels.Blog
 {
 	public class BlogPostViewModel : BlogPost
 	{
+		/// <summary>
+		/// HTML version of markdown Content
+		/// </summary>
 		public string HtmlContent { get; set; }
 		public string AuthorName { get; set; }
 

@@ -26,7 +26,6 @@ namespace Shevastream
 		public Startup(IHostingEnvironment env)
 		{
 			// Set up configuration sources.
-
 			_env = env;
 
 			var builder = new ConfigurationBuilder()

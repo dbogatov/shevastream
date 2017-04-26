@@ -10,9 +10,6 @@ namespace Shevastream.Tests.IntegrationTests
 	public partial class IntegrationTests
 	{
 		[Fact]
-		/// <summary>
-		/// Check if ApiController.CpuLoad endpoint returns status codes as per documentation
-		/// </summary>
 		public async Task CallbackEndpoint()
 		{
 			// Arrange

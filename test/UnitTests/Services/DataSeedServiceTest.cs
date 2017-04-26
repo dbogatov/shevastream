@@ -53,9 +53,6 @@ namespace Shevastream.Tests.UnitTests.Services
 		}
 
 		[Fact]
-		/// <summary>
-		/// Check if the service is able to seed some data into the empty data provider
-		/// </summary>
 		public async Task ServiceSeedsValuesToDataProvider()
 		{
 			// Act
@@ -68,10 +65,6 @@ namespace Shevastream.Tests.UnitTests.Services
 		}
 
 		[Fact]
-		/// <summary>
-		/// Test that if correct data is already in place, service does not insert duplicates,
-		/// or removes the whole data.
-		/// </summary>
 		public async Task ProperlyOverridesData()
 		{
 			// Arrange

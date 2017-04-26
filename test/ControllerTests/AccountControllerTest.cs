@@ -56,9 +56,6 @@ namespace Shevastream.Tests.ControllerTests
 		}
 
 		[Fact]
-		/// <summary>
-		/// Checks that Index method returns proper model and status codes.
-		/// </summary>
 		public void Login()
 		{
 			// Act
@@ -76,9 +73,6 @@ namespace Shevastream.Tests.ControllerTests
 		}
 
 		[Fact]
-		/// <summary>
-		/// Checks that Index method returns proper model and status codes.
-		/// </summary>
 		public void Logout()
 		{
 			// Arrange
@@ -109,9 +103,6 @@ namespace Shevastream.Tests.ControllerTests
 		[Theory]
 		[InlineData(true)]
 		[InlineData(false)]
-		/// <summary>
-		/// Checks that Index method returns proper model and status codes.
-		/// </summary>
 		public void Authenticate(bool shouldSucceed)
 		{
 			// Arrange

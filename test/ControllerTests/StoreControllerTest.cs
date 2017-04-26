@@ -15,9 +15,6 @@ using Microsoft.AspNetCore.Routing;
 
 namespace Shevastream.Tests.ControllerTests
 {
-	/// <summary>
-	/// Integration tests for HomeController
-	/// </summary>
 	public partial class StoreControllerTest
 	{
 		private readonly StoreController _controller;

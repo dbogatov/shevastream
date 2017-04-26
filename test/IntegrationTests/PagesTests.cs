@@ -29,9 +29,6 @@ namespace Shevastream.Tests.IntegrationTests
 
 		private readonly IDataContext _dataContext;
 
-		/// <summary>
-		/// Setup mock server and client
-		/// </summary>
 		public PagesTests()
 		{
 			var path = PlatformServices.Default.Application.ApplicationBasePath;
@@ -44,6 +41,7 @@ namespace Shevastream.Tests.IntegrationTests
 					.ConfigureServices(services =>
 					{
 						services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
+						// In ASP Core 1.1.0, Razor does not load assemblies automatically
 						services.Configure((RazorViewEngineOptions options) =>
 						{
 							var previous = options.CompilationCallback;

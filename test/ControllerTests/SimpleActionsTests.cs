@@ -11,9 +11,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace Shevastream.Tests.ControllerTests
 {
-	/// <summary>
-	/// Integration tests for HomeController
-	/// </summary>
 	public partial class SimpleActionsTests
 	{
 		private readonly HomeController _home;
