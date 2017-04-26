@@ -237,7 +237,7 @@ quotted code
 			);
 
 			// Act
-			var successfull = await blogService.UpdatePostAsync(blogPost);
+			var successfull = await blogService.CreatePostAsync(blogPost);
 
 			// Assert
 			Assert.NotNull(successfull);
