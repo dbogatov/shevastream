@@ -76,7 +76,8 @@ generate-client-bundle () {
 	echo "Bundling front-end libraries... Requires Webpack (Installed by Yarn)"
 	rm -rf src/wwwroot/{js,css}/*
 
-	$(yarn bin)/webpack --context client/ --env prod --config client/webpack.config.js --output-path src/wwwroot/js || true #> /dev/null
+	# KNOWN TEMPORARY ISSUE
+	$(yarn bin)/webpack --context client/ --env prod --config client/webpack.config.js --output-path src/wwwroot/js || true > /dev/null
 
 	mkdir -p src/wwwroot/css/
 	mv src/wwwroot/js/app.css src/wwwroot/css/

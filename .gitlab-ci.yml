@@ -65,7 +65,7 @@ blc:
   script:
   - blc --filter-level 3 --input http://localhost:5555 -rog --exclude "*linkedin.*"
   tags:
-  - Docker
+  - docker
 
 release:
   stage: release
