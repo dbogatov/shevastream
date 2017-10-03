@@ -60,7 +60,7 @@
 								@{ var active = "active"; }
 								@foreach (var url in JsonConvert.DeserializeObject(Model.ImageUrls))
 								{
-									<div class="item @active">
+									<div class="item @active" style="opacity: 1;">
 										<img src="@url" alt="@(Model.Name)" class="img-rounded">
 									</div>
 									active = "";

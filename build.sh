@@ -77,7 +77,7 @@ generate-client-bundle () {
 	rm -rf src/wwwroot/{js,css}/*
 
 	# KNOWN TEMPORARY ISSUE
-	$(yarn bin)/webpack --context client/ --env prod --config client/webpack.config.js --output-path src/wwwroot/js || true > /dev/null
+	$(yarn bin)/webpack --context client/ --env prod --config client/webpack.config.js --output-path src/wwwroot/js > /dev/null || true
 
 	mkdir -p src/wwwroot/css/
 	mv src/wwwroot/js/app.css src/wwwroot/css/
