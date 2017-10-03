@@ -1,16 +1,24 @@
 {
-	// See https://go.microsoft.com/fwlink/?LinkId=733558
-	// for the documentation about the tasks.json format
 	"version": "0.1.0",
-	"command": "dotnet",
+	"command": "bash",
 	"isShellCommand": true,
-	"args": [],
-	"tasks": [
-		{
-			"taskName": "build",
-			"args": [ ],
+	"args": ["-c"],
+	"tasks": [{
+			"taskName": "build-src",
+			"suppressTaskName": true,
+			"args": [
+				"dotnet build ${workspaceRoot}/src/shevastream.csproj"
+			],
 			"isBuildCommand": true,
-			"showOutput": "silent",
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"taskName": "build-test",
+			"suppressTaskName": true,
+			"args": [
+				"dotnet build ${workspaceRoot}/test/test.csproj"
+			],
+			"isBuildCommand": true,
 			"problemMatcher": "$msCompile"
 		}
 	]

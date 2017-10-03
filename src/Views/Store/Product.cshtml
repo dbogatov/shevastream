@@ -1,0 +1,55 @@
+﻿@using Newtonsoft.Json;
+
+@* Model is a IEnumerable<Entity.Product> object *@
+
+@{
+	ViewData["Title"] = "Продукція";
+	ViewData["Current"] = "Product";
+}
+
+@section styles {
+	<meta name="robots" content="noindex">
+}
+
+@section heading {
+	<!-- begin:heading -->
+	<div class="heads" style="background: url(/images/bg.jpg) center center;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2><span>//</span> продукція</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end:heading -->
+}
+
+<!-- begin:product -->
+<div id="catalogue">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
+					<li class="active">Продукція</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Наша продукція</h2>
+				<div class="row">
+
+					@foreach (var product in Model)
+					{
+						<thumbnail img="@(JsonConvert.DeserializeObject(product.ImageUrls)[0])" title="@(product.Name)" price="@(product.Cost)" product-id="@(product.Id)" />						
+					}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end:product -->

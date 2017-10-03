@@ -1,0 +1,145 @@
+swagger: '2.0'
+info:
+  title: Shevastream API
+  description: |
+    API for Shevastream.
+  version: "1.0.0"
+host: shevastream.com
+schemes:
+  - https
+basePath: /api
+produces:
+  - application/json
+paths:
+  
+  /getproducts:
+    get:
+      summary: Get available products
+      description: |
+        Returns structured data for all available products.
+      responses:
+        200:
+          description: OK.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        default:
+          description: Internal server error (500)
+
+  /callbackrequest:
+    post:
+      summary: Callback request
+      description: |
+        Collects callback requests.
+        Triggers push message.
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: phone
+          in: formData
+          description: Phone number to which to call
+          required: true
+          type: string
+          format: string
+          example: "+1-857-555-8908"
+      responses:
+        400:
+          &400
+          description: Bad Request. One or more parameters are invalid or missing.
+        200:
+          description: OK. The request has been saved.
+        default:
+          description: Internal server error (500)
+    
+  /feedback:
+    post:
+      summary: Feedback / contact request
+      description: |
+        Collects contact requests.
+        Triggers push message.
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: email
+          in: formData
+          description: Contact email
+          required: true
+          type: string
+          format: string
+          example: "pr@shevastream.com"
+        - name: name
+          in: formData
+          description: Contact name
+          required: true
+          type: string
+          format: string
+          example: "John Doe"
+        - name: subject
+          in: formData
+          description: Message subject
+          required: true
+          type: string
+          format: string
+          example: "Privacy policy clarification"
+        - name: body
+          in: formData
+          description: Message content
+          required: true
+          type: string
+          format: string
+          example: "Dear representative, ..."
+      responses:
+        400:
+          &400
+          description: Bad Request. One or more parameters are invalid or missing.
+        200:
+          description: OK. The feedback has been saved.
+        default:
+          description: Internal server error (500)
+
+definitions:
+
+  Product:
+    type: object
+    required:
+      - id
+      - name
+      - cost
+      - imageurls
+      - information
+      - description
+      - characteristics
+      - videodata
+    properties:
+      id:
+        type: number        
+        description: Unique identifier for the product.
+      name:
+        type: string
+        description: Product's title.
+      cost:
+        type: number
+        description: Product's cost.
+      imageurls:
+        type: string
+        description: JSONified list of URLs to product's pictures.
+      information:
+        type: string
+        description: Product's extra information.
+      description:
+        type: string
+        description: Product's description.
+      characteristics:
+        type: string
+        description: |
+          JSONified list of properties (strings).
+          May contain HTML.
+      videodata:
+        type: string
+        description: |
+           JSON object that has following properties
+            HasVideo - boolean - if this products has apromo video
+            Url - string - URL for video if product has one 
+
+  

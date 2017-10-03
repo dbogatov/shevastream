@@ -1,0 +1,215 @@
+﻿@using Shevastream.ViewModels.Blog
+@using System.Globalization
+@using Shevastream.Extensions
+
+@model IEnumerable<BlogPostViewModel>
+
+@{
+	ViewData["Title"] = "Головна";
+	ViewData["Current"] = "Index";
+}
+
+@section heading {
+	<!-- begin:slider -->
+	<div id="home">
+		<div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#home-slider" data-slide-to="0" class="active"><!-- --></li>
+				<li data-target="#home-slider" data-slide-to="1"><!-- --></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="item active" style="background: url(/images/frontimg1.jpg);">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="carousel-content">
+									<h2 class="animated fadeInUpBig text-center text-white" style="color: white;">SHEVA STREAM</h2>
+									<p class="animated rollIn text-black text-center" style="padding-top: 25px;"><a asp-controller="Store" asp-action="Product" class="btn btn-purple btn-lg">Продукція</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="item" style="background: url(/images/frontimg2.jpg);">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="carousel-content">
+									<h3 class="animated fadeInLeftBig text-left" style="color: #8E44AD;">Стильні блокноти</h3>
+									<p class="animated fadeInDownBig text-left">
+										Тепер кожен студент КНУ може придбати <br />
+										надійного та зручного помічника для університетських буднів.
+									</p>
+									<a class="btn btn-purple btn-lg animated fadeInRight" asp-controller="Store" asp-action="Product">Придбати</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a class="left carousel-control" href="#home-slider" data-slide="prev">
+				<i class="fa fa-angle-left"><!-- --></i>
+			</a>
+			<a class="right carousel-control" href="#home-slider" data-slide="next">
+				<i class="fa fa-angle-right"><!-- --></i>
+			</a>
+			<!-- <div class="pattern"></div> -->
+		</div>
+
+	</div>
+	<!-- end:slider -->
+}
+
+<!-- begin:tagline -->
+<div id="tagline">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Sheva Stream</h2>
+				<p><strong>Sheva Stream</strong> - це, в першу чергу, бренд натхнення та успіху. Це місце, де ви можете придбати найяскравішу та найбільш стильну продукцію (унікальні блокноти, зошити, модний одяг, тощо). Команда Sheva Stream допоможе знайти та обрати омріяну для вас річ.</p>
+				<p><strong><em>Sheva Stream</em></strong> – це команда амбіційних студентів Київського національного університету, які розробили для вас унікальний, комфортний та просторий блокнот для задоволення ваших потреб та матеріалізації креативних ідей з подальшою їх реалізацією.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end:tagline -->
+<!-- begin:featured -->
+<div id="featured">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="heading-title">
+					<h2>НАШІ ПЕРЕВАГИ</h2>
+					<p>Команда Sheva Stream працює старанно та злагоджено заради посмішок найулюбленіших студентів КНУ та збереження європейської якості нашої продукції.</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-sm-4">
+				<div class="featured-container">
+					<div class="featured-photos">
+						<i class="fa fa-thumbs-up"><!-- --></i>
+					</div>
+					<h3>Висока якість</h3>
+					<p>Для виготовлення блокнотів використовується папір німецької якості Munken Pure.</p>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<div class="featured-container">
+					<div class="featured-photos">
+						<i class="fa fa-diamond"><!-- --></i>
+					</div>
+					<h3>Модний дизайн</h3>
+					<p>Яскраво підібрані кольори, обкладинка, зроблена з італійської екошкіри, придадуть не лише унікальності вашому блокноту, а й підкреслять ваш статус студента Київського Національного Університету ім. Т. Шевченко</p>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<div class="featured-container">
+					<div class="featured-photos">
+						<i class="fa fa-shopping-cart"><!-- --></i>
+					</div>
+					<h3>Зручний сервіс</h3>
+					<p>Легкість замовлення, привітні онлайн-консультанти, швидка доставка забезпечать вам комфорт та гарний настрій.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end:featured -->
+<!-- begin:catalogue -->
+<div id="catalogue">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="heading-title">
+					<h2>ПОПУЛЯРНА ПРОДУКЦІЯ</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+
+			<thumbnail img="/images/products/notepad/popular.jpg" title="Блокнот" price="185" product-id="1" />
+			
+			<thumbnail img="/images/products/case/item01.jpg" title="Чохол для телефону" price="150" product-id="2" />
+
+		</div>
+	</div>
+</div>
+<!-- end:catalogue -->
+<!-- begin:testimoni -->
+<div id="testimoni">
+	<div class="container">
+		<div class="row" style="margin-top: -15px;">
+			<div class="col-md-12">
+				<div class="testimoni-icon"><i class="fa fa-quote-left"><!-- --></i></div>
+				<h3>ВІДГУКИ</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="testi" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner">
+						<div class="item active">
+							<p class="testimoni-item">Отримав блокнот SHEVA Stream на день народження. Неймовірний дизайн, яскрава обкладинка, та й сам блокнот зручний у користуванні. Тепер буду найбільш стильним в групі!</p>
+							<h4>&#8212; Владислав Галясов, КНУ ім. Т. Шевченка &#8212;</h4>
+						</div>
+						<div class="item">
+							<p class="testimoni-item">Придбала собі цей крутий блокнот! Дуже стильно виглядає, дякую за швидку доставку та приємні враження!</p>
+							<h4>&#8212; Катя Деревянко, КНУ ім. Т. Шевченка &#8212;</h4>
+						</div>
+					</div>
+					<a class="left carousel-control" href="#testi" data-slide="prev">&lsaquo;</a>
+					<a class="right carousel-control" href="#testi" data-slide="next">&rsaquo;</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end:testimoni -->
+
+<cache expires-after="@(TimeSpan.FromDays(1))" >
+	<!-- begin:blog -->
+	<div id="blog">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="heading-title">
+						<h2>Наш Блог</h2>
+						<p>Останні повідомлення з нашого блогу</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				@foreach (var post in Model)
+				{
+					<div class="col-md-4 col-sm-4">
+						<div class="blog-container">
+							<div class="blog-date">
+								<i class="fa fa-calendar"><!-- --></i>
+								<span class="meta-date">@(post.DatePosted.Day)</span>
+								<span class="meta-month-year">@(post.DatePosted.ToString("MMM", new CultureInfo("uk-UA"))) @(post.DatePosted.Year)</span>
+							</div>
+							<h3 class="post-title"><a asp-route="Blog" asp-route-id="@(post.Id)" asp-route-title="@(post.TitleUrl)">@(post.Title)</a></h3>
+							<p class="post-preview">@Html.Raw(post.Preview.StripHTML().Truncate(160))</p>
+							<p><a asp-route="Blog" asp-route-id="@(post.Id)" asp-route-title="@(post.TitleUrl)" class="btn btn-purple">Детальніше &raquo;</a></p>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+	<!-- end:blog -->
+
+</cache>
+
+@section scripts {
+
+	<environment names="Development">
+		<script defer src="/js/ts/index.js"></script>
+	</environment>
+
+	<environment names="Staging,Production">
+		<script defer src="/js/index.min.js"></script>
+	</environment>
+	
+}

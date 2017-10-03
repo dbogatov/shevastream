@@ -1,0 +1,97 @@
+﻿@{
+	ViewData["Title"] = "Контакти";
+	ViewData["Current"] = "Contact";
+}
+
+@section heading {
+	<!-- begin:heading -->
+	<div class="heads" style="background: url(/images/bg.jpg) center center;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2><span>//</span> КОНТАКТИ</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end:heading -->
+}
+
+<!-- begin:contact -->
+<div class="page-content contact">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
+					<li class="active">Контакти</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-7">
+				<img src="/images/businesscard.jpg" alt="Business Card" class="img-thumbnail">
+			</div>
+			<div class="col-md-5">
+				<h4>Телефони:</h4>
+				<ul style="list-style-type:none">
+					<li>+38 (095) 883 42 73</li>
+					<li>+38 (093) 691 82 59</li>	
+				</ul>
+				<h4>Пошта:</h4>
+				<ul style="list-style-type:none">
+					<li>
+						<email to="contact@shevastream.com" />
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h3>Зворотній зв`язок:</h3>
+			</div>
+		</div>
+		<div class="row padd20-top-btm">
+			<form method="post" id="feedback">
+				<div class="col-md-5 col-sm-5">
+					<h3>Надіслати повідомлення</h3>
+					<input type="text" name="name" class="form-control" placeholder="Ім`я" required>
+					<input type="email" name="email" class="form-control" placeholder="Ваша пошта" required>
+					<input type="text" name="subject" class="form-control" placeholder="Тема повідомлення" required>
+				</div>
+				<div class="col-md-7 col-sm-7">
+					<textarea name="message" class="form-control" rows="7" placeholder="Напишіть ваше повідомлення" required></textarea>
+					<input type="submit" name="submit" id="submitFeedbackBtn" value="Надіслати повідомлення" class="btn btn-purple btn-block btn-lg">
+				</div>
+			</form>
+		</div>
+		<div class="alert alert-danger" role="alert" id="feedbackValidationAlert" hidden>
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"><!-- --></span>
+			<span class="sr-only">Error:</span>
+			Не всі поля заповнені.
+		</div>
+		<div class="alert alert-success" role="alert" id="feedbackValidationSuccess" hidden>
+			<span class="glyphicon glyphicon-ok" aria-hidden="true"><!-- --></span>
+			<span class="sr-only">Success:</span>
+			Ваше повідомлення отриманно. Дякуємо Вам!
+		</div>
+	</div>
+</div>
+
+<div id="maps"></div>
+<!-- end:contact -->
+
+@section scripts {
+
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhUvFSB52uGZbFTPQpxNrZ-XMtf95exXc"></script>
+
+	<environment names="Development">
+		<script defer src="/js/ts/contact.js"></script>
+	</environment>
+
+	<environment names="Staging,Production">
+		<script defer src="/js/contact.min.js"></script>
+	</environment>
+}

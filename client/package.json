@@ -1,0 +1,19 @@
+{
+  "name": "shevastream",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-markdown": "^2.10.0",
+    "cookieconsent": "^3.0.4",
+    "gmaps": "^0.4.24",
+    "jquery": "2.2.4",
+    "jquery-mask-plugin": "igorescobar/jQuery-Mask-Plugin#^1.14.0",
+    "jquery-placeholder": "^2.3.1",
+    "jquery.cookie": "^1.4.1",
+    "js-cookie": "^2.1.4",
+    "magnific-popup": "^1.1.0",
+    "markdown": "^0.5.0",
+    "ts-loader": "^2.0.0"
+  }
+}

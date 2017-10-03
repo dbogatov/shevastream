@@ -1,0 +1,151 @@
+﻿@using Shevastream.ViewModels.Store
+
+@model OrderViewModel
+
+@{
+	ViewData["Title"] = "Замовлення";
+	ViewData["Current"] = "Cart";
+}
+
+@section styles {
+	<meta name="robots" content="noindex">
+}
+
+@section heading {
+	<!-- begin:heading -->
+	<div class="heads" style="background: url(/images/bg.jpg) center center;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2><span>//</span> ЗАМОВЛЕННЯ</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end:heading -->
+}
+
+<!-- begin:content -->
+<div class="page-content">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li><a asp-controller="Home" asp-action="Index">Головна</a></li>
+					<li><a asp-controller="Store" asp-action="Cart">Кошик</a></li>
+					<li class="active">Замовлення</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="row confirm">
+			<div class="col-md-12">
+				<form class="form-horizontal" role="form" asp-controller="Store" asp-antiforgery="true" asp-action="Order" novalidate>
+					<h3 class="text-center">Замовлення</h3>
+					<hr>
+					
+					@if (!ViewData.ModelState.IsValid)
+					{
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-6">
+								<div class="alert alert-danger" role="alert" id="orderValidationAlert">
+									<div asp-validation-summary="All"></div>
+								</div>
+							</div>
+						</div>
+					}
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label" asp-for="CustomerName"></label>
+						
+						<div class="col-sm-6">
+							<input asp-for="CustomerName" class="form-control" placeholder="Ім'я" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label" asp-for="CustomerEmail"></label>
+						
+						<div class="col-sm-6">
+							<input asp-for="CustomerEmail" class="form-control" placeholder="Email" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label" asp-for="CustomerPhone"></label>
+
+						<div class="col-sm-6">
+							<div class="input-group">
+								<span class="input-group-addon" id="phoneNumAddon">+38</span>
+								<input asp-for="CustomerPhone" class="form-control" aria-describedby="phoneNumAddon" placeholder="050 866 22 22" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-3 control-label" asp-for="ShipmentMethod"></label>
+						<div class="col-sm-6">
+							<select asp-for="ShipmentMethod" class="form-control">
+								<option value="Корпус КНУ ім. Т. Шевченко - безкоштовно">Корпус КНУ ім. Т. Шевченко - безкоштовно</option>
+								<option value="По Києву - 30 грн">По Києву - 30 грн</option>
+								<option value="По Україні - Новою поштою">По Україні - Новою поштою</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group" id="addressGroup">
+						<label class="col-sm-3 control-label" asp-for="Address"></label>
+						<div class="col-sm-6">
+							<textarea asp-for="Address" class="form-control" rows="3" placeholder="Адреса доставки"></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label" asp-for="PaymentMethod"></label>
+						<div class="col-sm-6">
+							<select asp-for="PaymentMethod" class="form-control">
+								<option value="Готівкою при отриманні товару">Готівкою при отриманні товару</option>
+								<option value="Безготівковий розрахунок (на карту Приват банка)">Безготівковий розрахунок (на карту Приват банка)</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label" asp-for="Comment"></label>
+						<div class="col-sm-6">
+							<textarea asp-for="Comment" class="form-control" rows="8" placeholder="Ваші побажання (пр. якого кольору резинка на блокноті?)"></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-offset-3 col-md-2">
+								<a asp-controller="Store" asp-action="Cart" class="btn btn-block btn-warning">Назад у кошик</a>
+							</div>
+							<div class="col-md-2">
+								<h4 style="text-align: center;">Загальна вартість: @(ViewBag.TotalCost) UAH</h4>
+							</div>
+							<div class="col-md-2">
+								<button type="submit" id="submitBtn" class="btn btn-block btn-purple">Замовити</button>
+							</div>
+						</div>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end:content -->
+
+@section scripts {
+
+	<environment names="Development">
+		<script defer src="/js/ts/order.js"></script>
+	</environment>
+
+	<environment names="Staging,Production">
+		<script defer src="/js/order.min.js"></script>
+	</environment>
+}
+	
