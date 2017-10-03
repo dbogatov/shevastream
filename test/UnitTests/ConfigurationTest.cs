@@ -23,7 +23,6 @@ namespace Shevastream.Tests.UnitTests
 		}
 
 		[Theory]
-		[InlineData("Data:ConnectionString")]
 		[InlineData("Data:PrivacyPolicy:Title")]
 		[InlineData("Data:PrivacyPolicy:Content")]
 		[InlineData("Data:Products:0:Name")]

@@ -4,7 +4,7 @@ stages:
 - release
 
 build:
-  image: dbogatov/docker-containers:dotnet-core-latest
+  image: dbogatov/docker-images:net-core-latest
   stage: build
   script:
   - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > src/version.json
@@ -14,11 +14,11 @@ build:
     paths:
     - src/bin/
   tags:
-  - Docker
+  - docker
 
 test-dotnet:
   stage: test
-  image: dbogatov/docker-containers:dotnet-core-latest
+  image: dbogatov/docker-images:net-core-latest
   script:
   - export ASPNETCORE_ENVIRONMENT="Testing"
   - printf "{\"Version\":{\"GitHash\":\"%s\"}}" $CI_BUILD_REF > src/version.json
@@ -27,10 +27,10 @@ test-dotnet:
   - ./test.sh | tee tests.out
   - "cat tests.out | grep 'Failed: 0.'"
   tags:
-  - Docker
+  - docker
 
 tidy:
-  image: dbogatov/docker-containers:dotnet-core-latest
+  image: dbogatov/docker-images:net-core-latest
   stage: test
   dependencies:
   - build
@@ -50,10 +50,10 @@ tidy:
   - curl -Ls http://localhost:5555/blog | tidy -e
   - curl -Ls http://localhost:5555/blog/29 | tidy -e
   tags:
-  - Docker
+  - docker
   
 blc:
-  image: dbogatov/docker-containers:dotnet-core-latest
+  image: dbogatov/docker-images:net-core-latest
   stage: test
   dependencies:
   - build
@@ -75,9 +75,5 @@ release:
   - docker build -t registry.dbogatov.org/dbogatov/shevastream:$CI_BUILD_REF_NAME .
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.dbogatov.org
   - docker push registry.dbogatov.org/dbogatov/shevastream:$CI_BUILD_REF_NAME
-  artifacts:
-    paths:
-    - docker-compose.yml
-    - nginx.conf
   tags:
-  - Shell
+  - shell

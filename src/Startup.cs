@@ -47,35 +47,16 @@ namespace Shevastream
 		public void ConfigureServices(IServiceCollection services)
 		{
 			// Use Entity Framework
-			if (CurrentEnvironment.IsProduction())
-			{
-				services
-					.AddEntityFrameworkNpgsql()
-					.AddDbContext<DataContext>(
-						b => b.UseNpgsql(Configuration["Data:ConnectionString"])
-					);
-			}
-			else if (CurrentEnvironment.IsDevelopment())
-			{
-				services
-					.AddEntityFrameworkSqlite()
-					.AddDbContext<DataContext>(
-						b => b.UseSqlite("Data Source=development.db")
-					);
-			}
-			else
-			{
-				services
-					.AddDbContext<DataContext>(
-						b => b
-							.UseInMemoryDatabase()
-							.UseInternalServiceProvider(
-								new ServiceCollection()
-									.AddEntityFrameworkInMemoryDatabase()
-									.BuildServiceProvider()
-							)
-					);
-			}
+			services
+				.AddDbContext<DataContext>(
+					b => b
+						.UseInMemoryDatabase()
+						.UseInternalServiceProvider(
+							new ServiceCollection()
+								.AddEntityFrameworkInMemoryDatabase()
+								.BuildServiceProvider()
+						)
+				);
 
 			services.AddMvc().AddJsonOptions(opt =>
 			{
