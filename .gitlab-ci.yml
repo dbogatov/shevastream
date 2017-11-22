@@ -40,15 +40,15 @@ tidy:
   - dotnet shevastream.dll > /dev/null &
   - sleep 15
   script:
-  - curl -Ls http://localhost:5555/ | tidy -e
-  - curl -Ls http://localhost:5555/home/profile | tidy -e
-  - curl -Ls http://localhost:5555/home/contact | tidy -e
-  - curl -Ls http://localhost:5555/home/faq | tidy -e
-  - curl -Ls http://localhost:5555/store/product | tidy -e
-  - curl -Ls http://localhost:5555/store/product/1 | tidy -e
-  - curl -Ls http://localhost:5555/store/cart | tidy -e
-  - curl -Ls http://localhost:5555/blog | tidy -e
-  - curl -Ls http://localhost:5555/blog/29 | tidy -e
+  - curl -Ls http://localhost/ | tidy -e
+  - curl -Ls http://localhost/home/profile | tidy -e
+  - curl -Ls http://localhost/home/contact | tidy -e
+  - curl -Ls http://localhost/home/faq | tidy -e
+  - curl -Ls http://localhost/store/product | tidy -e
+  - curl -Ls http://localhost/store/product/1 | tidy -e
+  - curl -Ls http://localhost/store/cart | tidy -e
+  - curl -Ls http://localhost/blog | tidy -e
+  - curl -Ls http://localhost/blog/29 | tidy -e
   tags:
   - docker
   
@@ -63,7 +63,7 @@ blc:
   - dotnet shevastream.dll > /dev/null &
   - sleep 15
   script:
-  - blc --filter-level 3 --input http://localhost:5555 -rog --exclude "*linkedin.*"
+  - blc --filter-level 3 --input http://localhost -rog --exclude "*linkedin.*"
   tags:
   - docker
 
