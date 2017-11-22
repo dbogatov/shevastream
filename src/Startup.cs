@@ -181,7 +181,7 @@ namespace Shevastream
 				.UseContentRoot(Directory.GetCurrentDirectory())
 				.UseIISIntegration()
 				.UseStartup<Startup>()
-				.UseUrls("http://*:5555")
+				.UseUrls("http://*:80")
 				.Build();
 
 			host.Run();
