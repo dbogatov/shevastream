@@ -7,6 +7,6 @@ WORKDIR /srv
 COPY src/bin/release/netcoreapp1.1/publish/ /srv
 
 # Expose the port and start the app
-EXPOSE 5555
+EXPOSE 80
 
 ENTRYPOINT /bin/bash -c "dotnet shevastream.dll"
